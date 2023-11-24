@@ -62,11 +62,6 @@ export default function Layout({ children, pageOpts }: NextraThemeLayoutProps) {
                         </p>
                       </Box>
                     </article>
-                    {/* <ul>
-                {headings.map((heading) => (
-                  <li key={heading.value}>{heading.value}</li>
-                ))}
-              </ul> */}
                   </PageLayout.Content>
                   <PageLayout.Pane
                     sticky
