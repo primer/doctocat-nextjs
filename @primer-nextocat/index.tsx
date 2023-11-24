@@ -21,52 +21,57 @@ export default function Layout({ children, pageOpts }: NextraThemeLayoutProps) {
   const { title, frontMatter, headings, pageMap, route } = pageOpts;
 
   return (
-    <BrandThemeProvider
-      dir="ltr"
-      colorMode="light"
-      className={globalStyles.body}
-    >
-      <ThemeProvider colorMode="light">
-        <Head>
-          <title>{title}</title>
-          <meta name="og:image" content={frontMatter.image} />
-        </Head>
-        <AnimationProvider
-          runOnce
-          visibilityOptions={1}
-          autoStaggerChildren={false}
+    <>
+      {/* @ts-ignore */}
+      <BaseStyles>
+        <BrandThemeProvider
+          dir="ltr"
+          colorMode="light"
+          className={globalStyles.body}
         >
-          <Animate animate="fade-in">
-            <PageLayout padding="none" sx={{ pt: 76 }}>
-              <PageLayout.Header>
-                <Header pageMap={pageMap} />
-              </PageLayout.Header>
-              <PageLayout.Content padding="normal">
-                <article className={route != "/" ? bodyStyles.Prose : ""}>
-                  {children}
-                </article>
-                {/* <ul>
+          <ThemeProvider colorMode="light">
+            <Head>
+              <title>{title}</title>
+              <meta name="og:image" content={frontMatter.image} />
+            </Head>
+            <AnimationProvider
+              runOnce
+              visibilityOptions={1}
+              autoStaggerChildren={false}
+            >
+              <Animate animate="fade-in">
+                <PageLayout padding="none" sx={{ pt: 76 }}>
+                  <PageLayout.Header>
+                    <Header pageMap={pageMap} />
+                  </PageLayout.Header>
+                  <PageLayout.Content padding="normal">
+                    <article className={route != "/" ? bodyStyles.Prose : ""}>
+                      {children}
+                    </article>
+                    {/* <ul>
                 {headings.map((heading) => (
                   <li key={heading.value}>{heading.value}</li>
                 ))}
               </ul> */}
-              </PageLayout.Content>
-              <PageLayout.Pane
-                sticky
-                offsetHeader={76}
-                padding="condensed"
-                position="start"
-                divider="line"
-              >
-                <Sidebar routes={pageMap} />
-              </PageLayout.Pane>
-              <PageLayout.Footer>
-                <MinimalFooter />
-              </PageLayout.Footer>
-            </PageLayout>
-          </Animate>
-        </AnimationProvider>
-      </ThemeProvider>
-    </BrandThemeProvider>
+                  </PageLayout.Content>
+                  <PageLayout.Pane
+                    sticky
+                    offsetHeader={76}
+                    padding="condensed"
+                    position="start"
+                    divider="line"
+                  >
+                    <Sidebar routes={pageMap} />
+                  </PageLayout.Pane>
+                  <PageLayout.Footer>
+                    <MinimalFooter />
+                  </PageLayout.Footer>
+                </PageLayout>
+              </Animate>
+            </AnimationProvider>
+          </ThemeProvider>
+        </BrandThemeProvider>
+      </BaseStyles>
+    </>
   );
 }

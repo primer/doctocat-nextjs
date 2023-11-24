@@ -4,7 +4,7 @@
   "description": "Documentation theme",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "rm -rf out && next build",
     "start": "next start"
   },
   "repository": {
@@ -19,7 +19,8 @@
   "homepage": "https://github.com/rezrah/nextocat#readme",
   "dependencies": {
     "@primer/octicons-react": "^19.8.0",
-    "next": "^13.0.6",
+    "eslint-config-next": "^14.0.3",
+    "next": "^14.0.3",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
     "react": "^18.2.0",
