@@ -9,6 +9,9 @@ import {
   Animate,
   InlineLink,
   Box,
+  Heading,
+  Grid,
+  Stack,
 } from "@primer/react-brand";
 import { BaseStyles, PageLayout, ThemeProvider } from "@primer/react";
 
@@ -18,7 +21,6 @@ import "@primer/react-brand/fonts/fonts.css";
 import globalStyles from "./css/global.module.css";
 import bodyStyles from "./css/prose.module.css";
 import { Header } from "./header/Header";
-import Link from "next/link";
 
 import themeConfig from "../theme.config";
 
@@ -45,23 +47,36 @@ export default function Layout({ children, pageOpts }: NextraThemeLayoutProps) {
               autoStaggerChildren={false}
             >
               <Animate animate="fade-in">
-                <PageLayout padding="none" sx={{ pt: 76 }}>
+                <PageLayout
+                  containerWidth="xlarge"
+                  padding="none"
+                  sx={{ pt: 76 }}
+                >
                   <PageLayout.Header>
                     <Header pageMap={pageMap} />
                   </PageLayout.Header>
                   <PageLayout.Content padding="normal">
-                    <article className={route != "/" ? bodyStyles.Prose : ""}>
-                      {children}
-                      <Box marginBlockStart={64}>
-                        <p>
-                          <InlineLink
-                            href={`${themeConfig.docsRepositoryBase}/blob/main/${filePath}`}
-                          >
-                            Edit this page
-                          </InlineLink>
-                        </p>
-                      </Box>
-                    </article>
+                    <Grid>
+                      <Grid.Column span={{ large: 9 }}>
+                        <article
+                          className={route != "/" ? bodyStyles.Prose : ""}
+                        >
+                          {children}
+                          <Box marginBlockStart={64}>
+                            <p>
+                              <InlineLink
+                                href={`${themeConfig.docsRepositoryBase}/blob/main/${filePath}`}
+                              >
+                                Edit this page
+                              </InlineLink>
+                            </p>
+                          </Box>
+                        </article>
+                      </Grid.Column>
+                      <Grid.Column span={{ large: 3 }}>
+                        {/* <TableOfContents headings={headings} /> */}
+                      </Grid.Column>
+                    </Grid>
                   </PageLayout.Content>
                   <PageLayout.Pane
                     sticky
