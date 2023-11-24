@@ -9,6 +9,7 @@ type SidebarProps = {
 
 export function Sidebar({ routes }: SidebarProps) {
   const router = useRouter();
+  const basePath = router.basePath;
   const currentRoute = router.pathname;
 
   return (
@@ -21,7 +22,7 @@ export function Sidebar({ routes }: SidebarProps) {
             return (
               <NavList.Item
                 key={item.name}
-                href={item.route}
+                href={`${basePath}${item.route}`}
                 sx={{ textTransform: "capitalize" }}
                 aria-current={currentRoute === item.route ? "page" : undefined}
               >
@@ -33,7 +34,7 @@ export function Sidebar({ routes }: SidebarProps) {
             return (
               <NavList.Item
                 key={item.name}
-                href={item.route}
+                href={`${basePath}${item.route}`}
                 sx={{ textTransform: "capitalize", fontSize: 1 }}
                 defaultOpen
               >
@@ -45,7 +46,7 @@ export function Sidebar({ routes }: SidebarProps) {
                       return (
                         <NavList.Item
                           key={child.name}
-                          href={child.route}
+                          href={`${basePath}${child.route}`}
                           sx={{ textTransform: "capitalize" }}
                         >
                           {child.frontMatter.title}
