@@ -7,6 +7,8 @@ import {
   ThemeProvider as BrandThemeProvider,
   AnimationProvider,
   Animate,
+  InlineLink,
+  Box,
 } from "@primer/react-brand";
 import { BaseStyles, PageLayout, ThemeProvider } from "@primer/react";
 
@@ -16,9 +18,12 @@ import "@primer/react-brand/fonts/fonts.css";
 import globalStyles from "./css/global.module.css";
 import bodyStyles from "./css/prose.module.css";
 import { Header } from "./header/Header";
+import Link from "next/link";
+
+import themeConfig from "../theme.config";
 
 export default function Layout({ children, pageOpts }: NextraThemeLayoutProps) {
-  const { title, frontMatter, headings, pageMap, route } = pageOpts;
+  const { title, frontMatter, headings, filePath, pageMap, route } = pageOpts;
 
   return (
     <>
@@ -47,6 +52,15 @@ export default function Layout({ children, pageOpts }: NextraThemeLayoutProps) {
                   <PageLayout.Content padding="normal">
                     <article className={route != "/" ? bodyStyles.Prose : ""}>
                       {children}
+                      <Box marginBlockStart={64}>
+                        <p>
+                          <InlineLink
+                            href={`${themeConfig.docsRepositoryBase}/blob/main/${filePath}`}
+                          >
+                            Edit this page
+                          </InlineLink>
+                        </p>
+                      </Box>
                     </article>
                     {/* <ul>
                 {headings.map((heading) => (
