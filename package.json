@@ -1,5 +1,5 @@
 {
-  "name": "Nextocat theme",
+  "name": "nextocat-documentation",
   "version": "0.0.1",
   "description": "Documentation theme",
   "scripts": {
@@ -21,6 +21,7 @@
     "@primer/octicons-react": "^19.8.0",
     "next": "^13.0.6",
     "nextra": "latest",
+    "nextra-theme-docs": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
