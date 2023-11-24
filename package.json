@@ -1,0 +1,33 @@
+{
+  "name": "Nextocat theme",
+  "version": "0.0.1",
+  "description": "Documentation theme",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && next export",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rezrah/nextocat.git"
+  },
+  "author": "Reza Rahman @rezrah",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rezrah/nextocat/issues"
+  },
+  "homepage": "https://github.com/rezrah/nextocat#readme",
+  "dependencies": {
+    "@primer/octicons-react": "^19.8.0",
+    "next": "^13.0.6",
+    "nextra": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@primer/react": "^36.2.0",
+    "@primer/react-brand": "^0.29.1",
+    "@types/node": "18.11.10",
+    "typescript": "^4.9.3"
+  }
+}

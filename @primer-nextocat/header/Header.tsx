@@ -1,0 +1,73 @@
+import React from "react";
+import { SubdomainNavBar } from "@primer/react-brand";
+import { PageMapItem, MdxFile } from "nextra";
+
+type HeaderProps = {
+  pageMap: PageMapItem[];
+};
+
+export function Header({ pageMap }: HeaderProps) {
+  const inputRef = React.useRef(null);
+  const [searchResults, setSearchResults] = React.useState([]);
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const searchData = pageMap
+    .map((item) => {
+      if (item.kind === "Folder") {
+        return item.children.filter((child) => child.kind === "MdxPage");
+      }
+      if (item.kind === "MdxPage") {
+        return item;
+      }
+    })
+    .flat()
+    .filter(Boolean)
+    .map(({ name, route }: MdxFile) => {
+      const result = {
+        title: name,
+        url: route,
+      };
+      return result;
+    });
+
+  const handleChange = () => {
+    if (!inputRef.current) return;
+    if (inputRef.current.value.length === 0) {
+      setSearchResults(undefined);
+      return;
+    }
+    if (inputRef.current.value.length > 2) {
+      setTimeout(() => setSearchResults(searchData), 1000);
+      setSearchTerm(inputRef.current.value);
+      return;
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!inputRef.current) return;
+    if (!inputRef.current.value) {
+      alert(`Enter a value and try again.`);
+      return;
+    }
+
+    alert(`Name: ${inputRef.current.value}`);
+  };
+
+  return (
+    <SubdomainNavBar title="Brand toolkit">
+      <SubdomainNavBar.Search
+        ref={inputRef}
+        searchTerm={searchTerm}
+        onSubmit={handleSubmit}
+        onChange={handleChange}
+        searchResults={searchResults}
+      />
+      <SubdomainNavBar.PrimaryAction href="#">
+        Primary CTA
+      </SubdomainNavBar.PrimaryAction>
+      <SubdomainNavBar.SecondaryAction href="#">
+        Secondary CTA
+      </SubdomainNavBar.SecondaryAction>
+    </SubdomainNavBar>
+  );
+}

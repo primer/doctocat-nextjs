@@ -1,0 +1,44 @@
+---
+title: GitHub Brand Toolkit
+description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, voluptatibus.
+---
+
+import { SectionIntro, Grid, Hero, Stack } from "@primer/react-brand";
+import { SyncIcon, DownloadIcon } from "@primer/octicons-react";
+import { Cards, Card } from "nextra/components";
+
+<div>
+  <Hero>
+    <Hero.Label>New</Hero.Label>
+    <Hero.Heading>GitHub Brand Toolkit</Hero.Heading>
+    <Hero.PrimaryAction href="#">Get started</Hero.PrimaryAction>
+    <Hero.Image
+      src="https://via.placeholder.com/600x400/d3d9df/d3d9df.png"
+      alt="placeholder, blank area with an off-white background color"
+    />
+  </Hero>
+</div>
+<section>
+  <SectionIntro>
+    <SectionIntro.Heading>Resources</SectionIntro.Heading>
+  </SectionIntro>
+
+<Stack direction="vertical" padding="none">
+  <Card
+    icon={<SyncIcon fill="black" />}
+    title="Social asset generator"
+    href="/applications/asset-generator"
+  />
+  <Card
+    icon={<SyncIcon fill="black" />}
+    title="Brand assets"
+    href="/applications/brand-assets"
+  />
+  <Card
+    icon={<DownloadIcon fill="black" />}
+    title="Octovisuals"
+    href="/applications/octovisuals"
+  />
+</Stack>
+
+</section>

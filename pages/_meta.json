@@ -1,0 +1,16 @@
+{
+  "index": "Homepage",
+  "brand-identity": "Brand identity",
+  "visual-identity": "Visual identity",
+  "foundations": "Foundations",
+  "about": {
+    "title": "About",
+    "type": "page"
+  },
+  "contact": {
+    "title": "Contact ↗",
+    "type": "page",
+    "href": "https://twitter.com/github",
+    "newWindow": true
+  }
+}
