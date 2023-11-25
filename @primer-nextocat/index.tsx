@@ -23,9 +23,12 @@ import bodyStyles from "./css/prose.module.css";
 import { Header } from "./header/Header";
 
 import themeConfig from "../theme.config";
+import { TableOfContents } from "./components/table-of-contents/TableOfContents";
 
 export default function Layout({ children, pageOpts }: NextraThemeLayoutProps) {
   const { title, frontMatter, headings, filePath, pageMap, route } = pageOpts;
+
+  const isHomePage = route === "/";
 
   return (
     <>
@@ -57,7 +60,7 @@ export default function Layout({ children, pageOpts }: NextraThemeLayoutProps) {
                   </PageLayout.Header>
                   <PageLayout.Content padding="normal">
                     <Grid>
-                      <Grid.Column span={{ large: 9 }}>
+                      <Grid.Column span={!isHomePage && { large: 9 }}>
                         <article
                           className={route != "/" ? bodyStyles.Prose : ""}
                         >
@@ -73,8 +76,8 @@ export default function Layout({ children, pageOpts }: NextraThemeLayoutProps) {
                           </Box>
                         </article>
                       </Grid.Column>
-                      <Grid.Column span={{ large: 3 }}>
-                        {/* <TableOfContents headings={headings} /> */}
+                      <Grid.Column span={!isHomePage && { large: 3 }}>
+                        <TableOfContents headings={headings} />
                       </Grid.Column>
                     </Grid>
                   </PageLayout.Content>
@@ -84,6 +87,12 @@ export default function Layout({ children, pageOpts }: NextraThemeLayoutProps) {
                     padding="condensed"
                     position="start"
                     divider="line"
+                    width={{
+                      min: `100px`,
+                      max: `240px`,
+                      default: `150px`,
+                    }}
+                    resizable
                   >
                     <Sidebar routes={pageMap} />
                   </PageLayout.Pane>
