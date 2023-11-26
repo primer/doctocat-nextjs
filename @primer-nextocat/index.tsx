@@ -81,9 +81,9 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                   position="start"
                   divider="line"
                   width={{
-                    min: `150px`,
+                    min: `180px`,
                     max: `240px`,
-                    default: `180px`,
+                    default: `200px`,
                   }}
                   resizable
                 >

@@ -161,7 +161,7 @@
 }
 
 .Prose em {
-  font-variation-settings: "ital" 10;
+  font-variation-settings: 'ital' 10;
   font-synthesis: none;
 }
 
@@ -176,9 +176,8 @@
 }
 
 .Prose a::after {
-  content: "";
-  border-bottom: var(--brand-borderWidth-thin) solid
-    var(--brand-InlineLink-color-rest);
+  content: '';
+  border-bottom: var(--brand-borderWidth-thin) solid var(--brand-InlineLink-color-rest);
   height: 0;
   transition: var(--brand-InlineLink-transition-timing) transform;
   transform: scaleY(var(--brand-InlineLink-transition-scale-start));
@@ -236,7 +235,7 @@
 }
 
 .Prose blockquote::before {
-  content: "“";
+  content: '“';
   font-size: var(--base-size-48);
   line-height: var(--base-size-64);
   font-weight: var(--base-text-weight-extrabold);
@@ -245,7 +244,7 @@
 }
 
 .Prose blockquote::after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: var(--brand-borderWidth-thick);
@@ -253,11 +252,7 @@
   top: 0;
   left: 0;
   background-color: var(--base-color-scale-indigo-5);
-  background-image: linear-gradient(
-    180deg,
-    var(--base-color-scale-blue-5),
-    var(--base-color-scale-purple-5)
-  );
+  background-image: linear-gradient(180deg, var(--base-color-scale-blue-5), var(--base-color-scale-purple-5));
 }
 
 .Prose figure figcaption {
