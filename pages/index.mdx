@@ -3,9 +3,8 @@ title: GitHub Brand Toolkit
 description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, voluptatibus.
 ---
 
-import { SectionIntro, Grid, Hero, Stack } from "@primer/react-brand";
-import { SyncIcon, DownloadIcon } from "@primer/octicons-react";
-import { Cards, Card } from "nextra/components";
+import {SectionIntro, Grid, Card, Box, ThemeProvider, Hero, Stack} from '@primer/react-brand'
+import {HeartFillIcon, PencilIcon, FileMediaIcon} from '@primer/octicons-react'
 
 <div>
   <Hero style={{paddingTop: 0}}>
@@ -23,22 +22,49 @@ import { Cards, Card } from "nextra/components";
     <SectionIntro.Heading>Resources</SectionIntro.Heading>
   </SectionIntro>
 
-<Stack direction="vertical" padding="none">
-  <Card
-    icon={<SyncIcon fill="black" />}
-    title="Social asset generator"
-    href="/nextocat/applications/asset-generator"
-  />
-  <Card
-    icon={<SyncIcon fill="black" />}
-    title="Brand assets"
-    href="/nextocat/applications/brand-assets"
-  />
-  <Card
-    icon={<DownloadIcon fill="black" />}
-    title="Octovisuals"
-    href="/nextocat/applications/octovisuals"
-  />
-</Stack>
+  <Grid>
+
+    <Grid.Column span={{
+      small: 6,
+      medium: 6,
+      large: 4,
+      xlarge: 4
+    }}>
+      <Card href="https://github.com" hasBorder style={{ width: '100%'}}>
+        <Card.Icon icon={<PencilIcon />} color="pink" hasBackground />
+        <Card.Heading>Asset generator</Card.Heading>
+      </Card>
+    </Grid.Column>
+    <Grid.Column span={{
+        small: 6,
+        medium: 6,
+        large: 4,
+        xlarge: 4
+      }}>
+      <Card
+        hasBorder
+        href="https://github.com"
+        style={{
+          width: '100%',
+          ["--brand-color-accent-primary"]: "var(--base-color-scale-lime-2)",
+        }}
+      >
+        <Card.Icon icon={<FileMediaIcon />} color="lime" hasBackground />
+        <Card.Heading>Brand assets</Card.Heading>
+      </Card>
+    </Grid.Column>
+    <Grid.Column span={{
+      small: 6,
+      medium: 6,
+      large: 4,
+      xlarge: 4
+    }}>
+      <Card href="https://github.com" hasBorder style={{ width: '100%'}}>
+        <Card.Icon icon={<HeartFillIcon />} color="pink" hasBackground />
+        <Card.Heading>Octovisuals</Card.Heading>
+      </Card>
+    </Grid.Column>
+
+  </Grid>
 
 </section>

@@ -13,53 +13,51 @@ export function Sidebar({ routes }: SidebarProps) {
   const currentRoute = router.pathname;
 
   return (
-    <nav>
-      <NavList>
-        {routes.map((item) => {
-          if (item.kind === "MdxPage" && item.route === "/") return null;
+    <NavList>
+      {routes.map((item) => {
+        if (item.kind === "MdxPage" && item.route === "/") return null;
 
-          if (item.kind === "MdxPage") {
-            return (
-              <NavList.Item
-                key={item.name}
-                href={`${basePath}${item.route}`}
-                sx={{ textTransform: "capitalize" }}
-                aria-current={currentRoute === item.route ? "page" : undefined}
-              >
-                {item.frontMatter.title || item.name}
-              </NavList.Item>
-            );
-          }
-          if (item.kind === "Folder") {
-            return (
-              <NavList.Item
-                key={item.name}
-                href={`${basePath}${item.route}`}
-                sx={{ textTransform: "capitalize", fontSize: 1 }}
-                defaultOpen
-              >
-                {item.name}
-                <NavList.SubNav key={item.name}>
-                  {item.children
-                    .filter((child) => child.kind === "MdxPage")
-                    .map((child: MdxFile) => {
-                      return (
-                        <NavList.Item
-                          key={child.name}
-                          href={`${basePath}${child.route}`}
-                          sx={{ textTransform: "capitalize" }}
-                        >
-                          {child.frontMatter.title}
-                        </NavList.Item>
-                      );
-                    })}
-                </NavList.SubNav>
-              </NavList.Item>
-            );
-          }
-          return null;
-        })}
-      </NavList>
-    </nav>
+        if (item.kind === "MdxPage") {
+          return (
+            <NavList.Item
+              key={item.name}
+              href={`${basePath}${item.route}`}
+              sx={{ textTransform: "capitalize" }}
+              aria-current={currentRoute === item.route ? "page" : undefined}
+            >
+              {item.frontMatter.title || item.name}
+            </NavList.Item>
+          );
+        }
+        if (item.kind === "Folder") {
+          return (
+            <NavList.Item
+              key={item.name}
+              href={`${basePath}${item.route}`}
+              sx={{ textTransform: "capitalize", fontSize: 1 }}
+              defaultOpen
+            >
+              {item.name}
+              <NavList.SubNav key={item.name}>
+                {item.children
+                  .filter((child) => child.kind === "MdxPage")
+                  .map((child: MdxFile) => {
+                    return (
+                      <NavList.Item
+                        key={child.name}
+                        href={`${basePath}${child.route}`}
+                        sx={{ textTransform: "capitalize" }}
+                      >
+                        {child.frontMatter.title}
+                      </NavList.Item>
+                    );
+                  })}
+              </NavList.SubNav>
+            </NavList.Item>
+          );
+        }
+        return null;
+      })}
+    </NavList>
   );
 }

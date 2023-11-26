@@ -57,7 +57,7 @@ export function Header({ pageMap }: HeaderProps) {
   };
 
   return (
-    <SubdomainNavBar title="Brand toolkit" titleHref={basePath || '/'}>
+    <SubdomainNavBar title="Brand toolkit" titleHref={basePath || "/"}>
       <SubdomainNavBar.Search
         ref={inputRef}
         searchTerm={searchTerm}
@@ -65,9 +65,6 @@ export function Header({ pageMap }: HeaderProps) {
         onChange={handleChange}
         searchResults={searchResults}
       />
-      <SubdomainNavBar.PrimaryAction href="#">
-        Primary CTA
-      </SubdomainNavBar.PrimaryAction>
       <SubdomainNavBar.SecondaryAction href="#">
         Secondary CTA
       </SubdomainNavBar.SecondaryAction>
