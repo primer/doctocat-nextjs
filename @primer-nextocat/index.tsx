@@ -25,7 +25,7 @@ import {Header} from './header/Header'
 
 import themeConfig from '../theme.config'
 import {TableOfContents} from './components/table-of-contents/TableOfContents'
-import {MoonIcon, SunIcon, SyncIcon} from '@primer/octicons-react'
+import {MoonIcon, PencilIcon, SunIcon, SyncIcon} from '@primer/octicons-react'
 
 export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
   const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('light')
@@ -56,16 +56,16 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                 <PageLayout.Content padding="normal">
                   <Grid>
                     <Grid.Column span={!isHomePage && {large: 9}}>
-                      <article className={route != '/' ? bodyStyles.Prose : ''}>
-                        {children}
-                        <Box marginBlockStart={64}>
-                          <p>
-                            <InlineLink href={`${themeConfig.docsRepositoryBase}/blob/main/${filePath}`}>
-                              Edit this page
-                            </InlineLink>
-                          </p>
-                        </Box>
-                      </article>
+                      <article className={route != '/' ? bodyStyles.Prose : ''}>{children}</article>
+                      <Box marginBlockStart={64}>
+                        <Stack direction="horizontal" padding="none" alignItems="center" gap={8}>
+                          <PencilIcon size={16} fill="var(--brand-InlineLink-color-rest)" />
+
+                          <InlineLink href={`${themeConfig.docsRepositoryBase}/blob/main/${filePath}`}>
+                            Edit this page
+                          </InlineLink>
+                        </Stack>
+                      </Box>
                     </Grid.Column>
                     {!isHomePage && (
                       <Grid.Column span={{large: 3}}>
