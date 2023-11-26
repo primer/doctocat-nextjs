@@ -24,9 +24,10 @@ export function Header({pageMap}: HeaderProps) {
     })
     .flat()
     .filter(Boolean)
-    .map(({name, route}: MdxFile) => {
+    .map(({frontMatter, route}: MdxFile) => {
       const result = {
-        title: name,
+        title: frontMatter.title,
+        description: frontMatter.description,
         url: route,
       }
       return result
