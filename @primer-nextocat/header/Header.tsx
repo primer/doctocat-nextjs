@@ -31,7 +31,7 @@ export function Header({pageMap}: HeaderProps) {
           const result = {
             title: frontMatter.title,
             description: frontMatter.description,
-            url: route,
+            url: `${basePath}${route}`,
           }
           return result
         }),
