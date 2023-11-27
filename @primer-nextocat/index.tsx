@@ -9,23 +9,19 @@ import {
   Animate,
   InlineLink,
   Box,
-  Heading,
   Grid,
   Stack,
-  Text,
-  useTheme,
 } from '@primer/react-brand'
 import {Box as PRCBox, ActionList, ActionMenu, BaseStyles, PageLayout, ThemeProvider} from '@primer/react'
+import {MoonIcon, PencilIcon, SunIcon, SyncIcon} from '@primer/octicons-react'
 
 import '@primer/react-brand/lib/css/main.css'
 import '@primer/react-brand/fonts/fonts.css'
 
 import bodyStyles from './css/prose.module.css'
 import {Header} from './header/Header'
-
+import {TableOfContents} from './components/layout/table-of-contents/TableOfContents'
 import themeConfig from '../theme.config'
-import {TableOfContents} from './components/table-of-contents/TableOfContents'
-import {MoonIcon, PencilIcon, SunIcon, SyncIcon} from '@primer/octicons-react'
 
 export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
   const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('light')

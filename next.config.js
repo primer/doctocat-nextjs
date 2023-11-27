@@ -14,4 +14,4 @@ module.exports = {
   },
   output: 'export',
   basePath: process.env.GITHUB_ACTIONS === 'true' ? '/nextocat' : '',
-};
+}
