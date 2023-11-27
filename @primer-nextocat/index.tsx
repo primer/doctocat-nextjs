@@ -63,7 +63,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                         </Stack>
                       </Box>
                     </Grid.Column>
-                    {!isHomePage && (
+                    {!isHomePage && headings.length > 0 && (
                       <Grid.Column span={{large: 3}}>
                         <TableOfContents headings={headings} />
                       </Grid.Column>
