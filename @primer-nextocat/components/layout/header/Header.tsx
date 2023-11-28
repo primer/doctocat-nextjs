@@ -95,7 +95,6 @@ export function Header({pageMap, menuItems, siteTitle}: HeaderProps) {
         menuItems.length &&
         menuItems.map(item => {
           const isFullUrl = item.href.startsWith('http')
-          console.log(`/${basePath}${item.href}`)
           return (
             <SubdomainNavBar.Link
               href={isFullUrl ? item.href : basePath ? `${basePath}/${item.href}` : item.href}
