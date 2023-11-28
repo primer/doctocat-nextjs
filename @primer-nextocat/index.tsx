@@ -1,33 +1,34 @@
 import Head from 'next/head'
+import type {MdxFile, NextraThemeLayoutProps} from 'nextra'
+import {useFSRoute} from 'nextra/hooks'
 import React, {useEffect, useMemo} from 'react'
-import type {Folder, MdxFile, Meta, NextraThemeLayoutProps, PageMapItem} from 'nextra'
-import {useFSRoute, useMounted} from 'nextra/hooks'
 
-import {Sidebar} from './components/layout/sidebar/Sidebar'
+import {MoonIcon, PencilIcon, SunIcon} from '@primer/octicons-react'
+import {ActionList, ActionMenu, BaseStyles, Breadcrumbs, Box as PRCBox, PageLayout, ThemeProvider} from '@primer/react'
 import {
-  MinimalFooter,
-  ThemeProvider as BrandThemeProvider,
-  AnimationProvider,
   Animate,
-  InlineLink,
+  AnimationProvider,
   Box,
+  ThemeProvider as BrandThemeProvider,
   Grid,
-  Stack,
   Heading,
+  InlineLink,
+  MinimalFooter,
+  Stack,
+  Text,
 } from '@primer/react-brand'
-import {Box as PRCBox, ActionList, ActionMenu, BaseStyles, PageLayout, ThemeProvider, NavList} from '@primer/react'
+import {Sidebar} from './components/layout/sidebar/Sidebar'
 import {UnderlineNav} from './components/layout/underline-nav/UnderlineNav'
-import {MoonIcon, PencilIcon, SunIcon, SyncIcon} from '@primer/octicons-react'
 
-import '@primer/react-brand/lib/css/main.css'
 import '@primer/react-brand/fonts/fonts.css'
+import '@primer/react-brand/lib/css/main.css'
 
-import bodyStyles from './css/prose.module.css'
+import {useRouter} from 'next/router'
+import {normalizePages} from 'nextra/normalize-pages'
+import themeConfig from '../theme.config'
 import {Header} from './components/layout/header/Header'
 import {TableOfContents} from './components/layout/table-of-contents/TableOfContents'
-import themeConfig from '../theme.config'
-import {normalizePages} from 'nextra/normalize-pages'
-import {useRouter} from 'next/router'
+import bodyStyles from './css/prose.module.css'
 
 /**
  * Catch-all layout component
@@ -90,14 +91,44 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                   <Grid>
                     <Grid.Column span={!isHomePage && {large: 9}}>
                       <Stack direction="vertical" padding="none" gap="spacious">
-                        {!isHomePage && frontMatter.title && (
-                          <Box marginBlockEnd={24}>
-                            <Heading as="h1" size="3">
-                              {frontMatter.title}
-                            </Heading>
-                          </Box>
+                        {!isHomePage && (
+                          <>
+                            {activePath.length && (
+                              <Breadcrumbs>
+                                {pageMap[0].kind === 'Meta' && (
+                                  <Breadcrumbs.Item href="/">
+                                    {pageMap[0].data.index['title' as string]}
+                                  </Breadcrumbs.Item>
+                                )}
+                                {activePath.map((item, index) => {
+                                  return (
+                                    <Breadcrumbs.Item
+                                      key={item.name}
+                                      href={item.route}
+                                      selected={index === activePath.length - 1}
+                                      sx={{textTransform: 'capitalize'}}
+                                    >
+                                      {item.title}
+                                    </Breadcrumbs.Item>
+                                  )
+                                })}
+                              </Breadcrumbs>
+                            )}
+
+                            <Box marginBlockEnd={24}>
+                              <Stack direction="vertical" padding="none" gap={16}>
+                                {frontMatter.title && (
+                                  <Heading as="h1" size="3">
+                                    {frontMatter.title}
+                                  </Heading>
+                                )}
+                                {frontMatter.description && <Text as="p">{frontMatter.description}</Text>}
+                              </Stack>
+                            </Box>
+                            {Boolean(frontMatter['show-tabs']) && <UnderlineNav tabData={filteredTabData} />}
+                          </>
                         )}
-                        {!isHomePage && Boolean(frontMatter['show-tabs']) && <UnderlineNav tabData={filteredTabData} />}
+
                         <article className={route != '/' ? bodyStyles.Prose : ''}>{children}</article>
                         <Box marginBlockStart={64}>
                           <Stack direction="horizontal" padding="none" alignItems="center" gap={8}>
