@@ -100,7 +100,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                             {activePath.length && (
                               <Breadcrumbs>
                                 {pageMap[0].kind === 'Meta' && (
-                                  <Breadcrumbs.Item href="/">
+                                  <Breadcrumbs.Item href={basePath}>
                                     {pageMap[0].data.index['title' as string]}
                                   </Breadcrumbs.Item>
                                 )}
