@@ -16,8 +16,8 @@
     "href": "https://github.com/rezrah/nextocat"
   },
   "link-4": {
-    "title": "Custom link four",
+    "title": "Custom local link",
     "type": "page",
-    "href": "https://github.com/rezrah/nextocat"
+    "href": "/introduction"
   }
 }

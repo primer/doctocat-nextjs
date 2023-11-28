@@ -93,11 +93,18 @@ export function Header({pageMap, menuItems, siteTitle}: HeaderProps) {
     <SubdomainNavBar title={siteTitle} titleHref={basePath || '/'} fullWidth>
       {menuItems &&
         menuItems.length &&
-        menuItems.map(item => (
-          <SubdomainNavBar.Link href={`${basePath}${item.href}`} key={item.name}>
-            {item.title}
-          </SubdomainNavBar.Link>
-        ))}
+        menuItems.map(item => {
+          const isFullUrl = item.href.startsWith('http')
+          console.log(`/${basePath}${item.href}`)
+          return (
+            <SubdomainNavBar.Link
+              href={isFullUrl ? item.href : basePath ? `${basePath}/${item.href}` : item.href}
+              key={item.name}
+            >
+              {item.title}
+            </SubdomainNavBar.Link>
+          )
+        })}
 
       <SubdomainNavBar.Search
         ref={inputRef}
