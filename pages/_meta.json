@@ -3,14 +3,24 @@
   "brand-identity": "Brand identity",
   "visual-identity": "Visual identity",
   "foundations": "Foundations",
-  "about": {
-    "title": "About",
-    "type": "page"
-  },
-  "contact": {
-    "title": "Contact ↗",
+  "link-1": {
+    "title": "Custom link one",
     "type": "page",
-    "href": "https://twitter.com/github",
-    "newWindow": true
+    "href": "https://github.com/rezrah/nextocat"
+  },
+  "link-2": {
+    "title": "Custom link two",
+    "type": "page",
+    "href": "https://github.com/rezrah/nextocat"
+  },
+  "link-3": {
+    "title": "Custom link three",
+    "type": "page",
+    "href": "https://github.com/rezrah/nextocat"
+  },
+  "link-4": {
+    "title": "Custom link four",
+    "type": "page",
+    "href": "https://github.com/rezrah/nextocat"
   }
 }

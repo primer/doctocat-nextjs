@@ -85,7 +85,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
             <Animate animate="fade-in">
               <PageLayout containerWidth="full" padding="none" sx={{pt: 76}}>
                 <PageLayout.Header>
-                  <Header pageMap={pageMap} />
+                  <Header pageMap={pageMap} menuItems={topLevelNavbarItems} />
                 </PageLayout.Header>
                 <PageLayout.Content padding="normal">
                   <Grid>
@@ -122,7 +122,11 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                                     {frontMatter.title}
                                   </Heading>
                                 )}
-                                {frontMatter.description && <Text as="p">{frontMatter.description}</Text>}
+                                {frontMatter.description && (
+                                  <Text as="p" variant="muted" size="300">
+                                    {frontMatter.description}
+                                  </Text>
+                                )}
                               </Stack>
                             </Box>
                             {Boolean(frontMatter['show-tabs']) && <UnderlineNav tabData={filteredTabData} />}

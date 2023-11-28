@@ -1,13 +1,15 @@
 import React, {useMemo} from 'react'
 import {SubdomainNavBar} from '@primer/react-brand'
 import {PageMapItem, MdxFile} from 'nextra'
+import {PageItem} from 'nextra/normalize-pages'
 import {useRouter} from 'next/router'
 
 type HeaderProps = {
   pageMap: PageMapItem[]
+  menuItems: PageItem[]
 }
 
-export function Header({pageMap}: HeaderProps) {
+export function Header({pageMap, menuItems}: HeaderProps) {
   const router = useRouter()
   const basePath = router.basePath
   const inputRef = React.useRef(null)
@@ -88,6 +90,14 @@ export function Header({pageMap}: HeaderProps) {
 
   return (
     <SubdomainNavBar title="Brand toolkit" titleHref={basePath || '/'} fullWidth>
+      {menuItems &&
+        menuItems.length &&
+        menuItems.map(item => (
+          <SubdomainNavBar.Link href={`${basePath}${item.href}`} key={item.name}>
+            {item.title}
+          </SubdomainNavBar.Link>
+        ))}
+
       <SubdomainNavBar.Search
         ref={inputRef}
         searchTerm={searchTerm}
