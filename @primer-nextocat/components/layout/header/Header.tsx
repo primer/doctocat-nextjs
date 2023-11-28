@@ -34,7 +34,7 @@ export function Header({pageMap, menuItems, siteTitle}: HeaderProps) {
           const result = {
             title: frontMatter.title,
             description: frontMatter.description,
-            url: route,
+            url: `${basePath}${route}`,
           }
           return result
         }),
