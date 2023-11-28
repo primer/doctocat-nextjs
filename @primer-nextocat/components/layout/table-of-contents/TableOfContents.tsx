@@ -1,57 +1,54 @@
-import React, { useEffect, useState } from "react";
-import { NavList } from "@primer/react";
-import { Heading } from "@primer/react-brand";
-import { Heading as HeadingType } from "nextra";
+import React, {useEffect, useState} from 'react'
+import {NavList} from '@primer/react'
+import {Heading} from '@primer/react-brand'
+import {Heading as HeadingType} from 'nextra'
 
-import styles from "./TableOfContents.module.css";
+import styles from './TableOfContents.module.css'
 
 type TableOfContentsProps = {
-  headings: HeadingType[];
-};
+  headings: HeadingType[]
+}
 
-export function TableOfContents({ headings }: TableOfContentsProps) {
+export function TableOfContents({headings}: TableOfContentsProps) {
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        let mostVisibleEntry = entries[0];
+      entries => {
+        let mostVisibleEntry = entries[0]
 
-        entries.forEach((entry) => {
+        entries.forEach(entry => {
           if (entry.intersectionRatio > mostVisibleEntry.intersectionRatio) {
-            mostVisibleEntry = entry;
+            mostVisibleEntry = entry
           }
-        });
+        })
 
-        const id = mostVisibleEntry.target.getAttribute("id");
+        const id = mostVisibleEntry.target.getAttribute('id')
 
-        // Remove 'aria-current' from all elements
-        entries.forEach((entry) => {
-          const id = entry.target.getAttribute("id");
-          document
-            .getElementById(`toc-heading-${id}`)
-            .setAttribute("aria-current", "false");
-        });
+        entries.forEach(entry => {
+          const id = entry.target.getAttribute('id')
+          const el = document.getElementById(`toc-heading-${id}`)
+          if (el) el.setAttribute('aria-current', 'false')
+        })
 
         if (mostVisibleEntry.intersectionRatio > 0) {
-          document
-            .getElementById(`toc-heading-${id}`)
-            .setAttribute("aria-current", "location");
+          const el = document.getElementById(`toc-heading-${id}`)
+          if (el) el.setAttribute('aria-current', 'location')
         }
       },
       {
-        rootMargin: "0px 0px -50% 0px",
+        rootMargin: '0px 0px -50% 0px',
         threshold: [0, 0.5, 1],
-      }
-    );
+      },
+    )
 
-    headings.forEach((heading) => {
-      const el = document.getElementById(heading.id);
-      observer.observe(el);
-    });
+    headings.forEach(heading => {
+      const el = document.getElementById(heading.id)
+      observer.observe(el)
+    })
 
     return () => {
-      observer.disconnect();
-    };
-  }, []);
+      observer.disconnect()
+    }
+  }, [])
 
   return (
     <aside className={styles.wrapper}>
@@ -59,7 +56,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
         On this page
       </Heading>
       <NavList>
-        {headings.map((heading) => (
+        {headings.map(heading => (
           <NavList.Item
             className={styles.item}
             key={heading.id}
@@ -71,5 +68,5 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
         ))}
       </NavList>
     </aside>
-  );
+  )
 }
