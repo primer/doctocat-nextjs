@@ -6,8 +6,19 @@ import {useRouter} from 'next/router'
 import {Item} from 'nextra/normalize-pages'
 
 type SidebarProps = {
-  pageMap: PageMapItem[]
+  pageMap: DocsItem[]
   activePath: Item[]
+}
+
+type FolderWithoutChildren = Omit<Folder, 'children'>
+
+type DocsItem = (MdxFile | FolderWithoutChildren) & {
+  title: string
+  type: string
+  children?: DocsItem[]
+  firstChildRoute?: string
+  withIndexPage?: boolean
+  isUnderCurrentDocsTree?: boolean
 }
 
 export function Sidebar({pageMap, activePath}: SidebarProps) {
@@ -35,16 +46,12 @@ export function Sidebar({pageMap, activePath}: SidebarProps) {
         if (item.kind === 'Folder') {
           const indexPage = item.children.find(child => child.kind === 'MdxPage' && child.name === 'index') as MdxFile
           const subNavName = indexPage.frontMatter.title
+
           return (
-            <NavList.Item
-              key={item.name}
-              href={`${basePath}${item.route}`}
-              sx={{textTransform: 'capitalize', fontSize: 1}}
-              defaultOpen
-            >
-              {subNavName}
-              <NavList.SubNav key={item.name}>
-                {item.children.map((child: MdxFile | Folder) => {
+            <NavList.Group title={subNavName} key={item.name}>
+              {item.children
+                .sort((a, b) => (a.name === 'index' ? -1 : b.name === 'index' ? 1 : 0)) // puts index page first
+                .map((child: DocsItem) => {
                   if ((child as MdxFile).kind === 'MdxPage') {
                     return (
                       <NavList.Item
@@ -58,25 +65,24 @@ export function Sidebar({pageMap, activePath}: SidebarProps) {
                   }
 
                   if ((child as Folder).kind === 'Folder') {
-                    const landingPlaceItem: PageMapItem | undefined = (child as Folder).children.find(
+                    const landingPageItem: PageMapItem | undefined = (child as Folder).children.find(
                       innerChild => innerChild.kind === 'MdxPage' && innerChild.name === 'index',
                     )
 
                     return (
                       <NavList.Item
-                        key={(landingPlaceItem as MdxFile).name}
-                        href={`${basePath}${(landingPlaceItem as MdxFile).route}`}
+                        key={(landingPageItem as MdxFile).name}
+                        href={`${basePath}${(landingPageItem as MdxFile).route}`}
                         sx={{textTransform: 'capitalize'}}
                       >
-                        {(landingPlaceItem as MdxFile).frontMatter?.title || item.name}
+                        {(landingPageItem as MdxFile).frontMatter?.title || item.name}
                       </NavList.Item>
                     )
                   }
 
                   return null
                 })}
-              </NavList.SubNav>
-            </NavList.Item>
+            </NavList.Group>
           )
         }
         return null

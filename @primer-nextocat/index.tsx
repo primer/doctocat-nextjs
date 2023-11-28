@@ -112,7 +112,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                                       selected={index === activePath.length - 1}
                                       sx={{textTransform: 'capitalize'}}
                                     >
-                                      {item.title}
+                                      {item.title.replace(/-/g, ' ')}
                                     </Breadcrumbs.Item>
                                   )
                                 })}
@@ -157,7 +157,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                   </Grid>
                 </PageLayout.Content>
                 <PageLayout.Pane sticky offsetHeader={76} padding="condensed" position="start" divider="line" resizable>
-                  <Sidebar pageMap={pageMap} activePath={activePath} />
+                  <Sidebar pageMap={docsDirectories} activePath={activePath} />
                   <PRCBox
                     sx={{
                       borderTop: '1px solid var(--brand-color-border-muted)',
