@@ -7,9 +7,10 @@ import {useRouter} from 'next/router'
 type HeaderProps = {
   pageMap: PageMapItem[]
   menuItems: PageItem[]
+  siteTitle: string
 }
 
-export function Header({pageMap, menuItems}: HeaderProps) {
+export function Header({pageMap, menuItems, siteTitle}: HeaderProps) {
   const router = useRouter()
   const basePath = router.basePath
   const inputRef = React.useRef(null)
@@ -89,7 +90,7 @@ export function Header({pageMap, menuItems}: HeaderProps) {
   }
 
   return (
-    <SubdomainNavBar title="Brand toolkit" titleHref={basePath || '/'} fullWidth>
+    <SubdomainNavBar title={siteTitle} titleHref={basePath || '/'} fullWidth>
       {menuItems &&
         menuItems.length &&
         menuItems.map(item => (

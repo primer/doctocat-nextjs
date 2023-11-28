@@ -85,7 +85,11 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
             <Animate animate="fade-in">
               <PageLayout containerWidth="full" padding="none" sx={{pt: 76}}>
                 <PageLayout.Header>
-                  <Header pageMap={pageMap} menuItems={topLevelNavbarItems} />
+                  <Header
+                    pageMap={pageMap}
+                    menuItems={topLevelNavbarItems}
+                    siteTitle={pageMap[0].kind === 'Meta' ? pageMap[0].data.index['title' as string] : ''}
+                  />
                 </PageLayout.Header>
                 <PageLayout.Content padding="normal">
                   <Grid>
@@ -153,7 +157,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                   </Grid>
                 </PageLayout.Content>
                 <PageLayout.Pane sticky offsetHeader={76} padding="condensed" position="start" divider="line" resizable>
-                  <Sidebar pageMap={pageMap} />
+                  <Sidebar pageMap={pageMap} activePath={activePath} />
                   <PRCBox
                     sx={{
                       borderTop: '1px solid var(--brand-color-border-muted)',
