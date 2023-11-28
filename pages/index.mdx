@@ -12,7 +12,11 @@ import Link from 'next/link'
     <Hero.Label>New</Hero.Label>
     <Hero.Heading>Primer Nextocat</Hero.Heading>
     <Hero.Description>A Next.js theme for building Primer documentation sites</Hero.Description>
-    <Hero.PrimaryAction href="#">Get started</Hero.PrimaryAction>
+    <Box marginBlockStart={16}>
+      <Link legacyBehavior href="/introduction">
+        <Hero.PrimaryAction href="/introduction">Get started</Hero.PrimaryAction>
+      </Link>
+    </Box>
     <Hero.Image
       src="https://via.placeholder.com/600x400/d3d9df/d3d9df.png"
       alt="placeholder, blank area with an off-white background color"
