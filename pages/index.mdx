@@ -5,6 +5,7 @@ description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam,
 
 import {SectionIntro, Grid, Card, Box, ThemeProvider, Hero, Stack} from '@primer/react-brand'
 import {HeartIcon, PencilIcon, FileMediaIcon} from '@primer/octicons-react'
+import Link from 'next/link'
 
 <div>
   <Hero style={{paddingTop: 0}}>
@@ -31,10 +32,12 @@ import {HeartIcon, PencilIcon, FileMediaIcon} from '@primer/octicons-react'
         xlarge: 4,
       }}
     >
-      <Card href="/nextocat/applications/asset-generator" hasBorder style={{width: '100%'}}>
-        <Card.Icon icon={<PencilIcon />} color="pink" hasBackground />
-        <Card.Heading>Asset generator</Card.Heading>
-      </Card>
+      <Link legacyBehavior href="/introduction">
+        <Card href="/introduction" hasBorder style={{width: '100%'}}>
+          <Card.Icon icon={<PencilIcon />} color="pink" hasBackground />
+          <Card.Heading>Get started</Card.Heading>
+        </Card>
+      </Link>
     </Grid.Column>
     <Grid.Column
       span={{
@@ -44,17 +47,19 @@ import {HeartIcon, PencilIcon, FileMediaIcon} from '@primer/octicons-react'
         xlarge: 4,
       }}
     >
-      <Card
-        hasBorder
-        href="/nextocat/applications/brand-assets"
-        style={{
-          width: '100%',
-          ['--brand-color-accent-primary']: 'var(--base-color-scale-lime-2)',
-        }}
-      >
-        <Card.Icon icon={<FileMediaIcon />} color="lime" hasBackground />
-        <Card.Heading>Brand assets</Card.Heading>
-      </Card>
+      <Link legacyBehavior href="/content-examples">
+        <Card
+          hasBorder
+          href="/content-examples"
+          style={{
+            width: '100%',
+            ['--brand-color-accent-primary']: 'var(--base-color-scale-lime-2)',
+          }}
+        >
+          <Card.Icon icon={<FileMediaIcon />} color="lime" hasBackground />
+          <Card.Heading>Content examples</Card.Heading>
+        </Card>
+      </Link>
     </Grid.Column>
     <Grid.Column
       span={{
@@ -64,10 +69,12 @@ import {HeartIcon, PencilIcon, FileMediaIcon} from '@primer/octicons-react'
         xlarge: 4,
       }}
     >
-      <Card href="/nextocat/applications/octovisuals" hasBorder style={{width: '100%'}}>
-        <Card.Icon icon={<HeartIcon />} color="pink" hasBackground />
-        <Card.Heading>Octovisuals</Card.Heading>
-      </Card>
+      <Link legacyBehavior href="/tabs-example">
+        <Card href="/tabs-example" hasBorder style={{width: '100%'}}>
+          <Card.Icon icon={<HeartIcon />} color="pink" hasBackground />
+          <Card.Heading>Tab examples</Card.Heading>
+        </Card>
+      </Link>
     </Grid.Column>
   </Grid>
 </section>
