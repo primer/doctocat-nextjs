@@ -12,6 +12,15 @@ export function UnderlineNav({tabData}: UnderlineNavProps) {
   const basePath = router.basePath
   const currentRoute = router.pathname
 
+  // Reorders tabData so the tab with name === index is always first
+  if (tabData && tabData.length > 1) {
+    const index = tabData.findIndex(item => item.name === 'index')
+    if (index > -1) {
+      const indexTab = tabData.splice(index, 1)
+      tabData.push(indexTab[0])
+    }
+  }
+
   return (
     <PrimerUnderlineNav aria-label="Sibling pages">
       {tabData &&
