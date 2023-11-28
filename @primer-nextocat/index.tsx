@@ -38,7 +38,7 @@ import bodyStyles from './css/prose.module.css'
  */
 export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
   const {title, frontMatter, headings, filePath, pageMap, route} = pageOpts
-  const {locale = 'en-US', defaultLocale} = useRouter()
+  const {locale = 'en-US', defaultLocale, basePath} = useRouter()
   const fsPath = useFSRoute()
   const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('light')
   const {
@@ -108,7 +108,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                                   return (
                                     <Breadcrumbs.Item
                                       key={item.name}
-                                      href={item.route}
+                                      href={`${basePath}${item.route}`}
                                       selected={index === activePath.length - 1}
                                       sx={{textTransform: 'capitalize'}}
                                     >
