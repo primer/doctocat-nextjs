@@ -46,9 +46,22 @@ export function Sidebar({pageMap, activePath}: SidebarProps) {
         if (item.kind === 'Folder') {
           const indexPage = item.children.find(child => child.kind === 'MdxPage' && child.name === 'index') as MdxFile
           const subNavName = indexPage.frontMatter.title
+          const shouldHideTabbedPages = indexPage.frontMatter['show-tabs'] || false
+
+          if (shouldHideTabbedPages) {
+            return (
+              <NavList.Item
+                key={indexPage.name}
+                href={`${basePath}${indexPage.route}`}
+                sx={{textTransform: 'capitalize'}}
+              >
+                {(indexPage as MdxFile).frontMatter?.title || item.name}
+              </NavList.Item>
+            )
+          }
 
           return (
-            <NavList.Group title={subNavName} key={item.name}>
+            <NavList.Group title={subNavName} key={item.name} sx={{mb: 2}}>
               {item.children
                 .sort((a, b) => (a.name === 'index' ? -1 : b.name === 'index' ? 1 : 0)) // puts index page first
                 .map((child: DocsItem) => {
