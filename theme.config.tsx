@@ -1,5 +1,5 @@
-import {Icon, RepoIcon} from '@primer/octicons-react'
 import React from 'react'
+import {Icon, OrganizationIcon, RepoIcon} from '@primer/octicons-react'
 
 export type ThemeConfig = {
   docsRepositoryBase: string
@@ -19,9 +19,9 @@ const config: ThemeConfig = {
       leadingIcon: RepoIcon,
     },
     {
-      title: 'Primer Brand',
-      href: 'https://github.com/primer/brand',
-      leadingIcon: RepoIcon,
+      title: 'Primer',
+      href: 'https://primer.style',
+      leadingIcon: OrganizationIcon,
     },
   ],
 }
