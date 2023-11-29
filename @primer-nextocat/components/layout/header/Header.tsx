@@ -176,7 +176,7 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
             sx={{
               display: isSearchOpen ? 'block' : 'none',
               marginTop: 1,
-              position: 'fixed',
+              position: 'absolute',
               zIndex: 1,
               backgroundColor: 'var(--brand-color-canvas-default)',
               padding: 'var(--base-size-16)',
