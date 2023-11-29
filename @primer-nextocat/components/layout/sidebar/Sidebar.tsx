@@ -4,12 +4,13 @@ import {NavList} from '@primer/react'
 import {Folder, MdxFile, PageMapItem} from 'nextra'
 import {useRouter} from 'next/router'
 import {Item} from 'nextra/normalize-pages'
+import themeConfig, {ThemeConfig} from '../../../../theme.config'
 
 import styles from './Sidebar.module.css'
+import {ArrowUpRightIcon} from '@primer/octicons-react'
 
 type SidebarProps = {
   pageMap: DocsItem[]
-  activePath: Item[]
 }
 
 type FolderWithoutChildren = Omit<Folder, 'children'>
@@ -23,13 +24,39 @@ type DocsItem = (MdxFile | FolderWithoutChildren) & {
   isUnderCurrentDocsTree?: boolean
 }
 
-export function Sidebar({pageMap, activePath}: SidebarProps) {
+const {sidebarLinks} = themeConfig
+
+export function Sidebar({pageMap}: SidebarProps) {
   const router = useRouter()
   const basePath = router.basePath
   const currentRoute = router.pathname
 
   return (
     <NavList className={styles.NavList}>
+      <NavList.Group title="" sx={{mb: 24}}>
+        {sidebarLinks &&
+          sidebarLinks.length > 0 &&
+          sidebarLinks.map(link => {
+            const {leadingIcon: Icon} = link
+            const isExternalUrl = link.href.startsWith('http')
+            return (
+              <NavList.Item key={link.title} href={link.href} target={isExternalUrl ? '_blank' : undefined}>
+                {Icon && (
+                  <NavList.LeadingVisual>
+                    <Icon />
+                  </NavList.LeadingVisual>
+                )}
+                {link.title}
+                {isExternalUrl && (
+                  <NavList.TrailingVisual>
+                    <ArrowUpRightIcon />
+                  </NavList.TrailingVisual>
+                )}
+              </NavList.Item>
+            )
+          })}
+      </NavList.Group>
+
       {pageMap.map(item => {
         if (item.kind === 'MdxPage' && item.route === '/') return null
 
@@ -92,6 +119,7 @@ export function Sidebar({pageMap, activePath}: SidebarProps) {
             </NavList.Group>
           )
         }
+
         return null
       })}
     </NavList>

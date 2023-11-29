@@ -1,10 +1,10 @@
 import Head from 'next/head'
 import type {MdxFile, NextraThemeLayoutProps} from 'nextra'
 import {useFSRoute} from 'nextra/hooks'
-import React, {useEffect, useMemo} from 'react'
+import React, {useMemo} from 'react'
 
-import {MoonIcon, PencilIcon, SunIcon} from '@primer/octicons-react'
-import {ActionList, ActionMenu, BaseStyles, Breadcrumbs, Box as PRCBox, PageLayout, ThemeProvider} from '@primer/react'
+import {PencilIcon} from '@primer/octicons-react'
+import {BaseStyles, Breadcrumbs, PageLayout, ThemeProvider} from '@primer/react'
 import {
   Animate,
   AnimationProvider,
@@ -13,7 +13,6 @@ import {
   Grid,
   Heading,
   InlineLink,
-  MinimalFooter,
   Stack,
   Text,
 } from '@primer/react-brand'
@@ -181,7 +180,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                   </Grid>
                 </PageLayout.Content>
                 <PageLayout.Pane sticky padding="none" position="start" divider="line" resizable>
-                  <Sidebar pageMap={docsDirectories} activePath={activePath} />
+                  <Sidebar pageMap={docsDirectories} />
                 </PageLayout.Pane>
               </PageLayout>
             </Animate>
