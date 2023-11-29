@@ -104,7 +104,12 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                                 }}
                               >
                                 {pageMap[0].kind === 'Meta' && (
-                                  <Breadcrumbs.Item href={basePath}>
+                                  <Breadcrumbs.Item
+                                    href={basePath}
+                                    sx={{
+                                      color: 'var(--brand-InlineLink-color-rest)',
+                                    }}
+                                  >
                                     {pageMap[0].data.index['title' as string]}
                                   </Breadcrumbs.Item>
                                 )}
@@ -114,7 +119,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                                       key={item.name}
                                       href={`${basePath}${item.route}`}
                                       selected={index === activePath.length - 1}
-                                      sx={{textTransform: 'capitalize'}}
+                                      sx={{textTransform: 'capitalize', color: 'var(--brand-InlineLink-color-rest)'}}
                                     >
                                       {item.title.replace(/-/g, ' ')}
                                     </Breadcrumbs.Item>
