@@ -40,7 +40,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
   const {title, frontMatter, headings, filePath, pageMap, route} = pageOpts
   const {locale = 'en-US', defaultLocale, basePath} = useRouter()
   const fsPath = useFSRoute()
-  const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('light')
+  const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('dark')
   const {
     activeType,
     activeIndex,
@@ -68,10 +68,6 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
   const filteredTabData: MdxFile[] =
     data?.kind === 'Folder' ? (data.children.filter(child => child.kind === 'MdxPage') as MdxFile[]) : []
 
-  useEffect(() => {
-    document.documentElement.setAttribute('data-color-mode', colorMode)
-  }, [colorMode])
-
   return (
     <BrandThemeProvider dir="ltr" colorMode={colorMode}>
       <ThemeProvider colorMode={colorMode}>
@@ -83,12 +79,16 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
           </Head>
           <AnimationProvider runOnce visibilityOptions={1} autoStaggerChildren={false}>
             <Animate animate="fade-in">
-              <PageLayout containerWidth="full" padding="none" sx={{pt: 76}}>
+              <PageLayout containerWidth="full" padding="none">
                 <PageLayout.Header>
                   <Header
                     pageMap={pageMap}
                     menuItems={topLevelNavbarItems}
                     siteTitle={pageMap[0].kind === 'Meta' ? pageMap[0].data.index['title' as string] : ''}
+                    colorModes={{
+                      value: colorMode,
+                      handler: setColorMode,
+                    }}
                   />
                 </PageLayout.Header>
                 <PageLayout.Content padding="normal">
@@ -98,7 +98,11 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                         {!isHomePage && (
                           <>
                             {activePath.length && (
-                              <Breadcrumbs>
+                              <Breadcrumbs
+                                sx={{
+                                  fontFamily: 'var(--brand-fontStack-sansSerif)',
+                                }}
+                              >
                                 {pageMap[0].kind === 'Meta' && (
                                   <Breadcrumbs.Item href={basePath}>
                                     {pageMap[0].data.index['title' as string]}
@@ -138,15 +142,30 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                         )}
 
                         <article className={route != '/' ? bodyStyles.Prose : ''}>{children}</article>
-                        <Box marginBlockStart={64}>
-                          <Stack direction="horizontal" padding="none" alignItems="center" gap={8}>
-                            <PencilIcon size={16} fill="var(--brand-InlineLink-color-rest)" />
+                        <footer>
+                          <Box marginBlockStart={64}>
+                            <Stack direction="vertical" padding="none" gap={16}>
+                              <Stack direction="horizontal" padding="none" alignItems="center" gap={8}>
+                                <PencilIcon size={16} fill="var(--brand-InlineLink-color-rest)" />
 
-                            <InlineLink href={`${themeConfig.docsRepositoryBase}/blob/main/${filePath}`}>
-                              Edit this page
-                            </InlineLink>
-                          </Stack>
-                        </Box>
+                                <InlineLink href={`${themeConfig.docsRepositoryBase}/blob/main/${filePath}`}>
+                                  Edit this page
+                                </InlineLink>
+                              </Stack>
+                              <Box
+                                marginBlockStart={8}
+                                paddingBlockStart={24}
+                                borderStyle="solid"
+                                borderBlockStartWidth="thin"
+                                borderColor="default"
+                              >
+                                <Text as="p" variant="muted" size="100">
+                                  &copy; {new Date().getFullYear()} GitHub, Inc. All rights reserved.
+                                </Text>
+                              </Box>
+                            </Stack>
+                          </Box>
+                        </footer>
                       </Stack>
                     </Grid.Column>
                     {!isHomePage && headings.length > 0 && (
@@ -156,39 +175,9 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                     )}
                   </Grid>
                 </PageLayout.Content>
-                <PageLayout.Pane sticky offsetHeader={76} padding="condensed" position="start" divider="line" resizable>
+                <PageLayout.Pane sticky padding="none" position="start" divider="line" resizable>
                   <Sidebar pageMap={docsDirectories} activePath={activePath} />
-                  <PRCBox
-                    sx={{
-                      borderTop: '1px solid var(--brand-color-border-muted)',
-                      mt: 4,
-                      pt: 4,
-                    }}
-                  >
-                    <ActionMenu>
-                      <ActionMenu.Button
-                        variant="invisible"
-                        alignContent="start"
-                        block
-                        leadingVisual={colorMode === 'light' ? SunIcon : MoonIcon}
-                      >
-                        {colorMode === 'light' && 'Light'}
-                        {colorMode === 'dark' && 'Dark'}
-                      </ActionMenu.Button>
-
-                      <ActionMenu.Overlay>
-                        <ActionList>
-                          <ActionList.Item onSelect={() => setColorMode('light')}>Light</ActionList.Item>
-                          <ActionList.Divider />
-                          <ActionList.Item onSelect={() => setColorMode('dark')}>Dark</ActionList.Item>
-                        </ActionList>
-                      </ActionMenu.Overlay>
-                    </ActionMenu>
-                  </PRCBox>
                 </PageLayout.Pane>
-                <PageLayout.Footer>
-                  <MinimalFooter />
-                </PageLayout.Footer>
               </PageLayout>
             </Animate>
           </AnimationProvider>

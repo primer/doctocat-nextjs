@@ -5,6 +5,8 @@ import {Folder, MdxFile, PageMapItem} from 'nextra'
 import {useRouter} from 'next/router'
 import {Item} from 'nextra/normalize-pages'
 
+import styles from './Sidebar.module.css'
+
 type SidebarProps = {
   pageMap: DocsItem[]
   activePath: Item[]
@@ -27,7 +29,7 @@ export function Sidebar({pageMap, activePath}: SidebarProps) {
   const currentRoute = router.pathname
 
   return (
-    <NavList>
+    <NavList className={styles.NavList}>
       {pageMap.map(item => {
         if (item.kind === 'MdxPage' && item.route === '/') return null
 
@@ -50,28 +52,20 @@ export function Sidebar({pageMap, activePath}: SidebarProps) {
 
           if (shouldHideTabbedPages) {
             return (
-              <NavList.Item
-                key={indexPage.name}
-                href={`${basePath}${indexPage.route}`}
-                sx={{textTransform: 'capitalize'}}
-              >
+              <NavList.Item key={indexPage.name} href={`${basePath}${indexPage.route}`}>
                 {(indexPage as MdxFile).frontMatter?.title || item.name}
               </NavList.Item>
             )
           }
 
           return (
-            <NavList.Group title={subNavName} key={item.name} sx={{mb: 2}}>
+            <NavList.Group title={subNavName} key={item.name} sx={{mb: 24}}>
               {item.children
                 .sort((a, b) => (a.name === 'index' ? -1 : b.name === 'index' ? 1 : 0)) // puts index page first
                 .map((child: DocsItem) => {
                   if ((child as MdxFile).kind === 'MdxPage') {
                     return (
-                      <NavList.Item
-                        key={child.name}
-                        href={`${basePath}${child.route}`}
-                        sx={{textTransform: 'capitalize'}}
-                      >
+                      <NavList.Item key={child.name} href={`${basePath}${child.route}`}>
                         {(child as MdxFile).frontMatter?.title || item.name}
                       </NavList.Item>
                     )

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {NavList} from '@primer/react'
-import {Heading} from '@primer/react-brand'
+import {Heading, Text} from '@primer/react-brand'
 import {Heading as HeadingType} from 'nextra'
 
 import styles from './TableOfContents.module.css'
@@ -52,9 +52,9 @@ export function TableOfContents({headings}: TableOfContentsProps) {
 
   return (
     <aside className={styles.wrapper}>
-      <Heading as="h3" size="subhead-medium" className={styles.heading}>
+      <Text as="p" size="100" variant="muted" font-weight="normal" className={styles.heading}>
         On this page
-      </Heading>
+      </Text>
       <NavList>
         {headings.map(heading => (
           <NavList.Item

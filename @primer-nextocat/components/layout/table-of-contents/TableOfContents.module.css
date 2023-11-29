@@ -4,15 +4,17 @@
 }
 
 .heading {
+  font-size: var(--base-size-12);
+  font-family: var(--brand-fontStack-monospace);
   padding-inline-start: var(--base-size-16);
   margin-block-end: var(--base-size-8);
+  text-transform: uppercase;
 }
 
 .item {
   margin-block-end: var(--base-size-4);
-  transition: transform var(--brand-animation-duration-fast)
-    var(--brand-animation-easing-default);
+  transition: transform var(--brand-animation-duration-fast) var(--brand-animation-easing-default);
 }
-.item[aria-current="location"] {
+.item[aria-current='location'] {
   transform: translateX(var(--base-size-8));
 }

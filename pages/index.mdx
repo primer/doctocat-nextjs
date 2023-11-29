@@ -8,47 +8,42 @@ import {HeartIcon, PencilIcon, FileMediaIcon} from '@primer/octicons-react'
 import Link from 'next/link'
 
 <div>
-  <Hero style={{paddingTop: 0}}>
-    <Hero.Label>New</Hero.Label>
-    <Hero.Heading>Primer Nextocat</Hero.Heading>
+  <Hero align="center" style={{paddingTop: 'var(--base-size-24)', paddingBottom: 'var(--base-size-64)'}}>
+    <Hero.Eyebrow>
+      <img
+        src="https://github.com/primer/brand/assets/13340707/c8ff14fd-a84c-4d80-9493-f8a30c8fae43"
+        alt=""
+        width="500"
+      />
+    </Hero.Eyebrow>
+    <Hero.Heading style={{marginTop: '-80px'}}>Primer Nextocat</Hero.Heading>
     <Hero.Description>A Next.js theme for building Primer documentation sites</Hero.Description>
     <Box marginBlockStart={24}>
       <Link legacyBehavior href="/introduction">
         <Hero.PrimaryAction href="/introduction">Get started</Hero.PrimaryAction>
       </Link>
     </Box>
-    <Hero.Image
-      src="https://via.placeholder.com/600x400/d3d9df/d3d9df.png"
-      alt="placeholder, blank area with an off-white background color"
-    />
   </Hero>
 </div>
-<section>
-  <SectionIntro>
-    <SectionIntro.Heading>Resources</SectionIntro.Heading>
-  </SectionIntro>
+<section style={{['--brand-Card-maxWidth']: '100%',maxWidth: '800px', margin: '0 auto', ['--brand-Grid-spacing-row']: 'var(--brand-Grid-spacing-column-gap)'}}>
   <Grid>
-    <Grid.Column
-      span={{
-        small: 6,
-        medium: 6,
-        large: 4,
-        xlarge: 4,
-      }}
-    >
-      <Link legacyBehavior href="/introduction">
-        <Card href="/introduction" hasBorder style={{width: '100%'}}>
-          <Card.Icon icon={<PencilIcon />} color="pink" hasBackground />
-          <Card.Heading>Get started</Card.Heading>
-        </Card>
-      </Link>
+    <Grid.Column span={12}>
+      <Card href="/introduction" hasBorder style={{width: '100%'}}>
+        <Card.Label color="green">New </Card.Label>
+        <Card.Image
+        src="https://via.placeholder.com/600x400/d3d9df/d3d9df.png"
+        alt="placeholder, blank area with an gray background color"
+        aspectRatio="16:9"
+      />
+        <Card.Heading>Nextocat: A new Next.js theme for Primer documentation.</Card.Heading>
+       
+      </Card>
     </Grid.Column>
+
     <Grid.Column
       span={{
-        small: 6,
-        medium: 6,
-        large: 4,
-        xlarge: 4,
+        small: 12,
+        medium: 6
       }}
     >
       <Link legacyBehavior href="/content-examples">
@@ -66,19 +61,24 @@ import Link from 'next/link'
       </Link>
     </Grid.Column>
     <Grid.Column
-      span={{
-        small: 6,
-        medium: 6,
-        large: 4,
-        xlarge: 4,
+       span={{
+        small: 12,
+        medium: 6
       }}
     >
       <Link legacyBehavior href="/tabs-example">
-        <Card href="/tabs-example" hasBorder style={{width: '100%'}}>
+        <Card
+          href="/tabs-example"
+          hasBorder
+          style={{
+            width: '100%',
+            ['--brand-color-accent-primary']: 'var(--base-color-scale-blue-2)'
+          }}>
           <Card.Icon icon={<HeartIcon />} color="pink" hasBackground />
           <Card.Heading>Tab examples</Card.Heading>
         </Card>
       </Link>
     </Grid.Column>
+
   </Grid>
 </section>

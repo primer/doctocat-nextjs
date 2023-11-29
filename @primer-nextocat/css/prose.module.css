@@ -82,7 +82,7 @@
 }
 
 .Prose h4 {
-  --spacing: var(--base-size-28);
+  --spacing: var(--base-size-40);
   font-weight: var(--brand-text-weight-400);
   font-size: var(--brand-text-size-300);
   line-height: var(--brand-text-lineHeight-300);
@@ -91,7 +91,7 @@
 }
 
 .Prose h5 {
-  --spacing: var(--base-size-36);
+  --spacing: var(--base-size-40);
   font-weight: var(--brand-text-weight-400);
   font-size: var(--brand-text-size-300);
   line-height: var(--brand-text-lineHeight-300);
@@ -117,7 +117,7 @@
 }
 
 .Prose :is(h1, h2, h3) + * {
-  --spacing: var(--base-size-24);
+  --spacing: var(--base-size-40);
 }
 
 /* ---------------------------------------------------------- */

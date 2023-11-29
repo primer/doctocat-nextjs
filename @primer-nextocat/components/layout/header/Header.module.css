@@ -1,0 +1,30 @@
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--base-size-20) var(--base-size-16) var(--base-size-20) var(--base-size-28);
+  border-bottom: var(--brand-borderWidth-thin) solid var(--brand-color-border-default);
+}
+
+.Header__searchArea {
+  width: 100%;
+  max-width: 650px;
+  margin-inline-start: var(--base-size-16);
+  margin-inline-end: var(--base-size-16);
+}
+
+.Header__searchInput {
+  width: 100%;
+}
+
+.Header__siteTitle {
+  display: flex;
+  gap: var(--base-size-8);
+  align-items: center;
+  min-width: 230px;
+  text-decoration: none;
+}
+
+.Header__siteTitle svg {
+  fill: var(--brand-color-text-default);
+}
