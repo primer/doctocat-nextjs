@@ -1,13 +1,13 @@
-import React, {useEffect, useMemo} from 'react'
-import {Heading, Stack, SubdomainNavBar, Text} from '@primer/react-brand'
-import {PageMapItem, MdxFile} from 'nextra'
-import {PageItem} from 'nextra/normalize-pages'
-import {useRouter} from 'next/router'
 import {MarkGithubIcon, MoonIcon, SearchIcon, SunIcon, XIcon} from '@primer/octicons-react'
-import {FormControl, TextInput, IconButton, ActionMenu, ActionList, Box} from '@primer/react'
+import {Box, FormControl, IconButton, TextInput} from '@primer/react'
+import {Heading, Stack, Text} from '@primer/react-brand'
+import {useRouter} from 'next/router'
+import {MdxFile, PageMapItem} from 'nextra'
+import {PageItem} from 'nextra/normalize-pages'
+import React, {useEffect, useMemo} from 'react'
 
-import styles from './Header.module.css'
 import Link from 'next/link'
+import styles from './Header.module.css'
 
 type HeaderProps = {
   pageMap: PageMapItem[]
@@ -27,6 +27,7 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
   const [searchResults, setSearchResults] = React.useState([])
   const [searchTerm, setSearchTerm] = React.useState('')
+  const [activeDescendant, setActiveDescendant] = React.useState<number>(-1)
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -168,6 +169,7 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
                 />
               )
             }
+            aria-activedescendant={activeDescendant === -1 ? undefined : `search-result-${activeDescendant}`}
           />
         </FormControl>
         {searchTerm && (
@@ -178,7 +180,7 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
               marginTop: 1,
               position: 'absolute',
               zIndex: 1,
-              backgroundColor: 'var(--brand-color-canvas-default)',
+              backgroundColor: 'var(--brand-color-canvas-subtle)',
               padding: 'var(--base-size-16)',
               width: '100%',
               maxWidth: '700px',
@@ -187,25 +189,55 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
               maxHeight: 300,
               overflowY: 'auto',
               overflowX: 'hidden',
+              '&::-webkit-scrollbar': {
+                width: 8,
+              },
+              '&::-webkit-scrollbar-track': {
+                backgroundColor: 'var(--brand-color-canvas-default)',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                backgroundColor: 'var(--brand-color-text-muted)',
+                borderRadius: 'var(--base-size-4)',
+              },
             }}
           >
-            <Stack direction="vertical" padding="none">
+            <Stack direction="vertical" padding="none" gap="none">
               {searchTerm && (
                 <Box sx={{pl: 1}}>
-                  <Heading as="h3" size="subhead-medium">
-                    Results for "{searchTerm}"
+                  <Heading as="h3" size="subhead-large" id="search-results-heading">
+                    {searchResults && searchResults.length} Results for "{searchTerm}"
                   </Heading>
                 </Box>
               )}
               {searchResults && searchResults.length > 0 ? (
-                <ActionList variant="full">
-                  {searchResults.map(result => (
-                    <ActionList.LinkItem href={result.url} key={result.title}>
-                      {result.title}
-                      <ActionList.Description>{result.description}</ActionList.Description>
-                    </ActionList.LinkItem>
+                <ul
+                  role="listbox"
+                  tabIndex={0}
+                  aria-labelledby="search-results-heading"
+                  className={styles.Header__searchResultsList}
+                >
+                  {searchResults.map((result, index) => (
+                    <li
+                      key={`${result.title}-${index}`}
+                      id={`search-result-${index}`}
+                      role="option"
+                      aria-selected={index === activeDescendant}
+                    >
+                      <Text size="200" className={styles.Header__searchResultItemTitle}>
+                        <Link href={result.url}>{result.title}</Link>
+                      </Text>
+                      <Text
+                        as="p"
+                        size="100"
+                        variant="muted"
+                        id={`search-result-item-desc${index}`}
+                        className={styles.Header__searchResultItemDesc}
+                      >
+                        {result.description}
+                      </Text>
+                    </li>
                   ))}
-                </ActionList>
+                </ul>
               ) : (
                 <Box sx={{p: '100', display: 'flex', justifyContent: 'center', alignItems: 'center', height: 150}}>
                   <Text variant="muted">No results found</Text>

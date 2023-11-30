@@ -179,7 +179,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                     )}
                   </Grid>
                 </PageLayout.Content>
-                <PageLayout.Pane sticky padding="none" position="start" divider="line" resizable>
+                <PageLayout.Pane sticky padding="none" position="start" divider="none" resizable>
                   <Sidebar pageMap={docsDirectories} />
                 </PageLayout.Pane>
               </PageLayout>

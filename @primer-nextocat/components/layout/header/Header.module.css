@@ -28,3 +28,20 @@
 .Header__siteTitle svg {
   fill: var(--brand-color-text-default);
 }
+
+.Header__searchResultsList {
+  list-style: none;
+  padding: 0;
+  border-top: var(--brand-borderWidth-thin) solid var(--brand-color-border-default);
+  padding-block-start: var(--base-size-16);
+}
+
+.Header__searchResultsList li:not(:last-child) {
+  margin-block-end: var(--base-size-16);
+  padding-block-end: var(--base-size-16);
+  border-bottom: var(--brand-borderWidth-thin) solid var(--brand-color-border-default);
+}
+
+.Header__searchResultsList a {
+  color: var(--brand-color-text-default)
+}
