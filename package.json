@@ -1,5 +1,5 @@
 {
-  "name": "nextocat-documentation",
+  "name": "nextocat",
   "version": "0.0.1",
   "description": "Documentation theme",
   "scripts": {
@@ -9,14 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rezrah/nextocat.git"
+    "url": "git+https://github.com/primer/nextocat.git"
   },
-  "author": "Reza Rahman @rezrah",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rezrah/nextocat/issues"
+    "url": "https://github.com/primer/nextocat/issues"
   },
-  "homepage": "https://github.com/rezrah/nextocat#readme",
+  "homepage": "https://github.com/primer/nextocat#readme",
   "dependencies": {
     "@primer/octicons-react": "^19.8.0",
     "eslint-config-next": "^14.0.3",

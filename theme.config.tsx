@@ -11,11 +11,11 @@ export type ThemeConfig = {
 }
 
 const config: ThemeConfig = {
-  docsRepositoryBase: 'https://github.com/rezrah/nextocat',
+  docsRepositoryBase: 'https://github.com/primer/nextocat',
   sidebarLinks: [
     {
       title: 'GitHub',
-      href: 'https://github.com/rezrah/nextocat',
+      href: 'https://github.com/primer/nextocat',
       leadingIcon: RepoIcon,
     },
     {
