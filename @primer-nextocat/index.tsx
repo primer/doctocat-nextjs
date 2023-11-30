@@ -2,7 +2,7 @@ import Head from 'next/head'
 import type {MdxFile, NextraThemeLayoutProps} from 'nextra'
 import {useFSRoute} from 'nextra/hooks'
 import React, {useMemo} from 'react'
-
+import type {Icon} from '@primer/octicons-react'
 import {PencilIcon} from '@primer/octicons-react'
 import {BaseStyles, Breadcrumbs, PageLayout, ThemeProvider} from '@primer/react'
 import {
@@ -189,4 +189,13 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
       </ThemeProvider>
     </BrandThemeProvider>
   )
+}
+
+export type ThemeConfig = {
+  docsRepositoryBase: string
+  sidebarLinks: {
+    title: string
+    href: string
+    leadingIcon?: Icon
+  }[]
 }

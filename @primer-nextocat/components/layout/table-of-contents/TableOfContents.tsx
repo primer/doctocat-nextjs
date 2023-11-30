@@ -52,7 +52,7 @@ export function TableOfContents({headings}: TableOfContentsProps) {
 
   return (
     <aside className={styles.wrapper}>
-      <Text as="p" size="100" variant="muted" font-weight="normal" className={styles.heading}>
+      <Text as="p" size="100" variant="muted" weight="normal" className={styles.heading}>
         On this page
       </Text>
       <NavList>
