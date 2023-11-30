@@ -77,7 +77,7 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
           const result = {
             title: frontMatter.title,
             description: frontMatter.description,
-            url: `${basePath}${route}`,
+            url: route,
           }
           return result
         }),
