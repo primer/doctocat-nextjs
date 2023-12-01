@@ -90,9 +90,9 @@ export function Sidebar({pageMap}: SidebarProps) {
         if (item.kind === 'Folder') {
           const indexPage = item.children.find(child => child.kind === 'MdxPage' && child.name === 'index') as MdxFile
           const subNavName = indexPage.frontMatter.title
-          const shouldHideTabbedPages = indexPage.frontMatter['show-tabs'] || false
+          const shouldShowTabs = indexPage.frontMatter['show-tabs'] || false
 
-          if (shouldHideTabbedPages) {
+          if (shouldShowTabs) {
             return (
               <NavList.Item key={indexPage.name} href={`${basePath}${indexPage.route}`}>
                 {(indexPage as MdxFile).frontMatter?.title || item.name}
@@ -120,7 +120,7 @@ export function Sidebar({pageMap}: SidebarProps) {
 
                     return (
                       <NavList.Item
-                        key={(landingPageItem as MdxFile).name}
+                        key={`${(landingPageItem as MdxFile).route}`}
                         href={`${basePath}${(landingPageItem as MdxFile).route}`}
                         sx={{textTransform: 'capitalize'}}
                       >

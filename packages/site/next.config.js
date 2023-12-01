@@ -6,7 +6,8 @@ module.exports = {
     basePath: process.env.GITHUB_ACTIONS === 'true' ? '/nextocat' : '',
     publicRuntimeConfig: {
       siteTitle: 'Primer Nextocat',
-      docsRepositoryBase: 'https://github.com/primer/nextocat',
+      repo: 'https://github.com/primer/nextocat',
+      repoSrcPath: 'packages/site', // folder path to your site root. Helpful for monorepos.
       sidebarLinks: [
         {
           title: 'GitHub',

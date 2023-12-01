@@ -175,7 +175,11 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                               <Stack direction="horizontal" padding="none" alignItems="center" gap={8}>
                                 <PencilIcon size={16} fill="var(--brand-InlineLink-color-rest)" />
 
-                                <InlineLink href={`https://github.com/primer/nextocat/blob/main/${filePath}`}>
+                                <InlineLink
+                                  href={`${publicRuntimeConfig.repo}/blob/main/${
+                                    publicRuntimeConfig.repoSrcPath ? `${publicRuntimeConfig.repoSrcPath}/` : ''
+                                  }${filePath}`}
+                                >
                                   Edit this page
                                 </InlineLink>
                               </Stack>
