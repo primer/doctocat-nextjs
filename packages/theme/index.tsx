@@ -23,11 +23,13 @@ import '@primer/react-brand/fonts/fonts.css'
 import '@primer/react-brand/lib/css/main.css'
 
 import {useRouter} from 'next/router'
+import getConfig from 'next/config'
 import {normalizePages} from 'nextra/normalize-pages'
-import themeConfig from '../theme.config'
 import {Header} from './components/layout/header/Header'
 import {TableOfContents} from './components/layout/table-of-contents/TableOfContents'
 import bodyStyles from './css/prose.module.css'
+
+const {publicRuntimeConfig} = getConfig()
 
 /**
  * Catch-all layout component
@@ -39,7 +41,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
   const {title, frontMatter, headings, filePath, pageMap, route} = pageOpts
   const {locale = 'en-US', defaultLocale, basePath} = useRouter()
   const fsPath = useFSRoute()
-  const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('dark')
+  const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('light')
   const {
     activeType,
     activeIndex,
@@ -61,6 +63,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
     [pageMap, locale, defaultLocale, fsPath],
   )
 
+  const {siteTitle} = publicRuntimeConfig
   const isHomePage = route === '/'
 
   const data = !isHomePage && activePath[activePath.length - 2]
@@ -83,7 +86,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                   <Header
                     pageMap={pageMap}
                     menuItems={topLevelNavbarItems}
-                    siteTitle={pageMap[0].kind === 'Meta' ? pageMap[0].data.index['title' as string] : ''}
+                    siteTitle={siteTitle}
                     colorModes={{
                       value: colorMode,
                       handler: setColorMode,
@@ -102,14 +105,14 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                                   fontFamily: 'var(--brand-fontStack-sansSerif)',
                                 }}
                               >
-                                {pageMap[0].kind === 'Meta' && (
+                                {siteTitle && (
                                   <Breadcrumbs.Item
                                     href={basePath}
                                     sx={{
                                       color: 'var(--brand-InlineLink-color-rest)',
                                     }}
                                   >
-                                    {pageMap[0].data.index['title' as string]}
+                                    {siteTitle}
                                   </Breadcrumbs.Item>
                                 )}
                                 {activePath.map((item, index) => {
@@ -152,7 +155,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                               <Stack direction="horizontal" padding="none" alignItems="center" gap={8}>
                                 <PencilIcon size={16} fill="var(--brand-InlineLink-color-rest)" />
 
-                                <InlineLink href={`${themeConfig.docsRepositoryBase}/blob/main/${filePath}`}>
+                                <InlineLink href={`https://github.com/primer/nextocat/blob/main/${filePath}`}>
                                   Edit this page
                                 </InlineLink>
                               </Stack>
@@ -196,6 +199,6 @@ export type ThemeConfig = {
   sidebarLinks: {
     title: string
     href: string
-    leadingIcon?: Icon
+    leadingIcon?: 'repo' | 'org' | 'bookmark'
   }[]
 }

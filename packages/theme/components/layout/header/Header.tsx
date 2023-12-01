@@ -19,14 +19,20 @@ type HeaderProps = {
   }
 }
 
+type SearchResults = {
+  title: string
+  description: string
+  url: string
+}
+
 export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps) {
   const router = useRouter()
   const basePath = router.basePath
-  const inputRef = React.useRef(null)
+  const inputRef = React.useRef<HTMLInputElement | null>(null)
   const searchResultsRef = React.useRef(null)
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
-  const [searchResults, setSearchResults] = React.useState([])
-  const [searchTerm, setSearchTerm] = React.useState('')
+  const [searchResults, setSearchResults] = React.useState<SearchResults[] | undefined>()
+  const [searchTerm, setSearchTerm] = React.useState<string | undefined>('')
   const [activeDescendant, setActiveDescendant] = React.useState<number>(-1)
 
   useEffect(() => {
@@ -155,19 +161,21 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
             onSubmit={handleSubmit}
             onChange={handleChange}
             trailingAction={
-              searchTerm && (
+              searchTerm ? (
                 <TextInput.Action
                   onClick={() => {
-                    inputRef.current.value = ''
-                    setSearchTerm(undefined)
-                    setSearchResults(undefined)
+                    if (inputRef.current) {
+                      inputRef.current.value = ''
+                      setSearchTerm(undefined)
+                      setSearchResults(undefined)
+                    }
                   }}
                   icon={XIcon}
                   aria-label="Clear input"
                   tooltipDirection="nw"
                   sx={{color: 'fg.subtle'}}
                 />
-              )
+              ) : undefined
             }
             aria-activedescendant={activeDescendant === -1 ? undefined : `search-result-${activeDescendant}`}
           />

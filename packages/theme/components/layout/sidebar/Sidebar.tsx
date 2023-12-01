@@ -3,11 +3,11 @@ import React from 'react'
 import {NavList} from '@primer/react'
 import {Folder, MdxFile, PageMapItem} from 'nextra'
 import {useRouter} from 'next/router'
-import {Item} from 'nextra/normalize-pages'
-import themeConfig, {ThemeConfig} from '../../../../theme.config'
+import getConfig from 'next/config'
 
 import styles from './Sidebar.module.css'
-import {ArrowUpRightIcon} from '@primer/octicons-react'
+import {BookmarkIcon, LinkExternalIcon, OrganizationIcon, RepoIcon, StarIcon} from '@primer/octicons-react'
+import type {ThemeConfig} from '../../../index'
 
 type SidebarProps = {
   pageMap: DocsItem[]
@@ -24,38 +24,53 @@ type DocsItem = (MdxFile | FolderWithoutChildren) & {
   isUnderCurrentDocsTree?: boolean
 }
 
-const {sidebarLinks} = themeConfig
+const {publicRuntimeConfig} = getConfig()
+
+function getOcticonForType(type: string) {
+  switch (type) {
+    case 'repo':
+      return RepoIcon
+    case 'org':
+      return OrganizationIcon
+    case 'bookmark':
+      return BookmarkIcon
+    default:
+      return StarIcon
+  }
+}
 
 export function Sidebar({pageMap}: SidebarProps) {
   const router = useRouter()
   const basePath = router.basePath
   const currentRoute = router.pathname
 
+  const {sidebarLinks}: ThemeConfig = publicRuntimeConfig
+
   return (
     <NavList className={styles.NavList}>
-      <NavList.Group title="" sx={{mb: 24}}>
-        {sidebarLinks &&
-          sidebarLinks.length > 0 &&
-          sidebarLinks.map(link => {
-            const {leadingIcon: Icon} = link
+      {sidebarLinks && sidebarLinks.length > 0 && (
+        <NavList.Group title="" sx={{mb: 24}}>
+          {sidebarLinks.map(link => {
+            const {leadingIcon} = link
             const isExternalUrl = link.href.startsWith('http')
+            const LeadingIcon = getOcticonForType(leadingIcon)
+
             return (
               <NavList.Item key={link.title} href={link.href} target={isExternalUrl ? '_blank' : undefined}>
-                {Icon && (
-                  <NavList.LeadingVisual>
-                    <Icon />
-                  </NavList.LeadingVisual>
-                )}
+                <NavList.LeadingVisual>
+                  <LeadingIcon />
+                </NavList.LeadingVisual>
                 {link.title}
                 {isExternalUrl && (
                   <NavList.TrailingVisual>
-                    <ArrowUpRightIcon />
+                    <LinkExternalIcon />
                   </NavList.TrailingVisual>
                 )}
               </NavList.Item>
             )
           })}
-      </NavList.Group>
+        </NavList.Group>
+      )}
 
       {pageMap.map(item => {
         if (item.kind === 'MdxPage' && item.route === '/') return null

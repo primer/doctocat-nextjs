@@ -4,14 +4,14 @@ description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam,
 ---
 
 import {SectionIntro, Grid, Card, Box, ThemeProvider, Hero, Stack} from '@primer/react-brand'
-import {HeartIcon, PencilIcon, FileMediaIcon} from '@primer/octicons-react'
+import {HeartIcon, PencilIcon, NorthStarIcon, FileMediaIcon} from '@primer/octicons-react'
 import Link from 'next/link'
 
 <div>
   <Hero align="center" style={{paddingTop: 'var(--base-size-24)', paddingBottom: 'var(--base-size-64)'}}>
     <Hero.Eyebrow>
       <img
-        src="https://github.com/primer/brand/assets/13340707/c8ff14fd-a84c-4d80-9493-f8a30c8fae43"
+        src="https://github.com/primer/nextocat/assets/13340707/536d426a-c72d-4316-a9e9-135a2182667c"
         alt=""
         width="500"
         loading="lazy" 
@@ -30,15 +30,22 @@ import Link from 'next/link'
 <section style={{['--brand-Card-maxWidth']: '100%',maxWidth: '800px', margin: '0 auto', ['--brand-Grid-spacing-row']: 'var(--brand-Grid-spacing-column-gap)'}}>
   <Grid>
     <Grid.Column span={12}>
-      <Card href="/introduction" hasBorder style={{width: '100%'}}>
+      <Card href="#" hasBorder style={{width: '100%'}}>
         <Card.Label color="green">New </Card.Label>
         <Card.Image
-        src="https://via.placeholder.com/600x400/d3d9df/d3d9df.png"
-        alt="placeholder, blank area with an gray background color"
-        aspectRatio="16:9"
-      />
-        <Card.Heading>Nextocat: A new Next.js theme for Primer documentation.</Card.Heading>
-       
+          src="https://via.placeholder.com/1000x200/d3d9df/d3d9df.png"
+          alt="placeholder, blank area with an gray background color"
+        />
+        <Card.Heading size="5">A big box announcing something</Card.Heading>
+        <Card.Description>Description of the thing, hopefully super enticing</Card.Description>
+      </Card>
+    </Grid.Column>
+    <Grid.Column span={12}>
+      <Card href="#" hasBorder style={{width: '100%'}}>
+        <Card.Label color="green">New </Card.Label>
+        <Card.Icon icon={<NorthStarIcon />}  />
+        <Card.Heading size="5">An important part of this platform</Card.Heading>
+        <Card.Description>Use wide boxes to callout important things like the brand guidelines or your core reference like foundations. You can even illustrate it or keep it simple with a simple icon</Card.Description>
       </Card>
     </Grid.Column>
 
@@ -57,7 +64,7 @@ import Link from 'next/link'
             ['--brand-color-accent-primary']: 'var(--base-color-scale-lime-2)',
           }}
         >
-          <Card.Icon icon={<FileMediaIcon />} color="lime" hasBackground />
+          <Card.Icon icon={<FileMediaIcon />}  />
           <Card.Heading>Content examples</Card.Heading>
         </Card>
       </Link>
@@ -76,7 +83,7 @@ import Link from 'next/link'
             width: '100%',
             ['--brand-color-accent-primary']: 'var(--base-color-scale-blue-2)'
           }}>
-          <Card.Icon icon={<HeartIcon />} color="pink" hasBackground />
+          <Card.Icon icon={<HeartIcon />} />
           <Card.Heading>Tab examples</Card.Heading>
         </Card>
       </Link>
