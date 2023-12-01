@@ -1,7 +1,7 @@
 {
   "name": "nextocat",
   "version": "0.0.1",
-  "description": "Documentation theme",
+  "description": "Primer's Next.js documentation framework",
   "scripts": {
     "build": "npm run build --workspace=packages/site",
     "start": "npm run dev --workspace=packages/site"
