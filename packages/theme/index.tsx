@@ -2,16 +2,19 @@ import Head from 'next/head'
 import type {MdxFile, NextraThemeLayoutProps} from 'nextra'
 import {useFSRoute} from 'nextra/hooks'
 import React, {useMemo} from 'react'
-import type {Icon} from '@primer/octicons-react'
 import {PencilIcon} from '@primer/octicons-react'
 import {BaseStyles, Breadcrumbs, PageLayout, ThemeProvider} from '@primer/react'
 import {
   Animate,
   AnimationProvider,
   Box,
+  ButtonGroup,
   ThemeProvider as BrandThemeProvider,
+  Button,
   Grid,
   Heading,
+  Hero,
+  Image,
   InlineLink,
   Stack,
   Text,
@@ -131,7 +134,12 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                             )}
 
                             <Box marginBlockEnd={24}>
-                              <Stack direction="vertical" padding="none" gap={16}>
+                              <Stack direction="vertical" padding="none" gap={16} alignItems="flex-start">
+                                {frontMatter.image && (
+                                  <Box paddingBlockEnd={24}>
+                                    <Hero.Image src={frontMatter.image} alt={frontMatter['image-alt']} />
+                                  </Box>
+                                )}
                                 {frontMatter.title && (
                                   <Heading as="h1" size="2">
                                     {frontMatter.title}
@@ -141,6 +149,18 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                                   <Text as="p" variant="muted" size="300">
                                     {frontMatter.description}
                                   </Text>
+                                )}
+                                {frontMatter['action-1-text'] && ['action-1-link'] && (
+                                  <Box paddingBlockStart={24}>
+                                    <ButtonGroup>
+                                      <Button as="a">{frontMatter['action-1-text']}</Button>
+                                      {frontMatter['action-2-text'] && ['action-2-link'] && (
+                                        <Button as="a" variant="secondary">
+                                          {frontMatter['action-2-text']}
+                                        </Button>
+                                      )}
+                                    </ButtonGroup>
+                                  </Box>
                                 )}
                               </Stack>
                             </Box>

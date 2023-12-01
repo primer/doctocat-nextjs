@@ -268,3 +268,7 @@
   height: 1px;
   background: var(--brand-color-border-default);
 }
+
+.customPageHero {
+  padding-top: 0;
+}
