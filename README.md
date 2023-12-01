@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="112px" src="https://github.com/primer/nextocat/assets/13340707/66379397-cca7-4fe7-9245-b507dbcf16ca" alt="A 3D head illustration of Mona the Octocat, featuring a light source shining on her head and Mona being presented in the traditional Primer blue color hue. Mona is smiling.">
+  <img width="100%" src="https://github.com/primer/nextocat/assets/10632534/22582519-ff8e-4e43-bf3d-95da35fe159b" alt="A 3D head illustration of Mona the Octocat, featuring a light source shining on her head and Mona being presented in the traditional Primer blue color hue. Mona is smiling.">
 </div>
 
 <h1 align="center">Primer Nextocat</h1>
