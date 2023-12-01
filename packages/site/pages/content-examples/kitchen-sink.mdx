@@ -1,16 +1,70 @@
 ---
 title: Kitchen sink
-description: Showcasing all content possibilities
+description: This is a quick introduction to what is going to be developed here. That can be a chunky paragraph that expands quite a bit of context.
 ---
 
 import {DoDontContainer, Do, Dont} from '@primer/nextocat/components/content/dos-and-donts/DosAndDonts'
 import {Caption} from '@primer/nextocat/components/content/caption/Caption'
 
-## Heading level 2
+## Heading 2
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor lectus
-ipsum, consectetur convallis diam pretium quis. Proin ut felis ut eros
-tristique tincidunt.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+- Vivamus eu risus nec lectus consequat rutrum at vel lacus.
+- Donec at dolor ut metus imperdiet congue vel porta nunc.
+- Quisque eu tortor suscipit, congue quam in, bibendum tellus.
+
+### Heading level 3
+
+<img src="https://brand.github.com/assets/images/brand-assets/octocat.png" alt="Mona" width="300" />
+
+Pellentesque non ornare ligula. Suspendisse nibh purus, pretium id tortor sit
+amet, tincidunt gravida augue. Ut malesuada, nisl vel dignissim mollis.
+
+#### Heading level 4
+
+> A simple markdown quote
+
+Secure code as you write it. Automatically review every change to your
+codebase and identify vulnerabilities before they reach production. <a href="/#">Learn more here.</a>
+
+##### Heading level 5
+
+1. Vivamus eu risus nec lectus consequat rutrum at vel lacus.
+2. Donec at dolor ut metus imperdiet congue vel porta nunc.
+3. Quisque eu tortor suscipit, congue quam in, bibendum tellus.
+
+###### Heading level 6
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+---
+
+###### Do's and Don'ts
+
+<DoDontContainer stacked>
+  <Do>
+    <img src="https://via.placeholder.com/1000x350/d3d9df/d3d9df.png" />
+    <Caption>Example of what you should do</Caption>
+  </Do>
+  <Dont>
+    <img src="https://via.placeholder.com/1000x350/d3d9df/d3d9df.png" />
+    <Caption>Example of what you shouldn't do</Caption>
+  </Dont>
+</DoDontContainer>
+
+###### Code block w/ line selection
+
+```js {3} filename="demo.js"
+let a = 1
+
+console.log(a)
+```
+
+###### Testimonials
 
 <div>
   <figure>
@@ -23,114 +77,12 @@ tristique tincidunt.
   </figure>
 </div>
 
-> This example
-> uses a standard markdown blockquote
-
-Integer pellentesque pretium nulla viverra molestie. Praesent quis pretium
-sapien. Sed convallis eget lectus et pulvinar:
-
-- Vivamus eu risus nec lectus consequat rutrum at vel lacus.
-- Donec at dolor ut metus imperdiet congue vel porta nunc.
-- Quisque eu tortor suscipit, congue quam in, bibendum tellus.
-
-### Heading level 3
-
-Pellentesque non ornare ligula. Suspendisse nibh purus, pretium id tortor sit
-amet, tincidunt gravida augue. Ut malesuada, nisl vel dignissim mollis
-
-<img src="https://brand.github.com/assets/images/brand-assets/octocat.png" alt="Mona" width="300" />
-
-#### Heading level 4
-
-Secure code as you write it. Automatically review every change to your
-codebase and identify vulnerabilities before they reach production.
-
-<a href="/#">Learn more here.</a>
-
-##### Heading level 5
-
-1. Vivamus eu risus nec lectus consequat rutrum at vel lacus.
-2. Donec at dolor ut metus imperdiet congue vel porta nunc.
-3. Quisque eu tortor suscipit, congue quam in, bibendum tellus.
-
-###### Heading level 6
-
-Pellentesque non ornare ligula. Suspendisse nibh purus, pretium id tortor sit
-amet, tincidunt gravida augue.
-
-<code>for-each-ref</code> is extremely useful for listing references, finding which references point at a given object ),
-which references have been merged into a given branch
-
-Nunc velit odio, posuere eu felis eget, consectetur fermentum nisi. Aenean
-tempor odio id ornare ultrices. Quisque blandit condimentum tellus, semper
-efficitur sapien dapibus nec.
-
-## Do's and Don'ts example
-
-![An image showing different button types.](https://github.com/primer/brand/assets/6951037/fcc3b962-1b4a-416b-be29-4a70ef503f2a)
-
-Buttons allow users to initiate an action or command when clicked. The button's label or text description indicates the purpose of the action to the user. Most of the time, we use the "Default" button type, but other types of buttons may be used to indicate something special about the button's hierarchy or functionality.
-
-<DoDontContainer>
-  <Do>
-    <img src="https://github.com/primer/brand/assets/6951037/83f703f5-d02c-45f1-82d2-e819613a6638" />
-    <Caption>Keep button labels succinct with no line breaks.</Caption>
-  </Do>
-  <Dont>
-    <img src="https://github.com/primer/brand/assets/6951037/e0b67dea-712b-4483-9222-0b499e539415" />
-    <Caption>Buttons should never contain line breaks and lose their button shape.</Caption>
-  </Dont>
-</DoDontContainer>
-
-<DoDontContainer>
-  <Do>
-    <img src="https://github.com/primer/brand/assets/6951037/96da1bd5-d537-40c1-9103-96254813648f" />
-    <Caption>Show focus styles on keyboard :focus</Caption>
-  </Do>
-  <Dont>
-    <img src="https://github.com/primer/brand/assets/6951037/edc931cf-06ed-4814-8ad0-24a8344902c0" />
-    <Caption>Don't remove default button :focus styles.</Caption>
-  </Dont>
-</DoDontContainer>
-
-<DoDontContainer>
-  <Do>
-    <img src="https://github.com/primer/brand/assets/6951037/56824212-3622-4546-b437-53dbced734a6" />
-    <Caption>Use sentence case for labels.</Caption>
-  </Do>
-  <Dont>
-    <img src="https://github.com/primer/brand/assets/6951037/515e833e-fad2-44fd-aae8-fae6301974c1" />
-    <Caption>Don't use all-caps or other text formats.</Caption>
-  </Dont>
-</DoDontContainer>
-
-### Code block w/ line selection
-
-```js {3} filename="demo.js"
-let a = 1
-
-console.log(a)
-```
-
-##### Mermaid diagrams
+###### Mermaid diagrams
 
 ```mermaid
-graph TD;
-subgraph AA [Consumers]
-A[Mobile app];
-B[Web app];
-C[Node.js client];
-end
-subgraph BB [Services]
-E[REST API];
-F[GraphQL ];
-G[SOAP ];
-end
-Z[GraphQL ];
-A --> Z;
-B --> Z;
-C --> Z;
-Z --> E;
-Z --> F;
-Z --> G;
+flowchart LR
+  A[Create vanilla Next.js app] -->
+  B[Add Nextocat dependency] -->
+  C[Add .mdx, .md content to /pages] -->
+  D[Publish site]
 ```

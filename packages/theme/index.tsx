@@ -133,7 +133,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                             <Box marginBlockEnd={24}>
                               <Stack direction="vertical" padding="none" gap={16}>
                                 {frontMatter.title && (
-                                  <Heading as="h1" size="3">
+                                  <Heading as="h1" size="2">
                                     {frontMatter.title}
                                   </Heading>
                                 )}
