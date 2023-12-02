@@ -1,15 +1,6 @@
-.NavList {
-  padding-inline-start: var(--base-size-16);
-}
-
-.NavList a {
-  font-family: var(--brand-fontStack-sansSerif);
-}
-
 .NavList h3 {
   font-weight: normal;
   text-transform: uppercase;
-  font-family: var(--brand-fontStack-monospace);
 }
 
 .NavList [data-component='ActionList.Divider'] {

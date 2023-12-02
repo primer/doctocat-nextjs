@@ -47,8 +47,8 @@
 
 .Prose h1 {
   font-weight: var(--brand-heading-weight-900);
-  font-size: var(--brand-text-size-900);
-  line-height: var(--brand-text-lineHeight-900);
+  font-size: var(--base-size-32);
+  line-height: 1.5;
   font-family: var(--brand-heading-fontFamily);
   letter-spacing: var(--brand-text-letterSpacing-800);
 }
@@ -59,8 +59,8 @@
 
 .Prose h2 {
   font-weight: var(--brand-heading-weight-700);
-  font-size: var(--brand-text-size-700);
-  line-height: var(--brand-text-lineHeight-700);
+  font-size: var(--base-size-24);
+  line-height: var(--base-size-24);
   font-family: var(--brand-heading-fontFamily);
   letter-spacing: var(--brand-text-letterSpacing-700);
 }
@@ -71,8 +71,8 @@
 
 .Prose h3 {
   font-weight: var(--brand-heading-weight-600);
-  font-size: var(--brand-text-size-600);
-  line-height: var(--brand-heading-lineHeight-600);
+  font-size: var(--base-size-20);
+  line-height: var(--base-size-20);
   font-family: var(--brand-heading-fontFamily);
   letter-spacing: var(--brand-heading-letterSpacing-600);
 }
@@ -84,8 +84,8 @@
 .Prose h4 {
   --spacing: var(--base-size-40);
   font-weight: var(--brand-text-weight-500);
-  font-size: var(--brand-text-size-500);
-  line-height: var(--brand-text-lineHeight-500);
+  font-size: var(--base-size-18);
+  line-height: var(--base-size-18);
   font-family: var(--brand-heading-fontFamily);
   letter-spacing: var(--brand-heading-letterSpacing-500);
 }
@@ -93,8 +93,8 @@
 .Prose h5 {
   --spacing: var(--base-size-40);
   font-weight: var(--brand-text-weight-400);
-  font-size: var(--brand-text-size-400);
-  line-height: var(--brand-text-lineHeight-400);
+  font-size: var(--base-size-16);
+  line-height: var(--base-size-16);
   font-family: var(--brand-heading-fontFamily);
   letter-spacing: var(--brand-heading-letterSpacing-400);
 }
@@ -102,8 +102,8 @@
 .Prose h6 {
   --spacing: var(--base-size-48);
   font-weight: var(--brand-text-subhead-weight-large);
-  font-size: var(--brand-text-subhead-size-large);
-  line-height: var(--brand-text-subhead-lineHeight-large);
+  font-size: var(--base-size-14);
+  line-height: var(--base-size-14);
   font-family: var(--brand-heading-fontFamily);
   letter-spacing: var(--brand-heading-letterSpacing-300);
 }

@@ -3,7 +3,7 @@ import type {MdxFile, NextraThemeLayoutProps} from 'nextra'
 import {useFSRoute} from 'nextra/hooks'
 import React, {useMemo} from 'react'
 import {PencilIcon} from '@primer/octicons-react'
-import {BaseStyles, Breadcrumbs, PageLayout, ThemeProvider} from '@primer/react'
+import {BaseStyles, Box as PRCBox, Breadcrumbs, PageLayout, ThemeProvider} from '@primer/react'
 import {
   Animate,
   AnimationProvider,
@@ -12,9 +12,8 @@ import {
   ThemeProvider as BrandThemeProvider,
   Button,
   Grid,
-  Heading,
   Hero,
-  Image,
+  Heading,
   InlineLink,
   Stack,
   Text,
@@ -84,18 +83,25 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
           </Head>
           <AnimationProvider runOnce visibilityOptions={1} autoStaggerChildren={false}>
             <Animate animate="fade-in">
-              <PageLayout containerWidth="full" padding="none">
-                <PageLayout.Header>
-                  <Header
-                    pageMap={pageMap}
-                    menuItems={topLevelNavbarItems}
-                    siteTitle={siteTitle}
-                    colorModes={{
-                      value: colorMode,
-                      handler: setColorMode,
-                    }}
-                  />
-                </PageLayout.Header>
+              <PRCBox
+                sx={{
+                  position: 'sticky',
+                  top: 0,
+                  zIndex: 99,
+                }}
+              >
+                <Header
+                  pageMap={pageMap}
+                  docsDirectories={docsDirectories}
+                  menuItems={topLevelNavbarItems}
+                  siteTitle={siteTitle}
+                  colorModes={{
+                    value: colorMode,
+                    handler: setColorMode,
+                  }}
+                />
+              </PRCBox>
+              <PageLayout containerWidth="full" padding="none" sx={{pt: 16}}>
                 <PageLayout.Content padding="normal">
                   <Grid>
                     <Grid.Column span={!isHomePage && {large: 9}}>
@@ -103,11 +109,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                         {!isHomePage && (
                           <>
                             {activePath.length && (
-                              <Breadcrumbs
-                                sx={{
-                                  fontFamily: 'var(--brand-fontStack-sansSerif)',
-                                }}
-                              >
+                              <Breadcrumbs>
                                 {siteTitle && (
                                   <Breadcrumbs.Item
                                     href={basePath}
@@ -134,14 +136,14 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                             )}
 
                             <Box marginBlockEnd={24}>
-                              <Stack direction="vertical" padding="none" gap={16} alignItems="flex-start">
+                              <Stack direction="vertical" padding="none" gap={12} alignItems="flex-start">
                                 {frontMatter.image && (
                                   <Box paddingBlockEnd={24}>
                                     <Hero.Image src={frontMatter.image} alt={frontMatter['image-alt']} />
                                   </Box>
                                 )}
                                 {frontMatter.title && (
-                                  <Heading as="h1" size="2">
+                                  <Heading as="h1" size="3">
                                     {frontMatter.title}
                                   </Heading>
                                 )}
@@ -206,7 +208,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                     )}
                   </Grid>
                 </PageLayout.Content>
-                <PageLayout.Pane sticky padding="none" position="start">
+                <PageLayout.Pane width="small" sticky padding="none" position="start" hidden={{narrow: true}}>
                   <Sidebar pageMap={docsDirectories} />
                 </PageLayout.Pane>
               </PageLayout>

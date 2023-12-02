@@ -1,16 +1,19 @@
-import {MarkGithubIcon, MoonIcon, SearchIcon, SunIcon, XIcon} from '@primer/octicons-react'
-import {Box, FormControl, IconButton, TextInput} from '@primer/react'
+import {MarkGithubIcon, MoonIcon, SearchIcon, SunIcon, ThreeBarsIcon, XIcon} from '@primer/octicons-react'
+import {Box, Button, FormControl, IconButton, TextInput} from '@primer/react'
 import {Heading, Stack, Text} from '@primer/react-brand'
-import {useRouter} from 'next/router'
+import clsx from 'clsx'
 import {MdxFile, PageMapItem} from 'nextra'
 import {PageItem} from 'nextra/normalize-pages'
 import React, {useEffect, useMemo} from 'react'
 
 import Link from 'next/link'
 import styles from './Header.module.css'
+import {NavDrawer} from '../nav-drawer/NavDrawer'
+import {useNavDrawerState} from '../nav-drawer/useNavDrawerState'
 
 type HeaderProps = {
   pageMap: PageMapItem[]
+  docsDirectories: PageItem[]
   menuItems: PageItem[]
   siteTitle: string
   colorModes: {
@@ -25,12 +28,12 @@ type SearchResults = {
   url: string
 }
 
-export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps) {
-  const router = useRouter()
-  const basePath = router.basePath
+export function Header({colorModes, pageMap, docsDirectories, siteTitle}: HeaderProps) {
   const inputRef = React.useRef<HTMLInputElement | null>(null)
   const searchResultsRef = React.useRef(null)
+  const [isNavDrawerOpen, setIsNavDrawerOpen] = useNavDrawerState('768')
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
+  const [isSearchResultOpen, setIsSearchResultOpen] = React.useState(false)
   const [searchResults, setSearchResults] = React.useState<SearchResults[] | undefined>()
   const [searchTerm, setSearchTerm] = React.useState<string | undefined>('')
   const [activeDescendant, setActiveDescendant] = React.useState<number>(-1)
@@ -38,7 +41,7 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setIsSearchOpen(false)
+        setIsSearchResultOpen(false)
       }
     }
 
@@ -48,7 +51,7 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
         !inputRef.current.contains(event.target as Node) &&
         !searchResultsRef.current?.contains(event.target as Node)
       ) {
-        setIsSearchOpen(false)
+        setIsSearchResultOpen(false)
       }
     }
 
@@ -95,7 +98,7 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
     if (inputRef.current.value.length === 0) {
       setSearchTerm(undefined)
       setSearchResults(undefined)
-      setIsSearchOpen(false)
+      setIsSearchResultOpen(false)
       return
     }
     if (inputRef.current.value.length > 2) {
@@ -125,7 +128,7 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
       })
       setTimeout(() => setSearchResults(results), 1000)
       setSearchTerm(inputRef.current.value)
-      setIsSearchOpen(true)
+      setIsSearchResultOpen(true)
       return
     }
   }
@@ -142,14 +145,14 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
   }
 
   return (
-    <nav className={styles.Header}>
+    <nav className={clsx(styles.Header, isSearchOpen && styles['Header--searchAreaOpen'])}>
       <Link href="/" className={styles.Header__siteTitle}>
         <MarkGithubIcon size={24} />
         <Text as="p" size="300" weight="semibold">
           {siteTitle}
         </Text>
       </Link>
-      <div className={styles.Header__searchArea}>
+      <Box className={clsx(styles.Header__searchArea, isSearchOpen && styles['Header__searchArea--open'])}>
         <FormControl>
           <FormControl.Label visuallyHidden>Search</FormControl.Label>
           <TextInput
@@ -184,14 +187,14 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
           <Box
             ref={searchResultsRef}
             sx={{
-              display: isSearchOpen ? 'block' : 'none',
+              display: isSearchResultOpen ? 'block' : 'none',
               marginTop: 1,
               position: 'absolute',
               zIndex: 1,
-              backgroundColor: 'var(--brand-color-canvas-subtle)',
+              backgroundColor: 'var(--brand-color-canvas-default)',
               padding: 'var(--base-size-16)',
               width: '100%',
-              maxWidth: '700px',
+              maxWidth: ['calc(100% - 46px)', null, '350px'],
               border: 'var(--brand-borderWidth-thin) solid var(--brand-color-border-default)',
               borderRadius: 'var(--brand-borderRadius-medium)',
               maxHeight: 300,
@@ -222,7 +225,7 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
                   role="listbox"
                   tabIndex={0}
                   aria-labelledby="search-results-heading"
-                  className={styles.Header__searchResultsList}
+                  className={clsx(styles.Header__searchResultsList)}
                 >
                   {searchResults.map((result, index) => (
                     <li
@@ -254,14 +257,50 @@ export function Header({colorModes, pageMap, menuItems, siteTitle}: HeaderProps)
             </Stack>
           </Box>
         )}
-      </div>
+        <div className={styles.Header__searchHeaderBanner}>
+          <Stack direction="horizontal" padding="none" gap={4} alignItems="center" justifyContent="space-between">
+            <Text as="p" size="300" weight="semibold">
+              Search
+            </Text>
+            <IconButton
+              icon={XIcon}
+              variant="invisible"
+              aria-label="Close search"
+              onClick={() => setIsSearchOpen(false)}
+            />
+          </Stack>
+        </div>
+      </Box>
       <div>
-        <IconButton
-          icon={colorModes.value === 'light' ? SunIcon : MoonIcon}
-          variant="invisible"
-          aria-label={`Change color mode. Active mode is ${colorModes.value}.`}
-          onClick={() => colorModes.handler(colorModes.value === 'light' ? 'dark' : 'light')}
-        />
+        <Stack direction="horizontal" padding="none" gap={4}>
+          <IconButton
+            icon={colorModes.value === 'light' ? SunIcon : MoonIcon}
+            variant="invisible"
+            aria-label={`Change color mode. Active mode is ${colorModes.value}.`}
+            onClick={() => colorModes.handler(colorModes.value === 'light' ? 'dark' : 'light')}
+          />
+          <IconButton
+            icon={SearchIcon}
+            variant="invisible"
+            aria-label={`Open search`}
+            sx={{display: ['flex', null, 'none']}}
+            onClick={() => setIsSearchOpen(true)}
+          />
+          <Box sx={{display: ['flex', null, 'none']}}>
+            <IconButton
+              icon={ThreeBarsIcon}
+              variant="invisible"
+              aria-label="Menu"
+              aria-expanded={isNavDrawerOpen}
+              onClick={() => setIsNavDrawerOpen(true)}
+            />
+            <NavDrawer
+              isOpen={isNavDrawerOpen}
+              onDismiss={() => setIsNavDrawerOpen(false)}
+              navItems={docsDirectories}
+            />
+          </Box>
+        </Stack>
       </div>
     </nav>
   )

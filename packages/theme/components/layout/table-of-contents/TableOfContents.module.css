@@ -5,7 +5,6 @@
 
 .heading {
   font-size: var(--base-size-12);
-  font-family: var(--brand-fontStack-monospace);
   padding-inline-start: var(--base-size-16);
   margin-block-end: var(--base-size-8);
   text-transform: uppercase;
