@@ -1,5 +1,6 @@
 import {Card, Grid} from '@primer/react-brand'
 import {MdxFile} from 'nextra'
+import {useRouter} from 'next/router'
 
 import styles from './IndexCards.module.css'
 
@@ -18,6 +19,7 @@ type DocsItem = MdxFile & {
 }
 
 export function IndexCards({route, folderData}: IndexCardsProps) {
+  const {basePath} = useRouter()
   const filteredData = folderData.filter(item => item.kind === 'MdxPage' && item.route.includes(`${route}/`))
 
   return (
@@ -25,7 +27,7 @@ export function IndexCards({route, folderData}: IndexCardsProps) {
       {filteredData.map((item: DocsItem, index) => {
         return (
           <Grid.Column span={{medium: 6}} key={`cell-${item.route}`}>
-            <Card href={item.route} hasBorder style={{width: '100%'}}>
+            <Card href={`${basePath}${item.route}`} hasBorder style={{width: '100%'}}>
               <Card.Heading>{item.frontMatter.title}</Card.Heading>
               <Card.Description>{item.frontMatter.description}</Card.Description>
             </Card>
