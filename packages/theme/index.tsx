@@ -30,6 +30,7 @@ import {normalizePages} from 'nextra/normalize-pages'
 import {Header} from './components/layout/header/Header'
 import {TableOfContents} from './components/layout/table-of-contents/TableOfContents'
 import bodyStyles from './css/prose.module.css'
+import {IndexCards} from './components/layout/index-cards/IndexCards'
 
 const {publicRuntimeConfig} = getConfig()
 
@@ -42,6 +43,7 @@ const {publicRuntimeConfig} = getConfig()
 export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
   const {title, frontMatter, headings, filePath, pageMap, route} = pageOpts
   const {locale = 'en-US', defaultLocale, basePath} = useRouter()
+  console.log(basePath)
   const fsPath = useFSRoute()
   const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('light')
   const {
@@ -67,6 +69,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
 
   const {siteTitle} = publicRuntimeConfig
   const isHomePage = route === '/'
+  const isIndexPage = filePath.endsWith('index.mdx') && !isHomePage && !frontMatter['show-tabs']
 
   const data = !isHomePage && activePath[activePath.length - 2]
   const filteredTabData: MdxFile[] =
@@ -112,7 +115,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                               <Breadcrumbs>
                                 {siteTitle && (
                                   <Breadcrumbs.Item
-                                    href={basePath}
+                                    href={basePath || '/'}
                                     sx={{
                                       color: 'var(--brand-InlineLink-color-rest)',
                                     }}
@@ -135,42 +138,46 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                               </Breadcrumbs>
                             )}
 
-                            <Box marginBlockEnd={24}>
-                              <Stack direction="vertical" padding="none" gap={12} alignItems="flex-start">
-                                {frontMatter.image && (
-                                  <Box paddingBlockEnd={24}>
-                                    <Hero.Image src={frontMatter.image} alt={frontMatter['image-alt']} />
-                                  </Box>
-                                )}
-                                {frontMatter.title && (
-                                  <Heading as="h1" size="3">
-                                    {frontMatter.title}
-                                  </Heading>
-                                )}
-                                {frontMatter.description && (
-                                  <Text as="p" variant="muted" size="300">
-                                    {frontMatter.description}
-                                  </Text>
-                                )}
-                                {frontMatter['action-1-text'] && ['action-1-link'] && (
-                                  <Box paddingBlockStart={24}>
-                                    <ButtonGroup>
-                                      <Button as="a">{frontMatter['action-1-text']}</Button>
-                                      {frontMatter['action-2-text'] && ['action-2-link'] && (
-                                        <Button as="a" variant="secondary">
-                                          {frontMatter['action-2-text']}
-                                        </Button>
-                                      )}
-                                    </ButtonGroup>
-                                  </Box>
-                                )}
-                              </Stack>
-                            </Box>
+                            {frontMatter && (
+                              <Box marginBlockEnd={24}>
+                                <Stack direction="vertical" padding="none" gap={12} alignItems="flex-start">
+                                  {frontMatter.image && (
+                                    <Box paddingBlockEnd={24}>
+                                      <Hero.Image src={frontMatter.image} alt={frontMatter['image-alt']} />
+                                    </Box>
+                                  )}
+                                  {frontMatter.title && (
+                                    <Heading as="h1" size="3">
+                                      {frontMatter.title}
+                                    </Heading>
+                                  )}
+                                  {frontMatter.description && (
+                                    <Text as="p" variant="muted" size="300">
+                                      {frontMatter.description}
+                                    </Text>
+                                  )}
+                                  {frontMatter['action-1-text'] && ['action-1-link'] && (
+                                    <Box paddingBlockStart={24}>
+                                      <ButtonGroup>
+                                        <Button as="a">{frontMatter['action-1-text']}</Button>
+                                        {frontMatter['action-2-text'] && ['action-2-link'] && (
+                                          <Button as="a" variant="secondary">
+                                            {frontMatter['action-2-text']}
+                                          </Button>
+                                        )}
+                                      </ButtonGroup>
+                                    </Box>
+                                  )}
+                                </Stack>
+                              </Box>
+                            )}
                             {Boolean(frontMatter['show-tabs']) && <UnderlineNav tabData={filteredTabData} />}
                           </>
                         )}
 
-                        <article className={route != '/' ? bodyStyles.Prose : ''}>{children}</article>
+                        <article className={route != '/' && !isIndexPage ? bodyStyles.Prose : ''}>
+                          {isIndexPage ? <IndexCards folderData={flatDocsDirectories} route={route} /> : children}
+                        </article>
                         <footer>
                           <Box marginBlockStart={64}>
                             <Stack direction="vertical" padding="none" gap={16}>

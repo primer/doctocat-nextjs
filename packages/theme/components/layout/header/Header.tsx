@@ -83,9 +83,10 @@ export function Header({colorModes, pageMap, docsDirectories, siteTitle}: Header
         .flat()
         .filter(Boolean)
         .map(({frontMatter, route}: MdxFile) => {
+          if (!frontMatter) return null
           const result = {
-            title: frontMatter.title,
-            description: frontMatter.description,
+            title: frontMatter.title ? frontMatter.title : '',
+            description: frontMatter.description ? frontMatter.description : '',
             url: route,
           }
           return result
@@ -104,6 +105,8 @@ export function Header({colorModes, pageMap, docsDirectories, siteTitle}: Header
     if (inputRef.current.value.length > 2) {
       const searchTerm = inputRef.current.value.toLowerCase()
       const results = searchData.filter(data => {
+        if (!data) return false
+        if (!data.title) return false
         const title = data.title.toLowerCase()
         const description = data.description.toLowerCase()
         let searchIndex = 0

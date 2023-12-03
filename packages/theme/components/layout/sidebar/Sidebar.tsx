@@ -104,6 +104,10 @@ export function Sidebar({pageMap}: SidebarProps) {
             <NavList.Group title={subNavName} key={item.name} sx={{mb: 24}}>
               {item.children
                 .sort((a, b) => (a.name === 'index' ? -1 : b.name === 'index' ? 1 : 0)) // puts index page first
+                .filter(
+                  child =>
+                    child.name !== 'index' || (child.name === 'index' && (child as MdxFile).frontMatter['show-tabs']),
+                ) // only show index page if it has show-tabs
                 .map((child: DocsItem) => {
                   if ((child as MdxFile).kind === 'MdxPage') {
                     return (
