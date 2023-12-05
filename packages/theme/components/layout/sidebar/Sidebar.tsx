@@ -6,7 +6,16 @@ import {useRouter} from 'next/router'
 import getConfig from 'next/config'
 
 import styles from './Sidebar.module.css'
-import {BookmarkIcon, LinkExternalIcon, OrganizationIcon, RepoIcon, StarIcon} from '@primer/octicons-react'
+import {
+  BookmarkIcon,
+  BrowserIcon,
+  ImageIcon,
+  LinkExternalIcon,
+  OrganizationIcon,
+  RepoIcon,
+  StackIcon,
+  StarIcon,
+} from '@primer/octicons-react'
 import type {ThemeConfig} from '../../../index'
 
 type SidebarProps = {
@@ -34,6 +43,14 @@ function getOcticonForType(type: string) {
       return OrganizationIcon
     case 'bookmark':
       return BookmarkIcon
+    case 'star':
+      return StarIcon
+    case 'browser':
+      return BrowserIcon
+    case 'stack':
+      return StackIcon
+    case 'img':
+      return ImageIcon
     default:
       return StarIcon
   }

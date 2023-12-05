@@ -1,5 +1,5 @@
 {
-  "name": "nextocat-site",
+  "name": "doctocat-nextjs-site",
   "version": "0.0.1",
   "private": true,
   "description": "Documentation theme",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/primer/nextocat.git"
+    "url": "git+https://github.com/primer/doctocat-nextjs.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/primer/nextocat/issues"
+    "url": "https://github.com/primer/doctocat-nextjs/issues"
   },
-  "homepage": "https://github.com/primer/nextocat#readme",
+  "homepage": "https://github.com/primer/doctocat-nextjs#readme",
   "dependencies": {
-    "@primer/nextocat": "^0.0.1",
+    "@primer/doctocat-nextjs": "^0.0.1",
     "@primer/octicons-react": "^19.8.0",
     "eslint-config-next": "^14.0.3",
     "next": "^14.0.3",

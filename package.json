@@ -1,5 +1,5 @@
 {
-  "name": "nextocat",
+  "name": "doctocat-nextjs",
   "version": "0.0.1",
   "description": "Primer's Next.js documentation framework",
   "scripts": {
@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/primer/nextocat.git"
+    "url": "git+https://github.com/primer/doctocat-nextjs.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/primer/nextocat/issues"
+    "url": "https://github.com/primer/doctocat-nextjs/issues"
   },
-  "homepage": "https://github.com/primer/nextocat#readme",
+  "homepage": "https://github.com/primer/doctocat-nextjs#readme",
   "workspaces": [
     "packages/*"
   ],

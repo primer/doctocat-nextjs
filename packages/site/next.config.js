@@ -1,17 +1,17 @@
-const withNextocat = require('@primer/nextocat/nextocat.config.js')
+const withDoctocat = require('@primer/doctocat-nextjs/doctocat.config.js')
 
 module.exports = {
-  ...withNextocat({
+  ...withDoctocat({
     output: 'export',
-    basePath: process.env.GITHUB_ACTIONS === 'true' ? '/nextocat' : '',
+    basePath: process.env.GITHUB_ACTIONS === 'true' ? '/doctocat-nextjs' : '',
     publicRuntimeConfig: {
-      siteTitle: 'Primer Nextocat',
-      repo: 'https://github.com/primer/nextocat',
+      siteTitle: 'Doctocat',
+      repo: 'https://github.com/primer/doctocat-nextjs',
       repoSrcPath: 'packages/site', // folder path to your site root. Helpful for monorepos.
       sidebarLinks: [
         {
           title: 'GitHub',
-          href: 'https://github.com/primer/nextocat',
+          href: 'https://github.com/primer/doctocat-nextjs',
           leadingIcon: 'repo',
         },
         {

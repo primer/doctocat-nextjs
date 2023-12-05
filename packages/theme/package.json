@@ -1,5 +1,5 @@
 {
-  "name": "@primer/nextocat",
+  "name": "@primer/doctocat-nextjs",
   "version": "0.0.1",
   "description": "A Next.js theme for building Primer documentation sites",
   "main": "index.js",

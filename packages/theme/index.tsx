@@ -106,8 +106,8 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
               </PRCBox>
               <PageLayout containerWidth="full" padding="none" sx={{pt: 16}}>
                 <PageLayout.Content padding="normal">
-                  <Grid>
-                    <Grid.Column span={!isHomePage && {large: 9}}>
+                  <PRCBox sx={{display: 'flex', maxWidth: 1600, margin: '0 auto'}}>
+                    <PRCBox sx={{maxWidth: 800, margin: '0 auto'}}>
                       <Stack direction="vertical" padding="none" gap="spacious">
                         {!isHomePage && (
                           <>
@@ -207,13 +207,13 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                           </Box>
                         </footer>
                       </Stack>
-                    </Grid.Column>
+                    </PRCBox>
                     {!isHomePage && headings.length > 0 && (
-                      <Grid.Column span={{large: 3}}>
+                      <PRCBox sx={{py: 2, pr: 3, display: ['none', null, null, null, 'block']}}>
                         <TableOfContents headings={headings} />
-                      </Grid.Column>
+                      </PRCBox>
                     )}
-                  </Grid>
+                  </PRCBox>
                 </PageLayout.Content>
                 <PageLayout.Pane width="small" sticky padding="none" position="start" hidden={{narrow: true}}>
                   <Sidebar pageMap={docsDirectories} />
@@ -232,6 +232,6 @@ export type ThemeConfig = {
   sidebarLinks: {
     title: string
     href: string
-    leadingIcon?: 'repo' | 'org' | 'bookmark'
+    leadingIcon?: 'repo' | 'org' | 'bookmark' | 'star' | 'img' | 'browser' | 'stack'
   }[]
 }

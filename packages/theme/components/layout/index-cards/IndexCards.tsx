@@ -9,7 +9,9 @@ type IndexCardsProps = {
   folderData: DocsItem[]
 }
 
-type DocsItem = MdxFile & {
+type FolderWithoutChildren = Omit<Folder, 'children'>
+
+type DocsItem = (MdxFile | FolderWithoutChildren) & {
   title: string
   type: string
   children?: DocsItem[]

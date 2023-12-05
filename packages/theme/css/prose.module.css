@@ -269,6 +269,9 @@
   background: var(--brand-color-border-default);
 }
 
+/**
+* 10. Custom stuff - Move out to separate stylesheet
+*/
 .customPageHero {
   padding-top: 0;
 }
