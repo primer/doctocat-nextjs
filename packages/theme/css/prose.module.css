@@ -165,9 +165,10 @@
   font-synthesis: none;
 }
 
-.Prose a {
+.Prose a,
+.Prose a:-webkit-any-link {
   color: var(--brand-InlineLink-color-rest);
-  text-decoration: none;
+  text-decoration: none !important;
   position: relative;
 }
 

@@ -107,7 +107,7 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
               <PageLayout containerWidth="full" padding="none" sx={{pt: 16}}>
                 <PageLayout.Content padding="normal">
                   <PRCBox sx={{display: 'flex', maxWidth: 1600, margin: '0 auto'}}>
-                    <PRCBox sx={{maxWidth: 800, margin: '0 auto'}}>
+                    <PRCBox sx={{maxWidth: 800, width: '100%', margin: '0 auto'}}>
                       <Stack direction="vertical" padding="none" gap="spacious">
                         {!isHomePage && (
                           <>
@@ -174,7 +174,6 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
                             {Boolean(frontMatter['show-tabs']) && <UnderlineNav tabData={filteredTabData} />}
                           </>
                         )}
-
                         <article className={route != '/' && !isIndexPage ? bodyStyles.Prose : ''}>
                           {isIndexPage ? <IndexCards folderData={flatDocsDirectories} route={route} /> : children}
                         </article>
