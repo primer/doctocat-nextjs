@@ -226,6 +226,12 @@ export default function Layout({children, pageOpts}: NextraThemeLayoutProps) {
   )
 }
 
+/**
+ * Reexports for content creators
+ */
+export {DoDontContainer, Do, Dont} from './components/content/dos-and-donts/DosAndDonts'
+export {Caption} from './components/content/caption/Caption'
+
 export type ThemeConfig = {
   docsRepositoryBase: string
   sidebarLinks: {
