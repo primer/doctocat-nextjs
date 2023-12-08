@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {NavList} from '@primer/react'
-import {Heading, Text} from '@primer/react-brand'
+import {Text} from '@primer/react-brand'
 import {Heading as HeadingType} from 'nextra'
 
 import styles from './TableOfContents.module.css'
@@ -15,19 +15,19 @@ export function TableOfContents({headings}: TableOfContentsProps) {
       entries => {
         let mostVisibleEntry = entries[0]
 
-        entries.forEach(entry => {
+        for (const entry of entries) {
           if (entry.intersectionRatio > mostVisibleEntry.intersectionRatio) {
             mostVisibleEntry = entry
           }
-        })
+        }
 
         const id = mostVisibleEntry.target.getAttribute('id')
 
-        entries.forEach(entry => {
-          const id = entry.target.getAttribute('id')
-          const el = document.getElementById(`toc-heading-${id}`)
+        for (const entry of entries) {
+          const entryId = entry.target.getAttribute('id')
+          const el = document.getElementById(`toc-heading-${entryId}`)
           if (el) el.setAttribute('aria-current', 'false')
-        })
+        }
 
         if (mostVisibleEntry.intersectionRatio > 0) {
           const el = document.getElementById(`toc-heading-${id}`)
@@ -40,15 +40,17 @@ export function TableOfContents({headings}: TableOfContentsProps) {
       },
     )
 
-    headings.forEach(heading => {
+    for (const heading of headings) {
       const el = document.getElementById(heading.id)
-      observer.observe(el)
-    })
+      if (el) {
+        observer.observe(el)
+      }
+    }
 
     return () => {
       observer.disconnect()
     }
-  }, [])
+  }, [headings])
 
   return (
     <aside className={styles.wrapper}>

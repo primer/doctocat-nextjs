@@ -1,3 +1,4 @@
+import React from 'react'
 import type {NextraThemeLayoutProps} from 'nextra'
 
 import {ColorModeProvider} from '../../context/color-modes/ColorModeProvider'

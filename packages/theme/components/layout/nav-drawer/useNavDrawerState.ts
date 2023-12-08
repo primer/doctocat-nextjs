@@ -20,10 +20,11 @@ export function useNavDrawerState(breakpoint): [boolean, (value: boolean) => voi
     [setOpen],
   )
 
-  const debouncedOnResize = React.useCallback(debounce(onResize, 250), [onResize])
+  const debouncedOnResize = React.useMemo(() => debounce(onResize, 250), [onResize])
 
   React.useEffect(() => {
     if (isOpen) {
+      // eslint-disable-next-line github/prefer-observers
       window.addEventListener('resize', debouncedOnResize)
       return () => {
         // cancel any debounced invocation of the resize handler

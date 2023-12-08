@@ -3,22 +3,25 @@ title: Video
 description: Adding video to your documentation pages
 ---
 
+import {VideoPlayer} from '@primer/react-brand'
+
 ## Standard HTML
 
 <video width="100%" controls>
   <source src="https://github.com/primer/brand/assets/13340707/e43447cd-65e3-484c-bd07-cf0e2b5edb58" type="video/mp4" />
+  <track kind="captions" src="" />
 </video>
 
 ```html live
 <video width="100%" controls>
   <source src="https://github.com/primer/brand/assets/13340707/e43447cd-65e3-484c-bd07-cf0e2b5edb58" type="video/mp4" />
+  <track kind="captions" src="" />
 </video>
 ```
 
 ## Video component
 
 <br />
-import {VideoPlayer} from '@primer/react-brand'
 
 <div className="custom-component">
   <VideoPlayer title="GitHub media player">

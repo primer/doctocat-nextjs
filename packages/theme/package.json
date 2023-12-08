@@ -4,6 +4,7 @@
   "description": "A Next.js theme for building Primer documentation sites",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./.eslintrc.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "GitHub, Inc.",

@@ -1,10 +1,9 @@
 import React from 'react'
-import {Box, Button, IconButton, Link, LinkButton, Text, ThemeProvider} from '@primer/react'
-import {ChevronDownIcon, ChevronUpIcon, XIcon} from '@primer/octicons-react'
-import NextLink from 'next/link'
+import {Box, IconButton, Link, ThemeProvider} from '@primer/react'
+import {XIcon} from '@primer/octicons-react'
 
 import {Drawer} from './Drawer'
-import {PageItem} from 'nextra/normalize-pages'
+import type {PageItem} from 'nextra/normalize-pages'
 import {Sidebar} from '../sidebar/Sidebar'
 
 type NavDrawerProps = {

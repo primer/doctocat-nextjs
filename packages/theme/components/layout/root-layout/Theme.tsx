@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import Head from 'next/head'
-import type {MdxFile, NextraThemeLayoutProps} from 'nextra'
+import type {Folder, MdxFile, NextraThemeLayoutProps} from 'nextra'
 import {useFSRoute} from 'nextra/hooks'
 import {PencilIcon} from '@primer/octicons-react'
 import {BaseStyles, Box as PRCBox, Breadcrumbs, PageLayout, ThemeProvider} from '@primer/react'
@@ -32,9 +32,6 @@ import bodyStyles from '../../../css/prose.module.css'
 import {IndexCards} from '../index-cards/IndexCards'
 import {useColorMode} from '../../context/color-modes/useColorMode'
 
-import '@primer/react-brand/fonts/fonts.css'
-import '@primer/react-brand/lib/css/main.css'
-
 const {publicRuntimeConfig} = getConfig()
 
 export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
@@ -59,13 +56,14 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
 
   const data = !isHomePage && activePath[activePath.length - 2]
   const filteredTabData: MdxFile[] =
-    data?.kind === 'Folder' ? (data.children.filter(child => child.kind === 'MdxPage') as MdxFile[]) : []
+    data && data.kind === 'Folder'
+      ? ((data as Folder).children.filter(child => child.kind === 'MdxPage') as MdxFile[])
+      : []
 
   return (
     <>
       <BrandThemeProvider dir="ltr" colorMode={colorMode}>
         <ThemeProvider colorMode={colorMode}>
-          {/* @ts-ignore */}
           <BaseStyles>
             <Head>
               <title>{title}</title>
@@ -121,43 +119,41 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                                 </Breadcrumbs>
                               )}
 
-                              {frontMatter && (
-                                <Box marginBlockEnd={24}>
-                                  <Stack direction="vertical" padding="none" gap={12} alignItems="flex-start">
-                                    {frontMatter.title && (
-                                      <Heading as="h1" size="3">
-                                        {frontMatter.title}
-                                      </Heading>
-                                    )}
-                                    {frontMatter.image && (
-                                      <Box paddingBlockEnd={16}>
-                                        <Hero.Image src={frontMatter.image} alt={frontMatter['image-alt']} />
-                                      </Box>
-                                    )}
-                                    {frontMatter.description && (
-                                      <Text as="p" variant="muted" size="300">
-                                        {frontMatter.description}
-                                      </Text>
-                                    )}
-                                    {frontMatter['action-1-text'] && ['action-1-link'] && (
-                                      <Box paddingBlockStart={16}>
-                                        <ButtonGroup>
-                                          <Button as="a">{frontMatter['action-1-text']}</Button>
-                                          {frontMatter['action-2-text'] && ['action-2-link'] && (
-                                            <Button as="a" variant="secondary">
-                                              {frontMatter['action-2-text']}
-                                            </Button>
-                                          )}
-                                        </ButtonGroup>
-                                      </Box>
-                                    )}
-                                  </Stack>
-                                </Box>
-                              )}
+                              <Box marginBlockEnd={24}>
+                                <Stack direction="vertical" padding="none" gap={12} alignItems="flex-start">
+                                  {frontMatter.title && (
+                                    <Heading as="h1" size="3">
+                                      {frontMatter.title}
+                                    </Heading>
+                                  )}
+                                  {frontMatter.image && (
+                                    <Box paddingBlockEnd={16}>
+                                      <Hero.Image src={frontMatter.image} alt={frontMatter['image-alt']} />
+                                    </Box>
+                                  )}
+                                  {frontMatter.description && (
+                                    <Text as="p" variant="muted" size="300">
+                                      {frontMatter.description}
+                                    </Text>
+                                  )}
+                                  {frontMatter['action-1-text'] && (
+                                    <Box paddingBlockStart={16}>
+                                      <ButtonGroup>
+                                        <Button as="a">{frontMatter['action-1-text']}</Button>
+                                        {frontMatter['action-2-text'] && (
+                                          <Button as="a" variant="secondary">
+                                            {frontMatter['action-2-text']}
+                                          </Button>
+                                        )}
+                                      </ButtonGroup>
+                                    </Box>
+                                  )}
+                                </Stack>
+                              </Box>
                               {Boolean(frontMatter['show-tabs']) && <UnderlineNav tabData={filteredTabData} />}
                             </>
                           )}
-                          <article className={route != '/' && !isIndexPage ? bodyStyles.Prose : ''}>
+                          <article className={route !== '/' && !isIndexPage ? bodyStyles.Prose : ''}>
                             {isIndexPage ? <IndexCards folderData={flatDocsDirectories} route={route} /> : children}
                           </article>
                           <footer>

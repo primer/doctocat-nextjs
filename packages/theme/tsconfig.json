@@ -11,6 +11,7 @@
     "jsx": "react-jsx",
     "moduleResolution": "node",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "strictNullChecks": true
   }
 }

@@ -4,7 +4,7 @@ description: Learn how to use Primer Brand components in Markdown files.
 show-tabs: true
 ---
 
-import {Button, CTABanner, Stack, Pillar, ButtonGroup} from '@primer/react-brand'
+import {Button, Stack, Pillar, ButtonGroup} from '@primer/react-brand'
 import {GitBranchIcon, RocketIcon, CopilotIcon} from '@primer/octicons-react'
 
 Primer Brand is a GitHub’s design system for creating marketing websites and digital experiences.
@@ -24,7 +24,7 @@ import {Button} from '@primer/react-brand'
 2. Use the component in your Markdown file, but ensure that you wrap the component in a `div` with the `custom-component` class. This will ensure that article formatting isn't applied to the custom component.
 
 ```jsx
-<div class="custom-component">
+<div className="custom-component">
   <ButtonGroup>
     <Button>Primary</Button>
     <Button>Secondary</Button>
@@ -36,7 +36,7 @@ Will render:
 
 <br />
 
-<div class="custom-component">
+<div className="custom-component">
   <ButtonGroup>
     <Button>Primary</Button>
     <Button>Secondary</Button>

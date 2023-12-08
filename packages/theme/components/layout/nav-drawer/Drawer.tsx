@@ -7,12 +7,14 @@ export function Drawer({isOpen, onDismiss, children}) {
   return (
     <AnimatePresence>
       {isOpen ? (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <div
           // These event handlers fix a bug that caused links below the fold
           // to be unclickable in macOS Safari.
           // Reference: https://github.com/theKashey/react-focus-lock/issues/79
           onMouseDown={event => event.preventDefault()}
-          onClick={(event: React.MouseEvent<HTMLElement>) => (event.target as HTMLElement).focus()}
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+          tabIndex={0}
         >
           <FocusOn returnFocus={true} onEscapeKey={() => onDismiss()}>
             <Box

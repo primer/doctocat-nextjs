@@ -9,8 +9,7 @@ action-2-text: Secondary action
 action-2-link: /content-examples/kitchen-sink
 ---
 
-import {DoDontContainer, Do, Dont} from '@primer/doctocat-nextjs'
-import {Caption} from '@primer/doctocat-nextjs'
+import {DoDontContainer, Do, Dont, Caption} from '@primer/doctocat-nextjs'
 
 ## Heading 2
 
@@ -35,7 +34,7 @@ amet, tincidunt gravida augue. Ut malesuada, nisl vel dignissim mollis.
 > A simple markdown quote
 
 Secure code as you write it. Automatically review every change to your
-codebase and identify vulnerabilities before they reach production. <a href="/#">Learn more here.</a>
+codebase and identify vulnerabilities before they reach production.
 
 ##### Heading level 5
 
@@ -53,11 +52,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <DoDontContainer stacked>
   <Do>
-    <img src="https://via.placeholder.com/1000x350/d3d9df/d3d9df.png" />
+    <img src="https://via.placeholder.com/1000x350/d3d9df/d3d9df.png" alt="" />
     <Caption>Example of what you should do</Caption>
   </Do>
   <Dont>
-    <img src="https://via.placeholder.com/1000x350/d3d9df/d3d9df.png" />
+    <img src="https://via.placeholder.com/1000x350/d3d9df/d3d9df.png" alt="" />
     <Caption>Example of what you shouldn't do</Caption>
   </Dont>
 </DoDontContainer>
@@ -65,7 +64,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ###### Code block w/ line selection
 
 ```js {3} filename="demo.js"
-let a = 1
+const a = 1
 
 console.log(a)
 ```

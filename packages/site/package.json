@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "rm -rf out && next build",
+    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./.eslintrc.js",
     "start": "next start"
   },
   "repository": {

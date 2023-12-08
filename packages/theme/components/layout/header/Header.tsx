@@ -1,9 +1,9 @@
 import {MarkGithubIcon, MoonIcon, SearchIcon, SunIcon, ThreeBarsIcon, XIcon} from '@primer/octicons-react'
-import {Box, Button, FormControl, IconButton, TextInput} from '@primer/react'
+import {Box, FormControl, IconButton, TextInput} from '@primer/react'
 import {Heading, Stack, Text} from '@primer/react-brand'
 import clsx from 'clsx'
 import {MdxFile, PageMapItem} from 'nextra'
-import {PageItem} from 'nextra/normalize-pages'
+import type {PageItem} from 'nextra/normalize-pages'
 import React, {useEffect, useMemo} from 'react'
 
 import Link from 'next/link'
@@ -28,13 +28,13 @@ type SearchResults = {
 export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
   const {colorMode, setColorMode} = useColorMode()
   const inputRef = React.useRef<HTMLInputElement | null>(null)
-  const searchResultsRef = React.useRef(null)
+  const searchResultsRef = React.useRef<HTMLElement | null>(null)
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useNavDrawerState('768')
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
   const [isSearchResultOpen, setIsSearchResultOpen] = React.useState(false)
   const [searchResults, setSearchResults] = React.useState<SearchResults[] | undefined>()
   const [searchTerm, setSearchTerm] = React.useState<string | undefined>('')
-  const [activeDescendant, setActiveDescendant] = React.useState<number>(-1)
+  const [activeDescendant] = React.useState<number>(-1)
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -101,33 +101,36 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
       return
     }
     if (inputRef.current.value.length > 2) {
-      const searchTerm = inputRef.current.value.toLowerCase()
-      const results = searchData.filter(data => {
-        if (!data) return false
-        if (!data.title) return false
-        const title = data.title.toLowerCase()
-        const description = data.description.toLowerCase()
-        let searchIndex = 0
-        for (let i = 0; i < title.length; i++) {
-          if (title[i] === searchTerm[searchIndex]) {
-            searchIndex++
-            if (searchIndex === searchTerm.length) {
-              return true
+      const curSearchTerm = inputRef.current.value.toLowerCase()
+      const results: SearchResults[] = searchData
+        .filter((data): data is SearchResults => data !== null)
+        .filter(data => {
+          if (!data.title) return false
+          const title = data.title.toLowerCase()
+          const description = data.description.toLowerCase()
+          let searchIndex = 0
+          for (let i = 0; i < title.length; i++) {
+            if (title[i] === curSearchTerm[searchIndex]) {
+              searchIndex++
+              if (searchIndex === curSearchTerm.length) {
+                return true
+              }
             }
           }
-        }
-        searchIndex = 0
-        for (let i = 0; i < description.length; i++) {
-          if (description[i] === searchTerm[searchIndex]) {
-            searchIndex++
-            if (searchIndex === searchTerm.length) {
-              return true
+          searchIndex = 0
+          for (let i = 0; i < description.length; i++) {
+            if (description[i] === curSearchTerm[searchIndex]) {
+              searchIndex++
+              if (searchIndex === curSearchTerm.length) {
+                return true
+              }
             }
           }
-        }
-        return false
-      })
+          return false
+        })
+        .filter(Boolean)
       setTimeout(() => setSearchResults(results), 1000)
+
       setSearchTerm(inputRef.current.value)
       setIsSearchResultOpen(true)
       return
@@ -138,6 +141,7 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
     e.preventDefault()
     if (!inputRef.current) return
     if (!inputRef.current.value) {
+      // eslint-disable-next-line i18n-text/no-en
       alert(`Enter a value and try again.`)
       return
     }
@@ -217,7 +221,7 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
               {searchTerm && (
                 <Box sx={{pl: 1}}>
                   <Heading as="h3" size="subhead-large" id="search-results-heading">
-                    {searchResults && searchResults.length} Results for "{searchTerm}"
+                    {searchResults && searchResults.length} Results for &quot;{searchTerm}&quot;
                   </Heading>
                 </Box>
               )}

@@ -1,4 +1,4 @@
-const withDoctocat = require('@primer/doctocat-nextjs/doctocat.config.js')
+const withDoctocat = require('@primer/doctocat-nextjs/doctocat.config')
 
 module.exports = {
   ...withDoctocat({
