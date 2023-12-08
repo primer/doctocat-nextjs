@@ -19,6 +19,9 @@
 /* ---------------------------------------------------------- */
 
 .Prose {
+  /* Use Mona Sans for headings only, system everywhere else */
+  --brand-body-fontFamily: var(--brand-fontStack-system);
+
   font-family: var(--brand-body-fontFamily);
   font-size: var(--brand-text-size-200);
   line-height: var(--brand-text-lineHeight-200);

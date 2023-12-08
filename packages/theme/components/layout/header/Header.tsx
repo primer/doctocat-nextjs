@@ -10,16 +10,13 @@ import Link from 'next/link'
 import styles from './Header.module.css'
 import {NavDrawer} from '../nav-drawer/NavDrawer'
 import {useNavDrawerState} from '../nav-drawer/useNavDrawerState'
+import {useColorMode} from '../../context/color-modes/useColorMode'
 
 type HeaderProps = {
   pageMap: PageMapItem[]
   docsDirectories: PageItem[]
   menuItems: PageItem[]
   siteTitle: string
-  colorModes: {
-    value: 'light' | 'dark'
-    handler: React.Dispatch<React.SetStateAction<'light' | 'dark'>>
-  }
 }
 
 type SearchResults = {
@@ -28,7 +25,8 @@ type SearchResults = {
   url: string
 }
 
-export function Header({colorModes, pageMap, docsDirectories, siteTitle}: HeaderProps) {
+export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
+  const {colorMode, setColorMode} = useColorMode()
   const inputRef = React.useRef<HTMLInputElement | null>(null)
   const searchResultsRef = React.useRef(null)
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useNavDrawerState('768')
@@ -66,8 +64,8 @@ export function Header({colorModes, pageMap, docsDirectories, siteTitle}: Header
   }, [])
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-color-mode', colorModes.value)
-  }, [colorModes.value])
+    document.documentElement.setAttribute('data-color-mode', colorMode)
+  }, [colorMode])
 
   const searchData = useMemo(
     () =>
@@ -277,10 +275,10 @@ export function Header({colorModes, pageMap, docsDirectories, siteTitle}: Header
       <div>
         <Stack direction="horizontal" padding="none" gap={4}>
           <IconButton
-            icon={colorModes.value === 'light' ? SunIcon : MoonIcon}
+            icon={colorMode === 'light' ? SunIcon : MoonIcon}
             variant="invisible"
-            aria-label={`Change color mode. Active mode is ${colorModes.value}.`}
-            onClick={() => colorModes.handler(colorModes.value === 'light' ? 'dark' : 'light')}
+            aria-label={`Change color mode. Active mode is ${colorMode}.`}
+            onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
           />
           <IconButton
             icon={SearchIcon}
