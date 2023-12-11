@@ -7,7 +7,7 @@ type DoDontContainerProps = {
 
 export function DoDontContainer({stacked = false, children}: React.PropsWithChildren<DoDontContainerProps>) {
   return (
-    <Box sx={{display: 'grid', gridTemplateColumns: ['1fr', null, stacked ? '1fr' : '1fr 1fr'], gridGap: 4, mb: 6}}>
+    <Box sx={{display: 'grid', gridTemplateColumns: ['1fr', null, stacked ? '1fr' : '1fr 1fr'], gridGap: 4, my: 6}}>
       {children}
     </Box>
   )

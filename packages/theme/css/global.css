@@ -6,8 +6,6 @@ body {
 }
 
 .exclude-from-prose,
-.exclude-from-prose * + *,
-.custom-component,
-.custom-component * + * {
+.exclude-from-prose * + * {
   margin-block-start: 0 !important;
 }

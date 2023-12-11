@@ -85,115 +85,128 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                     siteTitle={siteTitle}
                   />
                 </PRCBox>
-                <PageLayout containerWidth="full" padding="none" sx={{pt: 16}}>
+                <PageLayout containerWidth="full" padding="none">
                   <PageLayout.Content padding="normal">
-                    <PRCBox sx={!isHomePage && {display: 'flex', maxWidth: 1600, margin: '0 auto'}}>
-                      <PRCBox sx={!isHomePage && {maxWidth: 800, width: '100%', margin: '0 auto'}}>
-                        <Stack direction="vertical" padding="none" gap="spacious">
-                          {!isHomePage && (
-                            <>
-                              {activePath.length && (
-                                <Breadcrumbs>
-                                  {siteTitle && (
-                                    <Breadcrumbs.Item
-                                      href={basePath || '/'}
-                                      sx={{
-                                        color: 'var(--brand-InlineLink-color-rest)',
-                                      }}
-                                    >
-                                      {siteTitle}
-                                    </Breadcrumbs.Item>
-                                  )}
-                                  {activePath.map((item, index) => {
-                                    return (
+                    <main>
+                      <PRCBox sx={!isHomePage && {display: 'flex', maxWidth: 1600, margin: '0 auto'}}>
+                        <PRCBox sx={!isHomePage && {maxWidth: 800, width: '100%', margin: '0 auto'}}>
+                          <Stack direction="vertical" padding="none" gap="spacious">
+                            {!isHomePage && (
+                              <>
+                                {activePath.length && (
+                                  <Breadcrumbs>
+                                    {siteTitle && (
                                       <Breadcrumbs.Item
-                                        key={item.name}
-                                        href={`${basePath}${item.route}`}
-                                        selected={index === activePath.length - 1}
-                                        sx={{textTransform: 'capitalize', color: 'var(--brand-InlineLink-color-rest)'}}
+                                        href={basePath || '/'}
+                                        sx={{
+                                          color: 'var(--brand-InlineLink-color-rest)',
+                                        }}
                                       >
-                                        {item.title.replace(/-/g, ' ')}
+                                        {siteTitle}
                                       </Breadcrumbs.Item>
-                                    )
-                                  })}
-                                </Breadcrumbs>
-                              )}
+                                    )}
+                                    {activePath.map((item, index) => {
+                                      return (
+                                        <Breadcrumbs.Item
+                                          key={item.name}
+                                          href={`${basePath}${item.route}`}
+                                          selected={index === activePath.length - 1}
+                                          sx={{
+                                            textTransform: 'capitalize',
+                                            color: 'var(--brand-InlineLink-color-rest)',
+                                          }}
+                                        >
+                                          {item.title.replace(/-/g, ' ')}
+                                        </Breadcrumbs.Item>
+                                      )
+                                    })}
+                                  </Breadcrumbs>
+                                )}
 
-                              <Box marginBlockEnd={24}>
-                                <Stack direction="vertical" padding="none" gap={12} alignItems="flex-start">
-                                  {frontMatter.title && (
-                                    <Heading as="h1" size="3">
-                                      {frontMatter.title}
-                                    </Heading>
-                                  )}
-                                  {frontMatter.image && (
-                                    <Box paddingBlockEnd={16}>
-                                      <Hero.Image src={frontMatter.image} alt={frontMatter['image-alt']} />
-                                    </Box>
-                                  )}
-                                  {frontMatter.description && (
-                                    <Text as="p" variant="muted" size="300">
-                                      {frontMatter.description}
+                                <Box>
+                                  <Stack direction="vertical" padding="none" gap={12} alignItems="flex-start">
+                                    {frontMatter.title && (
+                                      <Heading as="h1" size="3">
+                                        {frontMatter.title}
+                                      </Heading>
+                                    )}
+                                    {frontMatter.image && (
+                                      <Box paddingBlockEnd={16}>
+                                        <Hero.Image src={frontMatter.image} alt={frontMatter['image-alt']} />
+                                      </Box>
+                                    )}
+                                    {frontMatter.description && (
+                                      <Text as="p" variant="muted" size="300">
+                                        {frontMatter.description}
+                                      </Text>
+                                    )}
+                                    {frontMatter['action-1-text'] && (
+                                      <Box paddingBlockStart={16}>
+                                        <ButtonGroup>
+                                          <Button as="a">{frontMatter['action-1-text']}</Button>
+                                          {frontMatter['action-2-text'] && (
+                                            <Button as="a" variant="secondary">
+                                              {frontMatter['action-2-text']}
+                                            </Button>
+                                          )}
+                                        </ButtonGroup>
+                                      </Box>
+                                    )}
+                                  </Stack>
+                                </Box>
+                                {Boolean(frontMatter['show-tabs']) && <UnderlineNav tabData={filteredTabData} />}
+                              </>
+                            )}
+                            <article className={route !== '/' && !isIndexPage ? bodyStyles.Prose : ''}>
+                              {isIndexPage ? <IndexCards folderData={flatDocsDirectories} route={route} /> : children}
+                            </article>
+                            <footer>
+                              <Box marginBlockStart={64}>
+                                <Stack direction="vertical" padding="none" gap={16}>
+                                  <Stack direction="horizontal" padding="none" alignItems="center" gap={8}>
+                                    <PencilIcon size={16} fill="var(--brand-InlineLink-color-rest)" />
+
+                                    <InlineLink
+                                      href={`${publicRuntimeConfig.repo}/blob/main/${
+                                        publicRuntimeConfig.repoSrcPath ? `${publicRuntimeConfig.repoSrcPath}/` : ''
+                                      }${filePath}`}
+                                    >
+                                      Edit this page
+                                    </InlineLink>
+                                  </Stack>
+                                  <Box
+                                    marginBlockStart={8}
+                                    paddingBlockStart={24}
+                                    borderStyle="solid"
+                                    borderBlockStartWidth="thin"
+                                    borderColor="default"
+                                  >
+                                    <Text as="p" variant="muted" size="100">
+                                      &copy; {new Date().getFullYear()} GitHub, Inc. All rights reserved.
                                     </Text>
-                                  )}
-                                  {frontMatter['action-1-text'] && (
-                                    <Box paddingBlockStart={16}>
-                                      <ButtonGroup>
-                                        <Button as="a">{frontMatter['action-1-text']}</Button>
-                                        {frontMatter['action-2-text'] && (
-                                          <Button as="a" variant="secondary">
-                                            {frontMatter['action-2-text']}
-                                          </Button>
-                                        )}
-                                      </ButtonGroup>
-                                    </Box>
-                                  )}
+                                  </Box>
                                 </Stack>
                               </Box>
-                              {Boolean(frontMatter['show-tabs']) && <UnderlineNav tabData={filteredTabData} />}
-                            </>
-                          )}
-                          <article className={route !== '/' && !isIndexPage ? bodyStyles.Prose : ''}>
-                            {isIndexPage ? <IndexCards folderData={flatDocsDirectories} route={route} /> : children}
-                          </article>
-                          <footer>
-                            <Box marginBlockStart={64}>
-                              <Stack direction="vertical" padding="none" gap={16}>
-                                <Stack direction="horizontal" padding="none" alignItems="center" gap={8}>
-                                  <PencilIcon size={16} fill="var(--brand-InlineLink-color-rest)" />
-
-                                  <InlineLink
-                                    href={`${publicRuntimeConfig.repo}/blob/main/${
-                                      publicRuntimeConfig.repoSrcPath ? `${publicRuntimeConfig.repoSrcPath}/` : ''
-                                    }${filePath}`}
-                                  >
-                                    Edit this page
-                                  </InlineLink>
-                                </Stack>
-                                <Box
-                                  marginBlockStart={8}
-                                  paddingBlockStart={24}
-                                  borderStyle="solid"
-                                  borderBlockStartWidth="thin"
-                                  borderColor="default"
-                                >
-                                  <Text as="p" variant="muted" size="100">
-                                    &copy; {new Date().getFullYear()} GitHub, Inc. All rights reserved.
-                                  </Text>
-                                </Box>
-                              </Stack>
-                            </Box>
-                          </footer>
-                        </Stack>
-                      </PRCBox>
-                      {!isHomePage && headings.length > 0 && (
-                        <PRCBox sx={{py: 2, pr: 3, display: ['none', null, null, null, 'block']}}>
-                          <TableOfContents headings={headings} />
+                            </footer>
+                          </Stack>
                         </PRCBox>
-                      )}
-                    </PRCBox>
+                        {!isHomePage && headings.length > 0 && (
+                          <PRCBox sx={{py: 2, pr: 3, display: ['none', null, null, null, 'block']}}>
+                            <TableOfContents headings={headings} />
+                          </PRCBox>
+                        )}
+                      </PRCBox>
+                    </main>
                   </PageLayout.Content>
-                  <PageLayout.Pane width="small" sticky padding="none" position="start" hidden={{narrow: true}}>
+                  <PageLayout.Pane
+                    width="small"
+                    sticky
+                    padding="none"
+                    position="start"
+                    hidden={{narrow: true}}
+                    resizable
+                    divider="line"
+                  >
                     <Sidebar pageMap={docsDirectories} />
                   </PageLayout.Pane>
                 </PageLayout>

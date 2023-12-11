@@ -6,3 +6,11 @@
 .NavList [data-component='ActionList.Divider'] {
   display: none; /* TODO: Find workaround to hide this in component */
 }
+
+.NavList h3 {
+  text-transform: initial;
+  color: var(--brand-color-text-default);
+  font-weight: var(--brand-text-subhead-weight-medium);
+  font-size: var(--brand-text-subhead-size-medium);
+  line-height: var(--brand-text-subhead-lineHeight-medium);
+}

@@ -32,7 +32,25 @@
 /* 2. Element spacing                                         */
 /* ---------------------------------------------------------- */
 
-.Prose * + * {
+/* .Prose * + * {
+  margin-block-start: var(--spacing, 1em);
+} */
+
+.Prose h1:not(:global(.custom-component) h1),
+.Prose h2:not(:global(.custom-component) h2),
+.Prose h3:not(:global(.custom-component) h3),
+.Prose h4:not(:global(.custom-component) h4),
+.Prose h5:not(:global(.custom-component) h5),
+.Prose h6:not(:global(.custom-component) h6),
+.Prose p:not(:global(.custom-component) p),
+.Prose ul:not(:global(.custom-component) ul),
+.Prose ol:not(:global(.custom-component) ol),
+.Prose blockquote:not(:global(.custom-component) blockquote),
+.Prose hr:not(:global(.custom-component) hr),
+.Prose table:not(:global(.custom-component) table),
+.Prose pre:not(:global(.custom-component) pre),
+.Prose dl:not(:global(.custom-component) dl),
+.Prose figure:not(:global(.custom-component) figure) {
   margin-block-start: var(--spacing, 1em);
 }
 
@@ -168,18 +186,18 @@
   font-synthesis: none;
 }
 
-.Prose a,
-.Prose a:-webkit-any-link {
+.Prose a:not(:global(.custom-component) a),
+.Prose a:-webkit-any-link:not(:global(.custom-component) a:-webkit-any-link) {
   color: var(--brand-InlineLink-color-rest);
-  text-decoration: none !important;
+  text-decoration: none;
   position: relative;
 }
 
-.Prose a:hover {
-  text-decoration: none;
+.Prose a:hover:not(:global(.custom-component) a:hover) {
+  text-decoration: underline;
 }
 
-.Prose a::after {
+.Prose a::after:not(:global(.custom-component) a::after) {
   content: '';
   border-bottom: var(--brand-borderWidth-thin) solid var(--brand-InlineLink-color-rest);
   height: 0;
@@ -192,11 +210,11 @@
   left: 0;
 }
 
-.Prose a:hover::after {
+.Prose a:hover::after:not(:global(.custom-component) a:hover::after) {
   transform: scaleY(var(--brand-InlineLink-transition-scale-end));
 }
 
-.Prose a:active::after {
+.Prose a:active::after:not(:global(.custom-component) a:active::after) {
   border-color: var(--brand-InlineLink-color-pressed);
 }
 
@@ -228,6 +246,7 @@
 /* ---------------------------------------------------------- */
 
 .Prose blockquote {
+  font-family: var(--brand-fontStack-sansSerif);
   --spacing: var(--brand-Prose-blockquote-spacing);
   position: relative;
   font-size: var(--brand-text-size-400);

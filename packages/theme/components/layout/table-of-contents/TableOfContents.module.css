@@ -15,5 +15,5 @@
   transition: transform var(--brand-animation-duration-fast) var(--brand-animation-easing-default);
 }
 .item[aria-current='location'] {
-  transform: translateX(var(--base-size-8));
+  transform: translateX(var(--base-size-4));
 }

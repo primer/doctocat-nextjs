@@ -67,28 +67,6 @@ export function Sidebar({pageMap}: SidebarProps) {
 
   return (
     <NavList className={styles.NavList}>
-      {sidebarLinks && sidebarLinks.length > 0 && (
-        <NavList.Group title="" sx={{mb: 24}}>
-          {sidebarLinks.map(link => {
-            const {leadingIcon} = link
-            const isExternalUrl = link.href.startsWith('http')
-            const LeadingIcon = getOcticonForType(leadingIcon)
-
-            return (
-              <NavList.Item key={link.title} href={link.href} target={isExternalUrl ? '_blank' : undefined}>
-                <NavList.LeadingVisual>{LeadingIcon && <LeadingIcon />}</NavList.LeadingVisual>
-                {link.title}
-                {isExternalUrl && (
-                  <NavList.TrailingVisual>
-                    <LinkExternalIcon />
-                  </NavList.TrailingVisual>
-                )}
-              </NavList.Item>
-            )
-          })}
-        </NavList.Group>
-      )}
-
       {pageMap.map(item => {
         if (item.kind === 'MdxPage' && item.route === '/') return null
 
@@ -164,6 +142,27 @@ export function Sidebar({pageMap}: SidebarProps) {
 
         return null
       })}
+      {sidebarLinks && sidebarLinks.length > 0 && (
+        <NavList.Group title="" sx={{mb: 24}}>
+          {sidebarLinks.map(link => {
+            const {leadingIcon} = link
+            const isExternalUrl = link.href.startsWith('http')
+            const LeadingIcon = getOcticonForType(leadingIcon)
+
+            return (
+              <NavList.Item key={link.title} href={link.href} target={isExternalUrl ? '_blank' : undefined}>
+                <NavList.LeadingVisual>{LeadingIcon && <LeadingIcon />}</NavList.LeadingVisual>
+                {link.title}
+                {isExternalUrl && (
+                  <NavList.TrailingVisual>
+                    <LinkExternalIcon />
+                  </NavList.TrailingVisual>
+                )}
+              </NavList.Item>
+            )
+          })}
+        </NavList.Group>
+      )}
     </NavList>
   )
 }
