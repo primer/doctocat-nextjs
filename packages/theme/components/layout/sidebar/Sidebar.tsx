@@ -64,6 +64,7 @@ export function Sidebar({pageMap}: SidebarProps) {
   const currentRoute = router.pathname
 
   const {sidebarLinks}: ThemeConfig = publicRuntimeConfig
+  console.log(pageMap)
 
   return (
     <NavList className={styles.NavList}>
