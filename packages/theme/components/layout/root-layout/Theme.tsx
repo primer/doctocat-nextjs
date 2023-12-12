@@ -85,7 +85,7 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                     siteTitle={siteTitle}
                   />
                 </PRCBox>
-                <PageLayout containerWidth="full" padding="none">
+                <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
                   <PageLayout.Content padding="normal">
                     <main>
                       <PRCBox sx={!isHomePage && {display: 'flex', maxWidth: 1600, margin: '0 auto'}}>
@@ -199,12 +199,12 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                     </main>
                   </PageLayout.Content>
                   <PageLayout.Pane
+                    aria-label="Sticky pane"
                     width="small"
                     sticky
                     padding="none"
                     position="start"
                     hidden={{narrow: true}}
-                    resizable
                     divider="line"
                   >
                     <Sidebar pageMap={docsDirectories} />

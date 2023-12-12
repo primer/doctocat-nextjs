@@ -239,6 +239,8 @@
   margin-left: auto;
   margin-right: auto;
   margin-block-end: var(--spacing);
+  border-radius: var(--brand-borderRadius-medium);
+  overflow: hidden;
 }
 
 /* ---------------------------------------------------------- */

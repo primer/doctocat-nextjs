@@ -5,6 +5,7 @@ import {XIcon} from '@primer/octicons-react'
 import {Drawer} from './Drawer'
 import type {PageItem} from 'nextra/normalize-pages'
 import {Sidebar} from '../sidebar/Sidebar'
+import {useColorMode} from '../../context/color-modes/useColorMode'
 
 type NavDrawerProps = {
   isOpen: boolean
@@ -13,6 +14,7 @@ type NavDrawerProps = {
 }
 
 export function NavDrawer({isOpen, onDismiss, navItems}: NavDrawerProps) {
+  const {colorMode} = useColorMode()
   return (
     <Drawer isOpen={isOpen} onDismiss={onDismiss}>
       <Box
@@ -41,13 +43,13 @@ export function NavDrawer({isOpen, onDismiss, navItems}: NavDrawerProps) {
           <Box sx={{flexDirection: 'column', display: 'flex'}}>{/* <PrimerNavItems items={primerNavItems} /> */}</Box>
         </Box>
         {navItems && navItems.length > 0 ? (
-          <ThemeProvider colorMode="day">
+          <ThemeProvider colorMode={colorMode}>
             <Box
               sx={{
                 flexDirection: 'column',
                 flex: '1 0 auto',
                 color: 'fg.default',
-                bg: 'canvas.default',
+                bg: 'canvas.subtle',
                 display: 'flex',
               }}
             >
