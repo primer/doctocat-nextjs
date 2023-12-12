@@ -61,10 +61,8 @@ function getOcticonForType(type?: string): Icon | undefined {
 export function Sidebar({pageMap}: SidebarProps) {
   const router = useRouter()
   const basePath = router.basePath
-  const currentRoute = router.pathname
 
   const {sidebarLinks}: ThemeConfig = publicRuntimeConfig
-  console.log(pageMap)
 
   return (
     <NavList className={styles.NavList}>
@@ -73,12 +71,7 @@ export function Sidebar({pageMap}: SidebarProps) {
 
         if (item.kind === 'MdxPage') {
           return (
-            <NavList.Item
-              key={item.name}
-              href={`${basePath}${item.route}`}
-              sx={{textTransform: 'capitalize'}}
-              aria-current={currentRoute === item.route ? 'page' : undefined}
-            >
+            <NavList.Item key={item.name} href={`${basePath}${item.route}`} sx={{textTransform: 'capitalize'}}>
               {item.frontMatter?.title ?? item.name}
             </NavList.Item>
           )
@@ -91,7 +84,6 @@ export function Sidebar({pageMap}: SidebarProps) {
           ) as MdxFile
           const subNavName = indexPage.frontMatter?.title ?? ''
           const shouldShowTabs = indexPage.frontMatter?.['show-tabs'] ?? false
-
           if (shouldShowTabs) {
             return (
               <NavList.Item key={indexPage.name} href={`${basePath}${indexPage.route}`}>
@@ -113,7 +105,11 @@ export function Sidebar({pageMap}: SidebarProps) {
                   .map((child: DocsItem) => {
                     if (child.kind === 'MdxPage') {
                       return (
-                        <NavList.Item key={child.name} href={`${basePath}${child.route}`}>
+                        <NavList.Item
+                          key={child.name}
+                          href={`${basePath}${child.route}`}
+                          aria-current={child.route === router.pathname ? 'page' : undefined}
+                        >
                           {(child as MdxFile).frontMatter?.title || item.name}
                         </NavList.Item>
                       )
@@ -123,12 +119,12 @@ export function Sidebar({pageMap}: SidebarProps) {
                       const landingPageItem: PageMapItem | undefined = (child as Folder).children.find(
                         innerChild => innerChild.kind === 'MdxPage' && innerChild.name === 'index',
                       )
-
                       return (
                         <NavList.Item
                           key={`${(landingPageItem as MdxFile).route}`}
                           href={`${basePath}${(landingPageItem as MdxFile).route}`}
                           sx={{textTransform: 'capitalize'}}
+                          aria-current={(landingPageItem as MdxFile).route === router.pathname ? 'page' : undefined}
                         >
                           {(landingPageItem as MdxFile).frontMatter?.title || item.name}
                         </NavList.Item>
