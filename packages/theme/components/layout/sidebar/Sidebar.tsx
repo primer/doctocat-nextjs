@@ -1,4 +1,5 @@
 import React, {useMemo} from 'react'
+import NextLink from 'next/link'
 import {NavList} from '@primer/react'
 import {Folder, MdxFile, PageMapItem} from 'nextra'
 import {useRouter} from 'next/router'
@@ -94,7 +95,12 @@ export function Sidebar({pageMap}: SidebarProps) {
 
           if (item.kind === 'MdxPage') {
             return (
-              <NavList.Item key={item.name} href={`${basePath}${item.route}`} sx={{textTransform: 'capitalize'}}>
+              <NavList.Item
+                as={NextLink}
+                key={item.name}
+                href={`${basePath}${item.route}`}
+                sx={{textTransform: 'capitalize'}}
+              >
                 {item.frontMatter?.title ?? item.name}
               </NavList.Item>
             )
@@ -109,7 +115,7 @@ export function Sidebar({pageMap}: SidebarProps) {
             const shouldShowTabs = indexPage.frontMatter?.['show-tabs'] ?? false
             if (shouldShowTabs) {
               return (
-                <NavList.Item key={indexPage.name} href={`${basePath}${indexPage.route}`}>
+                <NavList.Item as={NextLink} key={indexPage.name} href={`${basePath}${indexPage.route}`}>
                   {(indexPage as MdxFile).frontMatter?.title || item.name}
                 </NavList.Item>
               )
@@ -129,6 +135,7 @@ export function Sidebar({pageMap}: SidebarProps) {
                       if (child.kind === 'MdxPage') {
                         return (
                           <NavList.Item
+                            as={NextLink}
                             key={child.name}
                             href={`${basePath}${child.route}`}
                             aria-current={child.route === router.pathname ? 'page' : undefined}
@@ -144,6 +151,7 @@ export function Sidebar({pageMap}: SidebarProps) {
                         )
                         return (
                           <NavList.Item
+                            as={NextLink}
                             key={`${(landingPageItem as MdxFile).route}`}
                             href={`${basePath}${(landingPageItem as MdxFile).route}`}
                             sx={{textTransform: 'capitalize'}}
@@ -170,7 +178,12 @@ export function Sidebar({pageMap}: SidebarProps) {
               const LeadingIcon = getOcticonForType(leadingIcon)
 
               return (
-                <NavList.Item key={link.title} href={link.href} target={isExternalUrl ? '_blank' : undefined}>
+                <NavList.Item
+                  as={NextLink}
+                  key={link.title}
+                  href={link.href}
+                  target={isExternalUrl ? '_blank' : undefined}
+                >
                   <NavList.LeadingVisual>{LeadingIcon && <LeadingIcon />}</NavList.LeadingVisual>
                   {link.title}
                   {isExternalUrl && (

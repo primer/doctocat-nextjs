@@ -1,4 +1,5 @@
 import React from 'react'
+import NextLink from 'next/link'
 import {Box, IconButton, Link, ThemeProvider} from '@primer/react'
 import {XIcon} from '@primer/octicons-react'
 
@@ -34,7 +35,7 @@ export function NavDrawer({isOpen, onDismiss, navItems}: NavDrawerProps) {
             }}
           >
             <Box sx={{py: 20, pl: 4, pr: 3, alignItems: 'center', justifyContent: 'space-between', display: 'flex'}}>
-              <Link href="https://primer.style" sx={{fontWeight: 'bold', color: 'inherit'}}>
+              <Link as={NextLink} href="https://primer.style" sx={{fontWeight: 'bold', color: 'inherit'}}>
                 Explore
               </Link>
               <IconButton icon={XIcon} aria-label="Close" onClick={onDismiss} variant="invisible" />
