@@ -1,0 +1,15 @@
+{
+  "name": "@primer/doctocat-nextjs-configs",
+  "version": "0.0.1",
+  "private": true,
+  "description": "General-purpose configurations for maintaining Primer Doctocat (Next.js)",
+  "bugs": {
+    "url": "https://github.com/primer/doctocat-nextjs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primer/doctocat-nextjs.git"
+  },
+  "license": "MIT",
+  "author": "GitHub, Inc."
+}
