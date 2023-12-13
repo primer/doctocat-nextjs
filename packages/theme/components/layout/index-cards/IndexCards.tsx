@@ -22,7 +22,6 @@ type DocsItem = (MdxFile | FolderWithoutChildren) & {
 }
 
 export function IndexCards({route, folderData}: IndexCardsProps) {
-  const {basePath} = useRouter()
   const filteredData = folderData.filter(item => item.kind === 'MdxPage' && item.route.includes(`${route}/`))
 
   return (
@@ -31,7 +30,7 @@ export function IndexCards({route, folderData}: IndexCardsProps) {
         if (item.kind !== 'MdxPage') return null
         return (
           <Grid.Column span={{medium: 6}} key={`cell-${item.route}`}>
-            <Card href={`${basePath}${item.route}`} hasBorder style={{width: '100%'}}>
+            <Card href={item.route} hasBorder style={{width: '100%'}}>
               {item.frontMatter && <Card.Heading>{item.frontMatter.title}</Card.Heading>}
               {item.frontMatter && item.frontMatter.description && (
                 <Card.Description>{item.frontMatter.description}</Card.Description>

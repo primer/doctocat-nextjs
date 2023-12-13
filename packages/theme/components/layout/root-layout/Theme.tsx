@@ -1,4 +1,5 @@
 import React, {useMemo} from 'react'
+import NextLink from 'next/link'
 import Head from 'next/head'
 import type {Folder, MdxFile, NextraThemeLayoutProps} from 'nextra'
 import {useFSRoute} from 'nextra/hooks'
@@ -36,7 +37,7 @@ const {publicRuntimeConfig} = getConfig()
 
 export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
   const {title, frontMatter, headings, filePath, pageMap, route} = pageOpts
-  const {locale = 'en-US', defaultLocale, basePath} = useRouter()
+  const {locale = 'en-US', defaultLocale} = useRouter()
   const fsPath = useFSRoute()
   const {colorMode} = useColorMode()
   const {activePath, topLevelNavbarItems, docsDirectories, flatDocsDirectories} = useMemo(
@@ -96,7 +97,8 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                                   <Breadcrumbs>
                                     {siteTitle && (
                                       <Breadcrumbs.Item
-                                        href={basePath || '/'}
+                                        as={NextLink}
+                                        href="/"
                                         sx={{
                                           color: 'var(--brand-InlineLink-color-rest)',
                                         }}
@@ -107,8 +109,9 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                                     {activePath.map((item, index) => {
                                       return (
                                         <Breadcrumbs.Item
+                                          as={NextLink}
                                           key={item.name}
-                                          href={`${basePath}${item.route}`}
+                                          href={item.route}
                                           selected={index === activePath.length - 1}
                                           sx={{
                                             textTransform: 'capitalize',
