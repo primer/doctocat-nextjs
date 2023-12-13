@@ -3,6 +3,9 @@ name: Deploy preview
 on:
   pull_request:
 
+env:
+  IS_PROD: false
+
 permissions:
   checks: write
   contents: read
