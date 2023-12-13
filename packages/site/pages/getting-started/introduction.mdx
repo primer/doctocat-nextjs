@@ -30,17 +30,12 @@ module.exports = withDoctocat({
 })
 ```
 
-### Optional: Deploy to GitHub Pages
+### Optional: GitHub Pages configuration
 
 If you plan to deploy your site to GitHub Pages, you'll need to add the following to your `next.config.js` file:
 
 ```js
-// next.config.js
-const withDoctocat = require('@primer/doctocat-nextjs')
-
-module.exports = withDoctocat({
-  output: 'export',
-})
+output: 'export'
 ```
 
 ## 4. Add the Doctocat stylesheets
@@ -60,7 +55,7 @@ export default App;
 
 ## 5. Add your content
 
-Next, go ahead and put your Markdown documents (`.md` or `.mdx`) in `pages/`. Documents in `content/` automatically become pages with URLs based on their path relative to `pages/`. For example, if you create a `pages/components/box.md` file, Doctocat will use that file to create a `/components/box` page.
+Next, go ahead and put your Markdown documents (`.md` or `.mdx`) in `pages/`. Documents in `pages/` automatically become pages with URLs based on their path relative to `pages/`. For example, if you create a `pages/components/box.md` file, Doctocat will use that file to create a `/components/box` page.
 
 Important:
 
