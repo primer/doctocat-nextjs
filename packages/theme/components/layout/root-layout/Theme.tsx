@@ -52,8 +52,7 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
 
   const {siteTitle} = publicRuntimeConfig
   const isHomePage = route === '/'
-  const isIndexPage = filePath.endsWith('index.mdx') && !isHomePage && !frontMatter['show-tabs']
-
+  const isIndexPage = /index\.mdx?$/.test(filePath) && !isHomePage && !frontMatter['show-tabs']
   const data = !isHomePage && activePath[activePath.length - 2]
   const filteredTabData: MdxFile[] =
     data && data.kind === 'Folder'
@@ -143,9 +142,11 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                                     {frontMatter['action-1-text'] && (
                                       <Box paddingBlockStart={16}>
                                         <ButtonGroup>
-                                          <Button as="a">{frontMatter['action-1-text']}</Button>
+                                          <Button as="a" href={frontMatter['action-1-link']}>
+                                            {frontMatter['action-1-text']}
+                                          </Button>
                                           {frontMatter['action-2-text'] && (
-                                            <Button as="a" variant="secondary">
+                                            <Button as="a" variant="secondary" href={frontMatter['action-2-link']}>
                                               {frontMatter['action-2-text']}
                                             </Button>
                                           )}

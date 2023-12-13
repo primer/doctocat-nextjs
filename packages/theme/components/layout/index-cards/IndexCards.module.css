@@ -1,3 +1,5 @@
 .IndexCards {
+  --brand-Grid-spacing-margin: 0;
   --brand-Card-maxWidth: 100%;
+  --brand-Grid-spacing-row: var(--brand-Grid-spacing-column-gap);
 }

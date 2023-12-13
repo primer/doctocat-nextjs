@@ -54,6 +54,10 @@
 }
 
 @media (min-width: 768px) {
+  .Header {
+    padding: var(--base-size-20) var(--base-size-12) var(--base-size-20) var(--base-size-24);
+  }
+
   .Header__searchArea {
     width: 100%;
     max-width: 350px;

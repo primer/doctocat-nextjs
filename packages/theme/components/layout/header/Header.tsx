@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import {MdxFile, PageMapItem} from 'nextra'
 import type {PageItem} from 'nextra/normalize-pages'
 import React, {useEffect, useMemo} from 'react'
+import {debounce} from 'lodash'
 
 import Link from 'next/link'
 import styles from './Header.module.css'
@@ -67,6 +68,8 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
     document.documentElement.setAttribute('data-color-mode', colorMode)
   }, [colorMode])
 
+  const setSearchResultsDebounced = debounce(data => setSearchResults(data), 1000)
+
   const searchData = useMemo(
     () =>
       pageMap
@@ -102,34 +105,34 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
     }
     if (inputRef.current.value.length > 2) {
       const curSearchTerm = inputRef.current.value.toLowerCase()
-      const results: SearchResults[] = searchData
+
+      // filters the frontMatter title and descriptions against the search term
+      const filteredData = searchData
         .filter((data): data is SearchResults => data !== null)
         .filter(data => {
           if (!data.title) return false
           const title = data.title.toLowerCase()
           const description = data.description.toLowerCase()
-          let searchIndex = 0
-          for (let i = 0; i < title.length; i++) {
-            if (title[i] === curSearchTerm[searchIndex]) {
-              searchIndex++
-              if (searchIndex === curSearchTerm.length) {
-                return true
-              }
-            }
-          }
-          searchIndex = 0
-          for (let i = 0; i < description.length; i++) {
-            if (description[i] === curSearchTerm[searchIndex]) {
-              searchIndex++
-              if (searchIndex === curSearchTerm.length) {
-                return true
-              }
-            }
-          }
-          return false
+          return title.includes(curSearchTerm) || description.includes(curSearchTerm)
         })
-        .filter(Boolean)
-      setTimeout(() => setSearchResults(results), 1000)
+
+      // sorts the data to show hits in title first, description second
+      const sortedData = filteredData.sort((a, b) => {
+        const aTitle = a.title.toLowerCase()
+        const bTitle = b.title.toLowerCase()
+        const aIncludes = aTitle.includes(curSearchTerm)
+        const bIncludes = bTitle.includes(curSearchTerm)
+
+        if (aIncludes && !bIncludes) {
+          return -1
+        } else if (!aIncludes && bIncludes) {
+          return 1
+        } else {
+          return 0
+        }
+      })
+
+      setSearchResultsDebounced(sortedData)
 
       setSearchTerm(inputRef.current.value)
       setIsSearchResultOpen(true)

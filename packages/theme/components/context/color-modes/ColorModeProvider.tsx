@@ -9,6 +9,8 @@ const ColorModeProvider = ({children}) => {
       const savedMode = window.localStorage.getItem('doctocat-active-color-mode')
       if (savedMode && (savedMode === 'light' || savedMode === 'dark')) {
         setColorMode(savedMode)
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        setColorMode('dark')
       }
     }
   }, [])
