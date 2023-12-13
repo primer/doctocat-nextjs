@@ -1,0 +1,83 @@
+---
+title: Introduction
+description: Learn how to create a new site with Doctocat
+---
+
+This guide will walk you through creating, customizing, and deploying a new documentation site powered by Doctocat on [Next.js](https://nextjs.org/).
+
+## 1. Create a new Next.js installation
+
+Start by creating a new Next.js project using the [Next.js CLI](https://nextjs.org/docs/getting-started/installation):
+
+## 2. Install Doctocat (Next.js)
+
+Next, install Doctocat and its dependencies:
+
+```bash
+npm install --save @primer/doctocat-nextjs
+```
+
+## 3. Update your Next.js configuration
+
+Update your next.config.js file to use the Doctocat theme:
+
+```js
+// next.config.js
+const withDoctocat = require('@primer/doctocat-nextjs')
+
+module.exports = withDoctocat({
+  // your next.js config
+})
+```
+
+### Optional: GitHub Pages configuration
+
+If you plan to deploy your site to GitHub Pages, you'll need to add the following to your `next.config.js` file:
+
+```js
+output: 'export'
+```
+
+## 4. Add the Doctocat stylesheets
+
+Add the required Doctocat stylesheets to your `pages/_app.(tsx|jsx)` file:
+
+```js
+import { AppProps } from "next/app";
+import "@primer/doctocat-nextjs/css/global.css";
+
+function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
+
+export default App;
+```
+
+## 5. Add your content
+
+Next, go ahead and put your Markdown documents (`.md` or `.mdx`) in `pages/`. Documents in `pages/` automatically become pages with URLs based on their path relative to `pages/`. For example, if you create a `pages/components/box.md` file, Doctocat will use that file to create a `/components/box` page.
+
+Important:
+
+- You must use `.md` or `.mdx` extensions for your documents.
+- Folders must contain an index.md or index.mdx file for breadcrumbs to work correctly. The contents of this file can be left empty
+
+## 6. Update Frontmatter on all pages
+
+Side navigation for your site is generated automatically from the frontmatter of your pages. To add a page to the side navigation, you must add a `title` and `description` to the frontmatter of your page. For example:
+
+```md
+---
+title: My page title
+description: My page description
+---
+```
+
+## 7. Deploy to GitHub Pages
+
+After you've customized the content of your site, you're ready to deploy. There are many ways to deploy your site, but we currently use [GitHub Pages](https://pages.github.com/) for most of our sites, and have found it to be an easy way to get sites up and running quickly.
+
+<br />
+<br />
+
+Congrats! You've shipped your first Doctocat site on Next.js 🎉

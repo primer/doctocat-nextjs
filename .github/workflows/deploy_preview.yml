@@ -1,0 +1,26 @@
+name: Deploy preview
+
+on:
+  pull_request:
+
+env:
+  IS_PROD: false
+
+permissions:
+  checks: write
+  contents: read
+  deployments: write
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'primer/doctocat-nextjs' }}
+    name: Preview
+    # SHA for security hardening. Points at last verified HEAD of main branch.
+    uses: primer/.github/.github/workflows/deploy_preview.yml@0cec9b9914f358846163f2428663b58da41028c9
+    with:
+      node_version: 18
+      install: npm ci
+      build: npm run build
+      output_dir: packages/site/out

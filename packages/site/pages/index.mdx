@@ -21,8 +21,8 @@ import Link from 'next/link'
     <Hero.Heading style={{marginTop: '-80px'}}>Doctocat</Hero.Heading>
     <Hero.Description>A Next.js theme for building Primer documentation sites</Hero.Description>
     <Box marginBlockStart={24}>
-      <Link legacyBehavior href="/content-examples/kitchen-sink">
-        <Hero.PrimaryAction href="/content-examples/kitchen-sink">Get started</Hero.PrimaryAction>
+      <Link legacyBehavior href="/getting-started/introduction">
+        <Hero.PrimaryAction href="/getting-started/introduction">Get started</Hero.PrimaryAction>
       </Link>
     </Box>
   </Hero>
@@ -30,15 +30,16 @@ import Link from 'next/link'
 <section style={{['--brand-Card-maxWidth']: '100%',maxWidth: '800px',margin: '0 auto', ['--brand-Grid-spacing-row']: 'var(--brand-Grid-spacing-column-gap)'}}>
   <Grid>
     <Grid.Column span={12}>
-      <Card href="#" hasBorder style={{width: '100%'}}>
-        <Card.Label color="green">New </Card.Label>
-        <Card.Image
-          src="https://via.placeholder.com/1000x200/d3d9df/d3d9df.png"
-          alt="placeholder, blank area with an gray background color"
-        />
-        <Card.Heading size="5">A big box announcing something</Card.Heading>
-        <Card.Description>Description of the thing, hopefully super enticing</Card.Description>
-      </Card>
+      <Link legacyBehavior href="/getting-started/introduction">
+        <Card href="#" hasBorder style={{width: '100%'}}>
+          <Card.Image
+            src="https://assetgeneratorstorage.blob.core.windows.net/user-generated-dev/product-landscape/84aa222c-3857-4e6c-bf6b-0b759ebf4122-1200x630-inline.png"
+            alt="placeholder, blank area with an gray background color"
+          />
+          <Card.Heading size="5">Get started</Card.Heading>
+          <Card.Description>Doctocat makes it easy to set up a documentation site so that you can focus on what's important: writing docs.</Card.Description>
+        </Card>
+      </Link>
     </Grid.Column>
     <Grid.Column span={12}>
       <Card href="#" hasBorder style={{width: '100%'}}>
