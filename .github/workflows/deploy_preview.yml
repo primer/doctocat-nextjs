@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   deploy:
-    if: ${{ github.repository == 'github/brand.github.com' }}
+    if: ${{ github.repository == 'primer/doctocat-nextjs' }}
     name: Preview
     # SHA for security hardening. Points at last verified HEAD of main branch.
     uses: primer/.github/.github/workflows/deploy_preview.yml@0cec9b9914f358846163f2428663b58da41028c9
