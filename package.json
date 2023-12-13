@@ -5,7 +5,8 @@
   "scripts": {
     "build": "npm run build --workspace=packages/site",
     "lint": "npm run lint --workspaces --if-present",
-    "start": "npm run dev --workspace=packages/site"
+    "start": "npm run dev --workspace=packages/site",
+    "release": "changeset publish"
   },
   "repository": {
     "type": "git",
