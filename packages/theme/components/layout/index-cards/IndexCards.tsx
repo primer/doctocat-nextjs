@@ -1,9 +1,9 @@
 import React from 'react'
 import {Card, Grid} from '@primer/react-brand'
 import {Folder, MdxFile} from 'nextra'
-import {useRouter} from 'next/router'
 
 import styles from './IndexCards.module.css'
+import Link from 'next/link'
 
 type IndexCardsProps = {
   route: string
@@ -22,7 +22,6 @@ type DocsItem = (MdxFile | FolderWithoutChildren) & {
 }
 
 export function IndexCards({route, folderData}: IndexCardsProps) {
-  const {basePath} = useRouter()
   const filteredData = folderData.filter(item => item.kind === 'MdxPage' && item.route.includes(`${route}/`))
 
   return (
@@ -31,12 +30,14 @@ export function IndexCards({route, folderData}: IndexCardsProps) {
         if (item.kind !== 'MdxPage') return null
         return (
           <Grid.Column span={{medium: 6}} key={`cell-${item.route}`}>
-            <Card href={`${basePath}${item.route}`} hasBorder style={{width: '100%'}}>
-              {item.frontMatter && <Card.Heading>{item.frontMatter.title}</Card.Heading>}
-              {item.frontMatter && item.frontMatter.description && (
-                <Card.Description>{item.frontMatter.description}</Card.Description>
-              )}
-            </Card>
+            <Link href={item.route} legacyBehavior passHref>
+              <Card href="#" hasBorder style={{width: '100%'}}>
+                {item.frontMatter && <Card.Heading>{item.frontMatter.title}</Card.Heading>}
+                {item.frontMatter && item.frontMatter.description && (
+                  <Card.Description>{item.frontMatter.description}</Card.Description>
+                )}
+              </Card>
+            </Link>
           </Grid.Column>
         )
       })}
