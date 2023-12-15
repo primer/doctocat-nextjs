@@ -2,9 +2,11 @@ import React, {useMemo} from 'react'
 import NextLink from 'next/link'
 import Head from 'next/head'
 import type {Folder, MdxFile, NextraThemeLayoutProps} from 'nextra'
+import {MDXProvider} from 'nextra/mdx'
 import {useFSRoute} from 'nextra/hooks'
 import {PencilIcon} from '@primer/octicons-react'
 import {BaseStyles, Box as PRCBox, Breadcrumbs, PageLayout, ThemeProvider} from '@primer/react'
+
 import {
   Animate,
   AnimationProvider,
@@ -32,6 +34,7 @@ import {TableOfContents} from '../table-of-contents/TableOfContents'
 import bodyStyles from '../../../css/prose.module.css'
 import {IndexCards} from '../index-cards/IndexCards'
 import {useColorMode} from '../../context/color-modes/useColorMode'
+import {getComponents} from '../../mdx-components/mdx-components'
 
 const {publicRuntimeConfig} = getConfig()
 
@@ -162,7 +165,11 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                               </>
                             )}
                             <article className={route !== '/' && !isIndexPage ? bodyStyles.Prose : ''}>
-                              {isIndexPage ? <IndexCards folderData={flatDocsDirectories} route={route} /> : children}
+                              {isIndexPage ? (
+                                <IndexCards folderData={flatDocsDirectories} route={route} />
+                              ) : (
+                                <MDXProvider components={getComponents()}>{children}</MDXProvider>
+                              )}
                             </article>
                             <footer>
                               <Box marginBlockStart={64}>
