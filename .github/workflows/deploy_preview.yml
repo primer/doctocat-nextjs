@@ -4,7 +4,7 @@ on:
   pull_request:
 
 env:
-  IS_PROD: false
+  IS_PROD: 'false'
 
 permissions:
   contents: read
