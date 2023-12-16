@@ -9,7 +9,8 @@ on:
 
 jobs:
   release-canary:
-    if: ${{ github.repository == 'primer/doctocat-nextjs' }}
+    if: false
+    #if: ${{ github.repository == 'primer/doctocat-nextjs' }}
     name: Canary
     runs-on: ubuntu-latest
     steps:
