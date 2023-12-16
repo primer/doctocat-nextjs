@@ -135,15 +135,15 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                                         {frontMatter.title}
                                       </Heading>
                                     )}
-                                    {frontMatter.image && (
-                                      <Box paddingBlockEnd={16}>
-                                        <Hero.Image src={frontMatter.image} alt={frontMatter['image-alt']} />
-                                      </Box>
-                                    )}
                                     {frontMatter.description && (
                                       <Text as="p" variant="muted" size="300">
                                         {frontMatter.description}
                                       </Text>
+                                    )}
+                                    {frontMatter.image && (
+                                      <Box paddingBlockStart={16}>
+                                        <Hero.Image src={frontMatter.image} alt={frontMatter['image-alt']} />
+                                      </Box>
                                     )}
                                     {frontMatter['action-1-text'] && (
                                       <Box paddingBlockStart={16}>

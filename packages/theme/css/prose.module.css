@@ -129,15 +129,12 @@
   letter-spacing: var(--brand-heading-letterSpacing-300);
 }
 
-.Prose :is(h1, h2, h3) {
-  --spacing: var(--base-size-64);
-}
-
 .Prose :is(h1) {
+  --spacing: var(--base-size-64);
   margin-block-end: var(--spacing);
 }
 
-.Prose :is(h1, h2, h3) + * {
+.Prose :is(h2, h3) + * {
   --spacing: var(--base-size-40);
 }
 
