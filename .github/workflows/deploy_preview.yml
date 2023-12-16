@@ -32,7 +32,7 @@ jobs:
         run: npm ci
 
       - name: Build with Next.js
-        run: IS_PROD=false npm run build
+        run: IS_PROD='false' npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
