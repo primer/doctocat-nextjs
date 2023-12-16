@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  IS_PROD: true
+  IS_PROD: 'true'
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:

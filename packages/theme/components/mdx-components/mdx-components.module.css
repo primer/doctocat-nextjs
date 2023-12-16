@@ -1,0 +1,14 @@
+.Heading__anchor {
+  color: var(--brand-color-text-default) !important;
+  text-decoration: none !important;
+}
+
+.Heading__anchorIcon {
+  visibility: hidden;
+  margin-left: var(--base-size-8);
+  vertical-align: middle !important;
+}
+
+.Heading__anchor:hover .Heading__anchorIcon {
+  visibility: visible;
+}
