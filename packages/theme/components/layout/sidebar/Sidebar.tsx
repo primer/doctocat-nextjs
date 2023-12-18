@@ -6,17 +6,7 @@ import {useRouter} from 'next/router'
 import getConfig from 'next/config'
 
 import styles from './Sidebar.module.css'
-import {
-  BookmarkIcon,
-  BrowserIcon,
-  Icon,
-  ImageIcon,
-  LinkExternalIcon,
-  OrganizationIcon,
-  RepoIcon,
-  StackIcon,
-  StarIcon,
-} from '@primer/octicons-react'
+import {LinkExternalIcon} from '@primer/octicons-react'
 import type {ThemeConfig} from '../../../index'
 
 type SidebarProps = {
@@ -35,29 +25,6 @@ type DocsItem = (MdxFile | FolderWithoutChildren) & {
 }
 
 const {publicRuntimeConfig} = getConfig()
-
-function getOcticonForType(type?: string): Icon | undefined {
-  if (!type) return undefined
-
-  switch (type) {
-    case 'repo':
-      return RepoIcon
-    case 'org':
-      return OrganizationIcon
-    case 'bookmark':
-      return BookmarkIcon
-    case 'star':
-      return StarIcon
-    case 'browser':
-      return BrowserIcon
-    case 'stack':
-      return StackIcon
-    case 'img':
-      return ImageIcon
-    default:
-      return StarIcon
-  }
-}
 
 export function Sidebar({pageMap}: SidebarProps) {
   const router = useRouter()
@@ -167,9 +134,7 @@ export function Sidebar({pageMap}: SidebarProps) {
         {sidebarLinks && sidebarLinks.length > 0 && (
           <NavList.Group title="" sx={{mb: 24}}>
             {sidebarLinks.map(link => {
-              const {leadingIcon} = link
               const isExternalUrl = link.href.startsWith('http')
-              const LeadingIcon = getOcticonForType(leadingIcon)
 
               return (
                 <NavList.Item
@@ -178,7 +143,6 @@ export function Sidebar({pageMap}: SidebarProps) {
                   href={link.href}
                   target={isExternalUrl ? '_blank' : undefined}
                 >
-                  <NavList.LeadingVisual>{LeadingIcon && <LeadingIcon />}</NavList.LeadingVisual>
                   {link.title}
                   {isExternalUrl && (
                     <NavList.TrailingVisual>

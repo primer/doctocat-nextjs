@@ -4,7 +4,7 @@ import {Heading, Stack, Text} from '@primer/react-brand'
 import clsx from 'clsx'
 import {MdxFile, PageMapItem} from 'nextra'
 import type {PageItem} from 'nextra/normalize-pages'
-import React, {useEffect, useMemo} from 'react'
+import React, {useCallback, useEffect, useMemo} from 'react'
 import {debounce} from 'lodash'
 
 import Link from 'next/link'
@@ -36,6 +36,12 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
   const [searchResults, setSearchResults] = React.useState<SearchResults[] | undefined>()
   const [searchTerm, setSearchTerm] = React.useState<string | undefined>('')
   const [activeDescendant] = React.useState<number>(-1)
+
+  useEffect(() => {
+    if (isSearchOpen && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [isSearchOpen])
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -151,6 +157,10 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
 
     alert(`Name: ${inputRef.current.value}`)
   }
+
+  const handleSearchButtonOpenClick = useCallback(() => {
+    setIsSearchOpen(true)
+  }, [])
 
   return (
     <nav className={clsx(styles.Header, isSearchOpen && styles['Header--searchAreaOpen'])}>
@@ -292,7 +302,7 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
             variant="invisible"
             aria-label={`Open search`}
             sx={{display: ['flex', null, 'none']}}
-            onClick={() => setIsSearchOpen(true)}
+            onClick={handleSearchButtonOpenClick}
           />
           <Box sx={{display: ['flex', null, 'none']}}>
             <IconButton

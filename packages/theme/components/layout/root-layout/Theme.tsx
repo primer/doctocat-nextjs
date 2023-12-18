@@ -35,6 +35,7 @@ import bodyStyles from '../../../css/prose.module.css'
 import {IndexCards} from '../index-cards/IndexCards'
 import {useColorMode} from '../../context/color-modes/useColorMode'
 import {getComponents} from '../../mdx-components/mdx-components'
+import {SkipToMainContent} from '../skip-to-main-content/SkipToMainContent'
 
 const {publicRuntimeConfig} = getConfig()
 
@@ -81,6 +82,7 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                     zIndex: 99,
                   }}
                 >
+                  <SkipToMainContent href="#main">Skip to main content</SkipToMainContent>
                   <Header
                     pageMap={pageMap}
                     docsDirectories={docsDirectories}
@@ -90,7 +92,7 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                 </PRCBox>
                 <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
                   <PageLayout.Content padding="normal">
-                    <main>
+                    <main id="main">
                       <PRCBox sx={!isHomePage && {display: 'flex', maxWidth: 1600, margin: '0 auto'}}>
                         <PRCBox sx={!isHomePage && {maxWidth: 800, width: '100%', margin: '0 auto'}}>
                           <Stack direction="vertical" padding="none" gap="spacious">

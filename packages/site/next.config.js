@@ -12,12 +12,10 @@ module.exports = {
         {
           title: 'GitHub',
           href: 'https://github.com/primer/doctocat-nextjs',
-          leadingIcon: 'repo',
         },
         {
           title: 'Primer',
           href: 'https://primer.style',
-          leadingIcon: 'org',
         },
       ],
     },

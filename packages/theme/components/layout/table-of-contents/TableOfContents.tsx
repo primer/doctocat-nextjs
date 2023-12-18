@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useMemo} from 'react'
 import {NavList} from '@primer/react'
 import {Text} from '@primer/react-brand'
 import {Heading as HeadingType} from 'nextra'
@@ -10,6 +10,8 @@ type TableOfContentsProps = {
 }
 
 export function TableOfContents({headings}: TableOfContentsProps) {
+  const depth2Headings = useMemo(() => headings.filter(heading => heading.depth === 2), [headings])
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {
@@ -40,7 +42,7 @@ export function TableOfContents({headings}: TableOfContentsProps) {
       },
     )
 
-    for (const heading of headings) {
+    for (const heading of depth2Headings) {
       const el = document.getElementById(heading.id)
       if (el) {
         observer.observe(el)
@@ -50,7 +52,7 @@ export function TableOfContents({headings}: TableOfContentsProps) {
     return () => {
       observer.disconnect()
     }
-  }, [headings])
+  }, [depth2Headings])
 
   return (
     <aside className={styles.wrapper}>
@@ -58,7 +60,7 @@ export function TableOfContents({headings}: TableOfContentsProps) {
         On this page
       </Text>
       <NavList>
-        {headings.map(heading => (
+        {depth2Headings.map(heading => (
           <NavList.Item
             className={styles.item}
             key={heading.id}
