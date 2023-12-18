@@ -1,6 +1,7 @@
 .wrapper {
   position: sticky;
   top: var(--base-size-112);
+  width: 220px;
 }
 
 .heading {

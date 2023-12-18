@@ -224,6 +224,10 @@
   background-color: var(--base-color-scale-indigo-0);
 }
 
+[data-color-mode='dark'] .Prose code {
+  background-color: var(--base-color-scale-indigo-9);
+}
+
 /* ---------------------------------------------------------- */
 /* 8. Images                                                  */
 /* ---------------------------------------------------------- */

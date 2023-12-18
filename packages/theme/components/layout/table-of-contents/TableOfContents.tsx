@@ -54,6 +54,8 @@ export function TableOfContents({headings}: TableOfContentsProps) {
     }
   }, [depth2Headings])
 
+  if (!depth2Headings.length) return null
+
   return (
     <aside className={styles.wrapper}>
       <Text as="p" size="100" variant="muted" weight="normal" className={styles.heading}>
