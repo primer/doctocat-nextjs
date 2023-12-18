@@ -1,14 +1,17 @@
 .SkipToMainContent {
   position: absolute;
   top: 0;
+  left: 0;
   z-index: 999;
   padding: var(--base-size-16);
   background-color: var(--base-color-scale-blue-5);
   color: var(--base-color-scale-white-0);
-  opacity: 0;
 }
-.SkipToMainContent:focus {
-  left: 0;
-  opacity: 1;
-  opacity: 1;
+.SkipToMainContent:not(:focus) {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0px;
 }
