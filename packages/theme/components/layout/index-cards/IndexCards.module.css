@@ -1,5 +1,12 @@
-.IndexCards {
-  --brand-Grid-spacing-margin: 0;
-  --brand-Card-maxWidth: 100%;
-  --brand-Grid-spacing-row: var(--brand-Grid-spacing-column-gap);
+.heading a {
+  color: var(--brand-InlineLink-color-rest);
+  text-decoration: none;
+}
+
+.heading a:hover {
+  text-decoration: underline;
+}
+
+.heading a:active {
+  color: var(--brand-InlineLink-color-pressed);
 }

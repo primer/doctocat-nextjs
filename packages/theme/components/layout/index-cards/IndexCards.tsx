@@ -1,9 +1,9 @@
 import React from 'react'
-import {Card, Grid} from '@primer/react-brand'
+import {Heading, Stack, Text} from '@primer/react-brand'
 import {Folder, MdxFile} from 'nextra'
 
-import styles from './IndexCards.module.css'
 import Link from 'next/link'
+import styles from './IndexCards.module.css'
 
 type IndexCardsProps = {
   route: string
@@ -25,22 +25,22 @@ export function IndexCards({route, folderData}: IndexCardsProps) {
   const filteredData = folderData.filter(item => item.kind === 'MdxPage' && item.route.includes(`${route}/`))
 
   return (
-    <Grid className={styles.IndexCards}>
+    <Stack direction="vertical" padding="none" gap="spacious">
       {filteredData.map((item: DocsItem) => {
-        if (item.kind !== 'MdxPage') return null
+        if (item.kind !== 'MdxPage' || !item.frontMatter) return null
+
         return (
-          <Grid.Column span={{medium: 6}} key={`cell-${item.route}`}>
-            <Link href={item.route} legacyBehavior passHref>
-              <Card href="#" hasBorder style={{width: '100%'}}>
-                {item.frontMatter && <Card.Heading>{item.frontMatter.title}</Card.Heading>}
-                {item.frontMatter && item.frontMatter.description && (
-                  <Card.Description>{item.frontMatter.description}</Card.Description>
-                )}
-              </Card>
-            </Link>
-          </Grid.Column>
+          <Stack direction="vertical" padding="none" gap="condensed" key={item.frontMatter.title}>
+            <Heading as="h2" size="6" className={styles.heading}>
+              <Link href={item.route} legacyBehavior passHref>
+                {item.frontMatter.title}
+              </Link>
+            </Heading>
+
+            {item.frontMatter.description && <Text as="p">{item.frontMatter.description}</Text>}
+          </Stack>
         )
       })}
-    </Grid>
+    </Stack>
   )
 }
