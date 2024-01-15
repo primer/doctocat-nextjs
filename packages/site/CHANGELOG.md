@@ -1,5 +1,12 @@
 # doctocat-nextjs-site
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`937f773`](https://github.com/primer/doctocat-nextjs/commit/937f77385bc6c4d2c6289d0a6f12122373789f73), [`7703a7b`](https://github.com/primer/doctocat-nextjs/commit/7703a7b86bc906ff981a7f864a9916c963a35087)]:
+  - @primer/doctocat-nextjs@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
