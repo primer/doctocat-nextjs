@@ -36,6 +36,7 @@ import {IndexCards} from '../index-cards/IndexCards'
 import {useColorMode} from '../../context/color-modes/useColorMode'
 import {getComponents} from '../../mdx-components/mdx-components'
 import {SkipToMainContent} from '../skip-to-main-content/SkipToMainContent'
+import {RelatedContentLink, RelatedContentLinks} from '../related-content-links/RelatedContentLinks'
 
 const {publicRuntimeConfig} = getConfig()
 
@@ -63,6 +64,31 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
     data && data.kind === 'Folder'
       ? ((data as Folder).children.filter(child => child.kind === 'MdxPage') as MdxFile[])
       : []
+
+  /**
+   * Uses a frontmatter 'keywords' value (as an array)
+   * to find adjacent pages that share the same values.
+   * @returns {RelatedContentLink[]}
+   */
+  const getRelatedPages = () => {
+    const currentPageKeywords = frontMatter.keywords || []
+    const matches: RelatedContentLink[] = []
+
+    for (const page of flatDocsDirectories) {
+      if (page.route === route) continue
+
+      if ('frontMatter' in page) {
+        const pageKeywords = page.frontMatter?.keywords || []
+        const intersection = pageKeywords.filter(keyword => currentPageKeywords.includes(keyword))
+
+        if (intersection.length) {
+          matches.push(page)
+        }
+      }
+    }
+
+    return matches
+  }
 
   return (
     <>
@@ -203,11 +229,22 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                             </footer>
                           </Stack>
                         </PRCBox>
-                        {!isHomePage && headings.length > 0 && (
-                          <PRCBox sx={{py: 2, pr: 3, display: ['none', null, null, null, 'block']}}>
-                            <TableOfContents headings={headings} />
+                        <PRCBox sx={{py: 2, pr: 3, display: ['none', null, null, null, 'block']}}>
+                          <PRCBox
+                            sx={{
+                              position: 'sticky',
+                              top: 112,
+                              width: 220,
+                            }}
+                          >
+                            {!isHomePage && headings.length > 0 && <TableOfContents headings={headings} />}
+                            {getRelatedPages().length > 0 && (
+                              <PRCBox sx={{pt: 5}}>
+                                <RelatedContentLinks links={getRelatedPages()} />
+                              </PRCBox>
+                            )}
                           </PRCBox>
-                        )}
+                        </PRCBox>
                       </PRCBox>
                     </main>
                   </PageLayout.Content>
