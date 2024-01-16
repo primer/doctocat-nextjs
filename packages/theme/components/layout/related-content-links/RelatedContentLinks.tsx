@@ -5,6 +5,7 @@ import {MdxFile} from 'nextra'
 
 import styles from './RelatedContentLinks.module.css'
 import Link from 'next/link'
+import {LinkExternalIcon} from '@primer/octicons-react'
 
 export type RelatedContentLink = MdxFile & {
   title: string
@@ -41,7 +42,14 @@ export function RelatedContentLinks({links}: RelatedContentLinksProps) {
 function NavItem({href, children, ...rest}) {
   return (
     <Link href={href} legacyBehavior passHref {...rest}>
-      <NavList.Item>{children}</NavList.Item>
+      <NavList.Item>
+        {children}{' '}
+        {href.startsWith('http') ? (
+          <NavList.TrailingVisual>
+            <LinkExternalIcon />
+          </NavList.TrailingVisual>
+        ) : null}
+      </NavList.Item>
     </Link>
   )
 }
