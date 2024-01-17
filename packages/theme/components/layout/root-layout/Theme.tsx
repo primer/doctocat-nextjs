@@ -125,7 +125,7 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
 
               <meta property="og:url" content={`https://brand.github.com${route}`} />
               <meta property="og:type" content="website" />
-              <meta property="og:title" content="GitHub Brand Guide" />
+              <meta property="og:title" content={title} />
               {frontMatter.description && <meta property="og:description" content={frontMatter.description} />}
 
               <meta
