@@ -273,7 +273,7 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                     </div>
                   </PageLayout.Content>
                   <PageLayout.Pane
-                    aria-label="Sticky pane"
+                    aria-label="Side navigation"
                     width="small"
                     sticky
                     padding="none"
