@@ -23,7 +23,7 @@ export function RelatedContentLinks({links}: RelatedContentLinksProps) {
       <Text as="p" size="100" variant="muted" weight="normal" className={styles.heading}>
         Related content
       </Text>
-      <NavList>
+      <NavList aria-label="Related content">
         {links.map(page => (
           <NavItem
             className={styles.item}

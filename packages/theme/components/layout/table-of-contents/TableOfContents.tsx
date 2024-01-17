@@ -61,7 +61,7 @@ export function TableOfContents({headings}: TableOfContentsProps) {
       <Text as="p" size="100" variant="muted" weight="normal" className={styles.heading}>
         On this page
       </Text>
-      <NavList>
+      <NavList aria-label="Table of contents">
         {depth2Headings.map(heading => (
           <NavList.Item
             className={styles.item}

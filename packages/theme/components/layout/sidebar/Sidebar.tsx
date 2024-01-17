@@ -55,7 +55,7 @@ export function Sidebar({pageMap}: SidebarProps) {
 
   return (
     <div className={styles.Sidebar}>
-      <NavList className={styles.NavList}>
+      <NavList className={styles.NavList} aria-label="Menu links">
         {reorderedPageMap.map(item => {
           if (item.kind === 'MdxPage' && item.route === '/') return null
 
