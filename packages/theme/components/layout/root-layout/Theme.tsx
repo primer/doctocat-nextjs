@@ -142,7 +142,7 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                 </PRCBox>
                 <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
                   <PageLayout.Content padding="normal">
-                    <main id="main">
+                    <div id="main">
                       <PRCBox sx={!isHomePage && {display: 'flex', maxWidth: 1600, margin: '0 auto'}}>
                         <PRCBox sx={!isHomePage && {maxWidth: 800, width: '100%', margin: '0 auto'}}>
                           <Stack direction="vertical" padding="none" gap="spacious">
@@ -270,7 +270,7 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                           </PRCBox>
                         </PRCBox>
                       </PRCBox>
-                    </main>
+                    </div>
                   </PageLayout.Content>
                   <PageLayout.Pane
                     aria-label="Sticky pane"
