@@ -247,7 +247,14 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                               {isIndexPage ? (
                                 <IndexCards folderData={flatDocsDirectories} route={route} />
                               ) : (
-                                <MDXProvider components={getComponents()}>{children}</MDXProvider>
+                                <>
+                                  <MDXProvider components={getComponents()}>{children}</MDXProvider>
+                                  {getRelatedPages().length > 0 && (
+                                    <PRCBox sx={{pt: 5}}>
+                                      <RelatedContentLinks links={getRelatedPages()} />
+                                    </PRCBox>
+                                  )}
+                                </>
                               )}
                             </article>
                             <footer>
@@ -289,11 +296,6 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                             }}
                           >
                             {!isHomePage && headings.length > 0 && <TableOfContents headings={headings} />}
-                            {getRelatedPages().length > 0 && (
-                              <PRCBox sx={{pt: 5}}>
-                                <RelatedContentLinks links={getRelatedPages()} />
-                              </PRCBox>
-                            )}
                           </PRCBox>
                         </PRCBox>
                       </PRCBox>

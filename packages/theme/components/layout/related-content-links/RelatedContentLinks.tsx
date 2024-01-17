@@ -1,6 +1,6 @@
 import React from 'react'
 import {NavList} from '@primer/react'
-import {Text} from '@primer/react-brand'
+import {Text, Heading, UnorderedList, InlineLink} from '@primer/react-brand'
 import {MdxFile} from 'nextra'
 
 import styles from './RelatedContentLinks.module.css'
@@ -19,37 +19,16 @@ export function RelatedContentLinks({links}: RelatedContentLinksProps) {
   if (!links.length) return null
 
   return (
-    <aside className={styles.wrapper}>
-      <Text as="p" size="100" variant="muted" weight="normal" className={styles.heading}>
-        Related content
-      </Text>
-      <NavList aria-label="Related content">
+    <div className="custom-component">
+      <Heading as="h2">Related content</Heading>
+      <UnorderedList className={styles.list}>
         {links.map(page => (
-          <NavItem
-            className={styles.item}
-            key={page.title}
-            id={`toc-page-${page.route.replace(/\//g, '-')}`}
-            href={page.route}
-          >
-            {page.title}
-          </NavItem>
+          <UnorderedList.Item key={page.route}>
+            <InlineLink href={page.route}>{page.title}</InlineLink>{' '}
+            {page.route.startsWith('http') ? <LinkExternalIcon /> : null}
+          </UnorderedList.Item>
         ))}
-      </NavList>
-    </aside>
-  )
-}
-
-function NavItem({href, children, ...rest}) {
-  return (
-    <Link href={href} legacyBehavior passHref {...rest}>
-      <NavList.Item>
-        {children}{' '}
-        {href.startsWith('http') ? (
-          <NavList.TrailingVisual>
-            <LinkExternalIcon />
-          </NavList.TrailingVisual>
-        ) : null}
-      </NavList.Item>
-    </Link>
+      </UnorderedList>
+    </div>
   )
 }
