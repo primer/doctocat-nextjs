@@ -36,6 +36,7 @@ import {IndexCards} from '../index-cards/IndexCards'
 import {useColorMode} from '../../context/color-modes/useColorMode'
 import {getComponents} from '../../mdx-components/mdx-components'
 import {SkipToMainContent} from '../skip-to-main-content/SkipToMainContent'
+import {RelatedContentLink, RelatedContentLinks} from '../related-content-links/RelatedContentLinks'
 
 const {publicRuntimeConfig} = getConfig()
 
@@ -64,6 +65,55 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
       ? ((data as Folder).children.filter(child => child.kind === 'MdxPage') as MdxFile[])
       : []
 
+  /**
+   * Uses a frontmatter 'keywords' value (as an array)
+   * to find adjacent pages that share the same values.
+   * @returns {RelatedContentLink[]}
+   */
+  const getRelatedPages = () => {
+    const currentPageKeywords = frontMatter.keywords || []
+    const relatedLinks = frontMatter['related'] || []
+    const matches: RelatedContentLink[] = []
+
+    // 1. Check keywords property and find local matches
+    for (const page of flatDocsDirectories) {
+      if (page.route === route) continue
+
+      if ('frontMatter' in page) {
+        const pageKeywords = page.frontMatter?.keywords || []
+        const intersection = pageKeywords.filter(keyword => currentPageKeywords.includes(keyword))
+
+        if (intersection.length) {
+          matches.push(page)
+        }
+      }
+    }
+
+    // 2. Check related property for internal and external links
+    for (const link of relatedLinks) {
+      if (!link.title || !link.href || link.href === route) continue
+
+      if (link.href.startsWith('/')) {
+        const page = flatDocsDirectories.find(localPage => localPage.route === link.href) as
+          | RelatedContentLink
+          | undefined
+
+        if (page) {
+          const entry = {
+            ...page,
+            title: link.title || page.title,
+            route: link.href || page.route,
+          }
+          matches.push(entry)
+        }
+      } else {
+        matches.push({...link, route: link.href})
+      }
+    }
+
+    return matches
+  }
+
   return (
     <>
       <BrandThemeProvider dir="ltr" colorMode={colorMode}>
@@ -71,7 +121,28 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
           <BaseStyles>
             <Head>
               <title>{title}</title>
-              <meta name="og:image" content={frontMatter.image} />
+              {frontMatter.description && <meta name="description" content={frontMatter.description} />}
+              <meta property="og:type" content="website" />
+              <meta property="og:title" content={title} />
+              {frontMatter.description && <meta property="og:description" content={frontMatter.description} />}
+              <meta
+                property="og:image"
+                content={
+                  frontMatter.image ||
+                  'https://github.com/primer/brand/assets/19292210/8562a9a5-a1e4-4722-9ec7-47ebccd5901e'
+                }
+              />
+              {/* X (Twitter) OG */}
+              <meta name="twitter:card" content="summary_large_image" />
+              <meta name="twitter:title" content={title} />
+              {frontMatter.description && <meta name="twitter:description" content={frontMatter.description} />}
+              <meta
+                name="twitter:image"
+                content={
+                  frontMatter.image ||
+                  'https://github.com/primer/brand/assets/19292210/8562a9a5-a1e4-4722-9ec7-47ebccd5901e'
+                }
+              />
             </Head>
             <AnimationProvider runOnce visibilityOptions={1} autoStaggerChildren={false}>
               <Animate animate="fade-in">
@@ -92,7 +163,7 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                 </PRCBox>
                 <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
                   <PageLayout.Content padding="normal">
-                    <main id="main">
+                    <div id="main">
                       <PRCBox sx={!isHomePage && {display: 'flex', maxWidth: 1600, margin: '0 auto'}}>
                         <PRCBox sx={!isHomePage && {maxWidth: 800, width: '100%', margin: '0 auto'}}>
                           <Stack direction="vertical" padding="none" gap="spacious">
@@ -170,7 +241,14 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                               {isIndexPage ? (
                                 <IndexCards folderData={flatDocsDirectories} route={route} />
                               ) : (
-                                <MDXProvider components={getComponents()}>{children}</MDXProvider>
+                                <>
+                                  <MDXProvider components={getComponents()}>{children}</MDXProvider>
+                                  {getRelatedPages().length > 0 && (
+                                    <PRCBox sx={{pt: 5}}>
+                                      <RelatedContentLinks links={getRelatedPages()} />
+                                    </PRCBox>
+                                  )}
+                                </>
                               )}
                             </article>
                             <footer>
@@ -203,16 +281,22 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                             </footer>
                           </Stack>
                         </PRCBox>
-                        {!isHomePage && headings.length > 0 && (
-                          <PRCBox sx={{py: 2, pr: 3, display: ['none', null, null, null, 'block']}}>
-                            <TableOfContents headings={headings} />
+                        <PRCBox sx={{py: 2, pr: 3, display: ['none', null, null, null, 'block']}}>
+                          <PRCBox
+                            sx={{
+                              position: 'sticky',
+                              top: 112,
+                              width: 220,
+                            }}
+                          >
+                            {!isHomePage && headings.length > 0 && <TableOfContents headings={headings} />}
                           </PRCBox>
-                        )}
+                        </PRCBox>
                       </PRCBox>
-                    </main>
+                    </div>
                   </PageLayout.Content>
                   <PageLayout.Pane
-                    aria-label="Sticky pane"
+                    aria-label="Side navigation"
                     width="small"
                     sticky
                     padding="none"
