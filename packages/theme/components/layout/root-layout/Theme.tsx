@@ -122,12 +122,9 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
             <Head>
               <title>{title}</title>
               {frontMatter.description && <meta name="description" content={frontMatter.description} />}
-
-              <meta property="og:url" content={`https://brand.github.com${route}`} />
               <meta property="og:type" content="website" />
               <meta property="og:title" content={title} />
               {frontMatter.description && <meta property="og:description" content={frontMatter.description} />}
-
               <meta
                 property="og:image"
                 content={
@@ -135,11 +132,8 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
                   'https://github.com/primer/brand/assets/19292210/8562a9a5-a1e4-4722-9ec7-47ebccd5901e'
                 }
               />
-
               {/* X (Twitter) OG */}
               <meta name="twitter:card" content="summary_large_image" />
-              <meta property="twitter:domain" content="brand.github.com" />
-              <meta property="twitter:url" content={`https://brand.github.com${route}`} />
               <meta name="twitter:title" content={title} />
               {frontMatter.description && <meta name="twitter:description" content={frontMatter.description} />}
               <meta
