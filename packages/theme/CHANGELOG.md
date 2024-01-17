@@ -1,5 +1,41 @@
 # @primer/doctocat-nextjs
 
+## 0.0.4
+
+### Patch Changes
+
+- [#8](https://github.com/primer/doctocat-nextjs/pull/8) [`fd7f838`](https://github.com/primer/doctocat-nextjs/commit/fd7f83883152512b34dd7601346c03fe53e3ffb3) Thanks [@rezrah](https://github.com/rezrah)! - Added OpenGraph tags for improved social sharing experience.
+
+- [#8](https://github.com/primer/doctocat-nextjs/pull/8) [`0d0879b`](https://github.com/primer/doctocat-nextjs/commit/0d0879b8e732e74a50861e22a0ff534d0e191a45) Thanks [@rezrah](https://github.com/rezrah)! - Enabled related content navigation using `keywords` and `related` properties in Markdown frontmatter.
+
+  Example:
+
+  ```
+  ---
+  title: Page A
+  keywords: ['keyword', 'another keyword']
+  ---
+  ```
+
+  ```
+  ---
+  title: Page B
+  keywords: ['keyword', 'another keyword']
+  ---
+  ```
+
+  The matching keyword values above across both pages, will enable automatic related content navigation between the two pages.
+
+  or using the `related` property:
+
+  ```
+  ---
+  related: [{title: External link example, href: https://example.com}]
+  ---
+  ```
+
+- [#8](https://github.com/primer/doctocat-nextjs/pull/8) [`fd7f838`](https://github.com/primer/doctocat-nextjs/commit/fd7f83883152512b34dd7601346c03fe53e3ffb3) Thanks [@rezrah](https://github.com/rezrah)! - Fixed accessibility violations arising from duplicate landmarks and missing aria labels.
+
 ## 0.0.3
 
 ### Patch Changes
