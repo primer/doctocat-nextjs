@@ -20,7 +20,7 @@
 ·
 <a href="https://github.com/primer/doctocat-nextjs/issues/new?assignees=&labels=enhancement&template=02_FEATURE_REQUEST.md&title=feat%3A+">Request a Feature</a>
 ·
-<a href="https://primer/doctocat-nextjs/discussions">Ask a Question</a>
+<a href="https://github.com/primer/doctocat-nextjs/discussions">Ask a Question</a>
 
 </div>
 
