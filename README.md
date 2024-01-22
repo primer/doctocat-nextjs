@@ -36,14 +36,10 @@
 
 Doctocat makes it easy to set up a documentation site on the Next.js framework, so that you can focus on what's important: writing docs.
 
-This project is under active development, and we'd love your [feedback](https://primer/doctocat-nextjs/discussions)!
+This project is under active development, and we'd love your [feedback](https://github.com/primer/doctocat-nextjs/discussions)!
 
-<br />
 <a href="https://primer.github.io/doctocat-nextjs/"><img src="https://github.com/primer/doctocat-nextjs/assets/13340707/c7367bff-fb04-4be2-a1e5-90b2dee7de2d" width="200" alt="Button with label Try it out" /></a>
 <br />
-<br />
-
-📝 [Read the ADR for this project (GitHub staff only)](https://github.com/github/primer/blob/rezrah/prefer-nextjs-over-gatsby/adrs/2023-11-30-nextjs-documentation-framework.md)
 
 ## Reporting a Bug
 
@@ -54,3 +50,7 @@ While opening a new bug report, please ensure that the bug is:
 - **Reproducible**: Clearly outline the steps to reproduce the bug.
 - **Specific**: Include as much detail as possible: which browser and version you're using, which operating system and version you're using, etc.
 - **Unique**: Look through open [Issues](https://github.com/primer/doctocat-nextjs/labels/enhancement) to make sure that this bug has not been reported before.
+
+## Useful links
+
+📝 [Read the ADR for this project (GitHub staff only)](https://github.com/github/primer/blob/rezrah/prefer-nextjs-over-gatsby/adrs/2023-11-30-nextjs-documentation-framework.md)
