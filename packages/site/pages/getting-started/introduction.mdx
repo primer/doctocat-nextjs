@@ -10,12 +10,14 @@ This guide will walk you through creating, customizing, and deploying a new docu
 
 Start by creating a new Next.js project using the [Next.js CLI](https://nextjs.org/docs/getting-started/installation):
 
-## 2. Install Doctocat (Next.js)
+Note: Select "No" for question: "Would you like to use App Router?"
+
+## 2. Install Doctocat (Next.js) and relevant dependencies
 
 Next, install Doctocat and its dependencies:
 
 ```bash
-npm install --save @primer/doctocat-nextjs
+npm install --save @primer/doctocat-nextjs next@v14.0 eslint-config-next@v14.0
 ```
 
 ## 3. Update your Next.js configuration
@@ -24,11 +26,18 @@ Update your next.config.js file to use the Doctocat theme:
 
 ```js
 // next.config.js
-const withDoctocat = require('@primer/doctocat-nextjs')
+/** @type {import('next').NextConfig} */
+import withDoctocat from '@primer/doctocat-nextjs/doctocat.config.js'
 
-module.exports = withDoctocat({
-  // your next.js config
-})
+const nextConfig = withDoctocat({
+  reactStrictMode: true,
+  publicRuntimeConfig: {
+    siteTitle: 'Doctocat site' // add your own site title here as an environment variable
+  },
+});
+
+export default nextConfig;
+
 ```
 
 ### Optional: GitHub Pages configuration
@@ -54,9 +63,25 @@ function App({ Component, pageProps }: AppProps) {
 export default App;
 ```
 
-## 5. Add your content
+## 5. Update homepage
 
-Next, go ahead and put your Markdown documents (`.md` or `.mdx`) in `pages/`. Documents in `pages/` automatically become pages with URLs based on their path relative to `pages/`. For example, if you create a `pages/components/box.md` file, Doctocat will use that file to create a `/components/box` page.
+Rename `pages/index.tsx` to `pages/index.md` and replace the file contents with:
+
+```markdown
+---
+title: Your homepage tile
+---
+
+Welcome to your homepage content. 
+
+This is a markdown file that will be rendered as a page on your site. 
+
+You can edit this file to change the content of your homepage.
+```
+
+### Optional: Add other content
+
+Next, go ahead and put any additional Markdown documents (`.md` or `.mdx`) in `pages/` using subfolders. Documents in `pages/` automatically become pages with URLs based on their path relative to `pages/`. For example, if you create a `pages/my-folder/my-page.md` file, Doctocat will use that file to create a `/my-folder/my-page` page.
 
 Important:
 
