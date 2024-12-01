@@ -4,6 +4,7 @@
   "description": "Primer's Next.js documentation framework",
   "scripts": {
     "build": "npm run build --workspace=packages/site",
+    "check": "npm run check --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "start": "npm run dev --workspace=packages/site",
     "release": "changeset publish"

@@ -1,10 +1,8 @@
 import React from 'react'
-import {NavList} from '@primer/react'
-import {Text, Heading, UnorderedList, InlineLink} from '@primer/react-brand'
+import {Heading, UnorderedList, InlineLink} from '@primer/react-brand'
 import {MdxFile} from 'nextra'
 
 import styles from './RelatedContentLinks.module.css'
-import Link from 'next/link'
 import {LinkExternalIcon} from '@primer/octicons-react'
 
 export type RelatedContentLink = MdxFile & {
