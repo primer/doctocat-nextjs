@@ -1,6 +1,6 @@
 import React from 'react'
 import type {ComponentProps, ReactElement} from 'react'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import type {Components} from 'nextra/mdx'
 
 import {LinkIcon} from '@primer/octicons-react'

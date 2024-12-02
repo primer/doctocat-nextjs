@@ -1,4 +1,4 @@
-import React from 'react'
+import {createContext} from 'react'
 
 export type ColorMode = 'light' | 'dark'
 
@@ -12,4 +12,4 @@ const defaultValues: ColorModeContextProps = {
   setColorMode: () => {},
 }
 
-export const ColorModeContext = React.createContext<ColorModeContextProps>(defaultValues)
+export const ColorModeContext = createContext<ColorModeContextProps>(defaultValues)

@@ -32,12 +32,11 @@ import withDoctocat from '@primer/doctocat-nextjs/doctocat.config.js'
 const nextConfig = withDoctocat({
   reactStrictMode: true,
   publicRuntimeConfig: {
-    siteTitle: 'Doctocat site' // add your own site title here as an environment variable
+    siteTitle: 'Doctocat site', // add your own site title here as an environment variable
   },
-});
+})
 
-export default nextConfig;
-
+export default nextConfig
 ```
 
 ### Optional: GitHub Pages configuration
@@ -45,7 +44,9 @@ export default nextConfig;
 If you plan to deploy your site to GitHub Pages, you'll need to add the following to your `next.config.js` file:
 
 ```js
-output: 'export'
+{
+  output: 'export'
+}
 ```
 
 ## 4. Add the Doctocat stylesheets
@@ -72,9 +73,9 @@ Rename `pages/index.tsx` to `pages/index.md` and replace the file contents with:
 title: Your homepage tile
 ---
 
-Welcome to your homepage content. 
+Welcome to your homepage content.
 
-This is a markdown file that will be rendered as a page on your site. 
+This is a markdown file that will be rendered as a page on your site.
 
 You can edit this file to change the content of your homepage.
 ```

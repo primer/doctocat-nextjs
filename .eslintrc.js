@@ -5,18 +5,19 @@ module.exports = {
       jsx: true,
     },
   },
+
   extends: [
-    'plugin:import/recommended',
+    'prettier',
     'plugin:react/jsx-runtime',
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
-    'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
     'plugin:github/recommended',
     'plugin:github/browser',
     'plugin:primer-react/recommended',
+    'plugin:markdown/recommended',
   ],
-  ignorePatterns: ['node_modules', '.next', 'dist/**/*', 'out/**/*', 'types/**/*'],
+  ignorePatterns: ['node_modules', '.next', 'dist/**/*', 'out/**/*', 'types/**/*', 'CHANGELOG.md'],
   globals: {
     __DEV__: 'readonly',
   },
@@ -41,7 +42,6 @@ module.exports = {
     'eslint-comments/no-unused-disable': 0,
     'react/prop-types': 0,
     'react/display-name': 0,
-    'react-hooks/exhaustive-deps': 'error',
     camelcase: [
       'error',
       {
@@ -162,6 +162,7 @@ module.exports = {
         '@typescript-eslint/no-unnecessary-condition': 0,
         '@typescript-eslint/no-unused-vars': 0,
         'no-redeclare': 0,
+        'no-unused-labels': 0,
       },
     },
   ],
