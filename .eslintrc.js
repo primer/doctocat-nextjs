@@ -5,8 +5,9 @@ module.exports = {
       jsx: true,
     },
   },
+
   extends: [
-    'plugin:import/recommended',
+    'prettier',
     'plugin:react/jsx-runtime',
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
@@ -14,6 +15,7 @@ module.exports = {
     'plugin:github/recommended',
     'plugin:github/browser',
     'plugin:primer-react/recommended',
+    'plugin:markdown/recommended',
   ],
   ignorePatterns: ['node_modules', '.next', 'dist/**/*', 'out/**/*', 'types/**/*', 'CHANGELOG.md'],
   globals: {
@@ -40,7 +42,6 @@ module.exports = {
     'eslint-comments/no-unused-disable': 0,
     'react/prop-types': 0,
     'react/display-name': 0,
-    'react-hooks/exhaustive-deps': 'error',
     camelcase: [
       'error',
       {

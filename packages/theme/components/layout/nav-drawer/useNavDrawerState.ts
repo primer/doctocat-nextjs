@@ -1,28 +1,28 @@
-import React from 'react'
+import {useCallback, useEffect, useMemo, useState} from 'react'
 import debounce from 'lodash.debounce'
 
 export function useNavDrawerState(breakpoint): [boolean, (value: boolean) => void] {
   if (typeof breakpoint === 'string') {
     breakpoint = parseInt(breakpoint, 10)
   }
-  const [isOpen, setOpen] = React.useState<boolean>(false)
+  const [isOpen, setOpen] = useState<boolean>(false)
 
-  const onResize = React.useCallback(() => {
+  const onResize = useCallback(() => {
     if (window.innerWidth >= breakpoint) {
       setOpen(false)
     }
   }, [setOpen, breakpoint])
 
-  const handleSetOpen = React.useCallback(
+  const handleSetOpen = useCallback(
     (value: boolean) => {
       setOpen(value)
     },
     [setOpen],
   )
 
-  const debouncedOnResize = React.useMemo(() => debounce(onResize, 250), [onResize])
+  const debouncedOnResize = useMemo(() => debounce(onResize, 250), [onResize])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isOpen) {
       // eslint-disable-next-line github/prefer-observers
       window.addEventListener('resize', debouncedOnResize)

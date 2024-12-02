@@ -1,10 +1,10 @@
 import {MarkGithubIcon, MoonIcon, SearchIcon, SunIcon, ThreeBarsIcon, XIcon} from '@primer/octicons-react'
 import {Box, FormControl, IconButton, TextInput} from '@primer/react'
 import {Heading, Stack, Text} from '@primer/react-brand'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import {MdxFile, PageMapItem} from 'nextra'
 import type {PageItem} from 'nextra/normalize-pages'
-import React, {useCallback, useEffect, useMemo} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {debounce} from 'lodash'
 
 import Link from 'next/link'
@@ -28,14 +28,14 @@ type SearchResults = {
 
 export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
   const {colorMode, setColorMode} = useColorMode()
-  const inputRef = React.useRef<HTMLInputElement | null>(null)
-  const searchResultsRef = React.useRef<HTMLElement | null>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
+  const searchResultsRef = useRef<HTMLElement | null>(null)
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useNavDrawerState('768')
-  const [isSearchOpen, setIsSearchOpen] = React.useState(false)
-  const [isSearchResultOpen, setIsSearchResultOpen] = React.useState(false)
-  const [searchResults, setSearchResults] = React.useState<SearchResults[] | undefined>()
-  const [searchTerm, setSearchTerm] = React.useState<string | undefined>('')
-  const [activeDescendant] = React.useState<number>(-1)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [isSearchResultOpen, setIsSearchResultOpen] = useState(false)
+  const [searchResults, setSearchResults] = useState<SearchResults[] | undefined>()
+  const [searchTerm, setSearchTerm] = useState<string | undefined>('')
+  const [activeDescendant] = useState<number>(-1)
 
   useEffect(() => {
     if (isSearchOpen && inputRef.current) {
