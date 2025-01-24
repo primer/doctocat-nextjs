@@ -1,6 +1,6 @@
-const withDoctocat = require('@primer/doctocat-nextjs/doctocat.config')
+import withDoctocat from '@primer/doctocat-nextjs/doctocat.config.js'
 
-module.exports = {
+export default {
   ...withDoctocat({
     output: 'export',
     basePath: process.env.GITHUB_ACTIONS === 'true' && process.env.IS_PROD ? '/doctocat-nextjs' : '',

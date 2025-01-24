@@ -1,5 +1,5 @@
 // eslint-disable-next-line filenames/match-regex
-const base = require('../../.eslintrc')
+const base = require('../../eslint.config.cjs')
 
 module.exports = {
   ...base,

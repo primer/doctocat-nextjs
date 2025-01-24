@@ -3,11 +3,12 @@
   "version": "0.0.4",
   "private": true,
   "description": "Documentation theme",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "check": "tsc --noEmit",
     "build": "rm -rf out && next build",
-    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./.eslintrc.js",
+    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./eslint.config.cjs",
     "start": "next start"
   },
   "repository": {
