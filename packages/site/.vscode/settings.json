@@ -1,5 +1,5 @@
 {
   "eslint.options": {
-    "configFile": "eslint.config.cjs"
+    "configFile": ".eslintrc.cjs"
   }
 }

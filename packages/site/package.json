@@ -8,7 +8,7 @@
     "dev": "next dev",
     "check": "tsc --noEmit",
     "build": "rm -rf out && next build",
-    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./eslint.config.cjs",
+    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./.eslintrc.cjs",
     "start": "next start"
   },
   "repository": {

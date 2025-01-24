@@ -1,3 +1,4 @@
+/** @type {import('next').NextConfig} */
 import withDoctocat from '@primer/doctocat-nextjs/doctocat.config.js'
 
 export default {
@@ -7,7 +8,7 @@ export default {
     publicRuntimeConfig: {
       siteTitle: 'Doctocat',
       repo: 'https://github.com/primer/doctocat-nextjs',
-      repoSrcPath: 'packages/site', // folder path to your site root. Helpful for monorepos.
+      repoSrcPath: 'packages/site',
       sidebarLinks: [
         {
           title: 'GitHub',
