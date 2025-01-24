@@ -8,6 +8,13 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   rules: {
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'always',
+      },
+    ],
     '@next/next/no-img-element': 'off',
     'primer-react/no-system-props': 'off',
   },

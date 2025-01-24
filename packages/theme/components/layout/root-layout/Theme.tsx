@@ -61,12 +61,7 @@ export function Theme({children, pageOpts}: NextraThemeLayoutProps) {
   const isHomePage = route === '/'
   const isIndexPage = /index\.mdx?$/.test(filePath) && !isHomePage && !frontMatter['show-tabs']
   const data = !isHomePage && activePath[activePath.length - 2]
-  const filteredTabData: MdxFile[] =
-    data && hasChildren(data)
-      ? ((data as Folder).children.filter(child => {
-          return child
-        }) as MdxFile[])
-      : []
+  const filteredTabData: MdxFile[] = data && hasChildren(data) ? ((data as Folder).children as MdxFile[]) : []
 
   /**
    * Uses a frontmatter 'keywords' value (as an array)

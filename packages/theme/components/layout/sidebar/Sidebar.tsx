@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import NextLink from 'next/link'
 import {NavList} from '@primer/react'
-import {Folder, MdxFile, PageMapItem} from 'nextra'
+import {Folder, MdxFile} from 'nextra'
 import {useRouter} from 'next/router'
 import getConfig from 'next/config'
 
@@ -15,6 +15,10 @@ type SidebarProps = {
 }
 
 const {publicRuntimeConfig} = getConfig()
+
+const hasShowTabs = (child: DocsItem): boolean => {
+  return child.name === 'index' && (child as MdxFile).frontMatter?.['show-tabs'] === true
+}
 
 export function Sidebar({pageMap}: SidebarProps) {
   const router = useRouter()
@@ -75,12 +79,8 @@ export function Sidebar({pageMap}: SidebarProps) {
                 {item.children &&
                   item.children
                     .sort((a, b) => (a.name === 'index' ? -1 : b.name === 'index' ? 1 : 0)) // puts index page first
-                    .filter(child => {
-                      return (
-                        child.name !== 'index' ||
-                        ((child.name === 'index' && (child as MdxFile).frontMatter?.['show-tabs']) ?? false)
-                      )
-                    }) // only show index page if it has show-tabs
+                    // only show index page if it has show-tabs
+                    .filter(child => child.name !== 'index' || hasShowTabs(child))
                     .map((child: DocsItem) => {
                       if (child.type === 'doc') {
                         return (
