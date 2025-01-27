@@ -1,5 +1,35 @@
 # @primer/doctocat-nextjs
 
+## 0.1.0
+
+### Minor Changes
+
+- [#18](https://github.com/primer/doctocat-nextjs/pull/18) [`bfe68b1`](https://github.com/primer/doctocat-nextjs/commit/bfe68b14e8e3b4383ea41dcbf47373df8a130567) Thanks [@rezrah](https://github.com/rezrah)! - Upgraded internal framework to [Nextra v3](https://the-guild.dev/blog/nextra-3).
+
+  To migrate Doctocat to this release, follow these steps:
+
+  1. Install the latest version `npm i @primer/doctocat-nextjs@0.1.0`
+  2. Rename your `next.config.js` to be `next.config.mjs`. Add `type="module"` to your `package.json` and update the file contents to match the following:
+
+  ```diff
+  -  const withDoctocat = require('@primer/doctocat-nextjs/doctocat.config.js')
+
+  -  module.exports = {
+  -  ...withDoctocat({
+
+  -  }),
+  -  }
+
+  +  import withDoctocat from '@primer/doctocat-nextjs/doctocat.config.js'
+
+  +  export default {
+  +  ...withDoctocat({
+
+  +  }),
+  +  }
+
+  ```
+
 ## 0.0.4
 
 ### Patch Changes
