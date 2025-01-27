@@ -3,11 +3,12 @@
   "version": "0.0.4",
   "private": true,
   "description": "Documentation theme",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "check": "tsc --noEmit",
     "build": "rm -rf out && next build",
-    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./.eslintrc.js",
+    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./.eslintrc.cjs",
     "start": "next start"
   },
   "repository": {
@@ -21,16 +22,16 @@
   "homepage": "https://github.com/primer/doctocat-nextjs#readme",
   "dependencies": {
     "@primer/doctocat-nextjs": "^0.0.4",
-    "@primer/octicons-react": "19.12.0",
-    "eslint-config-next": "15.0.3",
-    "next": "15.0.3",
+    "@primer/octicons-react": "19.14.0",
+    "eslint-config-next": "15.1.6",
+    "next": "15.1.6",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
   "devDependencies": {
     "@github/prettier-config": "^0.0.6",
     "@primer/react": "36.27.0",
-    "@primer/react-brand": "0.43.0",
+    "@primer/react-brand": "0.46.0",
     "@types/node": "18.11.10",
     "next-transpile-modules": "^10.0.1",
     "typescript": "5.7.2"

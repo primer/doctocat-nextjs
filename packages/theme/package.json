@@ -3,27 +3,28 @@
   "version": "0.0.4",
   "description": "A Next.js theme for building Primer documentation sites",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "check": "tsc --noEmit",
-    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./.eslintrc.js",
+    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./.eslintrc.cjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "GitHub, Inc.",
   "license": "MIT",
   "peerDependencies": {
-    "next": "^14.0.3",
+    "next": "15.1.6",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
   "dependencies": {
-    "@primer/octicons-react": "19.12.0",
+    "@primer/octicons-react": "19.14.0",
     "@primer/react": "36.27.0",
-    "@primer/react-brand": "0.43.0",
+    "@primer/react-brand": "0.46.0",
     "next-transpile-modules": "^10.0.1",
-    "framer-motion": "^10.16.12",
+    "framer-motion": "12.0.1",
     "lodash.debounce": "^4.0.8",
-    "react-focus-on": "^3.9.1",
-    "nextra": "^2.13.2",
+    "react-focus-on": "3.9.4",
+    "nextra": "3.3.1",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
@@ -32,10 +33,10 @@
     "@types/node": "18.11.10",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
-    "clsx": "^2.0.0",
-    "next": "15.0.3",
+    "clsx": "2.1.1",
+    "next": "15.1.6",
     "styled-components": "6.1.13",
-    "typescript": "5.7.2"
+    "typescript": "5.7.3"
   },
   "overrides": {
     "@types/react": "18.3.12",

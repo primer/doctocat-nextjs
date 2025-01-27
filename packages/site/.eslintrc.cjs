@@ -1,5 +1,5 @@
 // eslint-disable-next-line filenames/match-regex
-const base = require('../../.eslintrc')
+const base = require('../../.eslintrc.cjs')
 
 module.exports = {
   ...base,
@@ -8,6 +8,13 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   rules: {
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'always',
+      },
+    ],
     '@next/next/no-img-element': 'off',
     'primer-react/no-system-props': 'off',
   },

@@ -1,13 +1,14 @@
-const withDoctocat = require('@primer/doctocat-nextjs/doctocat.config')
+/** @type {import('next').NextConfig} */
+import withDoctocat from '@primer/doctocat-nextjs/doctocat.config.js'
 
-module.exports = {
+export default {
   ...withDoctocat({
     output: 'export',
     basePath: process.env.GITHUB_ACTIONS === 'true' && process.env.IS_PROD ? '/doctocat-nextjs' : '',
     publicRuntimeConfig: {
       siteTitle: 'Doctocat',
       repo: 'https://github.com/primer/doctocat-nextjs',
-      repoSrcPath: 'packages/site', // folder path to your site root. Helpful for monorepos.
+      repoSrcPath: 'packages/site',
       sidebarLinks: [
         {
           title: 'GitHub',

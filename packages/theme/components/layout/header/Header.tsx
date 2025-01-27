@@ -2,7 +2,7 @@ import {MarkGithubIcon, MoonIcon, SearchIcon, SunIcon, ThreeBarsIcon, XIcon} fro
 import {Box, FormControl, IconButton, TextInput} from '@primer/react'
 import {Heading, Stack, Text} from '@primer/react-brand'
 import {clsx} from 'clsx'
-import {MdxFile, PageMapItem} from 'nextra'
+import {MdxFile, Folder, PageMapItem} from 'nextra'
 import type {PageItem} from 'nextra/normalize-pages'
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {debounce} from 'lodash'
@@ -12,6 +12,8 @@ import styles from './Header.module.css'
 import {NavDrawer} from '../nav-drawer/NavDrawer'
 import {useNavDrawerState} from '../nav-drawer/useNavDrawerState'
 import {useColorMode} from '../../context/color-modes/useColorMode'
+import {hasChildren} from '../../../helpers/hasChildren'
+import {DocsItem} from '../../../types'
 
 type HeaderProps = {
   pageMap: PageMapItem[]
@@ -80,10 +82,10 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
     () =>
       pageMap
         .map(item => {
-          if (item.kind === 'Folder') {
-            return item.children.filter(child => child.kind === 'MdxPage')
+          if (hasChildren(item)) {
+            return (item as Folder).children.filter(child => !hasChildren(child))
           }
-          if (item.kind === 'MdxPage') {
+          if ((item as DocsItem).type === 'doc') {
             return item
           }
         })

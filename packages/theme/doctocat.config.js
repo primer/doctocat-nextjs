@@ -1,9 +1,12 @@
-const withNextra = require('nextra')({
+import nextra from 'nextra'
+import transpiler from 'next-transpile-modules'
+
+const withNextra = nextra({
   theme: '@primer/doctocat-nextjs',
   staticImage: true,
 })
 
-const withTM = require('next-transpile-modules')(['@primer/doctocat-nextjs'])
+const withTM = transpiler(['@primer/doctocat-nextjs'])
 
 /*
  * Wrapper for next config, that allows us to do some shared configuration
@@ -23,4 +26,4 @@ function withDoctocat(config = {}) {
   })
 }
 
-module.exports = withDoctocat
+export default withDoctocat

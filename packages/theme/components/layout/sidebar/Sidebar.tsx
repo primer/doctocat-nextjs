@@ -1,30 +1,24 @@
 import React, {useMemo} from 'react'
 import NextLink from 'next/link'
 import {NavList} from '@primer/react'
-import {Folder, MdxFile, PageMapItem} from 'nextra'
+import {Folder, MdxFile} from 'nextra'
 import {useRouter} from 'next/router'
 import getConfig from 'next/config'
 
 import styles from './Sidebar.module.css'
 import {LinkExternalIcon} from '@primer/octicons-react'
-import type {ThemeConfig} from '../../../index'
+import type {DocsItem, ThemeConfig} from '../../../index'
+import {hasChildren} from '../../../helpers/hasChildren'
 
 type SidebarProps = {
   pageMap: DocsItem[]
 }
 
-type FolderWithoutChildren = Omit<Folder, 'children'>
-
-type DocsItem = (MdxFile | FolderWithoutChildren) & {
-  title: string
-  type: string
-  children?: DocsItem[]
-  firstChildRoute?: string
-  withIndexPage?: boolean
-  isUnderCurrentDocsTree?: boolean
-}
-
 const {publicRuntimeConfig} = getConfig()
+
+const hasShowTabs = (child: DocsItem): boolean => {
+  return child.name === 'index' && (child as MdxFile).frontMatter?.['show-tabs'] === true
+}
 
 export function Sidebar({pageMap}: SidebarProps) {
   const router = useRouter()
@@ -39,11 +33,11 @@ export function Sidebar({pageMap}: SidebarProps) {
   const reorderedPageMap = useMemo(
     () =>
       [...pageMap].sort((a, b) => {
-        if (a.kind === 'Folder' && a.children) {
-          const aIndex = a.children.find(child => child.name === 'index' && child.kind === 'MdxPage')
+        if (hasChildren(a) && a.children) {
+          const aIndex = a.children.find(child => child.name === 'index' && child.type === 'doc')
           const aPosition = (aIndex as MdxFile | undefined)?.frontMatter?.['menu-position'] ?? Infinity
-          if (b.kind === 'Folder' && b.children) {
-            const bIndex = b.children.find(child => child.name === 'index' && child.kind === 'MdxPage')
+          if (hasChildren(b) && b.children) {
+            const bIndex = b.children.find(child => child.name === 'index' && child.type === 'doc')
             const bPosition = (bIndex as MdxFile | undefined)?.frontMatter?.['menu-position'] ?? Infinity
             return aPosition - bPosition
           }
@@ -57,21 +51,19 @@ export function Sidebar({pageMap}: SidebarProps) {
     <div className={styles.Sidebar}>
       <NavList className={styles.NavList} aria-label="Menu links">
         {reorderedPageMap.map(item => {
-          if (item.kind === 'MdxPage' && item.route === '/') return null
+          if (item.type === 'doc' && item.route === '/') return null
 
-          if (item.kind === 'MdxPage') {
+          if (!hasChildren(item) && item.type === 'doc') {
             return (
               <NavList.Item as={NextLink} key={item.name} href={item.route} sx={{textTransform: 'capitalize'}}>
-                {item.frontMatter?.title ?? item.name}
+                {(item as MdxFile).frontMatter?.title ?? item.name}
               </NavList.Item>
             )
           }
 
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if (item.kind === 'Folder') {
-            const indexPage = (item as Folder).children.find(
-              child => child.kind === 'MdxPage' && child.name === 'index',
-            ) as MdxFile
+          if (hasChildren(item)) {
+            const indexPage = (item as Folder).children.find(child => (child as MdxFile).name === 'index') as MdxFile
             const subNavName = indexPage.frontMatter?.title ?? ''
             const shouldShowTabs = indexPage.frontMatter?.['show-tabs'] ?? false
             if (shouldShowTabs) {
@@ -87,28 +79,27 @@ export function Sidebar({pageMap}: SidebarProps) {
                 {item.children &&
                   item.children
                     .sort((a, b) => (a.name === 'index' ? -1 : b.name === 'index' ? 1 : 0)) // puts index page first
-                    .filter(
-                      child =>
-                        (child as DocsItem).name !== 'index' ||
-                        ((child.name === 'index' && (child as MdxFile).frontMatter?.['show-tabs']) ?? false),
-                    ) // only show index page if it has show-tabs
+                    // only show index page if it has show-tabs
+                    .filter(child => child.name !== 'index' || hasShowTabs(child))
                     .map((child: DocsItem) => {
-                      if (child.kind === 'MdxPage') {
+                      if (child.type === 'doc') {
                         return (
                           <NavList.Item
                             as={NextLink}
                             key={child.name}
                             href={child.route}
+                            sx={{textTransform: 'capitalize'}}
                             aria-current={child.route === router.pathname ? 'page' : undefined}
                           >
-                            {(child as MdxFile).frontMatter?.title || item.name}
+                            {child.title}
                           </NavList.Item>
                         )
                       }
 
-                      if ((child as DocsItem).kind === 'Folder') {
-                        const landingPageItem: PageMapItem | undefined = (child as Folder).children.find(
-                          innerChild => innerChild.kind === 'MdxPage' && innerChild.name === 'index',
+                      if (hasChildren(child)) {
+                        const landingPageItem = (child as Folder).children.find(
+                          innerChild =>
+                            (innerChild as DocsItem).type === 'doc' && (innerChild as DocsItem).name === 'index',
                         )
                         return (
                           <NavList.Item
