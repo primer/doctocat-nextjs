@@ -61,7 +61,7 @@ export function Theme({children, pageMap}: ThemeProps) {
 
   const {activeMetadata} = normalizedPages
 
-  const {filePath, title} = activeMetadata as FrontMatter
+  const {filePath = '', title = ''} = activeMetadata || {}
 
   const tocPortalRef = useRef<HTMLDivElement | null>(null)
 
