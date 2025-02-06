@@ -15,6 +15,14 @@
   flex-direction: column;
 }
 
+.doLabel .header {
+  background-color: var(--brand-color-success-fg);
+}
+
+.dontLabel .header {
+  background-color: var(--brand-color-error-fg);
+}
+
 .header {
   display: flex;
   align-self: start;

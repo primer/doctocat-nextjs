@@ -173,7 +173,7 @@ export function Header({pageMap, siteTitle}: HeaderProps) {
           {siteTitle}
         </Text>
       </Link>
-      <Box className={clsx(styles.Header__searchArea, isSearchOpen && styles['Header__searchArea--open'])}>
+      <div className={clsx(styles.Header__searchArea, isSearchOpen && styles['Header__searchArea--open'])}>
         <FormControl>
           <FormControl.Label visuallyHidden>Search</FormControl.Label>
           <TextInput
@@ -291,7 +291,7 @@ export function Header({pageMap, siteTitle}: HeaderProps) {
             />
           </Stack>
         </div>
-      </Box>
+      </div>
       <div>
         <Stack direction="horizontal" padding="none" gap={4}>
           <IconButton

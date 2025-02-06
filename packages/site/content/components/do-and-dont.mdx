@@ -6,7 +6,7 @@ description: Learn how to use add a Do or Don't to your documentation
 1. Import relevant components from `@primer/doctocat-nextjs`:
 
 ```js
-import { DoDontContainer, Do, Dont } from "@primer/doctocat-nextjs";
+import {DoDontContainer, Do, Dont} from '@primer/doctocat-nextjs'
 ```
 
 2. Use the components in your Markdown file, but ensure that you wrap the component in a `div` with the `custom-component` class. This will ensure that article formatting isn't applied to the custom component.
@@ -33,13 +33,13 @@ Will render:
   </Do>
   <Dont>
     <img src="https://via.placeholder.com/1000x350/d3d9df/d3d9df.png" alt="" />
-    <Caption>Example of what you shouldn't do</Caption>
+    <Caption>Example of what you shouldn&apos;t do</Caption>
   </Dont>
 </DoDontContainer>
 
 ### Stacked
 
-Use the `stacked` option to vertically stack the Do and Don't images.
+Use the `stacked` option to vertically stack the Do and Don&apos;t images.
 
 ```jsx
 <DoDontContainer stacked>
@@ -49,7 +49,7 @@ Use the `stacked` option to vertically stack the Do and Don't images.
   </Do>
   <Dont>
     <img src="https://via.placeholder.com/1000x350/d3d9df/d3d9df.png" alt="" />
-    <Caption>Example of what you shouldn't do</Caption>
+    <Caption>Example of what you shouldn&apos;t do</Caption>
   </Dont>
 </DoDontContainer>
 ```
@@ -61,6 +61,6 @@ Use the `stacked` option to vertically stack the Do and Don't images.
   </Do>
   <Dont>
     <img src="https://via.placeholder.com/1000x350/d3d9df/d3d9df.png" alt="" />
-    <Caption>Example of what you shouldn't do</Caption>
+    <Caption>Example of what you shouldn&apos;t do</Caption>
   </Dont>
 </DoDontContainer>
