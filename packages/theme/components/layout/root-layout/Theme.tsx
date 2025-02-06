@@ -2,7 +2,7 @@
 import React, {PropsWithChildren, useMemo, useRef} from 'react'
 import NextLink from 'next/link'
 import Head from 'next/head'
-import type {Folder, FrontMatter, MdxFile, PageMapItem} from 'nextra'
+import type {Folder, MdxFile, PageMapItem} from 'nextra'
 import {useFSRoute} from 'nextra/hooks'
 import {PencilIcon} from '@primer/octicons-react'
 import {BaseStyles, Box as PRCBox, Breadcrumbs, PageLayout, ThemeProvider} from '@primer/react'
