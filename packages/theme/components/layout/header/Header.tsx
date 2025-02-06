@@ -3,7 +3,6 @@ import {Box, FormControl, IconButton, TextInput} from '@primer/react'
 import {Heading, Stack, Text} from '@primer/react-brand'
 import {clsx} from 'clsx'
 import {MdxFile, Folder, PageMapItem} from 'nextra'
-import type {PageItem} from 'nextra/normalize-pages'
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {debounce} from 'lodash'
 
@@ -17,8 +16,6 @@ import {DocsItem} from '../../../types'
 
 type HeaderProps = {
   pageMap: PageMapItem[]
-  docsDirectories: PageItem[]
-  menuItems: PageItem[]
   siteTitle: string
 }
 
@@ -28,7 +25,7 @@ type SearchResults = {
   url: string
 }
 
-export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
+export function Header({pageMap, siteTitle}: HeaderProps) {
   const {colorMode, setColorMode} = useColorMode()
   const inputRef = useRef<HTMLInputElement | null>(null)
   const searchResultsRef = useRef<HTMLElement | null>(null)
@@ -318,11 +315,7 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
               aria-expanded={isNavDrawerOpen}
               onClick={() => setIsNavDrawerOpen(true)}
             />
-            <NavDrawer
-              isOpen={isNavDrawerOpen}
-              onDismiss={() => setIsNavDrawerOpen(false)}
-              navItems={docsDirectories}
-            />
+            <NavDrawer isOpen={isNavDrawerOpen} onDismiss={() => setIsNavDrawerOpen(false)} navItems={pageMap} />
           </Box>
         </Stack>
       </div>

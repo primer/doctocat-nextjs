@@ -13,7 +13,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:prettier/recommended',
     'plugin:github/recommended',
-    'plugin:github/browser',
+    // 'plugin:github/browser',
     'plugin:primer-react/recommended',
     'plugin:markdown/recommended',
   ],
@@ -134,6 +134,7 @@ module.exports = {
       },
       rules: {
         'prettier/prettier': 0,
+        'react/jsx-no-undef': 0,
       },
     },
     // rules which apply only to Markdown code blocks
@@ -163,6 +164,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 0,
         'no-redeclare': 0,
         'no-unused-labels': 0,
+        'import/named': 0,
       },
     },
   ],

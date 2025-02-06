@@ -1,3 +1,4 @@
+'use client'
 import React, {useEffect, useMemo} from 'react'
 import {NavList} from '@primer/react'
 import {Text} from '@primer/react-brand'

@@ -1,0 +1,8 @@
+.Article {
+  display: grid;
+}
+
+.Article--withToc {
+  grid-template-columns: 1fr 200px;
+  gap: var(--base-size-48);
+}

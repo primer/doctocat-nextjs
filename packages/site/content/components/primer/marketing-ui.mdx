@@ -4,9 +4,6 @@ description: Learn how to use Primer Brand components in Markdown files.
 show-tabs: true
 ---
 
-import {Button, Stack, Pillar, ButtonGroup} from '@primer/react-brand'
-import {GitBranchIcon, RocketIcon, CopilotIcon} from '@primer/octicons-react'
-
 Primer Brand is a GitHub’s design system for creating marketing websites and digital experiences.
 
 Marketing React components can be used in Markdown files by importing them from `@primer/react-brand`.
@@ -37,10 +34,8 @@ Will render:
 <br />
 
 <div className="custom-component">
-  <ButtonGroup>
-    <Button>Primary</Button>
-    <Button>Secondary</Button>
-  </ButtonGroup>
+  <Button>Primary</Button>
+  <Button>Secondary</Button>
 </div>
 
 ### Layout
@@ -53,20 +48,7 @@ Example using Stack and Pillars:
 
 <div className="custom-component">
   <Stack direction="horizontal" alignItems="center" justifyContent="center" gap="spacious" padding="none">
-    <Pillar>
-      <Pillar.Icon icon={<CopilotIcon />} color="blue" />
-      <Pillar.Heading>Heading</Pillar.Heading>
-      <Pillar.Description>Everything you need to know about getting started with GitHub Actions.</Pillar.Description>
-    </Pillar>
-    <Pillar>
-      <Pillar.Icon icon={<RocketIcon />} color="blue" />
-      <Pillar.Heading>Heading</Pillar.Heading>
-      <Pillar.Description>Everything you need to know about getting started with GitHub Actions.</Pillar.Description>
-    </Pillar>
-    <Pillar>
-      <Pillar.Icon icon={<GitBranchIcon />} color="blue" />
-      <Pillar.Heading>Heading</Pillar.Heading>
-      <Pillar.Description>Everything you need to know about getting started with GitHub Actions.</Pillar.Description>
-    </Pillar>
+    <p>Left</p>
+    <p>Right</p>
   </Stack>
 </div>

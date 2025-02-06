@@ -1,18 +1,14 @@
 import React from 'react'
-import {Box, Text} from '@primer/react'
+import {Box} from '@primer/react'
+import styles from './DosAndDonts.module.css'
 
 type DoDontContainerProps = {
   stacked?: boolean
 }
 
 export function DoDontContainer({stacked = false, children}: React.PropsWithChildren<DoDontContainerProps>) {
-  return (
-    <Box sx={{display: 'grid', gridTemplateColumns: ['1fr', null, stacked ? '1fr' : '1fr 1fr'], gridGap: 4, my: 6}}>
-      {children}
-    </Box>
-  )
+  return <div className={`${styles.container} ${stacked ? styles.stacked : ''}`}>{children}</div>
 }
-
 type DoDontProps = {
   indented?: boolean
 }
@@ -42,47 +38,25 @@ type DoDontBaseProps = {
 
 export function DoDontBase({children, title, bg, borderColor, indented}: React.PropsWithChildren<DoDontBaseProps>) {
   return (
-    <Box className="exclude-from-prose" sx={{display: 'flex', flexDirection: 'column'}}>
+    <div className={`exclude-from-prose ${styles.doDontBase}`}>
       <Box
+        className={styles.header}
         sx={{
-          display: 'flex',
-          alignSelf: 'start',
-          flexDirection: 'row',
-          alignItems: 'center',
-          mb: '2',
           backgroundColor: bg,
-          borderRadius: '2',
-          color: 'fg.onEmphasis',
-          paddingX: '2',
+          color: 'var(--fgColor-onEmphasis, var(--color-fg-on-emphasis))',
         }}
       >
-        <Text sx={{fontWeight: 'bold', fontSize: '1', color: 'fg.onEmphasis'}}>{title}</Text>
+        <span className={styles.headerText}>{title}</span>
       </Box>
-      <Box
-        sx={{
-          '& *:last-child': {mb: 0},
-          ' img': {maxWidth: '100%', marginBlockEnd: 0},
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
+      <div className={styles.content}>
         {indented ? (
-          <Box
-            as="blockquote"
-            sx={{
-              margin: '0',
-              borderLeftWidth: '4px',
-              borderLeftStyle: 'solid',
-              borderLeftColor: borderColor,
-              paddingLeft: '3',
-            }}
-          >
+          <blockquote className={styles.indentedContent} style={{borderLeftColor: borderColor}}>
             {children}
-          </Box>
+          </blockquote>
         ) : (
           children
         )}
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
