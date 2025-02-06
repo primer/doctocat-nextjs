@@ -33,7 +33,6 @@
     "@primer/react": "37.11.2",
     "@primer/react-brand": "0.46.0",
     "@types/node": "18.11.10",
-    "next-transpile-modules": "^10.0.1",
     "typescript": "5.7.3"
   }
 }
