@@ -1,10 +1,9 @@
 'use client'
-import React, {PropsWithChildren, useMemo, useRef} from 'react'
+import React, {PropsWithChildren, useMemo} from 'react'
 import NextLink from 'next/link'
 import Head from 'next/head'
 import type {Folder, MdxFile, PageMapItem} from 'nextra'
 import {useFSRoute} from 'nextra/hooks'
-import {PencilIcon} from '@primer/octicons-react'
 import {BaseStyles, Box as PRCBox, Breadcrumbs, PageLayout, ThemeProvider} from '@primer/react'
 
 import {
@@ -16,7 +15,6 @@ import {
   Button,
   Hero,
   Heading,
-  InlineLink,
   Stack,
   Text,
 } from '@primer/react-brand'
@@ -30,12 +28,13 @@ import {normalizePages} from 'nextra/normalize-pages'
 import {usePathname} from 'next/navigation'
 
 import {Header} from '../header/Header'
-import bodyStyles from '../../../css/prose.module.css'
 import {IndexCards} from '../index-cards/IndexCards'
 import {useColorMode} from '../../context/color-modes/useColorMode'
 import {SkipToMainContent} from '../skip-to-main-content/SkipToMainContent'
-import {RelatedContentLink, RelatedContentLinks} from '../related-content-links/RelatedContentLinks'
+import {RelatedContentLinks} from '../related-content-links/RelatedContentLinks'
+import {getRelatedPages} from '../related-content-links/getRelatedPages'
 import {hasChildren} from '../../../helpers/hasChildren'
+import {Footer} from '../footer/Footer'
 
 const repoSrcPath = process.env.NEXT_PUBLIC_REPO_SRC_PATH || ''
 const repoURL = process.env.NEXT_PUBLIC_REPO || ''
@@ -63,8 +62,6 @@ export function Theme({children, pageMap}: ThemeProps) {
 
   const {filePath = '', title = ''} = activeMetadata || {}
 
-  const tocPortalRef = useRef<HTMLDivElement | null>(null)
-
   const route = usePathname()
 
   const fsPath = useFSRoute()
@@ -85,54 +82,7 @@ export function Theme({children, pageMap}: ThemeProps) {
   const data = !isHomePage && activePath[activePath.length - 2]
   const filteredTabData: MdxFile[] = data && hasChildren(data) ? ((data as Folder).children as MdxFile[]) : []
 
-  /**
-   * Uses a frontmatter 'keywords' value (as an array)
-   * to find adjacent pages that share the same values.
-   * @returns {RelatedContentLink[]}
-   */
-  const getRelatedPages = () => {
-    if (!activeMetadata) return []
-    const currentPageKeywords = activeMetadata.keywords || []
-    const relatedLinks = activeMetadata['related'] || []
-    const matches: RelatedContentLink[] = []
-
-    if (!relatedLinks.length) return []
-    // 1. Check keywords property and find local matches
-    for (const page of flatDocsDirectories) {
-      if (page.route === route) continue
-
-      const pageKeywords = activeMetadata.keywords || []
-      const intersection = pageKeywords.filter(keyword => currentPageKeywords.includes(keyword))
-
-      if (intersection.length) {
-        matches.push(page)
-      }
-    }
-
-    // 2. Check related property for internal and external links
-    for (const link of relatedLinks) {
-      if (!link.title || !link.href || link.href === route) continue
-
-      if (link.href.startsWith('/')) {
-        const page = flatDocsDirectories.find(localPage => localPage.route === link.href) as
-          | RelatedContentLink
-          | undefined
-
-        if (page) {
-          const entry = {
-            ...page,
-            title: link.title || page.title,
-            route: link.href || page.route,
-          }
-          matches.push(entry)
-        }
-      } else {
-        matches.push({...link, route: link.href})
-      }
-    }
-
-    return matches
-  }
+  const relatedLinks = getRelatedPages(activeMetadata, flatDocsDirectories, route)
 
   return (
     <>
@@ -146,24 +96,12 @@ export function Theme({children, pageMap}: ThemeProps) {
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content={title} />
                 {activeMetadata.description && <meta property="og:description" content={activeMetadata.description} />}
-                <meta
-                  property="og:image"
-                  content={
-                    activeMetadata.image ||
-                    'https://github.com/primer/brand/assets/19292210/8562a9a5-a1e4-4722-9ec7-47ebccd5901e'
-                  }
-                />
+                <meta property="og:image" content={activeMetadata.image || '/og-image.png'} />
                 {/* X (Twitter) OG */}
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content={title} />
                 {activeMetadata.description && <meta name="twitter:description" content={activeMetadata.description} />}
-                <meta
-                  name="twitter:image"
-                  content={
-                    activeMetadata.image ||
-                    'https://github.com/primer/brand/assets/19292210/8562a9a5-a1e4-4722-9ec7-47ebccd5901e'
-                  }
-                />
+                <meta name="twitter:image" content={activeMetadata.image || '/og-image.png'} />
               </Head>
             )}
 
@@ -256,51 +194,24 @@ export function Theme({children, pageMap}: ThemeProps) {
                               )}
                             </>
                           )}
-                          <article className={route !== '/' && !isIndexPage ? bodyStyles.Prose : ''}>
+                          <article>
                             {isIndexPage ? (
                               <IndexCards folderData={flatDocsDirectories} route={route} />
                             ) : (
                               <>
                                 <>{children}</>
 
-                                {getRelatedPages().length > 0 && (
+                                {relatedLinks.length > 0 && (
                                   <PRCBox sx={{pt: 5}}>
-                                    <RelatedContentLinks links={getRelatedPages()} />
+                                    <RelatedContentLinks links={relatedLinks} />
                                   </PRCBox>
                                 )}
                               </>
                             )}
                           </article>
-                          <footer>
-                            <Box marginBlockStart={64}>
-                              <Stack direction="vertical" padding="none" gap={16}>
-                                <Stack direction="horizontal" padding="none" alignItems="center" gap={8}>
-                                  <PencilIcon size={16} fill="var(--brand-InlineLink-color-rest)" />
-
-                                  <InlineLink
-                                    target="_blank"
-                                    href={`${repoURL}/blob/main/${repoSrcPath ? `${repoSrcPath}/` : ''}${filePath}`}
-                                  >
-                                    Edit this page
-                                  </InlineLink>
-                                </Stack>
-                                <Box
-                                  marginBlockStart={8}
-                                  paddingBlockStart={24}
-                                  borderStyle="solid"
-                                  borderBlockStartWidth="thin"
-                                  borderColor="default"
-                                >
-                                  <Text as="p" variant="muted" size="100">
-                                    &copy; {new Date().getFullYear()} GitHub, Inc. All rights reserved.
-                                  </Text>
-                                </Box>
-                              </Stack>
-                            </Box>
-                          </footer>
+                          <Footer filePath={filePath} repoURL={repoURL} repoSrcPath={repoSrcPath} />
                         </Stack>
                       </PRCBox>
-                      <div ref={tocPortalRef} />
                     </div>
                   </PageLayout.Content>
                   <PageLayout.Pane

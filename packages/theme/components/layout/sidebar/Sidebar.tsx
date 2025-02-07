@@ -55,16 +55,6 @@ export function Sidebar({pageMap: pageMapIn}: SidebarProps) {
       <NavList className={styles.NavList} aria-label="Menu links">
         {reorderedPageMap.map(item => {
           if (item.hasOwnProperty('data')) return null
-          // if (item.type === 'doc' && item.route === '/') return null
-
-          // if (!hasChildren(item) && item.type === 'doc') {
-          //   console.log('HEREEE')
-          //   return (
-          //     <NavList.Item as={NextLink} key={item.name} href={item.route} sx={{textTransform: 'capitalize'}}>
-          //       {(item as MdxFile).frontMatter?.title ?? item.name}
-          //     </NavList.Item>
-          //   )
-          // }
 
           if (hasChildren(item)) {
             const indexPage = (item as Folder).children.find(child => (child as MdxFile).name === 'index') as MdxFile
@@ -94,7 +84,7 @@ export function Sidebar({pageMap: pageMapIn}: SidebarProps) {
                           sx={{textTransform: 'capitalize'}}
                           aria-current={child.route === pathname ? 'page' : undefined}
                         >
-                          {child.name}
+                          {(child as MdxFile).frontMatter?.title || child.name}
                         </NavList.Item>
                       )
                     }

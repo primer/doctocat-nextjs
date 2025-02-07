@@ -51,13 +51,12 @@ export default function Index() {
             </Link>
           </Grid.Column>
           <Grid.Column span={12}>
-            <Card href="#" hasBorder style={{width: '100%'}}>
+            <Card href="/components/primer" hasBorder style={{width: '100%'}}>
               <Card.Label color="green">New </Card.Label>
               <Card.Icon icon={<NorthStarIcon />} />
-              <Card.Heading size="5">An important part of this platform</Card.Heading>
+              <Card.Heading size="5">Use Primer components</Card.Heading>
               <Card.Description>
-                Use wide boxes to callout important things like the brand guidelines or your core reference like
-                foundations. You can even illustrate it or keep it simple with a simple icon
+                Use Primer Product or Marketing components within your markdown files to build beautiful documentation.
               </Card.Description>
             </Card>
           </Grid.Column>
