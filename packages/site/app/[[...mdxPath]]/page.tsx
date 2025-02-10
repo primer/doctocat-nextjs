@@ -3,7 +3,12 @@ import {useMDXComponents as getMDXComponents} from '../../mdx-components.js'
 
 export const generateStaticParams = generateStaticParamsFor('mdxPath')
 
-export async function generateMetadata(props) {
+type Props = {
+  params: Promise<{
+    mdxPath: string[]
+  }>
+}
+export async function generateMetadata(props: Props) {
   const params = await props.params
   const {metadata} = await importPage(params.mdxPath)
   return metadata
@@ -11,7 +16,7 @@ export async function generateMetadata(props) {
 
 const {Article: Wrapper} = getMDXComponents()
 
-export default async function Page(props) {
+export default async function Page(props: Props) {
   const params = await props.params
   const result = await importPage(params.mdxPath)
   const {default: MDXContent, toc, metadata} = result

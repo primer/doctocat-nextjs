@@ -24,7 +24,7 @@ export function RelatedContentLinks({links}: RelatedContentLinksProps) {
         {links.map(page => (
           <UnorderedList.Item key={page.route}>
             <InlineLink href={page.route}>{page.title}</InlineLink>{' '}
-            {page && page.route.startsWith('http') ? <LinkExternalIcon /> : null}
+            {page.route.startsWith('http') ? <LinkExternalIcon /> : null}
           </UnorderedList.Item>
         ))}
       </UnorderedList>

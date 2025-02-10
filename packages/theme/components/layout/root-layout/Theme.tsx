@@ -46,7 +46,7 @@ if (!repoURL) {
   )
 }
 
-type ThemeProps = PropsWithChildren<{
+export type ThemeProps = PropsWithChildren<{
   pageMap: PageMapItem[]
 }>
 
@@ -82,8 +82,7 @@ export function Theme({children, pageMap}: ThemeProps) {
   const data = !isHomePage && activePath[activePath.length - 2]
   const filteredTabData: MdxFile[] = data && hasChildren(data) ? ((data as Folder).children as MdxFile[]) : []
 
-  const relatedLinks = getRelatedPages(activeMetadata, flatDocsDirectories, route)
-
+  const relatedLinks = getRelatedPages(route, activeMetadata, flatDocsDirectories)
   return (
     <>
       <BrandThemeProvider dir="ltr" colorMode={colorMode}>

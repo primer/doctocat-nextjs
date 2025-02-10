@@ -29,6 +29,10 @@ export type FrontMatter = {
   description?: string
   filePath?: string
   keywords?: string[]
+  related?: {
+    title: string
+    href: string
+  }[]
   timestamp?: number
   title?: string
   [key: string]: unknown

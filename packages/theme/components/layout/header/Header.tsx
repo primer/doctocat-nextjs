@@ -1,9 +1,9 @@
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {MarkGithubIcon, MoonIcon, SearchIcon, SunIcon, ThreeBarsIcon, XIcon} from '@primer/octicons-react'
 import {Box, FormControl, IconButton, TextInput} from '@primer/react'
 import {Heading, Stack, Text} from '@primer/react-brand'
 import {clsx} from 'clsx'
 import {MdxFile, Folder, PageMapItem} from 'nextra'
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {debounce} from 'lodash'
 
 import Link from 'next/link'
@@ -88,7 +88,9 @@ export function Header({pageMap, siteTitle}: HeaderProps) {
         })
         .flat()
         .filter(Boolean)
-        .map(({frontMatter, route}: MdxFile) => {
+        .map(item => {
+          const {frontMatter, route} = item as MdxFile
+
           if (!frontMatter) return null
           const result = {
             title: frontMatter.title ? frontMatter.title : '',
@@ -145,7 +147,7 @@ export function Header({pageMap, siteTitle}: HeaderProps) {
     }
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!inputRef.current) return
     if (!inputRef.current.value) {
