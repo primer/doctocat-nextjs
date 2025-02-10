@@ -1,6 +1,7 @@
 {
   "name": "doctocat-nextjs",
   "version": "0.0.1",
+  "type": "module",
   "description": "Primer's Next.js documentation framework",
   "scripts": {
     "build": "npm run build --workspace=packages/site",
