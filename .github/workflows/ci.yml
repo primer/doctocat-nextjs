@@ -21,7 +21,7 @@ jobs:
           node-version: 20
 
       - name: Cache dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a #4.1.2
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -37,7 +37,5 @@ jobs:
       - name: Run linters
         run: npm run lint
 
-
       - name: Verify types
         run: npm run check
-
