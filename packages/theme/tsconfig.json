@@ -9,10 +9,11 @@
     "skipLibCheck": true,
     "allowJs": true,
     "jsx": "react-jsx",
-    // "moduleResolution": "node",
     "moduleResolution": "bundler",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "resolveJsonModule": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitAny": true
   }
 }

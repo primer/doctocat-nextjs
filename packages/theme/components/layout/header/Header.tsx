@@ -73,7 +73,7 @@ export function Header({pageMap, siteTitle}: HeaderProps) {
     document.documentElement.setAttribute('data-color-mode', colorMode)
   }, [colorMode])
 
-  const setSearchResultsDebounced = debounce(data => setSearchResults(data), 1000)
+  const setSearchResultsDebounced = debounce((data: SearchResults[] | undefined) => setSearchResults(data), 1000)
 
   const searchData = useMemo(
     () =>
