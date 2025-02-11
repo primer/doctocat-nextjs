@@ -1,29 +1,32 @@
 import React, {useMemo} from 'react'
 import NextLink from 'next/link'
 import {NavList} from '@primer/react'
-import {Folder, MdxFile} from 'nextra'
-import {useRouter} from 'next/router'
-import getConfig from 'next/config'
+import {Folder, MdxFile, PageMapItem} from 'nextra'
 
 import styles from './Sidebar.module.css'
 import {LinkExternalIcon} from '@primer/octicons-react'
-import type {DocsItem, ThemeConfig} from '../../../index'
+import type {DocsItem, ExtendedPageItem} from '../../../index'
 import {hasChildren} from '../../../helpers/hasChildren'
+import {usePathname} from 'next/navigation'
 
 type SidebarProps = {
-  pageMap: DocsItem[]
+  pageMap: PageMapItem[]
 }
 
-const {publicRuntimeConfig} = getConfig()
-
-const hasShowTabs = (child: DocsItem): boolean => {
+const hasShowTabs = (child: ExtendedPageItem): boolean => {
   return child.name === 'index' && (child as MdxFile).frontMatter?.['show-tabs'] === true
 }
 
-export function Sidebar({pageMap}: SidebarProps) {
-  const router = useRouter()
+export function Sidebar({pageMap: pageMapIn}: SidebarProps) {
+  const pageMap = pageMapIn as ExtendedPageItem[]
 
-  const {sidebarLinks}: ThemeConfig = publicRuntimeConfig
+  const pathname = usePathname()
+
+  const externalLinks = pageMap.filter(page => {
+    if (page.href && page.href.startsWith('http')) {
+      return page
+    }
+  })
 
   /**
    * Sorts the incoming data so that folders with a menu-position frontmatter value
@@ -33,11 +36,11 @@ export function Sidebar({pageMap}: SidebarProps) {
   const reorderedPageMap = useMemo(
     () =>
       [...pageMap].sort((a, b) => {
-        if (hasChildren(a) && a.children) {
-          const aIndex = a.children.find(child => child.name === 'index' && child.type === 'doc')
+        if (hasChildren(a)) {
+          const aIndex = a.children.find(child => (child as MdxFile).name === 'index')
           const aPosition = (aIndex as MdxFile | undefined)?.frontMatter?.['menu-position'] ?? Infinity
-          if (hasChildren(b) && b.children) {
-            const bIndex = b.children.find(child => child.name === 'index' && child.type === 'doc')
+          if (hasChildren(b)) {
+            const bIndex = b.children.find(child => (child as MdxFile).name === 'index')
             const bPosition = (bIndex as MdxFile | undefined)?.frontMatter?.['menu-position'] ?? Infinity
             return aPosition - bPosition
           }
@@ -51,95 +54,73 @@ export function Sidebar({pageMap}: SidebarProps) {
     <div className={styles.Sidebar}>
       <NavList className={styles.NavList} aria-label="Menu links">
         {reorderedPageMap.map(item => {
-          if (item.type === 'doc' && item.route === '/') return null
+          if (item.hasOwnProperty('data')) return null
 
-          if (!hasChildren(item) && item.type === 'doc') {
+          if (!hasChildren(item)) return null
+
+          const indexPage = (item as Folder).children.find(child => (child as MdxFile).name === 'index') as MdxFile
+          const subNavName = indexPage.frontMatter?.title ?? ''
+          const shouldShowTabs = indexPage.frontMatter?.['show-tabs'] ?? false
+          if (shouldShowTabs) {
             return (
-              <NavList.Item as={NextLink} key={item.name} href={item.route} sx={{textTransform: 'capitalize'}}>
-                {(item as MdxFile).frontMatter?.title ?? item.name}
+              <NavList.Item as={NextLink} key={indexPage.name} href={indexPage.route}>
+                {(indexPage as MdxFile).frontMatter?.title || item.name}
               </NavList.Item>
             )
           }
 
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if (hasChildren(item)) {
-            const indexPage = (item as Folder).children.find(child => (child as MdxFile).name === 'index') as MdxFile
-            const subNavName = indexPage.frontMatter?.title ?? ''
-            const shouldShowTabs = indexPage.frontMatter?.['show-tabs'] ?? false
-            if (shouldShowTabs) {
-              return (
-                <NavList.Item as={NextLink} key={indexPage.name} href={indexPage.route}>
-                  {(indexPage as MdxFile).frontMatter?.title || item.name}
-                </NavList.Item>
-              )
-            }
+          return (
+            <NavList.Group title={subNavName} key={item.name} sx={{mb: 24}}>
+              {item.children
+                .sort((a, b) => ((a as MdxFile).name === 'index' ? -1 : (b as MdxFile).name === 'index' ? 1 : 0)) // puts index page first
+                // only show index page if it has show-tabs
+                .filter(child => (child as MdxFile).name !== 'index' || hasShowTabs(child as ExtendedPageItem))
+                .map(child => {
+                  if (!hasChildren(child)) {
+                    const {name, route} = child as MdxFile
 
-            return (
-              <NavList.Group title={subNavName} key={item.name} sx={{mb: 24}}>
-                {item.children &&
-                  item.children
-                    .sort((a, b) => (a.name === 'index' ? -1 : b.name === 'index' ? 1 : 0)) // puts index page first
-                    // only show index page if it has show-tabs
-                    .filter(child => child.name !== 'index' || hasShowTabs(child))
-                    .map((child: DocsItem) => {
-                      if (child.type === 'doc') {
-                        return (
-                          <NavList.Item
-                            as={NextLink}
-                            key={child.name}
-                            href={child.route}
-                            sx={{textTransform: 'capitalize'}}
-                            aria-current={child.route === router.pathname ? 'page' : undefined}
-                          >
-                            {child.title}
-                          </NavList.Item>
-                        )
-                      }
+                    return (
+                      <NavList.Item
+                        as={NextLink}
+                        key={name}
+                        href={route}
+                        aria-current={route === pathname ? 'page' : undefined}
+                      >
+                        {(child as MdxFile).frontMatter?.title || name}
+                      </NavList.Item>
+                    )
+                  }
 
-                      if (hasChildren(child)) {
-                        const landingPageItem = (child as Folder).children.find(
-                          innerChild =>
-                            (innerChild as DocsItem).type === 'doc' && (innerChild as DocsItem).name === 'index',
-                        )
-                        return (
-                          <NavList.Item
-                            as={NextLink}
-                            key={(landingPageItem as MdxFile).route}
-                            href={(landingPageItem as MdxFile).route}
-                            sx={{textTransform: 'capitalize'}}
-                            aria-current={(landingPageItem as MdxFile).route === router.pathname ? 'page' : undefined}
-                          >
-                            {(landingPageItem as MdxFile).frontMatter?.title || item.name}
-                          </NavList.Item>
-                        )
-                      }
+                  if (hasChildren(child)) {
+                    const landingPageItem = (child as Folder).children.find(
+                      innerChild => (innerChild as DocsItem).name === 'index',
+                    )
 
-                      return null
-                    })}
-              </NavList.Group>
-            )
-          }
-
-          return null
+                    return (
+                      <NavList.Item
+                        as={NextLink}
+                        key={(landingPageItem as MdxFile).route}
+                        href={(landingPageItem as MdxFile).route}
+                        sx={{textTransform: 'capitalize'}}
+                        aria-current={(landingPageItem as MdxFile).route === pathname ? 'page' : undefined}
+                      >
+                        {(landingPageItem as MdxFile).frontMatter?.title || item.name}
+                      </NavList.Item>
+                    )
+                  }
+                })}
+            </NavList.Group>
+          )
         })}
-        {sidebarLinks && sidebarLinks.length > 0 && (
+        {externalLinks.length > 0 && (
           <NavList.Group title="" sx={{mb: 24}}>
-            {sidebarLinks.map(link => {
-              const isExternalUrl = link.href.startsWith('http')
-
+            {externalLinks.map(link => {
               return (
-                <NavList.Item
-                  as={NextLink}
-                  key={link.title}
-                  href={link.href}
-                  target={isExternalUrl ? '_blank' : undefined}
-                >
+                <NavList.Item as={NextLink} key={link.title} href={link.href}>
                   {link.title}
-                  {isExternalUrl && (
-                    <NavList.TrailingVisual>
-                      <LinkExternalIcon />
-                    </NavList.TrailingVisual>
-                  )}
+                  <NavList.TrailingVisual>
+                    <LinkExternalIcon />
+                  </NavList.TrailingVisual>
                 </NavList.Item>
               )
             })}

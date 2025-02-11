@@ -1,0 +1,25 @@
+---
+title: Product UI components
+description: Learn how to use Primer React Components in Markdown files.
+show-tabs: true
+---
+
+Primer React Components can be used in Markdown files by importing them from `@primer/react`.
+
+[Refer to the Primer React documentation](https://primer.style/react) for more information on which components are available and how to use them.
+
+## Importing and using Primer components
+
+1. Import a component from `@primer/react`:
+
+```js
+import { Button } from "@primer/react";
+```
+
+2. Use the component in your Markdown file, but ensure that you wrap the component in a `div` with the `custom-component` class. This will ensure that article formatting isn't applied to the custom component.
+
+```jsx
+<div className="custom-component">
+  <Button variant="primary">Danger</Button>
+</div>
+```

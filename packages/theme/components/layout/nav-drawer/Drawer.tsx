@@ -1,9 +1,14 @@
-import React from 'react'
+import React, {PropsWithChildren} from 'react'
 import {Box} from '@primer/react'
 import {AnimatePresence, motion} from 'framer-motion'
 import {FocusOn} from 'react-focus-on'
 
-export function Drawer({isOpen, onDismiss, children}) {
+type Drawer = {
+  isOpen: boolean
+  onDismiss: () => void
+}
+
+export function Drawer({isOpen, onDismiss, children}: PropsWithChildren<Drawer>) {
   return (
     <AnimatePresence>
       {isOpen ? (

@@ -1,7 +1,9 @@
+'use client'
 import React, {useEffect, useMemo} from 'react'
 import {NavList} from '@primer/react'
 import {Text} from '@primer/react-brand'
 import {Heading as HeadingType} from 'nextra'
+import clsx from 'clsx'
 
 import styles from './TableOfContents.module.css'
 
@@ -57,14 +59,14 @@ export function TableOfContents({headings}: TableOfContentsProps) {
   if (!depth2Headings.length) return null
 
   return (
-    <aside className={styles.wrapper}>
+    <aside className={clsx(styles.wrapper, 'exclude-from-prose', 'custom-component')}>
       <Text as="p" size="100" variant="muted" weight="normal" className={styles.heading}>
         On this page
       </Text>
-      <NavList aria-label="Table of contents">
+      <NavList aria-label="Table of contents" className="custom-component">
         {depth2Headings.map(heading => (
           <NavList.Item
-            className={styles.item}
+            className={clsx(styles.item, 'custom-component')}
             key={heading.id}
             id={`toc-heading-${heading.id}`}
             href={`#${heading.id}`}

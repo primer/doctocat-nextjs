@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {UnderlineNav as PrimerUnderlineNav} from '@primer/react'
-import {useRouter} from 'next/router'
+import {usePathname} from 'next/navigation'
+
 import Link from 'next/link'
 import {MdxFile} from 'nextra'
 
@@ -9,8 +10,10 @@ type UnderlineNavProps = {
 }
 
 export function UnderlineNav({tabData}: UnderlineNavProps) {
-  const router = useRouter()
-  const currentRoute = router.pathname
+  const [isClient, setIsClient] = useState(false)
+  const pathname = usePathname()
+
+  const currentRoute = pathname
 
   // Reorders tabData so the tab with name === index is always first
   if (tabData.length > 1) {
@@ -20,6 +23,12 @@ export function UnderlineNav({tabData}: UnderlineNavProps) {
       tabData.push(indexTab[0])
     }
   }
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  if (!isClient) return null
 
   return (
     <PrimerUnderlineNav aria-label="Sibling pages">

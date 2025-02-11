@@ -1,0 +1,16 @@
+.Heading__anchor {
+  color: var(--brand-color-text-default) !important;
+  text-decoration: none !important;
+}
+
+.Heading__anchorIcon {
+  position: relative;
+  visibility: hidden;
+  margin-left: var(--base-size-4);
+  vertical-align: middle !important;
+  top: -1px;
+}
+
+.Heading__anchor:hover .Heading__anchorIcon {
+  visibility: visible;
+}

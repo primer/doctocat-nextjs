@@ -1,10 +1,9 @@
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {MarkGithubIcon, MoonIcon, SearchIcon, SunIcon, ThreeBarsIcon, XIcon} from '@primer/octicons-react'
 import {Box, FormControl, IconButton, TextInput} from '@primer/react'
 import {Heading, Stack, Text} from '@primer/react-brand'
 import {clsx} from 'clsx'
 import {MdxFile, Folder, PageMapItem} from 'nextra'
-import type {PageItem} from 'nextra/normalize-pages'
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {debounce} from 'lodash'
 
 import Link from 'next/link'
@@ -17,8 +16,6 @@ import {DocsItem} from '../../../types'
 
 type HeaderProps = {
   pageMap: PageMapItem[]
-  docsDirectories: PageItem[]
-  menuItems: PageItem[]
   siteTitle: string
 }
 
@@ -28,7 +25,7 @@ type SearchResults = {
   url: string
 }
 
-export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
+export function Header({pageMap, siteTitle}: HeaderProps) {
   const {colorMode, setColorMode} = useColorMode()
   const inputRef = useRef<HTMLInputElement | null>(null)
   const searchResultsRef = useRef<HTMLElement | null>(null)
@@ -76,7 +73,7 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
     document.documentElement.setAttribute('data-color-mode', colorMode)
   }, [colorMode])
 
-  const setSearchResultsDebounced = debounce(data => setSearchResults(data), 1000)
+  const setSearchResultsDebounced = debounce((data: SearchResults[] | undefined) => setSearchResults(data), 1000)
 
   const searchData = useMemo(
     () =>
@@ -91,7 +88,9 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
         })
         .flat()
         .filter(Boolean)
-        .map(({frontMatter, route}: MdxFile) => {
+        .map(item => {
+          const {frontMatter, route} = item as MdxFile
+
           if (!frontMatter) return null
           const result = {
             title: frontMatter.title ? frontMatter.title : '',
@@ -148,7 +147,7 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
     }
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!inputRef.current) return
     if (!inputRef.current.value) {
@@ -176,7 +175,7 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
           {siteTitle}
         </Text>
       </Link>
-      <Box className={clsx(styles.Header__searchArea, isSearchOpen && styles['Header__searchArea--open'])}>
+      <div className={clsx(styles.Header__searchArea, isSearchOpen && styles['Header__searchArea--open'])}>
         <FormControl>
           <FormControl.Label visuallyHidden>Search</FormControl.Label>
           <TextInput
@@ -294,7 +293,7 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
             />
           </Stack>
         </div>
-      </Box>
+      </div>
       <div>
         <Stack direction="horizontal" padding="none" gap={4}>
           <IconButton
@@ -318,11 +317,7 @@ export function Header({pageMap, docsDirectories, siteTitle}: HeaderProps) {
               aria-expanded={isNavDrawerOpen}
               onClick={() => setIsNavDrawerOpen(true)}
             />
-            <NavDrawer
-              isOpen={isNavDrawerOpen}
-              onDismiss={() => setIsNavDrawerOpen(false)}
-              navItems={docsDirectories}
-            />
+            <NavDrawer isOpen={isNavDrawerOpen} onDismiss={() => setIsNavDrawerOpen(false)} navItems={pageMap} />
           </Box>
         </Stack>
       </div>

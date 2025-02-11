@@ -10,15 +10,16 @@ export type RelatedContentLink = MdxFile & {
 }
 
 export type RelatedContentLinksProps = {
-  links: RelatedContentLink[]
+  links?: RelatedContentLink[] | []
 }
 
 export function RelatedContentLinks({links}: RelatedContentLinksProps) {
-  if (!links.length) return null
-
+  if (!links?.length) return null
   return (
     <div className="custom-component">
-      <Heading as="h2">Related content</Heading>
+      <Heading as="h2" size="subhead-large">
+        Related content
+      </Heading>
       <UnorderedList className={styles.list}>
         {links.map(page => (
           <UnorderedList.Item key={page.route}>

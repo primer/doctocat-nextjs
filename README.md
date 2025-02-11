@@ -7,7 +7,7 @@
 <div align="center">
   <h1>Doctocat (Next.js)</h1>
   <p>
-    A Next.js theme for building documentation sites
+    A Next.js theme for building GitHub documentation sites
   </p>
 </div>
 
@@ -34,9 +34,7 @@
 
 ## About
 
-Doctocat makes it easy to set up a documentation site on the Next.js framework, so that you can focus on what's important: writing docs.
-
-This project is under active development, and we'd love your [feedback](https://github.com/primer/doctocat-nextjs/discussions)!
+Doctocat makes it easy to set up GitHub-branded documentation on the Next.js framework, so that you can focus on what's important: writing docs.
 
 <a href="https://primer.github.io/doctocat-nextjs/"><img src="https://github.com/primer/doctocat-nextjs/assets/13340707/c7367bff-fb04-4be2-a1e5-90b2dee7de2d" width="200" alt="Button with label Try it out" /></a>
 <br />

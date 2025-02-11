@@ -13,7 +13,6 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:prettier/recommended',
     'plugin:github/recommended',
-    'plugin:github/browser',
     'plugin:primer-react/recommended',
     'plugin:markdown/recommended',
   ],
@@ -48,7 +47,6 @@ module.exports = {
         allow: ['dark_dimmed'],
       },
     ],
-    'primer-react/no-deprecated-colors': ['warn', {checkAllStrings: true}],
   },
   overrides: [
     // rules which apply only to JS
@@ -105,13 +103,6 @@ module.exports = {
         'i18n-text/no-en': 0,
       },
     },
-    // rules which apply only to TSX storybook stories
-    {
-      files: ['**/*.stories.{ts,tsx}'],
-      rules: {
-        'i18n-text/no-en': 0,
-      },
-    },
     // rules which apply only to TS scripts
     {
       files: ['scripts/*.{ts,tsx}'],
@@ -134,6 +125,8 @@ module.exports = {
       },
       rules: {
         'prettier/prettier': 0,
+        'react/jsx-no-undef': 0,
+        'react/no-unescaped-entities': 0,
       },
     },
     // rules which apply only to Markdown code blocks
@@ -163,6 +156,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 0,
         'no-redeclare': 0,
         'no-unused-labels': 0,
+        'import/named': 0,
       },
     },
   ],

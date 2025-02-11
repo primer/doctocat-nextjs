@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useMemo, useState} from 'react'
 import debounce from 'lodash.debounce'
 
-export function useNavDrawerState(breakpoint): [boolean, (value: boolean) => void] {
+export function useNavDrawerState(breakpoint: string | number): [boolean, (value: boolean) => void] {
   if (typeof breakpoint === 'string') {
     breakpoint = parseInt(breakpoint, 10)
   }

@@ -1,0 +1,115 @@
+---
+title: Introduction
+description: Learn how to create a new site with Doctocat
+keywords: ['accessibility', 'introduction', 'simple']
+---
+
+This guide will walk you through creating, customizing, and deploying a new documentation site powered by Doctocat on [Next.js](https://nextjs.org/).
+
+## 1. Create a new Next.js installation
+
+Start by creating a new Next.js project using the [Next.js CLI](https://nextjs.org/docs/getting-started/installation).
+
+Select "Yes" for the question: "Would you like to use App Router?"
+
+## 2. Install Doctocat (Next.js) and relevant dependencies
+
+Next, install Doctocat and its dependencies:
+
+```bash
+npm install --save @primer/doctocat-nextjs next
+```
+
+## 3. Update your Next.js configuration
+
+Update your next.config.js file to use the Doctocat theme:
+
+```js
+// next.config.js
+/** @type {import('next').NextConfig} */
+import withDoctocat from '@primer/doctocat-nextjs/doctocat.config.js'
+
+export default {
+  ...withDoctocat({
+    transpilePackages: ['@primer/doctocat-nextjs'],
+  }),
+}
+```
+
+### Optional: GitHub Pages configuration
+
+If you plan to deploy your site to GitHub Pages, you'll need to add the following to your `next.config.js` file:
+
+```js
+{
+  output: 'export'
+}
+```
+
+## 4. Add required environment variables
+
+```shell
+NEXT_PUBLIC_SITE_TITLE = Documentation # required: for site metadata and header title
+NEXT_PUBLIC_REPO = https://github.com/org/repo # required: for edit links
+NEXT_PUBLIC_REPO_SRC_PATH = # optional:  path for monorepos that do not store .mdx in the project root
+```
+
+## 5. Add the Doctocat stylesheets
+
+Add the required Doctocat stylesheets to your `pages/_app.(tsx|jsx)` file:
+
+```js
+import { AppProps } from "next/app";
+import "@primer/doctocat-nextjs/css/global.css";
+
+function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
+
+export default App;
+```
+
+## 6. Update homepage
+
+Rename `pages/index.tsx` to `pages/index.md` and replace the file contents with:
+
+```markdown
+---
+title: Your homepage tile
+---
+
+Welcome to your homepage content.
+
+This is a markdown file that will be rendered as a page on your site.
+
+You can edit this file to change the content of your homepage.
+```
+
+### Optional: Add other content
+
+Next, go ahead and put any additional Markdown documents (`.md` or `.mdx`) in `pages/` using subfolders. Documents in `pages/` automatically become pages with URLs based on their path relative to `pages/`. For example, if you create a `pages/my-folder/my-page.md` file, Doctocat will use that file to create a `/my-folder/my-page` page.
+
+Important:
+
+- You must use `.md` or `.mdx` extensions for your documents.
+- Folders must contain an index.md or index.mdx file for breadcrumbs to work correctly. The contents of this file can be left empty
+
+## 7. Update Frontmatter on all pages
+
+Side navigation for your site is generated automatically from the frontmatter of your pages. To add a page to the side navigation, you must add a `title` and `description` to the frontmatter of your page. For example:
+
+```md
+---
+title: My page title
+description: My page description
+---
+```
+
+## 8. Deploy to GitHub Pages
+
+After you've customized the content of your site, you're ready to deploy. There are many ways to deploy your site, but we currently use [GitHub Pages](https://pages.github.com/) for most of our sites, and have found it to be an easy way to get sites up and running quickly.
+
+<br />
+<br />
+
+Congrats! You've shipped your first Doctocat site on Next.js 🎉

@@ -1,8 +1,13 @@
+'use client'
 import React from 'react'
-import type {NextraThemeLayoutProps} from 'nextra'
 
 import {ColorModeProvider} from '../../context/color-modes/ColorModeProvider'
-import {Theme} from './Theme'
+import {Theme, ThemeProps} from './Theme'
+import {PageMapItem} from 'nextra'
+
+type Props = {
+  pageMap: PageMapItem[]
+} & ThemeProps
 
 /**
  * Catch-all layout component
@@ -10,10 +15,12 @@ import {Theme} from './Theme'
  * To add custom layouts, create a new file in `pages/_layouts`
  * and export a component with the same name as the layout file
  */
-export default function Shell({children, ...rest}: NextraThemeLayoutProps) {
+export default function Shell({children, pageMap, ...rest}: Props) {
   return (
     <ColorModeProvider>
-      <Theme {...rest}>{children}</Theme>
+      <Theme {...rest} pageMap={pageMap}>
+        {children}
+      </Theme>
     </ColorModeProvider>
   )
 }

@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React, {useState, useEffect, useCallback, PropsWithChildren} from 'react'
 import {ColorMode, ColorModeContext} from './context'
 
-const ColorModeProvider = ({children}) => {
+const ColorModeProvider = ({children}: PropsWithChildren) => {
   const [colorMode, setColorMode] = useState<ColorMode>('light')
 
   useEffect(() => {

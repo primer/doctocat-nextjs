@@ -244,6 +244,14 @@
   overflow: hidden;
 }
 
+.Prose video {
+  --spacing: var(--brand-Prose-img-spacing);
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-block-start: var(--spacing);
+}
+
 /* ---------------------------------------------------------- */
 /* 9. Block elements                                          */
 /* ---------------------------------------------------------- */
