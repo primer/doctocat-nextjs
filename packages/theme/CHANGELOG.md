@@ -1,5 +1,13 @@
 # @primer/doctocat-nextjs
 
+## 0.2.0
+
+### Minor Changes
+
+- [#20](https://github.com/primer/doctocat-nextjs/pull/20) [`be8bc6a`](https://github.com/primer/doctocat-nextjs/commit/be8bc6af733ba40bdd4393b876b2653017d7e846) Thanks [@rezrah](https://github.com/rezrah)! - Dropped support for Next.js Pages router in favor of App Router + Nextra v4
+
+  - [Read the migration guide from `v0.1.0` to `v0.2.0`](https://github.com/primer/doctocat-nextjs/blob/main/migration-guides/v0.2.0-app-router.md)
+
 ## 0.1.0
 
 ### Minor Changes
