@@ -5,7 +5,8 @@ import Head from 'next/head'
 import type {Folder, MdxFile, PageMapItem} from 'nextra'
 import {useFSRoute} from 'nextra/hooks'
 import {BaseStyles, Box as PRCBox, Breadcrumbs, PageLayout, ThemeProvider} from '@primer/react'
-
+import '@primer/primitives/dist/css/functional/themes/light.css'
+import '@primer/primitives/dist/css/functional/themes/dark.css'
 import {
   Animate,
   AnimationProvider,
