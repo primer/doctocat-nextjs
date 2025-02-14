@@ -14,6 +14,7 @@
   display: flex;
   width: 100%;
   padding: var(--base-size-16);
+  padding-block: var(--base-size-64);
   min-height: 240px;
   flex: 1 1;
   align-items: center;

@@ -1,5 +1,6 @@
 'use client'
 import React, {PropsWithChildren, useCallback, useState} from 'react'
+import clsx from 'clsx'
 import {LiveProvider, LiveEditor, LiveError, LivePreview} from 'react-live'
 import {useColorMode} from '../../context/color-modes/useColorMode'
 import styles from './ReactCodeBlock.module.css'
@@ -31,7 +32,7 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
   return (
     <>
       <LiveProvider code={code} scope={props.jsxScope}>
-        <div className={styles.CodeBlock}>
+        <div className={clsx(styles.CodeBlock, 'custom-component')}>
           {shouldShowPreview && (
             <div>
               <div className={styles.colorModeMenu}>
@@ -50,7 +51,9 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
                 </ActionBar>
               </div>
               <ThemeProvider colorMode={colorMode}>
-                <LivePreview className={styles.Preview} />
+                <div className="custom-component">
+                  <LivePreview className={styles.Preview} />
+                </div>
               </ThemeProvider>
             </div>
           )}

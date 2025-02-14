@@ -256,7 +256,7 @@
 /* 9. Block elements                                          */
 /* ---------------------------------------------------------- */
 
-.Prose blockquote {
+.Prose > blockquote {
   font-family: var(--brand-fontStack-sansSerif);
   --spacing: var(--brand-Prose-blockquote-spacing);
   position: relative;
@@ -268,7 +268,7 @@
   margin-bottom: var(--spacing);
 }
 
-.Prose blockquote::before {
+.Prose > blockquote::before {
   content: '“';
   font-size: var(--base-size-48);
   line-height: var(--base-size-64);
@@ -277,7 +277,7 @@
   top: 0;
 }
 
-.Prose blockquote::after {
+.Prose > blockquote::after {
   content: '';
   display: block;
   position: absolute;
@@ -289,14 +289,14 @@
   background-image: linear-gradient(180deg, var(--base-color-scale-blue-5), var(--base-color-scale-purple-5));
 }
 
-.Prose figure figcaption {
+.Prose > figure figcaption {
   font-family: var(--brand-fontStack-monospace);
   font-size: var(--brand-text-size-100);
   line-height: var(--brand-text-lineHeight-100);
   color: var(--brand-color-text-muted);
 }
 
-.Prose hr {
+.Prose > hr {
   --spacing: var(--base-size-64);
   border: 0;
   height: 1px;
