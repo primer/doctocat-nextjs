@@ -59,6 +59,10 @@
   position: absolute;
   top: var(--base-size-16);
   right: var(--base-size-2);
-  z-index: 9999;
+  z-index: 19;
   width: 200px;
+}
+
+.colorModeButtonActive {
+  background-color: var(--brand-color-canvas-subtle);
 }

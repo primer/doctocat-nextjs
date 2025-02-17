@@ -41,6 +41,7 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
                     const Icon = mode === 'light' ? SunIcon : MoonIcon
                     return (
                       <ActionBar.IconButton
+                        className={clsx(styles.colorModeButton, colorMode === mode && styles.colorModeButtonActive)}
                         key={`color-mode-${mode}-${index}`}
                         icon={Icon}
                         aria-label={mode}

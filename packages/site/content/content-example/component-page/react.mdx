@@ -1,0 +1,99 @@
+---
+title: Component
+description: An example of a component page, featuring descriptions, prop tables and editable code snippets.
+keywords: ['example']
+show-tabs: true
+tab-label: React
+ready: true
+source: 'https://github.com/primer/brand/blob/main/packages/react/src/Label/Label.tsx'
+storybook: '/brand/storybook/?path=/story/components-label--playground'
+figma: '#'
+a11yReviewed: true
+---
+
+```js copy
+import {Button} from '@primer/react-brand'
+```
+
+## Examples
+
+### Default
+
+This is the default variant for the Button component. It corresponds to the `secondary` variant appearance.
+
+```jsx live
+<Button>Default</Button>
+```
+
+### Primary
+
+The `primary` variant of Button indicates that the action is of high priority, and should be used sparingly.
+
+```jsx live
+<Button variant="primary">Primary</Button>
+```
+
+### Subtle
+
+The `subtle` variant of Button indicates that the action is a low priority one.
+
+```jsx live
+<Button variant="subtle">Primary</Button>
+```
+
+### Sizes
+
+```jsx live
+<Stack direction="vertical" alignItems="flex-start">
+  <Button size="small">Register now</Button>
+  <Button size="medium">Register now</Button>
+  <Button size="large">Register now</Button>
+</Stack>
+```
+
+### Block
+
+```jsx live
+<Button block>Full-width button</Button>
+```
+
+### Removing the arrow
+
+The animated arrow indicator can be removed using the `hasArrow` prop.
+
+```jsx live
+<Button hasArrow={false}>No arrow</Button>
+```
+
+### Using an icon
+
+You can place an icon inside the Button in either the leading or the trailing position to enhance the visual context. It is recommended to use an [Octicon](https://primer.style/octicons) here.
+
+```jsx live
+<Stack direction="vertical" alignItems="flex-start">
+  <Button leadingVisual={<SearchIcon />}>Search</Button>
+  <Button trailingVisual={<ChevronDownIcon />}>Select</Button>
+  <Button leadingVisual={<FilterIcon />} trailingVisual={<ChevronDownIcon />}>
+    Filter
+  </Button>
+</Stack>
+```
+
+### Polymorphism
+
+The `Button` component can render as a `button` or `a` HTML element. By default, it will render as a `button`.
+
+```jsx live
+<Button as="a" href="https://github.com">
+  Register now
+</Button>
+```
+
+## Component props
+
+### Label
+
+| Name      | Type                                                                         |   Default   | Description            |
+| :-------- | :--------------------------------------------------------------------------- | :---------: | :--------------------- |
+| `propOne` | `ReactElement`                                                               | `undefined` | Description of my prop |
+| `propTwo` | <PropTableValues values={['single', 'none']} addLineBreaks commaSeparated /> | `undefined` | Description of my prop |

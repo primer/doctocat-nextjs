@@ -11,7 +11,13 @@ type IndexCardsProps = {
 }
 
 export function IndexCards({route, folderData}: IndexCardsProps) {
-  const filteredData = folderData.filter(item => item.type === 'doc' && item.route.includes(`${route}/`))
+  // We don't want to show children of these pages. E.g. tabbed pages
+  const onlyDirectChildren = folderData.filter(
+    item => item.route.includes(`${route}/`) && item.route.split('/').length === 3,
+  )
+
+  const filteredData = onlyDirectChildren.filter(item => item.type === 'doc' && item.route.includes(`${route}/`))
+
   return (
     <Stack direction="vertical" padding="none" gap="spacious">
       {filteredData.map((item: DocsItem) => {

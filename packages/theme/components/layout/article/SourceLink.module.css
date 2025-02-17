@@ -1,0 +1,7 @@
+.link:not(:hover):not(:focus):not(:active) {
+  text-decoration: none !important;
+}
+
+.icon {
+  fill: var(--brand-InlineLink-color-rest);
+}
