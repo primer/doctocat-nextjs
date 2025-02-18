@@ -41,7 +41,7 @@ export function UnderlineNav({tabData}: UnderlineNavProps) {
               href={`${item.route}`}
               aria-current={currentRoute === item.route ? 'page' : undefined}
             >
-              {(item.frontMatter && item.frontMatter.title) || item.name}
+              {(item.frontMatter && (item.frontMatter['tab-label'] || item.frontMatter.title)) || item.name}
             </PrimerUnderlineNav.Item>
           )
         })}

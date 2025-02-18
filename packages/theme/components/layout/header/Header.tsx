@@ -3,7 +3,7 @@ import {MarkGithubIcon, MoonIcon, SearchIcon, SunIcon, ThreeBarsIcon, XIcon} fro
 import {Box, FormControl, IconButton, TextInput} from '@primer/react'
 import {Heading, Stack, Text} from '@primer/react-brand'
 import {clsx} from 'clsx'
-import {MdxFile, Folder, PageMapItem} from 'nextra'
+import {MdxFile, PageMapItem} from 'nextra'
 import {debounce} from 'lodash'
 
 import Link from 'next/link'
@@ -11,11 +11,11 @@ import styles from './Header.module.css'
 import {NavDrawer} from '../nav-drawer/NavDrawer'
 import {useNavDrawerState} from '../nav-drawer/useNavDrawerState'
 import {useColorMode} from '../../context/color-modes/useColorMode'
-import {hasChildren} from '../../../helpers/hasChildren'
 import {DocsItem} from '../../../types'
 
 type HeaderProps = {
   pageMap: PageMapItem[]
+  flatDocsDirectories: DocsItem[]
   siteTitle: string
 }
 
@@ -25,7 +25,7 @@ type SearchResults = {
   url: string
 }
 
-export function Header({pageMap, siteTitle}: HeaderProps) {
+export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
   const {colorMode, setColorMode} = useColorMode()
   const inputRef = useRef<HTMLInputElement | null>(null)
   const searchResultsRef = useRef<HTMLElement | null>(null)
@@ -74,32 +74,30 @@ export function Header({pageMap, siteTitle}: HeaderProps) {
   }, [colorMode])
 
   const setSearchResultsDebounced = debounce((data: SearchResults[] | undefined) => setSearchResults(data), 1000)
-
   const searchData = useMemo(
     () =>
-      pageMap
+      flatDocsDirectories
         .map(item => {
-          if (hasChildren(item)) {
-            return (item as Folder).children.filter(child => !hasChildren(child))
-          }
-          if ((item as DocsItem).type === 'doc') {
-            return item
-          }
+          if (item.route === '/') return null // remove homepage
+          return item
         })
-        .flat()
         .filter(Boolean)
         .map(item => {
           const {frontMatter, route} = item as MdxFile
-
           if (!frontMatter) return null
           const result = {
-            title: frontMatter.title ? frontMatter.title : '',
+            title:
+              frontMatter['show-tabs'] && frontMatter['tab-label']
+                ? `${frontMatter.title} | ${frontMatter['tab-label']}`
+                : frontMatter.title
+                  ? frontMatter.title
+                  : '',
             description: frontMatter.description ? frontMatter.description : '',
             url: route,
           }
           return result
         }),
-    [pageMap],
+    [flatDocsDirectories],
   )
 
   const handleChange = () => {

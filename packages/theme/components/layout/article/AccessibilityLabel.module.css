@@ -1,0 +1,21 @@
+.reviewedLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+  background-color: var(--base-color-scale-purple-0);
+  border-color: transparent;
+  color: var(--brand-color-text-default);
+  font-weight: var(--brand-text-weight-300);
+}
+
+[data-color-mode='dark'] .reviewedLabel {
+  background-color: var(--base-color-scale-purple-8);
+}
+
+.icon {
+  fill: var(--base-color-scale-purple-5);
+}
+
+[data-color-mode='dark'] .icon {
+  fill: var(--base-color-scale-purple-1);
+}
