@@ -2,7 +2,7 @@
 import React from 'react'
 
 type PropTableValuesProps = {
-  values: string[]
+  values: (string | number)[]
   addLineBreaks?: boolean
   commaSeparated?: boolean
   removeApostrophes?: boolean

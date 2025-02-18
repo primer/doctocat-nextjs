@@ -5,10 +5,13 @@ keywords: ['example']
 show-tabs: true
 tab-label: React
 ready: true
+a11yReviewed: true
 source: 'https://github.com/primer/brand/blob/main/packages/react/src/Label/Label.tsx'
 storybook: '/brand/storybook/?path=/story/components-label--playground'
 figma: '#'
-a11yReviewed: true
+
+options:
+  disablePageAnimation: true
 ---
 
 ```js copy
@@ -79,6 +82,22 @@ You can place an icon inside the Button in either the leading or the trailing po
 </Stack>
 ```
 
+### Animation
+
+You can place an icon inside the Button in either the leading or the trailing position to enhance the visual context. It is recommended to use an [Octicon](https://primer.style/octicons) here.
+
+```jsx live
+<AnimationProvider>
+  <Animate animate="fade-in">
+    <Button leadingVisual={<SearchIcon />}>Search</Button>
+    <Button trailingVisual={<ChevronDownIcon />}>Select</Button>
+    <Button leadingVisual={<FilterIcon />} trailingVisual={<ChevronDownIcon />}>
+      Filter
+    </Button>
+  </Animate>
+</AnimationProvider>
+```
+
 ### Polymorphism
 
 The `Button` component can render as a `button` or `a` HTML element. By default, it will render as a `button`.
@@ -89,11 +108,30 @@ The `Button` component can render as a `button` or `a` HTML element. By default,
 </Button>
 ```
 
+### Inline
+
+```jsx filename="noinline"
+const Counter = props => {
+  const [count, setCount] = React.useState(0)
+  return (
+    <Stack direction="vertical" alignItems="center">
+      <Text as="p">
+        {props.label}: {count}
+      </Text>
+      <Button hasArrow={false} onClick={() => setCount(c => c + 1)}>
+        Increment
+      </Button>
+    </Stack>
+  )
+}
+render(<Counter label="Counter" />)
+```
+
 ## Component props
 
 ### Label
 
-| Name      | Type                                                                         |   Default   | Description            |
-| :-------- | :--------------------------------------------------------------------------- | :---------: | :--------------------- |
-| `propOne` | `ReactElement`                                                               | `undefined` | Description of my prop |
-| `propTwo` | <PropTableValues values={['single', 'none']} addLineBreaks commaSeparated /> | `undefined` | Description of my prop |
+| Name      | Type                                                                   |   Default   | Description            |
+| :-------- | :--------------------------------------------------------------------- | :---------: | :--------------------- |
+| `propOne` | `ReactElement`                                                         | `undefined` | Description of my prop |
+| `propTwo` | <PropTableValues values={['single',2]} addLineBreaks commaSeparated /> | `undefined` | Description of my prop |

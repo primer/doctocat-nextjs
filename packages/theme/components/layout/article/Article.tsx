@@ -32,14 +32,16 @@ export function Article({children, toc, metadata}: PropsWithChildren<Props>) {
   return (
     <>
       <div className={clsx(styles.Article, hasToc && styles['Article--withToc'])}>
-        <div>
+        <div className={styles.main}>
           {hasMetadata ? (
             <Box marginBlockEnd={48}>
               <Stack padding="none" direction="horizontal" justifyContent="space-between">
-                <Stack direction="horizontal" gap={8} padding="none">
-                  {metadata.ready === true && <ReadinessLabel />}
-                  {typeof metadata.a11yReviewed === 'boolean' && metadata.a11yReviewed && <AccessibilityLabel />}
-                </Stack>
+                {metadata.ready || metadata.a11yReviewed ? (
+                  <Stack direction="horizontal" gap={8} padding="none">
+                    {metadata.ready === true && <ReadinessLabel />}
+                    {typeof metadata.a11yReviewed === 'boolean' && metadata.a11yReviewed && <AccessibilityLabel />}
+                  </Stack>
+                ) : null}
                 <Stack direction="horizontal" gap={16} padding="none">
                   {metadata.source ? <SourceLink type="github" href={metadata.source} /> : null}
                   {metadata.figma ? <SourceLink type="figma" href={metadata.figma} /> : null}
@@ -50,7 +52,11 @@ export function Article({children, toc, metadata}: PropsWithChildren<Props>) {
           ) : null}
           <div className={clsx(metadata.layout !== 'custom' && bodyStyles.Prose)}>{children}</div>
         </div>
-        {hasToc && <TableOfContents headings={toc} />}
+        {hasToc && (
+          <div className={styles.aside}>
+            <TableOfContents headings={toc} />
+          </div>
+        )}
       </div>
     </>
   )

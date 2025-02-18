@@ -84,6 +84,7 @@ export function Theme({children, pageMap}: ThemeProps) {
   const filteredTabData: MdxFile[] = data && hasChildren(data) ? ((data as Folder).children as MdxFile[]) : []
 
   const relatedLinks = getRelatedPages(route, activeMetadata, flatDocsDirectories)
+  const disablePageAnimation = activeMetadata?.options?.disablePageAnimation || false
   return (
     <>
       <BrandThemeProvider dir="ltr" colorMode={colorMode}>
@@ -105,132 +106,153 @@ export function Theme({children, pageMap}: ThemeProps) {
               </Head>
             )}
 
-            <AnimationProvider runOnce visibilityOptions={1} autoStaggerChildren={false}>
-              <Animate animate="fade-in">
-                <PRCBox
-                  sx={{
-                    position: 'sticky',
-                    top: 0,
-                    zIndex: 99,
-                  }}
-                >
-                  <SkipToMainContent href="#main">Skip to main content</SkipToMainContent>
-                  <Header pageMap={pageMap} siteTitle={siteTitle} />
-                </PRCBox>
-                <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
-                  <PageLayout.Content padding="normal">
-                    <div id="main">
-                      <PRCBox sx={!isHomePage && {maxWidth: 1200, width: '100%', margin: '0 auto'}}>
-                        <Stack direction="vertical" padding="none" gap="spacious">
-                          {!isHomePage && (
-                            <>
-                              {activePath.length && (
-                                <Breadcrumbs>
-                                  {siteTitle && (
+            <ContentWrapper disableAnimations={disablePageAnimation}>
+              <PRCBox
+                sx={{
+                  position: 'sticky',
+                  top: 0,
+                  zIndex: 99,
+                }}
+              >
+                <SkipToMainContent href="#main">Skip to main content</SkipToMainContent>
+                <Header pageMap={pageMap} flatDocsDirectories={flatDocsDirectories} siteTitle={siteTitle} />
+              </PRCBox>
+              <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
+                <PageLayout.Content padding="normal">
+                  <div id="main">
+                    <PRCBox sx={!isHomePage && {maxWidth: 1200, width: '100%', margin: '0 auto'}}>
+                      <Stack direction="vertical" padding="none" gap="spacious">
+                        {!isHomePage && (
+                          <>
+                            {activePath.length && (
+                              <Breadcrumbs>
+                                {siteTitle && (
+                                  <Breadcrumbs.Item
+                                    as={NextLink}
+                                    href="/"
+                                    sx={{
+                                      color: 'var(--brand-InlineLink-color-rest)',
+                                    }}
+                                  >
+                                    {siteTitle}
+                                  </Breadcrumbs.Item>
+                                )}
+                                {activePath.map((item, index) => {
+                                  return (
                                     <Breadcrumbs.Item
                                       as={NextLink}
-                                      href="/"
+                                      key={item.name}
+                                      href={item.route}
+                                      selected={index === activePath.length - 1}
                                       sx={{
+                                        textTransform: 'capitalize',
                                         color: 'var(--brand-InlineLink-color-rest)',
                                       }}
                                     >
-                                      {siteTitle}
+                                      {item.title.replace(/-/g, ' ')}
                                     </Breadcrumbs.Item>
-                                  )}
-                                  {activePath.map((item, index) => {
-                                    return (
-                                      <Breadcrumbs.Item
-                                        as={NextLink}
-                                        key={item.name}
-                                        href={item.route}
-                                        selected={index === activePath.length - 1}
-                                        sx={{
-                                          textTransform: 'capitalize',
-                                          color: 'var(--brand-InlineLink-color-rest)',
-                                        }}
-                                      >
-                                        {item.title.replace(/-/g, ' ')}
-                                      </Breadcrumbs.Item>
-                                    )
-                                  })}
-                                </Breadcrumbs>
-                              )}
+                                  )
+                                })}
+                              </Breadcrumbs>
+                            )}
 
-                              <Box>
-                                <Stack direction="vertical" padding="none" gap={12} alignItems="flex-start">
-                                  {activeMetadata?.title && (
-                                    <Heading as="h1" size="3">
-                                      {activeMetadata.title}
-                                    </Heading>
-                                  )}
-                                  {activeMetadata?.description && (
-                                    <Text as="p" variant="muted" size="300">
-                                      {activeMetadata.description}
-                                    </Text>
-                                  )}
-                                  {activeMetadata?.image && (
-                                    <Box paddingBlockStart={16} style={{width: '100%'}}>
-                                      <Hero.Image src={activeMetadata.image} alt={activeMetadata['image-alt']} />
-                                    </Box>
-                                  )}
-                                  {activeMetadata && activeMetadata['action-1-text'] && (
-                                    <Box paddingBlockStart={16}>
-                                      <ButtonGroup>
-                                        <Button as="a" href={activeMetadata['action-1-link']}>
-                                          {activeMetadata['action-1-text']}
+                            <Box>
+                              <Stack direction="vertical" padding="none" gap={12} alignItems="flex-start">
+                                {activeMetadata?.title && (
+                                  <Heading as="h1" size="3">
+                                    {activeMetadata.title}
+                                  </Heading>
+                                )}
+                                {activeMetadata?.description && (
+                                  <Text as="p" variant="muted" size="300">
+                                    {activeMetadata.description}
+                                  </Text>
+                                )}
+                                {activeMetadata?.image && (
+                                  <Box paddingBlockStart={16} style={{width: '100%'}}>
+                                    <Hero.Image src={activeMetadata.image} alt={activeMetadata['image-alt']} />
+                                  </Box>
+                                )}
+                                {activeMetadata && activeMetadata['action-1-text'] && (
+                                  <Box paddingBlockStart={16}>
+                                    <ButtonGroup>
+                                      <Button as="a" href={activeMetadata['action-1-link']}>
+                                        {activeMetadata['action-1-text']}
+                                      </Button>
+                                      {activeMetadata['action-2-text'] && (
+                                        <Button as="a" variant="secondary" href={activeMetadata['action-2-link']}>
+                                          {activeMetadata['action-2-text']}
                                         </Button>
-                                        {activeMetadata['action-2-text'] && (
-                                          <Button as="a" variant="secondary" href={activeMetadata['action-2-link']}>
-                                            {activeMetadata['action-2-text']}
-                                          </Button>
-                                        )}
-                                      </ButtonGroup>
-                                    </Box>
-                                  )}
-                                </Stack>
-                              </Box>
-                              {activeMetadata && activeMetadata['show-tabs'] && (
-                                <UnderlineNav tabData={filteredTabData} />
+                                      )}
+                                    </ButtonGroup>
+                                  </Box>
+                                )}
+                              </Stack>
+                            </Box>
+                            {activeMetadata && activeMetadata['show-tabs'] && (
+                              <UnderlineNav tabData={filteredTabData} />
+                            )}
+                          </>
+                        )}
+                        <article>
+                          {isIndexPage ? (
+                            <IndexCards folderData={flatDocsDirectories} route={route} />
+                          ) : (
+                            <>
+                              <>{children}</>
+
+                              {relatedLinks.length > 0 && (
+                                <PRCBox sx={{pt: 5}}>
+                                  <RelatedContentLinks links={relatedLinks} />
+                                </PRCBox>
                               )}
                             </>
                           )}
-                          <article>
-                            {isIndexPage ? (
-                              <IndexCards folderData={flatDocsDirectories} route={route} />
-                            ) : (
-                              <>
-                                <>{children}</>
-
-                                {relatedLinks.length > 0 && (
-                                  <PRCBox sx={{pt: 5}}>
-                                    <RelatedContentLinks links={relatedLinks} />
-                                  </PRCBox>
-                                )}
-                              </>
-                            )}
-                          </article>
-                          <Footer filePath={filePath} repoURL={repoURL} repoSrcPath={repoSrcPath} />
-                        </Stack>
-                      </PRCBox>
-                    </div>
-                  </PageLayout.Content>
-                  <PageLayout.Pane
-                    aria-label="Side navigation"
-                    width="small"
-                    sticky
-                    padding="none"
-                    position="start"
-                    hidden={{narrow: true}}
-                    divider="line"
-                  >
-                    <Sidebar pageMap={pageMap} />
-                  </PageLayout.Pane>
-                </PageLayout>
-              </Animate>
-            </AnimationProvider>
+                        </article>
+                        <Footer filePath={filePath} repoURL={repoURL} repoSrcPath={repoSrcPath} />
+                      </Stack>
+                    </PRCBox>
+                  </div>
+                </PageLayout.Content>
+                <PageLayout.Pane
+                  aria-label="Side navigation"
+                  width="small"
+                  sticky
+                  padding="none"
+                  position="start"
+                  hidden={{narrow: true}}
+                  divider="line"
+                >
+                  <Sidebar pageMap={pageMap} />
+                </PageLayout.Pane>
+              </PageLayout>
+            </ContentWrapper>
           </BaseStyles>
         </ThemeProvider>
       </BrandThemeProvider>
+    </>
+  )
+}
+
+type ContentWrapperProps = PropsWithChildren<{
+  disableAnimations?: boolean
+}>
+
+/**
+ * The fade in animation masks the layout repainting issues.
+ * That animation however, interferes with nested AnimationProviders so we need
+ * to disable it for certain pages that use that.
+ */
+function ContentWrapper({children, disableAnimations}: ContentWrapperProps) {
+  if (disableAnimations) {
+    return <>{children}</>
+  }
+
+  return (
+    <>
+      <AnimationProvider runOnce visibilityOptions={1} autoStaggerChildren={false}>
+        <Animate animate="fade-in">{children}</Animate>
+      </AnimationProvider>
     </>
   )
 }

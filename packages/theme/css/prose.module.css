@@ -33,9 +33,9 @@
 /* ---------------------------------------------------------- */
 
 .Prose
-  :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, hr, table, pre, dl, figure):not(
+  :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, hr, table, pre, dl):not(
     :first-child,
-    :global(.custom-component) :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, hr, table, pre, dl, figure)
+    :global(.custom-component) :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, hr, table, pre, dl)
   ) {
   margin-block-start: var(--spacing, 1em);
 }
@@ -254,7 +254,7 @@
   margin-bottom: var(--spacing);
 }
 
-.Prose blockquote::before:not(:global(.custom-component) blockquote::before) {
+.Prose blockquote:not(:global(.custom-component) blockquote)::before {
   content: '“';
   font-size: var(--base-size-48);
   line-height: var(--base-size-64);
@@ -263,7 +263,7 @@
   top: 0;
 }
 
-.Prose blockquote::after:not(:global(.custom-component) blockquote::after) {
+.Prose blockquote:not(:global(.custom-component) blockquote)::after {
   content: '';
   display: block;
   position: absolute;

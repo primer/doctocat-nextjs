@@ -12,6 +12,7 @@ import {lightTheme, darkTheme} from './syntax-highlighting-themes'
 
 type ReactCodeBlockProps = {
   'data-language': string
+  'data-filename'?: string
   jsxScope: Record<string, unknown>
 } & PropsWithChildren<HTMLElement>
 
@@ -29,9 +30,11 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
     navigator.clipboard.writeText(code)
   }, [code])
 
+  const noInline = props['data-filename'] === 'noinline' || false
+
   return (
     <>
-      <LiveProvider code={code} scope={props.jsxScope}>
+      <LiveProvider code={code} scope={props.jsxScope} noInline={noInline}>
         <div className={clsx(styles.CodeBlock, 'custom-component')}>
           {shouldShowPreview && (
             <div>

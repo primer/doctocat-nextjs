@@ -9,7 +9,7 @@ export function ReadinessLabel() {
   return (
     <Label size="large" className={styles.label}>
       <CheckIcon className={styles.icon} />
-      Ready
+      Ready to use
     </Label>
   )
 }
