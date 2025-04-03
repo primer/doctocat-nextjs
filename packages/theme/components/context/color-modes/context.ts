@@ -1,6 +1,8 @@
 import {createContext} from 'react'
 
-export type ColorMode = 'light' | 'dark'
+export const colorModes = ['light', 'dark'] as const
+
+export type ColorMode = (typeof colorModes)[number]
 
 export type ColorModeContextProps = {
   colorMode: ColorMode

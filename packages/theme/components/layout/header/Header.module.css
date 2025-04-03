@@ -6,6 +6,7 @@
   padding: var(--base-size-20) var(--base-size-12) var(--base-size-20) var(--base-size-16);
   border-bottom: var(--brand-borderWidth-thin) solid var(--brand-color-border-default);
   background: var(--brand-color-canvas-default);
+  z-index: 20;
 }
 
 @media (max-width: 768px) {

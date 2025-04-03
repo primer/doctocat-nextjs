@@ -32,25 +32,11 @@
 /* 2. Element spacing                                         */
 /* ---------------------------------------------------------- */
 
-/* .Prose * + * {
-  margin-block-start: var(--spacing, 1em);
-} */
-
-.Prose h1:not(:global(.custom-component) h1),
-.Prose h2:not(:global(.custom-component) h2),
-.Prose h3:not(:global(.custom-component) h3),
-.Prose h4:not(:global(.custom-component) h4),
-.Prose h5:not(:global(.custom-component) h5),
-.Prose h6:not(:global(.custom-component) h6),
-.Prose p:not(:global(.custom-component) p),
-.Prose ul:not(:global(.custom-component) ul),
-.Prose ol:not(:global(.custom-component) ol),
-.Prose blockquote:not(:global(.custom-component) blockquote),
-.Prose hr:not(:global(.custom-component) hr),
-.Prose table:not(:global(.custom-component) table),
-.Prose pre:not(:global(.custom-component) pre),
-.Prose dl:not(:global(.custom-component) dl),
-.Prose figure:not(:global(.custom-component) figure) {
+.Prose
+  :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, hr, table, pre, dl):not(
+    :first-child,
+    :global(.custom-component) :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, hr, table, pre, dl)
+  ) {
   margin-block-start: var(--spacing, 1em);
 }
 
@@ -66,7 +52,7 @@
 /* 4. Headings                                                */
 /* ---------------------------------------------------------- */
 
-.Prose h1 {
+.Prose h1:not(:global(.custom-component) h1) {
   font-weight: var(--brand-heading-weight-900);
   font-size: var(--base-size-32);
   line-height: 1.5;
@@ -74,11 +60,11 @@
   letter-spacing: var(--brand-text-letterSpacing-800);
 }
 
-.Prose--lineLength h1 {
+.Prose--lineLength h1:not(:global(.custom-component) h1) {
   max-width: 22ch;
 }
 
-.Prose h2 {
+.Prose h2:not(:global(.custom-component) h2) {
   font-weight: var(--brand-heading-weight-700);
   font-size: var(--base-size-24);
   line-height: var(--base-size-24);
@@ -86,11 +72,11 @@
   letter-spacing: var(--brand-text-letterSpacing-700);
 }
 
-.Prose--lineLength h2 {
+.Prose--lineLength h2:not(:global(.custom-component) h2) {
   max-width: 26ch;
 }
 
-.Prose h3 {
+.Prose h3:not(:global(.custom-component) h3) {
   font-weight: var(--brand-heading-weight-600);
   font-size: var(--base-size-20);
   line-height: var(--base-size-20);
@@ -98,11 +84,11 @@
   letter-spacing: var(--brand-heading-letterSpacing-600);
 }
 
-.Prose--lineLength h1 {
+.Prose--lineLength h3:not(:global(.custom-component) h3) {
   max-width: 32ch;
 }
 
-.Prose h4 {
+.Prose h4:not(:global(.custom-component) h4) {
   --spacing: var(--base-size-40);
   font-weight: var(--brand-text-weight-500);
   font-size: var(--base-size-18);
@@ -111,7 +97,7 @@
   letter-spacing: var(--brand-heading-letterSpacing-500);
 }
 
-.Prose h5 {
+.Prose h5:not(:global(.custom-component) h5) {
   --spacing: var(--base-size-40);
   font-weight: var(--brand-text-weight-400);
   font-size: var(--base-size-16);
@@ -120,7 +106,7 @@
   letter-spacing: var(--brand-heading-letterSpacing-400);
 }
 
-.Prose h6 {
+.Prose h6:not(:global(.custom-component) h6) {
   --spacing: var(--base-size-48);
   font-weight: var(--brand-text-subhead-weight-large);
   font-size: var(--base-size-14);
@@ -129,12 +115,12 @@
   letter-spacing: var(--brand-heading-letterSpacing-300);
 }
 
-.Prose :is(h1) {
+.Prose :is(h1):not(:global(.custom-component) h1) {
   --spacing: var(--base-size-64);
   margin-block-end: var(--spacing);
 }
 
-.Prose :is(h2, h3) + * {
+.Prose :is(h2, h3):not(:global(.custom-component) :is(h2, h3)) + * {
   --spacing: var(--base-size-40);
 }
 
@@ -142,7 +128,7 @@
 /* 5. Paragraphs                                              */
 /* ---------------------------------------------------------- */
 
-.Prose p {
+.Prose p:not(:global(.custom-component) p) {
   --spacing: var(--base-size-24);
 }
 
@@ -150,8 +136,8 @@
 /* 6. Lists                                                   */
 /* ---------------------------------------------------------- */
 
-.Prose ul,
-.Prose ol {
+.Prose ul:not(:global(.custom-component) ul),
+.Prose ol:not(:global(.custom-component) ol) {
   --spacing: var(--base-size-16);
   display: flex;
   flex-direction: column;
@@ -161,12 +147,12 @@
   line-height: var(--brand-text-lineHeight-300);
 }
 
-.Prose ul {
+.Prose ul:not(:global(.custom-component) ul) {
   list-style-type: image;
   list-style-image: var(--brand-Prose-unorderedList-imageUrl);
 }
 
-.Prose li {
+.Prose li:not(:global(.custom-component) li) {
   --spacing: 0;
 }
 
@@ -174,11 +160,11 @@
 /* 7. Inline elements                                         */
 /* ---------------------------------------------------------- */
 
-.Prose strong {
+.Prose strong:not(:global(.custom-component) strong) {
   font-weight: var(--brand-text-weight-800);
 }
 
-.Prose em {
+.Prose em:not(:global(.custom-component) em) {
   font-variation-settings: 'ital' 10;
   font-synthesis: none;
 }
@@ -215,7 +201,7 @@
   border-color: var(--brand-InlineLink-color-pressed);
 }
 
-.Prose code {
+.Prose code:not(:global(.custom-component) code) {
   font-family: var(--brand-fontStack-monospace);
   font-size: var(--brand-text-size-100);
   white-space: break-spaces;
@@ -224,7 +210,7 @@
   background-color: var(--base-color-scale-indigo-0);
 }
 
-[data-color-mode='dark'] .Prose code {
+[data-color-mode='dark'] .Prose code:not(:global(.custom-component) code) {
   background-color: var(--base-color-scale-indigo-9);
 }
 
@@ -232,7 +218,7 @@
 /* 8. Images                                                  */
 /* ---------------------------------------------------------- */
 
-.Prose img {
+.Prose img:not(:global(.custom-component) img) {
   --spacing: var(--brand-Prose-img-spacing);
   display: block;
   max-width: 100%;
@@ -244,7 +230,7 @@
   overflow: hidden;
 }
 
-.Prose video {
+.Prose video:not(:global(.custom-component) video) {
   --spacing: var(--brand-Prose-img-spacing);
   display: block;
   max-width: 100%;
@@ -256,7 +242,7 @@
 /* 9. Block elements                                          */
 /* ---------------------------------------------------------- */
 
-.Prose blockquote {
+.Prose blockquote:not(:global(.custom-component) blockquote) {
   font-family: var(--brand-fontStack-sansSerif);
   --spacing: var(--brand-Prose-blockquote-spacing);
   position: relative;
@@ -264,11 +250,11 @@
   line-height: var(--brand-text-lineHeight-400);
   padding-top: var(--base-size-48);
   padding-left: var(--base-size-40);
-  padding-bottom: var(--base-size-8);
+  padding-bottom: var (--base-size-8);
   margin-bottom: var(--spacing);
 }
 
-.Prose blockquote::before {
+.Prose blockquote:not(:global(.custom-component) blockquote)::before {
   content: '“';
   font-size: var(--base-size-48);
   line-height: var(--base-size-64);
@@ -277,7 +263,7 @@
   top: 0;
 }
 
-.Prose blockquote::after {
+.Prose blockquote:not(:global(.custom-component) blockquote)::after {
   content: '';
   display: block;
   position: absolute;
@@ -289,14 +275,14 @@
   background-image: linear-gradient(180deg, var(--base-color-scale-blue-5), var(--base-color-scale-purple-5));
 }
 
-.Prose figure figcaption {
+.Prose figure figcaption:not(:global(.custom-component) figure figcaption) {
   font-family: var(--brand-fontStack-monospace);
   font-size: var(--brand-text-size-100);
   line-height: var(--brand-text-lineHeight-100);
   color: var(--brand-color-text-muted);
 }
 
-.Prose hr {
+.Prose hr:not(:global(.custom-component) hr) {
   --spacing: var(--base-size-64);
   border: 0;
   height: 1px;
@@ -304,7 +290,61 @@
 }
 
 /**
-* 10. Custom stuff - Move out to separate stylesheet
+* 10. Tables
+*/
+
+.Prose table:not(:global(.custom-component) table) {
+  width: 100%;
+  overflow: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.Prose th:not(:global(.custom-component) th) {
+  font-weight: var(--brand-text-weight-600);
+  background-color: var(--brand-color-bg-subtle);
+}
+
+.Prose :is(th, td):not(:global(.custom-component) :is(th, td)) {
+  padding: var(--base-size-8) var(--base-size-16);
+  border-color: var(--brand-color-border-muted);
+  border-style: solid;
+  border-width: 0;
+  border-left-width: var(--brand-borderWidth-thin);
+  border-top-width: var(--brand-borderWidth-thin);
+}
+
+.Prose tr:last-child td:not(:global(.custom-component) tr:last-child td) {
+  border-bottom-width: var(--brand-borderWidth-thin);
+}
+
+.Prose tr :is(td, th):last-child:not(:global(.custom-component) tr :is(td, th):last-child) {
+  border-right-width: var(--brand-borderWidth-thin);
+}
+
+.Prose thead th:first-child:not(:global(.custom-component) thead th:first-child) {
+  border-top-left-radius: var(--brand-borderRadius-medium);
+}
+
+.Prose thead th:last-child:not(:global(.custom-component) thead th:last-child) {
+  border-top-right-radius: var(--brand-borderRadius-medium);
+}
+
+.Prose tbody tr:last-child td:last-child:not(:global(.custom-component) tbody tr:last-child td:last-child) {
+  border-bottom-right-radius: var(--brand-borderRadius-medium);
+}
+
+.Prose tbody tr:last-child td:first-child:not(:global(.custom-component) tbody tr:last-child td:first-child) {
+  border-bottom-left-radius: var(--brand-borderRadius-medium);
+}
+
+.Prose table img:not(:global(.custom-component) table img) {
+  background-color: transparent;
+  vertical-align: middle;
+}
+
+/**
+* 11. Custom stuff - Move out to separate stylesheet
 */
 .customPageHero {
   padding-top: 0;
