@@ -1,5 +1,19 @@
 # @primer/doctocat-nextjs
 
+## 0.3.0
+
+### Minor Changes
+
+- [#22](https://github.com/primer/doctocat-nextjs/pull/22) [`2b57bc4`](https://github.com/primer/doctocat-nextjs/commit/2b57bc456efc03c99255ca90098ca3e035da1206) Thanks [@rezrah](https://github.com/rezrah)! - Add live code editing and previews for `jsx` code blocks in Markdown. All other code blocks will continue to render as normal.
+
+  E.g.
+
+  <pre>
+  ```jsx
+  <p>Your React code here</p>
+  ```
+  </pre>
+
 ## 0.2.0
 
 ### Minor Changes
