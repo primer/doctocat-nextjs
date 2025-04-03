@@ -3,6 +3,27 @@
 }
 
 .Article--withToc {
-  grid-template-columns: 1fr 200px;
   gap: var(--base-size-48);
+}
+
+.main {
+  order: 1;
+}
+
+.aside {
+  order: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .main {
+    order: 0;
+  }
+
+  .aside {
+    order: 1;
+  }
+
+  .Article--withToc {
+    grid-template-columns: 1fr 200px;
+  }
 }

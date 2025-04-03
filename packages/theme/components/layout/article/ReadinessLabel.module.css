@@ -1,0 +1,21 @@
+.label {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+  background-color: var(--base-color-scale-green-0);
+  border-color: transparent;
+  color: var(--brand-color-text-default);
+  font-weight: var(--brand-text-weight-300);
+}
+
+[data-color-mode='dark'] .label {
+  background-color: var(--base-color-scale-green-8);
+}
+
+.icon {
+  fill: var(--base-color-scale-green-5);
+}
+
+[data-color-mode='dark'] .icon {
+  fill: var(--base-color-scale-green-1);
+}

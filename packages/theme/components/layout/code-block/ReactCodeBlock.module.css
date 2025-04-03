@@ -1,0 +1,68 @@
+.CodeBlock {
+  margin-block: var(--base-size-24);
+  background-color: var(--brand-color-canvas-default);
+  border: var(--brand-borderWidth-thin) solid var(--brand-color-border-default);
+  border-radius: var(--brand-borderRadius-large);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.Preview {
+  display: flex;
+  width: 100%;
+  padding: var(--base-size-16);
+  padding-block: var(--base-size-64);
+  min-height: 240px;
+  flex: 1 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.Editor {
+  font-size: var(--brand-text-size-100);
+  line-height: var(--brand-text-lineHeight-100);
+  font-family: var(--brand-fontStack-monospace);
+  background-color: var(--brand-color-canvas-subtle);
+  overflow: auto;
+}
+
+.Editor pre {
+  font-size: inherit;
+  border-radius: 0;
+  padding: var(--base-size-16) !important;
+  background-color: var(--brand-color-canvas-subtle) !important;
+}
+
+.Toolbar {
+  display: flex;
+  gap: var(--base-size-8);
+  padding-inline: var(--base-size-16);
+  padding-block-start: var(--base-size-16);
+  border-top: var(--brand-borderWidth-thin) solid var(--brand-color-border-default);
+  background-color: var(--brand-color-canvas-subtle);
+}
+
+.Error pre {
+  margin-block: 0 !important;
+  border-radius: 0;
+  font-size: var(--brand-text-size-100);
+  line-height: var(--brand-text-lineHeight-100);
+  font-family: var(--brand-fontStack-monospace);
+  color: var(--brand-color-error-fg);
+}
+
+.colorModeMenu {
+  display: inline-block;
+  position: absolute;
+  top: var(--base-size-16);
+  right: var(--base-size-2);
+  z-index: 19;
+  width: 200px;
+}
+
+.colorModeButtonActive {
+  background-color: var(--brand-color-canvas-subtle);
+}
