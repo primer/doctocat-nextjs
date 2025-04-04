@@ -1,0 +1,36 @@
+---
+title: Note
+description: Learn how to use a Note on your documentation
+---
+
+1. Import relevant components from `@primer/doctocat-nextjs`:
+
+```js
+import {Note} from '@primer/doctocat-nextjs'
+```
+
+2. Use the components in your Markdown file, but ensure that you wrap the component in a `div` with the `custom-component` class. This will ensure that article formatting isn't applied to the custom component.
+
+```jsx
+<Note>Example of a note</Note>
+```
+
+Will render:
+
+<Note>Example of a note</Note>
+
+### Variants
+
+Use the `variant` option to change the style of the note. The default variant is `info`.
+
+```jsx
+<>
+  <Note variant="info">Example of an info note</Note>
+  <Note variant="warning">Example of a warning note</Note>
+</>
+```
+
+Will render:
+
+<Note variant="info">Example of an info note</Note>
+<Note variant="warning">Example of a warning note</Note>
