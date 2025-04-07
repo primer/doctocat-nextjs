@@ -1,0 +1,24 @@
+.Note {
+  --Note-bgColor: var(--bgColor-neutral-muted);
+  --Note-borderColor: var(--borderColor-neutral-emphasis);
+
+  background-color: var(--Note-bgColor);
+  border-inline-start: var(--brand-borderRadius-small) solid var(--Note-borderColor);
+  border-radius: var(--brand-borderRadius-small);
+  padding: var(--base-size-16);
+  margin-block-end: var(--base-size-16);
+}
+
+.Note *:last-child {
+  margin-bottom: 0;
+}
+
+.Note--info {
+  --Note-bgColor: var(--bgColor-accent-muted);
+  --Note-borderColor: var(--borderColor-accent-emphasis);
+}
+
+.Note--warning {
+  --Note-bgColor: var(--bgColor-attention-muted);
+  --Note-borderColor: var(--borderColor-attention-emphasis);
+}
