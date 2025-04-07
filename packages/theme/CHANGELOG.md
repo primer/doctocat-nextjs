@@ -1,5 +1,19 @@
 # @primer/doctocat-nextjs
 
+## 0.4.0
+
+### Minor Changes
+
+- [#25](https://github.com/primer/doctocat-nextjs/pull/25) [`fd2d9a1`](https://github.com/primer/doctocat-nextjs/commit/fd2d9a1ffde630fd8c8548f6bdf30d8d7a07faaa) Thanks [@danielguillan](https://github.com/danielguillan)! - Add a `Note` component to display informative and warning messages.
+
+  E.g.
+
+  <pre>
+  ```jsx
+  <Note variant="warning">Your note content here</Note>
+  ```
+  </pre>
+
 ## 0.3.0
 
 ### Minor Changes
