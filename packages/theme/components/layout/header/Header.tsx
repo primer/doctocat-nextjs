@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {MarkGithubIcon, MoonIcon, SearchIcon, SunIcon, ThreeBarsIcon, XIcon} from '@primer/octicons-react'
 import {Box, IconButton} from '@primer/react'
 import {Stack, Text} from '@primer/react-brand'
@@ -20,6 +20,7 @@ type HeaderProps = {
 }
 
 export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
+  const searchRef = useRef<HTMLInputElement | null>(null)
   const {colorMode, setColorMode} = useColorMode()
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useNavDrawerState('768')
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -30,7 +31,10 @@ export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
 
   const handleSearchButtonOpenClick = useCallback(() => {
     setIsSearchOpen(true)
-  }, [])
+    setTimeout(() => {
+      searchRef.current?.focus()
+    }, 0)
+  }, [searchRef])
 
   return (
     <nav
@@ -45,7 +49,7 @@ export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
         </Text>
       </Link>
       <div className={clsx(styles.Header__searchArea, isSearchOpen && styles['Header__searchArea--open'])}>
-        <GlobalSearch pageMap={pageMap} siteTitle={siteTitle} flatDocsDirectories={flatDocsDirectories} />
+        <GlobalSearch ref={searchRef} siteTitle={siteTitle} flatDocsDirectories={flatDocsDirectories} />
         <div className={styles.Header__searchHeaderBanner}>
           <Stack direction="horizontal" padding="none" gap={4} alignItems="center" justifyContent="space-between">
             <Text as="p" size="300" weight="semibold">
