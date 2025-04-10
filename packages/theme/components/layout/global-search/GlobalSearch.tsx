@@ -221,6 +221,7 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
                       role="option"
                     >
                       <Link
+                        className={styles.GlobalSearch__searchResultLink}
                         href={result.url}
                         tabIndex={-1}
                         onClick={() => {
@@ -231,10 +232,10 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
                         <Text size="200">
                           <HighlightSearchTerm searchTerm={searchTerm}>{result.title}</HighlightSearchTerm>
                         </Text>
+                        <Text as="p" size="100" variant="muted" id={`search-result-item-desc${index}`}>
+                          <HighlightSearchTerm searchTerm={searchTerm}>{result.description}</HighlightSearchTerm>
+                        </Text>
                       </Link>
-                      <Text as="p" size="100" variant="muted" id={`search-result-item-desc${index}`}>
-                        <HighlightSearchTerm searchTerm={searchTerm}>{result.description}</HighlightSearchTerm>
-                      </Text>
                     </li>
                   ))}
                 </ul>
