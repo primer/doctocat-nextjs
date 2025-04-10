@@ -16,7 +16,7 @@
     top: 72px;
     left: 0;
     margin: 0;
-    width: 100%;
+    width: 100vw;
     padding: var(--base-size-24);
     padding-top: 0;
     background: var(--brand-color-canvas-default);

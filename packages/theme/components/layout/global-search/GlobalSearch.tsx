@@ -232,7 +232,7 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
                         <Text size="200">
                           <HighlightSearchTerm searchTerm={searchTerm}>{result.title}</HighlightSearchTerm>
                         </Text>
-                        <Text as="p" size="100" variant="muted" id={`search-result-item-desc${index}`}>
+                        <Text as="p" size="100" variant="muted">
                           <HighlightSearchTerm searchTerm={searchTerm}>{result.description}</HighlightSearchTerm>
                         </Text>
                       </Link>
