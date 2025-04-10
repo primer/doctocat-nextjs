@@ -139,9 +139,11 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
           }
           break
         case 'Escape':
-          e.preventDefault()
-          setIsSearchResultOpen(false)
-          setActiveDescendant(-1)
+          if (isSearchResultOpen) {
+            e.preventDefault()
+            setIsSearchResultOpen(false)
+            setActiveDescendant(-1)
+          }
           break
         case 'Tab':
           setIsSearchResultOpen(false)

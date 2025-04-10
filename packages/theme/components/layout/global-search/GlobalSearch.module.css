@@ -1,5 +1,6 @@
 .GlobalSearch__searchInput {
   width: 100%;
+  z-index: 1;
 }
 
 .GlobalSearch__searchResultsContainer {

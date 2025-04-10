@@ -1,6 +1,6 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {MarkGithubIcon, MoonIcon, SearchIcon, SunIcon, ThreeBarsIcon, XIcon} from '@primer/octicons-react'
-import {Box, IconButton} from '@primer/react'
+import {IconButton} from '@primer/react'
 import {Stack, Text} from '@primer/react-brand'
 import {clsx} from 'clsx'
 import {PageMapItem} from 'nextra'
@@ -12,6 +12,7 @@ import {useNavDrawerState} from '../nav-drawer/useNavDrawerState'
 import {useColorMode} from '../../context/color-modes/useColorMode'
 import {DocsItem} from '../../../types'
 import {GlobalSearch} from '../global-search/GlobalSearch'
+import {FocusOn} from 'react-focus-on'
 
 type HeaderProps = {
   pageMap: PageMapItem[]
@@ -22,6 +23,7 @@ type HeaderProps = {
 export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
   const searchRef = useRef<HTMLInputElement | null>(null)
   const {colorMode, setColorMode} = useColorMode()
+  const searchTriggerRef = useRef<HTMLButtonElement | null>(null)
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useNavDrawerState('768')
   const [isSearchOpen, setIsSearchOpen] = useState(false)
 
@@ -29,12 +31,12 @@ export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
     document.documentElement.setAttribute('data-color-mode', colorMode)
   }, [colorMode])
 
-  const handleSearchButtonOpenClick = useCallback(() => {
-    setIsSearchOpen(true)
+  const closeSearch = () => {
+    setIsSearchOpen(false)
     setTimeout(() => {
-      searchRef.current?.focus()
+      searchTriggerRef.current?.focus()
     }, 0)
-  }, [searchRef])
+  }
 
   return (
     <nav
@@ -49,20 +51,17 @@ export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
         </Text>
       </Link>
       <div className={clsx(styles.Header__searchArea, isSearchOpen && styles['Header__searchArea--open'])}>
-        <GlobalSearch ref={searchRef} siteTitle={siteTitle} flatDocsDirectories={flatDocsDirectories} />
-        <div className={styles.Header__searchHeaderBanner}>
-          <Stack direction="horizontal" padding="none" gap={4} alignItems="center" justifyContent="space-between">
-            <Text as="p" size="300" weight="semibold">
-              Search
-            </Text>
-            <IconButton
-              icon={XIcon}
-              variant="invisible"
-              aria-label="Close search"
-              onClick={() => setIsSearchOpen(false)}
-            />
-          </Stack>
-        </div>
+        <FocusOn enabled={isSearchOpen} onEscapeKey={closeSearch} onClickOutside={closeSearch}>
+          <GlobalSearch ref={searchRef} siteTitle={siteTitle} flatDocsDirectories={flatDocsDirectories} />
+          <div className={styles.Header__searchHeaderBanner}>
+            <Stack direction="horizontal" padding="none" gap={4} alignItems="center" justifyContent="space-between">
+              <Text as="p" size="300" weight="semibold">
+                Search
+              </Text>
+              <IconButton icon={XIcon} variant="invisible" aria-label="Close search" onClick={closeSearch} />
+            </Stack>
+          </div>
+        </FocusOn>
       </div>
       <div>
         <Stack direction="horizontal" padding="none" gap={4}>
@@ -73,13 +72,14 @@ export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
             onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
           />
           <IconButton
+            ref={searchTriggerRef}
+            className={styles.Header__searchButton}
             icon={SearchIcon}
             variant="invisible"
             aria-label={`Open search`}
-            sx={{display: ['flex', null, 'none']}}
-            onClick={handleSearchButtonOpenClick}
+            onClick={() => setIsSearchOpen(true)}
           />
-          <Box sx={{display: ['flex', null, 'none']}}>
+          <div className={styles.Header__navDrawerContainer}>
             <IconButton
               icon={ThreeBarsIcon}
               variant="invisible"
@@ -88,7 +88,7 @@ export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
               onClick={() => setIsNavDrawerOpen(true)}
             />
             <NavDrawer isOpen={isNavDrawerOpen} onDismiss={() => setIsNavDrawerOpen(false)} navItems={pageMap} />
-          </Box>
+          </div>
         </Stack>
       </div>
     </nav>

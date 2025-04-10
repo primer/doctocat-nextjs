@@ -9,7 +9,7 @@
   z-index: 20;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .Header__searchArea {
     display: none;
     position: absolute;
@@ -52,6 +52,11 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: -1;
   }
+
+  .Header__searchButton,
+  .Header__navDrawerContainer {
+    display: flex;
+  }
 }
 
 @media (min-width: 768px) {
@@ -66,7 +71,9 @@
     margin-inline-end: var(--base-size-16);
   }
 
-  .Header__searchHeaderBanner {
+  .Header__searchHeaderBanner,
+  .Header__searchButton,
+  .Header__navDrawerContainer {
     display: none;
   }
 }
