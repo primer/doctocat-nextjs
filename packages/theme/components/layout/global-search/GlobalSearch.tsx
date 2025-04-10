@@ -202,22 +202,13 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
                   className={clsx(styles.GlobalSearch__searchResultsList)}
                 >
                   {searchResults.map((result, index) => (
-                    <li
+                    <SearchResult
                       key={`${result.title}-${index}`}
-                      id={`search-result-${index}`}
-                      className={clsx(styles.GlobalSearch__searchResultItem)}
-                      role="option"
-                      aria-selected={index === activeDescendant}
-                    >
-                      <Text size="200">
-                        <Link href={result.url} tabIndex={-1}>
-                          {result.title}
-                        </Link>
-                      </Text>
-                      <Text as="p" size="100" variant="muted" id={`search-result-item-desc${index}`}>
-                        {result.description}
-                      </Text>
-                    </li>
+                      index={index}
+                      activeIndex={activeDescendant}
+                      result={result}
+                      searchTerm={searchTerm}
+                    />
                   ))}
                 </ul>
               ) : (
@@ -232,5 +223,53 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
     )
   },
 )
+
+type SearchResultProps = {
+  result: SearchResult
+  index: number
+  activeIndex: number
+  searchTerm: string
+}
+
+const SearchResult = ({result, index, activeIndex, searchTerm}: SearchResultProps) => {
+  return (
+    <li
+      className={clsx(styles.GlobalSearch__searchResultItem)}
+      id={`search-result-${index}`}
+      aria-selected={index === activeIndex}
+      role="option"
+    >
+      <Link href={result.url} tabIndex={-1}>
+        <Text size="200">
+          <HighlightSearchTerm searchTerm={searchTerm}>{result.title}</HighlightSearchTerm>
+        </Text>
+        <Text as="p" size="100" variant="muted" id={`search-result-item-desc${index}`}>
+          <HighlightSearchTerm searchTerm={searchTerm}>{result.description}</HighlightSearchTerm>
+        </Text>
+      </Link>
+    </li>
+  )
+}
+
+type HighlightSearchTermProps = {
+  children: React.ReactNode
+  searchTerm: string
+}
+
+const HighlightSearchTerm = ({children, searchTerm}: HighlightSearchTermProps) => {
+  if (!children || !searchTerm) {
+    return <>{children}</>
+  }
+
+  const escapedSearchTerm = searchTerm.replace(/[.*+?^${}()|[\]\\<>]/g, '\\$&')
+
+  const parts = children.toString().split(new RegExp(`(${escapedSearchTerm})`, 'gi'))
+
+  return (
+    <>
+      {parts.map((part, i) => (part.toLowerCase() === searchTerm.toLowerCase() ? <mark key={i}>{part}</mark> : part))}
+    </>
+  )
+}
 
 GlobalSearch.displayName = 'GlobalSearch'

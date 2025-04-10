@@ -76,3 +76,12 @@
   background-color: var(--brand-color-canvas-default);
   border-radius: var(--brand-borderRadius-small);
 }
+
+.GlobalSearch__searchResultItem mark {
+  background-color: var(--brand-color-accent-primary);
+  color: var(--brand-color-text-onEmphasis);
+}
+
+.GlobalSearch__searchResultItem:has(mark) a {
+  text-decoration-color: var(--brand-color-text-onEmphasis);
+}
