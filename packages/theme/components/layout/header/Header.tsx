@@ -52,7 +52,12 @@ export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
       </Link>
       <div className={clsx(styles.Header__searchArea, isSearchOpen && styles['Header__searchArea--open'])}>
         <FocusOn enabled={isSearchOpen} onEscapeKey={closeSearch} onClickOutside={closeSearch}>
-          <GlobalSearch ref={searchRef} siteTitle={siteTitle} flatDocsDirectories={flatDocsDirectories} />
+          <GlobalSearch
+            ref={searchRef}
+            siteTitle={siteTitle}
+            flatDocsDirectories={flatDocsDirectories}
+            onNavigate={() => closeSearch()}
+          />
           <div className={styles.Header__searchHeaderBanner}>
             <Stack direction="horizontal" padding="none" gap={4} alignItems="center" justifyContent="space-between">
               <Text as="p" size="300" weight="semibold">

@@ -5,6 +5,7 @@ import {Heading, Stack, Text} from '@primer/react-brand'
 import {clsx} from 'clsx'
 import type {MdxFile} from 'nextra'
 import Link from 'next/link'
+import {useRouter} from 'next/navigation'
 
 import styles from './GlobalSearch.module.css'
 import type {DocsItem} from '../../../types'
@@ -12,6 +13,7 @@ import type {DocsItem} from '../../../types'
 type GlobalSearchProps = {
   flatDocsDirectories: DocsItem[]
   siteTitle: string
+  onNavigate?: () => void
 }
 
 type SearchResult = {
@@ -21,7 +23,8 @@ type SearchResult = {
 }
 
 export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
-  ({siteTitle, flatDocsDirectories}, forwardedRef) => {
+  ({siteTitle, flatDocsDirectories, onNavigate}, forwardedRef) => {
+    const router = useRouter()
     const listboxRef = useRef<HTMLUListElement | null>(null)
     const searchResultsRef = useRef<HTMLDivElement | null>(null)
     const [isSearchResultOpen, setIsSearchResultOpen] = useState(false)
@@ -119,6 +122,13 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
         ?.scrollIntoView({block: nextActiveDescendant === 0 ? 'center' : 'nearest'})
     }
 
+    const resetSearch = () => {
+      setSearchTerm('')
+      setSearchResults([])
+      setIsSearchResultOpen(false)
+      setActiveDescendant(-1)
+    }
+
     const handleKeyDown = (e: React.KeyboardEvent) => {
       switch (e.key) {
         case 'ArrowDown':
@@ -134,20 +144,20 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
           if (activeDescendant !== -1) {
             const selectedResult = searchResults[activeDescendant]
             if (selectedResult.url) {
-              window.location.href = selectedResult.url
+              router.push(selectedResult.url)
+              onNavigate?.()
+              resetSearch()
             }
           }
           break
         case 'Escape':
           if (isSearchResultOpen) {
             e.preventDefault()
-            setIsSearchResultOpen(false)
-            setActiveDescendant(-1)
+            resetSearch()
           }
           break
         case 'Tab':
-          setIsSearchResultOpen(false)
-          setActiveDescendant(-1)
+          resetSearch()
           break
         default:
           break
@@ -165,6 +175,7 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
             leadingVisual={<SearchIcon />}
             placeholder={`Search ${siteTitle}`}
             ref={forwardedRef}
+            value={searchTerm}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             role="combobox"
@@ -202,13 +213,29 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
                   className={clsx(styles.GlobalSearch__searchResultsList)}
                 >
                   {searchResults.map((result, index) => (
-                    <SearchResult
+                    <li
                       key={`${result.title}-${index}`}
-                      index={index}
-                      activeIndex={activeDescendant}
-                      result={result}
-                      searchTerm={searchTerm}
-                    />
+                      className={clsx(styles.GlobalSearch__searchResultItem)}
+                      id={`search-result-${index}`}
+                      aria-selected={index === activeDescendant}
+                      role="option"
+                    >
+                      <Link
+                        href={result.url}
+                        tabIndex={-1}
+                        onClick={() => {
+                          onNavigate?.()
+                          resetSearch()
+                        }}
+                      >
+                        <Text size="200">
+                          <HighlightSearchTerm searchTerm={searchTerm}>{result.title}</HighlightSearchTerm>
+                        </Text>
+                      </Link>
+                      <Text as="p" size="100" variant="muted" id={`search-result-item-desc${index}`}>
+                        <HighlightSearchTerm searchTerm={searchTerm}>{result.description}</HighlightSearchTerm>
+                      </Text>
+                    </li>
                   ))}
                 </ul>
               ) : (
@@ -223,33 +250,6 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
     )
   },
 )
-
-type SearchResultProps = {
-  result: SearchResult
-  index: number
-  activeIndex: number
-  searchTerm: string
-}
-
-const SearchResult = ({result, index, activeIndex, searchTerm}: SearchResultProps) => {
-  return (
-    <li
-      className={clsx(styles.GlobalSearch__searchResultItem)}
-      id={`search-result-${index}`}
-      aria-selected={index === activeIndex}
-      role="option"
-    >
-      <Link href={result.url} tabIndex={-1}>
-        <Text size="200">
-          <HighlightSearchTerm searchTerm={searchTerm}>{result.title}</HighlightSearchTerm>
-        </Text>
-        <Text as="p" size="100" variant="muted" id={`search-result-item-desc${index}`}>
-          <HighlightSearchTerm searchTerm={searchTerm}>{result.description}</HighlightSearchTerm>
-        </Text>
-      </Link>
-    </li>
-  )
-}
 
 type HighlightSearchTermProps = {
   children: React.ReactNode
