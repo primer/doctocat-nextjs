@@ -90,14 +90,9 @@
 .GlobalSearch__searchResultLink::before {
   content: '';
   display: block;
-  width: calc(100% + 32px);
+  width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
-  left: -16px;
-  z-index: -1;
-}
-
-.GlobalSearch__searchResultItem:hover .GlobalSearch__searchResultLink::before {
-  background-color: var(--brand-color-canvas-subtle);
+  left: 0;
 }
