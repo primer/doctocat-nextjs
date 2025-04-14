@@ -1,5 +1,13 @@
 # @primer/doctocat-nextjs
 
+## 0.4.1
+
+### Patch Changes
+
+- [#28](https://github.com/primer/doctocat-nextjs/pull/28) [`ef80501`](https://github.com/primer/doctocat-nextjs/commit/ef805016a05b059ab3da2f547f89dfc3cc9f0e09) Thanks [@rezrah](https://github.com/rezrah)! - Fixed a bug where a tabs were required in standalone, nested pages using filename `index.mdx`.
+
+  Use `show-tabs: false` in frontmatter to disable the tabs and present content as normal.
+
 ## 0.4.0
 
 ### Minor Changes
