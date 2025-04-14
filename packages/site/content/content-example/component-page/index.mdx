@@ -1,140 +1,136 @@
 ---
-title: Component
-description: An example of a component example, featuring descriptions, prop tables and code snippets
+title: Standalone component page
+description: An example of a component page, featuring descriptions, prop tables and editable code snippets.
 keywords: ['example']
-show-tabs: true
-tab-label: Guidelines
+ready: true
+a11yReviewed: true
+source: 'https://github.com/primer/brand/blob/main/packages/react/src/Label/Label.tsx'
+storybook: '/brand/storybook/?path=/story/components-label--playground'
+figma: '#'
+show-tabs: false
+
+options:
+  disablePageAnimation: true
 ---
 
-![An image showing different button types.](https://github.com/primer/brand/assets/6951037/fcc3b962-1b4a-416b-be29-4a70ef503f2a)
+```js copy
+import {Button} from '@primer/react-brand'
+```
 
-## Usage
+## Examples
 
-Buttons allow users to initiate an action or command when clicked. The button's label or text description indicates the purpose of the action to the user. Most of the time, we use the "Default" button type, but other types of buttons may be used to indicate something special about the button's hierarchy or functionality.
+### Default
 
-<DoDontContainer>
-  <Do>
-    <img src="https://github.com/primer/brand/assets/6951037/83f703f5-d02c-45f1-82d2-e819613a6638" alt="" />
-    <Caption>Keep button labels succinct with no line breaks.</Caption>
-  </Do>
-  <Dont>
-    <img src="https://github.com/primer/brand/assets/6951037/e0b67dea-712b-4483-9222-0b499e539415" alt="" />
-    <Caption>Buttons should never contain line breaks and lose their button shape.</Caption>
-  </Dont>
-</DoDontContainer>
+This is the default variant for the Button component. It corresponds to the `secondary` variant appearance.
 
-<DoDontContainer>
-  <Do>
-    <img src="https://github.com/primer/brand/assets/6951037/96da1bd5-d537-40c1-9103-96254813648f" alt="" />
-    <Caption>Show focus styles on keyboard :focus</Caption>
-  </Do>
-  <Dont>
-    <img src="https://github.com/primer/brand/assets/6951037/edc931cf-06ed-4814-8ad0-24a8344902c0" alt="" />
-    <Caption>Don't remove default button :focus styles.</Caption>
-  </Dont>
-</DoDontContainer>
+```jsx live
+<Button>Default</Button>
+```
 
-<DoDontContainer>
-  <Do>
-    <img src="https://github.com/primer/brand/assets/6951037/56824212-3622-4546-b437-53dbced734a6" alt="" />
-    <Caption>Use sentence case for labels.</Caption>
-  </Do>
-  <Dont>
-    <img src="https://github.com/primer/brand/assets/6951037/515e833e-fad2-44fd-aae8-fae6301974c1" alt="" />
-    <Caption>Don't use all-caps or other text formats.</Caption>
-  </Dont>
-</DoDontContainer>
+### Primary
 
-## Anatomy
+The `primary` variant of Button indicates that the action is of high priority, and should be used sparingly.
 
-![An image showing the different parts of a button with annotations.](https://github.com/primer/brand/assets/6951037/ef74e834-2650-424e-b382-bdcd4a09c113)
+```jsx live
+<Button variant="primary">Primary</Button>
+```
 
-## Options
+### Subtle
 
-### Variants
+The `subtle` variant of Button indicates that the action is a low priority one.
 
-#### Primary
+```jsx live
+<Button variant="subtle">Primary</Button>
+```
 
-Primary buttons have top priority in visual hierarchy, and using too many of them on a single view dilutes their effectiveness. We recommend to limit the primary button to one button per view, and place it in the visible section, whenever possible, to indicate its emphasis relative to other actions. Use multiple primary buttons only when the action is repeated in multiple places of the same page. E,g a "Log in" button in the header and in the footer area.
+### Sizes
 
-![An image showing all primary states.](https://github.com/primer/brand/assets/6951037/dfad0124-4cdc-4230-b442-4ee9c747d0f0)
+```jsx live
+<Stack direction="vertical" alignItems="flex-start">
+  <Button size="small">Register now</Button>
+  <Button size="medium">Register now</Button>
+  <Button size="large">Register now</Button>
+</Stack>
+```
 
-#### Secondary
+### Block
 
-Secondary buttons are the default button type. Use them for the main actions on a page or form. Secondary buttons are the most common button type and should be used in most cases. They can be paired with a primary button to perform a secondary action, or used on their own.
+```jsx live
+<Button block>Full-width button</Button>
+```
 
-![An image showing all secondary states.](https://github.com/primer/brand/assets/6951037/71f5a85d-4e63-4a3b-b7fc-2492ceae2b30)
+### Removing the arrow
 
-#### Subtle
+The animated arrow indicator can be removed using the `hasArrow` prop.
 
-Subtle buttons have a transparent background with translucent hover and active states, making them useful for compound components like [Button Group](/components/ButtonGroup) when paired with secondary or primary variants.
+```jsx live
+<Button hasArrow={false}>No arrow</Button>
+```
 
-![An image showing all subtle states.](https://github.com/primer/brand/assets/912236/7420969a-e561-4fd6-9bef-7340e2b0a7e8)
+### Using an icon
 
-#### Block
+You can place an icon inside the Button in either the leading or the trailing position to enhance the visual context. It is recommended to use an [Octicon](https://primer.style/octicons) here.
 
-Turning on the block option for button allows the button to span the full width of its container. This feature can be particularly useful when you want the button to occupy more space. Block button can continue to pair with secondary or primary variants.
+```jsx live
+<Stack direction="vertical" alignItems="flex-start">
+  <Button leadingVisual={<SearchIcon />}>Search</Button>
+  <Button trailingVisual={<ChevronDownIcon />}>Select</Button>
+  <Button leadingVisual={<FilterIcon />} trailingVisual={<ChevronDownIcon />}>
+    Filter
+  </Button>
+</Stack>
+```
 
-![An image showing block button with all subtle states.](https://github.com/primer/brand/assets/6951037/2fe48284-7c3d-4262-9992-3fc029237fe6)
+### Animation
 
-### Trailing and leading icons
+You can place an icon inside the Button in either the leading or the trailing position to enhance the visual context. It is recommended to use an [Octicon](https://primer.style/octicons) here.
 
-You can place an icon inside the button in either the leading or the trailing position to enhance the visual context. It is recommended to use an use an [Octicon](https://primer.style/octicons) here.
+```jsx live
+<AnimationProvider>
+  <Animate animate="fade-in">
+    <Button leadingVisual={<SearchIcon />}>Search</Button>
+    <Button trailingVisual={<ChevronDownIcon />}>Select</Button>
+    <Button leadingVisual={<FilterIcon />} trailingVisual={<ChevronDownIcon />}>
+      Filter
+    </Button>
+  </Animate>
+</AnimationProvider>
+```
 
-Use a trailing visual if the button action involves selecting items (dropdown, select, filter, etc), and a leading visual to provide visual context to the adjacent label. E.g. Use a search icon for a search field submit action.
+### Polymorphism
 
-<DoDontContainer>
-  <Do>
-    <img src="https://github.com/primer/brand/assets/6951037/558dd2c0-22b9-4e0b-aa0d-6394eae29e6c" alt="" />
-    <Caption>Use a leading icon that provides context and reinforces the label.</Caption>
-  </Do>
-  <Dont>
-    <img src="https://github.com/primer/brand/assets/6951037/2b4b06e5-5e54-4d8d-885a-b0d3faaa1298" alt="" />
-    <Caption>
-      Don't use a trailing icons to add a visual cue to the label. Use the leading icon for better scanability.
-    </Caption>
-  </Dont>
-</DoDontContainer>
+The `Button` component can render as a `button` or `a` HTML element. By default, it will render as a `button`.
 
-<DoDontContainer>
-  <Do>
-    <img src="https://github.com/primer/brand/assets/6951037/5e534c85-0dcd-44b2-8c21-f80f2f14a4d0" alt="" />
-    <Caption>Use a trailing icon for select, dropdown, or filter actions to reinforce its direction.</Caption>
-  </Do>
-  <Dont>
-    <img src="https://github.com/primer/brand/assets/6951037/2b3ad072-d3dd-4b34-b7fa-a915fd84d03d" alt="" />
-    <Caption>Don't use a leading icon or the arrow for select, dropdown, or filter actions.</Caption>
-  </Dont>
-</DoDontContainer>
+```jsx live
+<Button as="a" href="https://github.com">
+  Register now
+</Button>
+```
 
-### Size
+### Inline
 
-Button default to a medium size. Medium is suitable for most interfaces and is considered the preferred size.
+```jsx filename="noinline"
+const Counter = props => {
+  const [count, setCount] = React.useState(0)
+  return (
+    <Stack direction="vertical" alignItems="center">
+      <Text as="p">
+        {props.label}: {count}
+      </Text>
+      <Button hasArrow={false} onClick={() => setCount(c => c + 1)}>
+        Increment
+      </Button>
+    </Stack>
+  )
+}
+render(<Counter label="Counter" />)
+```
 
-Large buttons increase the significance of an action and should be used sparingly. Use the large option when you need to emphasize the button on a big sized heading, for example in a [Hero](/components/Hero) component.
+## Component props
 
-Small buttons are meant to be used sparingly. Some use cases can be:
+### Label
 
-- Contained inside other components like dropdowns or small popups.
-- Areas where very low priority information might display a CTA.
-- Brand presence inside products where information is compact. For example for in-product banner.
-
-### Arrow
-
-The arrow is shown by default in all buttons. Hide the arrow only to save horizontal space or to diminish the importance of the button.
-
-When used in a group, the arrow should be used or hide consistently across all buttons.
-
-## Accessibility
-
-### Descriptive buttons
-
-Labeling buttons properly lets users know what will happen when they activate the control, lessens errors, and increases confidence.
-
-Read more about [descriptive buttons](https://primer.style/design/guides/accessibility/descriptive-buttons/).
-
-## Related components
-
-- [ButtonGroup](#): To display a group of related buttons.
-- [Link](#): To display a link that navigates to another page.
-- [Hero](#): To display a large heading and a description with a ButtonGroup.
+| Name      | Type                                                                   |   Default   | Description            |
+| :-------- | :--------------------------------------------------------------------- | :---------: | :--------------------- |
+| `propOne` | `ReactElement`                                                         | `undefined` | Description of my prop |
+| `propTwo` | <PropTableValues values={['single',2]} addLineBreaks commaSeparated /> | `undefined` | Description of my prop |
