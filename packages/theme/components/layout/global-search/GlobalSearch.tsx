@@ -9,6 +9,7 @@ import {useRouter} from 'next/navigation'
 
 import styles from './GlobalSearch.module.css'
 import type {DocsItem} from '../../../types'
+import {HighlightSearchTerm} from '../../highlight-search-term/HighlightSearchTerm'
 
 type GlobalSearchProps = {
   flatDocsDirectories: DocsItem[]
@@ -251,26 +252,3 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
     )
   },
 )
-
-type HighlightSearchTermProps = {
-  children: React.ReactNode
-  searchTerm: string
-}
-
-const HighlightSearchTerm = ({children, searchTerm}: HighlightSearchTermProps) => {
-  if (!children || !searchTerm) {
-    return <>{children}</>
-  }
-
-  const escapedSearchTerm = searchTerm.replace(/[.*+?^${}()|[\]\\<>]/g, '\\$&')
-
-  const parts = children.toString().split(new RegExp(`(${escapedSearchTerm})`, 'gi'))
-
-  return (
-    <>
-      {parts.map((part, i) => (part.toLowerCase() === searchTerm.toLowerCase() ? <mark key={i}>{part}</mark> : part))}
-    </>
-  )
-}
-
-GlobalSearch.displayName = 'GlobalSearch'
