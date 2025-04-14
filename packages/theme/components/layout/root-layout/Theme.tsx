@@ -79,7 +79,8 @@ export function Theme({children, pageMap}: ThemeProps) {
   // eslint-disable-next-line i18n-text/no-en
   const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Example Site'
   const isHomePage = route === '/'
-  const isIndexPage = /index\.mdx?$/.test(filePath) && !isHomePage && activeMetadata && !activeMetadata['show-tabs']
+  const isIndexPage =
+    /index\.mdx?$/.test(filePath) && !isHomePage && activeMetadata && activeMetadata['show-tabs'] === undefined
   const data = !isHomePage && activePath[activePath.length - 2]
   const filteredTabData: MdxFile[] = data && hasChildren(data) ? ((data as Folder).children as MdxFile[]) : []
 
