@@ -1,0 +1,98 @@
+.GlobalSearch__searchInput {
+  width: 100%;
+  z-index: 1;
+}
+
+.GlobalSearch__searchResultsContainer {
+  display: none;
+  margin-top: var(--base-size-4);
+  position: absolute;
+  z-index: 1;
+  background-color: var(--brand-color-canvas-default);
+  padding-block-start: var(--base-size-16);
+  width: 100%;
+  max-width: calc(100% - 46px);
+  border: var(--brand-borderWidth-thin) solid var(--brand-color-border-default);
+  border-radius: var(--brand-borderRadius-medium);
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.GlobalSearch__searchResultsContainer--open {
+  display: block;
+}
+
+.GlobalSearch__searchResultsContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.GlobalSearch__searchResultsContainer::-webkit-scrollbar-track {
+  background-color: var(--brand-color-canvas-default);
+}
+
+.GlobalSearch__searchResultsContainer::-webkit-scrollbar-thumb {
+  background-color: var(--brand-color-text-muted);
+  border-radius: var(--base-size-4);
+}
+
+@media (min-width: 768px) {
+  .GlobalSearch__searchResultsContainer {
+    max-width: 350px;
+  }
+}
+
+.GlobalSearch__searchResultsEmpty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+
+.GlobalSearch__searchResultsHeading {
+  padding-inline-start: var(--base-size-20);
+}
+
+.GlobalSearch__searchResultsList {
+  list-style: none;
+  padding-inline: var(--base-size-16);
+}
+
+.GlobalSearch__searchResultItem {
+  position: relative;
+  padding-block: var(--base-size-16);
+  border-top: var(--brand-borderWidth-thin) solid var(--brand-color-border-default);
+  scroll-margin-block: var(--base-size-8);
+}
+
+.GlobalSearch__searchResultItem[aria-selected='true'] {
+  outline: var(--base-size-4) solid var(--brand-color-focus);
+  outline-radius: var(--base-size-8);
+  padding-inline: var(--base-size-4);
+  margin-inline: calc(-1 * var(--base-size-4));
+  background-color: var(--brand-color-canvas-default);
+  border-radius: var(--brand-borderRadius-small);
+}
+
+.GlobalSearch__searchResultItem mark {
+  background-color: var(--brand-color-accent-primary);
+  color: var(--brand-color-text-onEmphasis);
+}
+
+.GlobalSearch__searchResultLink {
+  color: var(--brand-color-text-default);
+}
+
+.GlobalSearch__searchResultItem:has(mark) .GlobalSearch__searchResultLink {
+  text-decoration-color: var(--brand-color-text-onEmphasis);
+}
+
+.GlobalSearch__searchResultLink::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
