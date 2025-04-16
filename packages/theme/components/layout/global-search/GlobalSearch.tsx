@@ -9,7 +9,7 @@ import {useRouter} from 'next/navigation'
 
 import styles from './GlobalSearch.module.css'
 import type {DocsItem} from '../../../types'
-import {HighlightSearchTerm} from '../../highlight-search-term/HighlightSearchTerm'
+import {HighlightSearchTerm} from '../highlight-search-term/HighlightSearchTerm'
 
 type GlobalSearchProps = {
   flatDocsDirectories: DocsItem[]
