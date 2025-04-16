@@ -62,9 +62,12 @@ export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useNavDrawerState('768')
   const [isSearchOpen, setIsSearchOpen] = useState(false)
 
-  const headerExternalLinks = (pageMap as ExtendedPageItem[]).filter(page => page.type === 'page')
-  const activePageIndex = findClosestUrlMatchIdx(headerExternalLinks)
-  headerExternalLinks[activePageIndex].active = true
+  const baseHeaderExternalLinks = (pageMap as ExtendedPageItem[]).filter(page => page.type === 'page')
+  const activePageIndex = findClosestUrlMatchIdx(baseHeaderExternalLinks)
+  const headerExternalLinks = baseHeaderExternalLinks.map((link, index) => ({
+    ...link,
+    active: index === activePageIndex,
+  }))
 
   useEffect(() => {
     document.documentElement.setAttribute('data-color-mode', colorMode)
