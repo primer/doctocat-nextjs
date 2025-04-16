@@ -13,6 +13,7 @@ export type ExtendedPageItem = PageMapItem & {
   title: string
   href: string
   type?: string
+  active?: boolean
 }
 
 export type FolderWithoutChildren = Omit<Folder, 'children'>

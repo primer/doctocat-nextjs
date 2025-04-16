@@ -4,7 +4,7 @@ import type {MetaRecord} from 'nextra'
 const meta: MetaRecord = {
   productUi: {
     type: 'page',
-    href: 'https://primer.style/produce',
+    href: 'https://primer.style/product',
     title: 'Product UI',
   },
   brandUi: {
@@ -14,8 +14,8 @@ const meta: MetaRecord = {
   },
   github: {
     type: 'page',
-    href: 'https://github.com',
-    title: 'GitHub',
+    href: 'https://primer.github.io/doctocat-nextjs/',
+    title: 'Doctocat',
   },
   octicons: {
     href: 'https://primer.style/octicons',

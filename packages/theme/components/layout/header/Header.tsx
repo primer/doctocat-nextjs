@@ -17,6 +17,38 @@ import {GlobalSearch} from '../global-search/GlobalSearch'
 import {FocusOn} from 'react-focus-on'
 import {LinksDropdown} from '../links-dropdown/LinksDropdown'
 
+// Attempt to find the closest URL match based on the current site URL
+const findClosestUrlMatchIdx = (items: ExtendedPageItem[]): number => {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
+
+  if (!siteUrl || items.length === 0) return 0
+
+  try {
+    const siteUrlObj = new URL(siteUrl)
+    const siteUrlPath = siteUrlObj.pathname
+
+    // Find items with closest path match
+    let bestMatchIndex = 0
+    let bestMatchLength = 0
+
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i]
+      // Handle both absolute and relative URLs
+      const itemPath = item.href.startsWith('http') ? new URL(item.href).pathname : item.href
+
+      if (siteUrlPath.startsWith(itemPath) && itemPath.length > bestMatchLength) {
+        bestMatchIndex = i
+        bestMatchLength = itemPath.length
+      }
+    }
+
+    return bestMatchIndex
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (err) {
+    return 0
+  }
+}
+
 type HeaderProps = {
   pageMap: PageMapItem[]
   flatDocsDirectories: DocsItem[]
@@ -31,6 +63,8 @@ export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
 
   const headerExternalLinks = (pageMap as ExtendedPageItem[]).filter(page => page.type === 'page')
+  const activePageIndex = findClosestUrlMatchIdx(headerExternalLinks)
+  headerExternalLinks[activePageIndex].active = true
 
   useEffect(() => {
     document.documentElement.setAttribute('data-color-mode', colorMode)
@@ -65,7 +99,9 @@ export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
         <Stack className={styles.Header__links} direction="horizontal" padding="none" gap={24}>
           {headerExternalLinks.map(item => (
             <Link key={item.href} className={styles.Header__link} href={item.href}>
-              <Text size="200">{item.title}</Text>
+              <Text size="200" variant={item.active ? 'default' : 'muted'}>
+                {item.title}
+              </Text>
             </Link>
           ))}
         </Stack>
