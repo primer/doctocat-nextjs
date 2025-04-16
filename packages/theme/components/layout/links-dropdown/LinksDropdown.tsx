@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect, type HTMLProps} from 'react'
+import React, {useState, useRef, useEffect, type HTMLProps, useCallback} from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
 import {TriangleDownIcon} from '@primer/octicons-react'
@@ -9,7 +9,7 @@ import styles from './LinksDropdown.module.css'
 export type LinksDropdownItem = {
   title: string
   href: string
-  selected?: boolean
+  active?: boolean
 }
 
 export type LinksDropdownProps = {
@@ -21,11 +21,10 @@ export const LinksDropdown = ({items, className, ...props}: LinksDropdownProps) 
   const buttonRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
-  const activeItem = items.find(item => item.selected) || items[0]
+  const activeItem = items.find(item => item.active) || items[0]
 
-  // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const closeDropdown = (event: MouseEvent) => {
       if (
         menuRef.current &&
         !menuRef.current.contains(event.target as Node) &&
@@ -37,28 +36,11 @@ export const LinksDropdown = ({items, className, ...props}: LinksDropdownProps) 
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('mousedown', closeDropdown)
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('mousedown', closeDropdown)
     }
-  }, [])
-
-  const focusElementWithIndex = (index: number) => {
-    document.querySelector<HTMLAnchorElement>(`#dropdown-item-${index} a`)?.focus()
-  }
-
-  const handleToggle = () => {
-    const nextIsOpen = !isOpen
-    setIsOpen(nextIsOpen)
-
-    if (nextIsOpen) {
-      setTimeout(() => {
-        focusElementWithIndex(0)
-      }, 0)
-    } else {
-      buttonRef.current?.focus()
-    }
-  }
+  }, [menuRef, buttonRef])
 
   useEffect(() => {
     const menu = menuRef.current
@@ -74,7 +56,7 @@ export const LinksDropdown = ({items, className, ...props}: LinksDropdownProps) 
           break
         case 'Tab':
           setTimeout(() => {
-            if (menuRef.current && !menuRef.current.contains(document.activeElement)) {
+            if (!menu.contains(document.activeElement)) {
               setIsOpen(false)
             }
           }, 0)
@@ -87,6 +69,19 @@ export const LinksDropdown = ({items, className, ...props}: LinksDropdownProps) 
       menu.removeEventListener('keydown', handleKeyDown)
     }
   }, [menuRef])
+
+  const handleToggle = useCallback(() => {
+    const nextIsOpen = !isOpen
+    setIsOpen(nextIsOpen)
+
+    if (nextIsOpen) {
+      setTimeout(() => {
+        document.querySelector<HTMLAnchorElement>(`#dropdown-item-0 a`)?.focus()
+      }, 0)
+    } else {
+      buttonRef.current?.focus()
+    }
+  }, [isOpen])
 
   return (
     <div className={clsx(styles.dropdown, className)} {...props}>
@@ -118,21 +113,15 @@ export const LinksDropdown = ({items, className, ...props}: LinksDropdownProps) 
               className={clsx(styles.menuItem)}
               role="menuitem"
               id={`dropdown-item-${index}`}
-              aria-current={item.selected ? 'page' : undefined}
+              aria-current={item.active ? 'page' : undefined}
             >
               <Link
                 href={item.href}
-                className={clsx(styles.link, item.selected && styles.selected)}
+                className={clsx(styles.link)}
                 onClick={() => {
                   setIsOpen(false)
                 }}
                 tabIndex={isOpen ? 0 : -1}
-                onKeyDown={e => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault()
-                    window.location.href = item.href
-                  }
-                }}
               >
                 <Text size="200">{item.title}</Text>
               </Link>

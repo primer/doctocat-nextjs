@@ -93,11 +93,6 @@
   cursor: pointer;
 }
 
-.link.selected {
-  font-weight: var(--brand-text-weight-semibold);
-  color: var(--brand-color-accent-fg);
-}
-
 .link:hover {
   background-color: var(--brand-color-canvas-subtle);
 }
