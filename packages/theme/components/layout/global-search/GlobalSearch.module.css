@@ -3,6 +3,12 @@
   z-index: 1;
 }
 
+.GlobalSearch__searchIcon {
+  vertical-align: middle;
+  position: relative;
+  top: calc(var(--base-size-2) * -1);
+}
+
 .GlobalSearch__searchResultsContainer {
   display: none;
   margin-top: var(--base-size-4);
