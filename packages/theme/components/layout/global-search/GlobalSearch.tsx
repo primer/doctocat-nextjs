@@ -173,7 +173,7 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
             contrast
             type="search"
             className={styles.GlobalSearch__searchInput}
-            leadingVisual={<SearchIcon />}
+            leadingVisual={<SearchIcon className={styles.GlobalSearch__searchIcon} />}
             placeholder={`Search ${siteTitle}`}
             ref={forwardedRef}
             value={searchTerm}
