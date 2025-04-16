@@ -1,0 +1,103 @@
+.dropdown {
+  position: relative;
+  margin-inline-end: auto;
+}
+
+.dropdownButton {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--base-font-size-16);
+  font-weight: var(--base-font-weight-500);
+  padding: var(--base-size-8) var(--base-size-12);
+  border-radius: var(--brand-borderRadius-medium);
+  color: var(--brand-color-text-default);
+}
+
+.dropdownButton:hover {
+  background-color: var(--brand-color-canvas-subtle);
+}
+
+.dropdownButton:focus-visible {
+  outline: var(--base-size-4) solid var(--brand-color-focus);
+  outline-radius: var(--base-size-8);
+  outline-offset: 2px;
+}
+
+.buttonText {
+  margin-right: var(--base-size-8);
+}
+
+.chevron {
+  color: var(--brand-color-text-muted);
+  transition: transform 0.2s ease;
+}
+
+.dropdownButton[aria-expanded='true'] .chevron {
+  transform: rotate(180deg);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  z-index: 100;
+  background-color: var(--brand-color-canvas-default);
+  border-radius: var(--brand-borderRadius-medium);
+  box-shadow: var(--brand-shadow-medium);
+  border: 1px solid var(--brand-color-border-default);
+  margin-top: var(--base-size-4);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0s linear 0.2s;
+}
+
+.dropdownMenu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0s linear 0s;
+}
+
+.dropdownMenu ul {
+  list-style: none;
+  margin: 0;
+  padding: var(--base-size-4) 0;
+}
+
+.menuItem {
+  padding: 0;
+}
+
+.link:focus-visible {
+  outline: var(--base-size-4) solid var(--brand-color-focus);
+  outline-radius: var(--base-size-8);
+  border-radius: var(--brand-borderRadius-small);
+}
+
+.link {
+  display: block;
+  padding: var(--base-size-8) var(--base-size-16);
+  text-decoration: none;
+  color: var(--brand-color-text-default);
+  cursor: pointer;
+}
+
+.link.selected {
+  font-weight: var(--brand-text-weight-semibold);
+  color: var(--brand-color-accent-fg);
+}
+
+.link:hover {
+  background-color: var(--brand-color-canvas-subtle);
+}
