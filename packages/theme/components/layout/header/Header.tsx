@@ -99,7 +99,7 @@ export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
         <Stack className={styles.Header__links} direction="horizontal" padding="none" gap={24}>
           {headerExternalLinks.map(item => (
             <Link key={item.href} className={styles.Header__link} href={item.href}>
-              <Text size="200" variant={item.active ? 'default' : 'muted'}>
+              <Text size="200" variant={item.active ? 'default' : 'muted'} weight={item.active ? 'semibold' : 'normal'}>
                 {item.title}
               </Text>
             </Link>
