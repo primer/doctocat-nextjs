@@ -17,16 +17,12 @@ const hasShowTabs = (child: ExtendedPageItem): boolean => {
   return child.name === 'index' && (child as MdxFile).frontMatter?.['show-tabs'] === true
 }
 
-export function Sidebar({pageMap: pageMapIn}: SidebarProps) {
-  const pageMap = pageMapIn as ExtendedPageItem[]
-
+export function Sidebar({pageMap}: SidebarProps) {
   const pathname = usePathname()
 
-  const externalLinks = pageMap.filter(page => {
-    if (page.href && page.href.startsWith('http')) {
-      return page
-    }
-  })
+  const sidebarExternalLinks = (pageMap as ExtendedPageItem[]).filter(
+    page => page.href && page.href.startsWith('http') && page.type !== 'page',
+  )
 
   /**
    * Sorts the incoming data so that folders with a menu-position frontmatter value
@@ -112,9 +108,9 @@ export function Sidebar({pageMap: pageMapIn}: SidebarProps) {
             </NavList.Group>
           )
         })}
-        {externalLinks.length > 0 && (
+        {sidebarExternalLinks.length > 0 && (
           <NavList.Group title="" sx={{mb: 24}}>
-            {externalLinks.map(link => {
+            {sidebarExternalLinks.map(link => {
               return (
                 <NavList.Item as={NextLink} key={link.title} href={link.href}>
                   {link.title}
