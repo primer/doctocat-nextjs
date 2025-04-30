@@ -8,10 +8,8 @@ import type {PageMapItem} from 'nextra'
 
 type Props = {
   pageMap: PageMapItem[]
-  links?: {
-    header?: ConfigContextLink[]
-    sidebar?: ConfigContextLink[]
-  }
+  headerLinks?: ConfigContextLink[]
+  sidebarLinks?: ConfigContextLink[]
 } & ThemeProps
 
 /**
@@ -20,16 +18,14 @@ type Props = {
  * To add custom layouts, create a new file in `pages/_layouts`
  * and export a component with the same name as the layout file
  */
-export default function Shell({children, pageMap, links, ...rest}: Props) {
+export default function Shell({children, pageMap, headerLinks = [], sidebarLinks = [], ...rest}: Props) {
   return (
     <ColorModeProvider>
       <ConfigContextProvider
         value={{
           pageMap,
-          links: {
-            header: links?.header ?? [],
-            sidebar: links?.sidebar ?? [],
-          },
+          headerLinks,
+          sidebarLinks,
         }}
       >
         <Theme {...rest}>{children}</Theme>

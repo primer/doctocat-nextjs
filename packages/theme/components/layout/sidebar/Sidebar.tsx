@@ -16,10 +16,7 @@ const hasShowTabs = (child: ExtendedPageItem): boolean => {
 
 export function Sidebar() {
   const pathname = usePathname()
-  const {
-    pageMap,
-    links: {sidebar: sidebarLinks},
-  } = useConfig()
+  const {pageMap, sidebarLinks} = useConfig()
 
   /**
    * Sorts the incoming data so that folders with a menu-position frontmatter value

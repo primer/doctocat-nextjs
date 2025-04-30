@@ -36,9 +36,7 @@ export function Header({siteTitle, flatDocsDirectories}: HeaderProps) {
   const searchTriggerRef = useRef<HTMLButtonElement | null>(null)
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useNavDrawerState('768')
   const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const {
-    links: {header: headerLinks},
-  } = useConfig()
+  const {headerLinks} = useConfig()
 
   useEffect(() => {
     document.documentElement.setAttribute('data-color-mode', colorMode)

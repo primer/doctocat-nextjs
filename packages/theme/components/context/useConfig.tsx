@@ -10,10 +10,8 @@ export type ConfigContextLink = {
 
 export type ConfigContextValue = {
   pageMap: PageMapItem[]
-  links: {
-    header: ConfigContextLink[]
-    sidebar: ConfigContextLink[]
-  }
+  headerLinks: ConfigContextLink[]
+  sidebarLinks: ConfigContextLink[]
 }
 
 export const ConfigContext = createContext<ConfigContextValue | null>(null)
@@ -22,7 +20,7 @@ export const useConfig = (): ConfigContextValue => {
   const context = useContext(ConfigContext)
 
   if (!context) {
-    throw new Error('useConfig must be used within a ConfigProvider')
+    throw new Error('useConfig must be used within a ConfigContextProvider')
   }
 
   return context
