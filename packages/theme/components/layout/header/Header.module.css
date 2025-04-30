@@ -108,6 +108,12 @@
   fill: var(--brand-color-text-default);
 }
 
+.Header__siteTitleText {
+  @media (max-width: 25rem) {
+    display: none;
+  }
+}
+
 .Header__links {
   display: none;
   margin-inline: var(--base-size-24);

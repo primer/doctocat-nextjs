@@ -105,20 +105,22 @@ export const LinksDropdown = ({items, className, ...props}: LinksDropdownProps) 
           {items.map((item, index) => (
             <li
               key={item.href}
-              className={clsx(styles.menuItem)}
+              className={clsx(styles.menuItem, item.isActive && styles.menuItemActive)}
               role="menuitem"
               id={`dropdown-item-${index}`}
-              aria-current={item.active ? 'page' : undefined}
             >
               <Link
                 href={item.href}
-                className={clsx(styles.link)}
+                className={clsx(styles.link, item.isActive && styles.linkActive)}
                 onClick={() => {
                   setIsOpen(false)
                 }}
                 tabIndex={isOpen ? 0 : -1}
+                aria-current={item.isActive ? 'page' : undefined}
               >
-                <Text size="200">{item.title}</Text>
+                <Text className={styles.linkText} size="100" weight={item.isActive ? 'semibold' : 'normal'}>
+                  {item.title}
+                </Text>
               </Link>
             </li>
           ))}
