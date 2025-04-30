@@ -16,10 +16,6 @@
   color: var(--brand-color-text-default);
 }
 
-.dropdownButton:hover {
-  background-color: var(--brand-color-canvas-subtle);
-}
-
 .dropdownButton:focus-visible {
   outline: var(--base-size-4) solid var(--brand-color-focus);
   outline-radius: var(--base-size-8);
@@ -97,9 +93,10 @@
 }
 
 .link:focus-visible {
+  position: relative;
   outline: var(--base-size-4) solid var(--brand-color-focus);
-  outline-radius: var(--base-size-8);
   border-radius: var(--brand-borderRadius-small);
+  z-index: 1;
 }
 
 .link {
