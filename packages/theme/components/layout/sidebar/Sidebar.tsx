@@ -16,11 +16,10 @@ const hasShowTabs = (child: ExtendedPageItem): boolean => {
 
 export function Sidebar() {
   const pathname = usePathname()
-  const {pageMap} = useConfig()
-
-  const sidebarExternalLinks = (pageMap as ExtendedPageItem[]).filter(
-    page => page.href && page.href.startsWith('http') && page.type !== 'page',
-  )
+  const {
+    pageMap,
+    links: {sidebar: sidebarLinks},
+  } = useConfig()
 
   /**
    * Sorts the incoming data so that folders with a menu-position frontmatter value
@@ -106,15 +105,23 @@ export function Sidebar() {
             </NavList.Group>
           )
         })}
-        {sidebarExternalLinks.length > 0 && (
+        {sidebarLinks.length > 0 && (
           <NavList.Group title="" sx={{mb: 24}}>
-            {sidebarExternalLinks.map(link => {
+            {sidebarLinks.map(link => {
               return (
-                <NavList.Item as={NextLink} key={link.title} href={link.href}>
+                <NavList.Item
+                  as={NextLink}
+                  key={link.title}
+                  href={link.href}
+                  {...(link.isExternal && {target: '_blank', rel: 'noopener noreferrer'})}
+                  aria-current={link.isActive ? 'page' : undefined}
+                >
                   {link.title}
-                  <NavList.TrailingVisual>
-                    <LinkExternalIcon />
-                  </NavList.TrailingVisual>
+                  {link.isExternal && (
+                    <NavList.TrailingVisual>
+                      <LinkExternalIcon />
+                    </NavList.TrailingVisual>
+                  )}
                 </NavList.Item>
               )
             })}

@@ -1,13 +1,17 @@
 'use client'
 import React from 'react'
-import type {PageMapItem} from 'nextra'
 
 import {ColorModeProvider} from '../../context/color-modes/ColorModeProvider'
 import {Theme, ThemeProps} from './Theme'
-import {ConfigContext} from '../../context/useConfig'
+import {type ConfigContextLink, ConfigContextProvider} from '../../context/useConfig'
+import type {PageMapItem} from 'nextra'
 
 type Props = {
   pageMap: PageMapItem[]
+  links?: {
+    header?: ConfigContextLink[]
+    sidebar?: ConfigContextLink[]
+  }
 } & ThemeProps
 
 /**
@@ -16,12 +20,20 @@ type Props = {
  * To add custom layouts, create a new file in `pages/_layouts`
  * and export a component with the same name as the layout file
  */
-export default function Shell({children, pageMap, ...rest}: Props) {
+export default function Shell({children, pageMap, links, ...rest}: Props) {
   return (
     <ColorModeProvider>
-      <ConfigContext.Provider value={{pageMap}}>
+      <ConfigContextProvider
+        value={{
+          pageMap,
+          links: {
+            header: links?.header ?? [],
+            sidebar: links?.sidebar ?? [],
+          },
+        }}
+      >
         <Theme {...rest}>{children}</Theme>
-      </ConfigContext.Provider>
+      </ConfigContextProvider>
     </ColorModeProvider>
   )
 }

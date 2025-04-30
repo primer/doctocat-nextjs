@@ -5,23 +5,16 @@ import {TriangleDownIcon} from '@primer/octicons-react'
 import {Text} from '@primer/react-brand'
 
 import styles from './LinksDropdown.module.css'
-
-export type LinksDropdownItem = {
-  title: string
-  href: string
-  active?: boolean
-}
+import type {ConfigContextLink} from '../../context/useConfig'
 
 export type LinksDropdownProps = {
-  items: LinksDropdownItem[]
+  items: ConfigContextLink[]
 } & HTMLProps<HTMLDivElement>
 
 export const LinksDropdown = ({items, className, ...props}: LinksDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
-
-  const activeItem = items.find(item => item.active) || items[0]
 
   useEffect(() => {
     const closeDropdown = (event: MouseEvent) => {
@@ -82,6 +75,8 @@ export const LinksDropdown = ({items, className, ...props}: LinksDropdownProps) 
       buttonRef.current?.focus()
     }
   }, [isOpen])
+
+  const activeItem = items.find(item => item.isActive) || items[0]
 
   return (
     <div className={clsx(styles.dropdown, className)} {...props}>

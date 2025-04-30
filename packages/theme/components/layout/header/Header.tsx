@@ -10,44 +10,12 @@ import {NavDrawer} from '../nav-drawer/NavDrawer'
 import {useNavDrawerState} from '../nav-drawer/useNavDrawerState'
 import {useColorMode} from '../../context/color-modes/useColorMode'
 
-import {DocsItem, ExtendedPageItem} from '../../../types'
+import type {DocsItem} from '../../../types'
 
 import {GlobalSearch} from '../global-search/GlobalSearch'
 import {FocusOn} from 'react-focus-on'
 import {LinksDropdown} from '../links-dropdown/LinksDropdown'
 import {useConfig} from '../../context/useConfig'
-
-// Attempt to find the closest URL match based on the current site URL
-const findClosestUrlMatchIdx = (items: ExtendedPageItem[]): number => {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
-
-  if (!siteUrl || items.length === 0) return 0
-
-  try {
-    const siteUrlObj = new URL(siteUrl)
-    const siteUrlPath = siteUrlObj.pathname
-
-    // Find items with closest path match
-    let bestMatchIndex = 0
-    let bestMatchLength = 0
-
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i]
-      // Handle both absolute and relative URLs
-      const itemPath = item.href.startsWith('http') ? new URL(item.href).pathname : item.href
-
-      if (siteUrlPath.startsWith(itemPath) && itemPath.length > bestMatchLength) {
-        bestMatchIndex = i
-        bestMatchLength = itemPath.length
-      }
-    }
-
-    return bestMatchIndex
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (err) {
-    return 0
-  }
-}
 
 type HeaderProps = {
   flatDocsDirectories: DocsItem[]
@@ -60,14 +28,9 @@ export function Header({siteTitle, flatDocsDirectories}: HeaderProps) {
   const searchTriggerRef = useRef<HTMLButtonElement | null>(null)
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useNavDrawerState('768')
   const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const {pageMap} = useConfig()
-
-  const baseHeaderExternalLinks = (pageMap as ExtendedPageItem[]).filter(page => page.type === 'page')
-  const activePageIndex = findClosestUrlMatchIdx(baseHeaderExternalLinks)
-  const headerExternalLinks = baseHeaderExternalLinks.map((link, index) => ({
-    ...link,
-    active: index === activePageIndex,
-  }))
+  const {
+    links: {header: headerLinks},
+  } = useConfig()
 
   useEffect(() => {
     document.documentElement.setAttribute('data-color-mode', colorMode)
@@ -96,14 +59,23 @@ export function Header({siteTitle, flatDocsDirectories}: HeaderProps) {
         <Text as="span" className={styles.Header__separator} weight="semibold" aria-hidden>
           &#47;
         </Text>
-        <LinksDropdown className={styles.Header__linksDropdown} items={headerExternalLinks} />
+        {headerLinks.length > 0 && <LinksDropdown className={styles.Header__linksDropdown} items={headerLinks} />}
       </div>
       <div className={styles.Header__end}>
         <Stack className={styles.Header__links} direction="horizontal" padding="none" gap={24}>
-          {headerExternalLinks.map(item => (
-            <Link key={item.href} className={styles.Header__link} href={item.href}>
-              <Text size="200" variant={item.active ? 'default' : 'muted'} weight={item.active ? 'semibold' : 'normal'}>
-                {item.title}
+          {headerLinks.map(link => (
+            <Link
+              key={link.href}
+              className={styles.Header__link}
+              href={link.href}
+              aria-current={link.isActive ? 'page' : undefined}
+            >
+              <Text
+                size="200"
+                variant={link.isActive ? 'default' : 'muted'}
+                weight={link.isActive ? 'semibold' : 'normal'}
+              >
+                {link.title}
               </Text>
             </Link>
           ))}
