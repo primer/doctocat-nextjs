@@ -1,5 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {MarkGithubIcon, MoonIcon, SearchIcon, SunIcon, ThreeBarsIcon, XIcon} from '@primer/octicons-react'
+import {
+  ArrowUpRightIcon,
+  MarkGithubIcon,
+  MoonIcon,
+  SearchIcon,
+  SunIcon,
+  ThreeBarsIcon,
+  XIcon,
+} from '@primer/octicons-react'
 import {IconButton} from '@primer/react'
 import {Stack, Text} from '@primer/react-brand'
 import {clsx} from 'clsx'
@@ -69,6 +77,7 @@ export function Header({siteTitle, flatDocsDirectories}: HeaderProps) {
               className={styles.Header__link}
               href={link.href}
               aria-current={link.isActive ? 'page' : undefined}
+              {...(link.isExternal && {target: '_blank', rel: 'noopener noreferrer'})}
             >
               <Text
                 size="200"
@@ -76,6 +85,9 @@ export function Header({siteTitle, flatDocsDirectories}: HeaderProps) {
                 weight={link.isActive ? 'semibold' : 'normal'}
               >
                 {link.title}
+                {link.isExternal && (
+                  <ArrowUpRightIcon className={styles.Header__externalLinkIcon} size={10} aria-label="External link" />
+                )}
               </Text>
             </Link>
           ))}

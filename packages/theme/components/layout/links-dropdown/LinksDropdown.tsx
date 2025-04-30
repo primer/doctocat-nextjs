@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect, type HTMLProps, useCallback} from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import {TriangleDownIcon} from '@primer/octicons-react'
+import {ArrowUpRightIcon, TriangleDownIcon} from '@primer/octicons-react'
 import {Text} from '@primer/react-brand'
 
 import styles from './LinksDropdown.module.css'
@@ -102,24 +102,28 @@ export const LinksDropdown = ({items, className, ...props}: LinksDropdownProps) 
         aria-labelledby="links-dropdown-button"
       >
         <ul role="menu">
-          {items.map((item, index) => (
+          {items.map((link, index) => (
             <li
-              key={item.href}
-              className={clsx(styles.menuItem, item.isActive && styles.menuItemActive)}
+              key={link.href}
+              className={clsx(styles.menuItem, link.isActive && styles.menuItemActive)}
               role="menuitem"
               id={`dropdown-item-${index}`}
             >
               <Link
-                href={item.href}
-                className={clsx(styles.link, item.isActive && styles.linkActive)}
+                href={link.href}
+                className={clsx(styles.link, link.isActive && styles.linkActive)}
                 onClick={() => {
                   setIsOpen(false)
                 }}
                 tabIndex={isOpen ? 0 : -1}
-                aria-current={item.isActive ? 'page' : undefined}
+                aria-current={link.isActive ? 'page' : undefined}
+                {...(link.isExternal && {target: '_blank', rel: 'noopener noreferrer'})}
               >
-                <Text className={styles.linkText} size="100" weight={item.isActive ? 'semibold' : 'normal'}>
-                  {item.title}
+                <Text className={styles.linkText} size="100" weight={link.isActive ? 'semibold' : 'normal'}>
+                  {link.title}
+                  {link.isExternal && (
+                    <ArrowUpRightIcon className={styles.externalLinkIcon} size={10} aria-label="External link" />
+                  )}
                 </Text>
               </Link>
             </li>

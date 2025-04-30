@@ -115,3 +115,7 @@
   display: block;
   line-height: var(--base-size-20);
 }
+
+.externalLinkIcon {
+  margin-block-end: var(--base-size-8);
+}

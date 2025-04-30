@@ -125,7 +125,11 @@
   font-weight: var(--base-font-weight-500);
 }
 
-@media (min-width: 1012px) {
+.Header__externalLinkIcon {
+  margin-block-end: var(--base-size-8);
+}
+
+@media (min-width: 72rem) {
   .Header {
     padding-block: var(--base-size-16);
   }
