@@ -4,7 +4,6 @@ import {IconButton, Link, ThemeProvider} from '@primer/react'
 import {XIcon} from '@primer/octicons-react'
 
 import {Drawer} from './Drawer'
-import type {PageMapItem} from 'nextra'
 import {Sidebar} from '../sidebar/Sidebar'
 import {useColorMode} from '../../context/color-modes/useColorMode'
 import styles from './NavDrawer.module.css'
@@ -12,10 +11,9 @@ import styles from './NavDrawer.module.css'
 type NavDrawerProps = {
   isOpen: boolean
   onDismiss: () => void
-  navItems?: PageMapItem[]
 }
 
-export function NavDrawer({isOpen, onDismiss, navItems}: NavDrawerProps) {
+export function NavDrawer({isOpen, onDismiss}: NavDrawerProps) {
   const {colorMode} = useColorMode()
   return (
     <Drawer isOpen={isOpen} onDismiss={onDismiss}>
@@ -31,13 +29,11 @@ export function NavDrawer({isOpen, onDismiss, navItems}: NavDrawerProps) {
           </div>
           <div className={styles.navContainer}>{/* <PrimerNavItems items={primerNavItems} /> */}</div>
         </div>
-        {navItems && navItems.length > 0 ? (
-          <ThemeProvider colorMode={colorMode}>
-            <div className={styles.sidebarWrapper}>
-              <Sidebar pageMap={navItems} />
-            </div>
-          </ThemeProvider>
-        ) : null}
+        <ThemeProvider colorMode={colorMode}>
+          <div className={styles.sidebarWrapper}>
+            <Sidebar />
+          </div>
+        </ThemeProvider>
       </div>
     </Drawer>
   )

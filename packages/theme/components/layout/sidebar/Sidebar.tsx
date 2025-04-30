@@ -1,24 +1,22 @@
 import React, {useMemo} from 'react'
 import NextLink from 'next/link'
 import {NavList} from '@primer/react'
-import {Folder, MdxFile, PageMapItem} from 'nextra'
+import {Folder, MdxFile} from 'nextra'
 
 import styles from './Sidebar.module.css'
 import {LinkExternalIcon} from '@primer/octicons-react'
 import type {DocsItem, ExtendedPageItem} from '../../../index'
 import {hasChildren} from '../../../helpers/hasChildren'
 import {usePathname} from 'next/navigation'
-
-type SidebarProps = {
-  pageMap: PageMapItem[]
-}
+import {useConfig} from '../../context/useConfig'
 
 const hasShowTabs = (child: ExtendedPageItem): boolean => {
   return child.name === 'index' && (child as MdxFile).frontMatter?.['show-tabs'] === true
 }
 
-export function Sidebar({pageMap}: SidebarProps) {
+export function Sidebar() {
   const pathname = usePathname()
+  const {pageMap} = useConfig()
 
   const sidebarExternalLinks = (pageMap as ExtendedPageItem[]).filter(
     page => page.href && page.href.startsWith('http') && page.type !== 'page',

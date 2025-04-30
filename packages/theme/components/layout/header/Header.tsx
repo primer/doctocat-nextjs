@@ -3,7 +3,6 @@ import {MarkGithubIcon, MoonIcon, SearchIcon, SunIcon, ThreeBarsIcon, XIcon} fro
 import {IconButton} from '@primer/react'
 import {Stack, Text} from '@primer/react-brand'
 import {clsx} from 'clsx'
-import {PageMapItem} from 'nextra'
 
 import Link from 'next/link'
 import styles from './Header.module.css'
@@ -16,6 +15,7 @@ import {DocsItem, ExtendedPageItem} from '../../../types'
 import {GlobalSearch} from '../global-search/GlobalSearch'
 import {FocusOn} from 'react-focus-on'
 import {LinksDropdown} from '../links-dropdown/LinksDropdown'
+import {useConfig} from '../../context/useConfig'
 
 // Attempt to find the closest URL match based on the current site URL
 const findClosestUrlMatchIdx = (items: ExtendedPageItem[]): number => {
@@ -50,17 +50,17 @@ const findClosestUrlMatchIdx = (items: ExtendedPageItem[]): number => {
 }
 
 type HeaderProps = {
-  pageMap: PageMapItem[]
   flatDocsDirectories: DocsItem[]
   siteTitle: string
 }
 
-export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
+export function Header({siteTitle, flatDocsDirectories}: HeaderProps) {
   const searchRef = useRef<HTMLInputElement | null>(null)
   const {colorMode, setColorMode} = useColorMode()
   const searchTriggerRef = useRef<HTMLButtonElement | null>(null)
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useNavDrawerState('768')
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const {pageMap} = useConfig()
 
   const baseHeaderExternalLinks = (pageMap as ExtendedPageItem[]).filter(page => page.type === 'page')
   const activePageIndex = findClosestUrlMatchIdx(baseHeaderExternalLinks)
@@ -150,7 +150,7 @@ export function Header({pageMap, siteTitle, flatDocsDirectories}: HeaderProps) {
                 aria-expanded={isNavDrawerOpen}
                 onClick={() => setIsNavDrawerOpen(true)}
               />
-              <NavDrawer isOpen={isNavDrawerOpen} onDismiss={() => setIsNavDrawerOpen(false)} navItems={pageMap} />
+              <NavDrawer isOpen={isNavDrawerOpen} onDismiss={() => setIsNavDrawerOpen(false)} />
             </div>
           </Stack>
         </div>

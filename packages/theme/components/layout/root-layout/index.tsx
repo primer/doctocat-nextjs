@@ -1,9 +1,10 @@
 'use client'
 import React from 'react'
+import type {PageMapItem} from 'nextra'
 
 import {ColorModeProvider} from '../../context/color-modes/ColorModeProvider'
 import {Theme, ThemeProps} from './Theme'
-import {PageMapItem} from 'nextra'
+import {ConfigContext} from '../../context/useConfig'
 
 type Props = {
   pageMap: PageMapItem[]
@@ -18,9 +19,9 @@ type Props = {
 export default function Shell({children, pageMap, ...rest}: Props) {
   return (
     <ColorModeProvider>
-      <Theme {...rest} pageMap={pageMap}>
-        {children}
-      </Theme>
+      <ConfigContext.Provider value={{pageMap}}>
+        <Theme {...rest}>{children}</Theme>
+      </ConfigContext.Provider>
     </ColorModeProvider>
   )
 }
