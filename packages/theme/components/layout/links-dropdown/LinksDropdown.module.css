@@ -19,7 +19,7 @@
 .dropdownButton:focus-visible {
   outline: var(--base-size-4) solid var(--brand-color-focus);
   outline-radius: var(--base-size-8);
-  outline-offset: 2px;
+  outline-offset: var(--base-size-2);
 }
 
 .buttonText {
