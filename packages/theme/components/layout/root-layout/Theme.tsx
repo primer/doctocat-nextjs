@@ -2,7 +2,7 @@
 import React, {PropsWithChildren, useMemo} from 'react'
 import NextLink from 'next/link'
 import Head from 'next/head'
-import type {Folder, MdxFile} from 'nextra'
+import type {Folder, MdxFile, PageMapItem} from 'nextra'
 import {useFSRoute} from 'nextra/hooks'
 import {BaseStyles, Box as PRCBox, Breadcrumbs, PageLayout, ThemeProvider} from '@primer/react'
 import '@primer/primitives/dist/css/functional/themes/light.css'
@@ -31,7 +31,6 @@ import {usePathname} from 'next/navigation'
 import {Header} from '../header/Header'
 import {IndexCards} from '../index-cards/IndexCards'
 import {useColorMode} from '../../context/color-modes/useColorMode'
-import {useConfig} from '../../context/useConfig'
 import {SkipToMainContent} from '../skip-to-main-content/SkipToMainContent'
 import {RelatedContentLinks} from '../related-content-links/RelatedContentLinks'
 import {getRelatedPages} from '../related-content-links/getRelatedPages'
@@ -48,11 +47,12 @@ if (!repoURL) {
   )
 }
 
-export type ThemeProps = PropsWithChildren<Record<string, unknown>>
+export type ThemeProps = PropsWithChildren<{
+  pageMap: PageMapItem[]
+}>
 
-export function Theme({children}: ThemeProps) {
+export function Theme({pageMap, children}: ThemeProps) {
   const pathname = usePathname()
-  const {pageMap} = useConfig()
 
   const normalizedPages = normalizePages({
     list: pageMap,
@@ -116,7 +116,7 @@ export function Theme({children}: ThemeProps) {
                 }}
               >
                 <SkipToMainContent href="#main">Skip to main content</SkipToMainContent>
-                <Header flatDocsDirectories={flatDocsDirectories} siteTitle={siteTitle} />
+                <Header flatDocsDirectories={flatDocsDirectories} siteTitle={siteTitle} pageMap={pageMap} />
               </PRCBox>
               <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
                 <PageLayout.Content padding="normal">
@@ -224,7 +224,7 @@ export function Theme({children}: ThemeProps) {
                   hidden={{narrow: true}}
                   divider="line"
                 >
-                  <Sidebar />
+                  <Sidebar pageMap={pageMap} />
                 </PageLayout.Pane>
               </PageLayout>
             </ContentWrapper>

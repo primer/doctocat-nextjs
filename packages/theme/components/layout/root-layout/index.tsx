@@ -18,12 +18,11 @@ type Props = {
  * To add custom layouts, create a new file in `pages/_layouts`
  * and export a component with the same name as the layout file
  */
-export default function Shell({children, pageMap, headerLinks = [], sidebarLinks = [], ...rest}: Props) {
+export default function Shell({children, headerLinks = [], sidebarLinks = [], ...rest}: Props) {
   return (
     <ColorModeProvider>
       <ConfigContextProvider
         value={{
-          pageMap,
           headerLinks,
           sidebarLinks,
         }}

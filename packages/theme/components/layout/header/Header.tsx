@@ -11,6 +11,7 @@ import {
 import {IconButton} from '@primer/react'
 import {Stack, Text} from '@primer/react-brand'
 import {clsx} from 'clsx'
+import type {PageMapItem} from 'nextra'
 
 import Link from 'next/link'
 import styles from './Header.module.css'
@@ -28,9 +29,10 @@ import {useConfig} from '../../context/useConfig'
 type HeaderProps = {
   flatDocsDirectories: DocsItem[]
   siteTitle: string
+  pageMap: PageMapItem[]
 }
 
-export function Header({siteTitle, flatDocsDirectories}: HeaderProps) {
+export function Header({siteTitle, flatDocsDirectories, pageMap}: HeaderProps) {
   const searchRef = useRef<HTMLInputElement | null>(null)
   const {colorMode, setColorMode} = useColorMode()
   const searchTriggerRef = useRef<HTMLButtonElement | null>(null)
@@ -132,7 +134,7 @@ export function Header({siteTitle, flatDocsDirectories}: HeaderProps) {
                 aria-expanded={isNavDrawerOpen}
                 onClick={() => setIsNavDrawerOpen(true)}
               />
-              <NavDrawer isOpen={isNavDrawerOpen} onDismiss={() => setIsNavDrawerOpen(false)} />
+              <NavDrawer isOpen={isNavDrawerOpen} onDismiss={() => setIsNavDrawerOpen(false)} pageMap={pageMap} />
             </div>
           </Stack>
         </div>

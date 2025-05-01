@@ -1,5 +1,4 @@
 import React, {createContext, PropsWithChildren, useContext} from 'react'
-import type {PageMapItem} from 'nextra'
 
 export type ConfigContextLink = {
   title: string
@@ -9,7 +8,6 @@ export type ConfigContextLink = {
 }
 
 export type ConfigContextValue = {
-  pageMap: PageMapItem[]
   headerLinks: ConfigContextLink[]
   sidebarLinks: ConfigContextLink[]
 }

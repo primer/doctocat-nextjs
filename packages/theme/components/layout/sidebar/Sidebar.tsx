@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import NextLink from 'next/link'
 import {NavList} from '@primer/react'
-import {Folder, MdxFile} from 'nextra'
+import type {Folder, MdxFile, PageMapItem} from 'nextra'
 
 import styles from './Sidebar.module.css'
 import {LinkExternalIcon} from '@primer/octicons-react'
@@ -14,9 +14,13 @@ const hasShowTabs = (child: ExtendedPageItem): boolean => {
   return child.name === 'index' && (child as MdxFile).frontMatter?.['show-tabs'] === true
 }
 
-export function Sidebar() {
+type SidebarProps = {
+  pageMap: PageMapItem[]
+}
+
+export function Sidebar({pageMap}: SidebarProps) {
   const pathname = usePathname()
-  const {pageMap, sidebarLinks} = useConfig()
+  const {sidebarLinks} = useConfig()
 
   /**
    * Sorts the incoming data so that folders with a menu-position frontmatter value
