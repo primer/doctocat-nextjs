@@ -51,7 +51,7 @@ export type ThemeProps = PropsWithChildren<{
   pageMap: PageMapItem[]
 }>
 
-export function Theme({children, pageMap}: ThemeProps) {
+export function Theme({pageMap, children}: ThemeProps) {
   const pathname = usePathname()
 
   const normalizedPages = normalizePages({
@@ -116,7 +116,7 @@ export function Theme({children, pageMap}: ThemeProps) {
                 }}
               >
                 <SkipToMainContent href="#main">Skip to main content</SkipToMainContent>
-                <Header pageMap={pageMap} flatDocsDirectories={flatDocsDirectories} siteTitle={siteTitle} />
+                <Header flatDocsDirectories={flatDocsDirectories} siteTitle={siteTitle} pageMap={pageMap} />
               </PRCBox>
               <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
                 <PageLayout.Content padding="normal">

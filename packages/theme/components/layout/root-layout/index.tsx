@@ -3,10 +3,13 @@ import React from 'react'
 
 import {ColorModeProvider} from '../../context/color-modes/ColorModeProvider'
 import {Theme, ThemeProps} from './Theme'
-import {PageMapItem} from 'nextra'
+import {type ConfigContextLink, ConfigContextProvider} from '../../context/useConfig'
+import type {PageMapItem} from 'nextra'
 
 type Props = {
   pageMap: PageMapItem[]
+  headerLinks?: ConfigContextLink[]
+  sidebarLinks?: ConfigContextLink[]
 } & ThemeProps
 
 /**
@@ -15,12 +18,17 @@ type Props = {
  * To add custom layouts, create a new file in `pages/_layouts`
  * and export a component with the same name as the layout file
  */
-export default function Shell({children, pageMap, ...rest}: Props) {
+export default function Shell({children, headerLinks = [], sidebarLinks = [], ...rest}: Props) {
   return (
     <ColorModeProvider>
-      <Theme {...rest} pageMap={pageMap}>
-        {children}
-      </Theme>
+      <ConfigContextProvider
+        value={{
+          headerLinks,
+          sidebarLinks,
+        }}
+      >
+        <Theme {...rest}>{children}</Theme>
+      </ConfigContextProvider>
     </ColorModeProvider>
   )
 }

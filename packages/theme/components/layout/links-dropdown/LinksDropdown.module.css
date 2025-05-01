@@ -1,0 +1,121 @@
+.dropdown {
+  position: relative;
+  margin-inline-end: auto;
+}
+
+.dropdownButton {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--base-font-size-16);
+  font-weight: var(--base-font-weight-500);
+  padding: var(--base-size-8) var(--base-size-12);
+  border-radius: var(--brand-borderRadius-medium);
+  color: var(--brand-color-text-default);
+}
+
+.dropdownButton:focus-visible {
+  outline: var(--base-size-4) solid var(--brand-color-focus);
+  outline-radius: var(--base-size-8);
+  outline-offset: var(--base-size-2);
+}
+
+.buttonText {
+  margin-right: var(--base-size-8);
+}
+
+.chevron {
+  color: var(--brand-color-text-muted);
+  transition: transform 0.2s ease;
+}
+
+.dropdownButton[aria-expanded='true'] .chevron {
+  transform: rotate(180deg);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  z-index: 100;
+  background-color: var(--brand-color-canvas-default);
+  border-radius: var(--brand-borderRadius-medium);
+  box-shadow: var(--shadow-floating-small);
+  margin-top: var(--base-size-4);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0s linear 0.2s;
+}
+
+.dropdownMenu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0s linear 0s;
+}
+
+.dropdownMenu ul {
+  list-style: none;
+  margin: 0;
+  padding: var(--base-size-8) 0;
+}
+
+.menuItem {
+  margin-inline: var(--base-size-8);
+  padding: 0;
+  position: relative;
+}
+
+.menuItemActive {
+  background-color: var(--brand-color-border-subtle);
+  border-radius: var(--brand-borderRadius-medium);
+}
+
+.menuItemActive::after {
+  content: '';
+  position: absolute;
+  top: calc(50% - var(--base-size-12));
+  left: calc(var(--base-size-8) * -1);
+  width: var(--base-size-4);
+  height: var(--base-size-24);
+  background: var(--base-color-scale-blue-5);
+  border-radius: var(--brand-borderRadius-medium);
+}
+
+.link:focus-visible {
+  position: relative;
+  outline: var(--base-size-4) solid var(--brand-color-focus);
+  border-radius: var(--brand-borderRadius-small);
+  z-index: 1;
+}
+
+.link {
+  display: block;
+  padding: var(--base-size-6) var(--base-size-8);
+  text-decoration: none;
+  color: var(--brand-color-text-default);
+  cursor: pointer;
+}
+
+.link:hover {
+  background-color: var(--brand-color-canvas-subtle);
+}
+
+.linkText {
+  display: block;
+  line-height: var(--base-size-20);
+}
+
+.externalLinkIcon {
+  margin-block-end: var(--base-size-8);
+}

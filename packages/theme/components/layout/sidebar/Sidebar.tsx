@@ -1,32 +1,26 @@
 import React, {useMemo} from 'react'
 import NextLink from 'next/link'
 import {NavList} from '@primer/react'
-import {Folder, MdxFile, PageMapItem} from 'nextra'
+import type {Folder, MdxFile, PageMapItem} from 'nextra'
 
 import styles from './Sidebar.module.css'
 import {LinkExternalIcon} from '@primer/octicons-react'
 import type {DocsItem, ExtendedPageItem} from '../../../index'
 import {hasChildren} from '../../../helpers/hasChildren'
 import {usePathname} from 'next/navigation'
-
-type SidebarProps = {
-  pageMap: PageMapItem[]
-}
+import {useConfig} from '../../context/useConfig'
 
 const hasShowTabs = (child: ExtendedPageItem): boolean => {
   return child.name === 'index' && (child as MdxFile).frontMatter?.['show-tabs'] === true
 }
 
-export function Sidebar({pageMap: pageMapIn}: SidebarProps) {
-  const pageMap = pageMapIn as ExtendedPageItem[]
+type SidebarProps = {
+  pageMap: PageMapItem[]
+}
 
+export function Sidebar({pageMap}: SidebarProps) {
   const pathname = usePathname()
-
-  const externalLinks = pageMap.filter(page => {
-    if (page.href && page.href.startsWith('http')) {
-      return page
-    }
-  })
+  const {sidebarLinks} = useConfig()
 
   /**
    * Sorts the incoming data so that folders with a menu-position frontmatter value
@@ -112,15 +106,23 @@ export function Sidebar({pageMap: pageMapIn}: SidebarProps) {
             </NavList.Group>
           )
         })}
-        {externalLinks.length > 0 && (
+        {sidebarLinks.length > 0 && (
           <NavList.Group title="" sx={{mb: 24}}>
-            {externalLinks.map(link => {
+            {sidebarLinks.map(link => {
               return (
-                <NavList.Item as={NextLink} key={link.title} href={link.href}>
+                <NavList.Item
+                  as={NextLink}
+                  key={link.title}
+                  href={link.href}
+                  {...(link.isExternal && {target: '_blank', rel: 'noopener noreferrer'})}
+                  aria-current={link.isActive ? 'page' : undefined}
+                >
                   {link.title}
-                  <NavList.TrailingVisual>
-                    <LinkExternalIcon />
-                  </NavList.TrailingVisual>
+                  {link.isExternal && (
+                    <NavList.TrailingVisual>
+                      <LinkExternalIcon />
+                    </NavList.TrailingVisual>
+                  )}
                 </NavList.Item>
               )
             })}
