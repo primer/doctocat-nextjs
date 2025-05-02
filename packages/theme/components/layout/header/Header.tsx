@@ -60,7 +60,7 @@ export function Header({siteTitle, flatDocsDirectories, pageMap}: HeaderProps) {
       <div className={styles.Header__start}>
         <Link href="/" className={styles.Header__siteTitle}>
           <MarkGithubIcon size={24} />
-          <Text className={styles.Header__siteTitleText} as="p" size="300" weight="semibold">
+          <Text className={styles.Header__siteTitleText} as="p" size="200" weight="semibold">
             {siteTitle}
           </Text>
         </Link>
