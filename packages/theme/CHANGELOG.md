@@ -1,5 +1,48 @@
 # @primer/doctocat-nextjs
 
+## 0.5.0
+
+### Minor Changes
+
+- [#30](https://github.com/primer/doctocat-nextjs/pull/30) [`cdcb65e`](https://github.com/primer/doctocat-nextjs/commit/cdcb65e087d647a6d61c87d9122f105dcda64e35) Thanks [@joshfarrant](https://github.com/joshfarrant)! - - Arbitrary links can now be added to the sidebar and header using the `Theme` component's `headerLinks` and `sidebarLinks` props.
+
+  - Updated the header navigation to more closely visually align it with the existing Primer docs navigation.
+  - Removed `_meta.global.ts` and instead directly pass header and sidebar links into the Doctocat `Theme` component.
+
+    ```diff
+    - // _meta.global.ts
+    - export default {
+    -   type: 'page',
+    -   href: 'https://github.com/primer/doctocat-nextjs',
+    -   title: 'Doctocat',
+    - }
+    ```
+
+    ```diff
+    + // app/layout.tsx
+    +
+    + const sidebarLinks: ThemeProps['sidebarLinks'] = [
+    +   {
+    +     href: 'https://github.com/',
+    +     title: 'GitHub',
+    +     isExternal: true,
+    +   },
+    + ]
+    +
+    + <Theme sidebarLinks={sidebarLinks} {...rest} />
+    ```
+
+### Patch Changes
+
+- [#34](https://github.com/primer/doctocat-nextjs/pull/34) [`ccf198c`](https://github.com/primer/doctocat-nextjs/commit/ccf198cca25b1f021c5ae78b8e2760c141a77dcc) Thanks [@rezrah](https://github.com/rezrah)! - Collection of UI bugfixes:
+
+  - Sidebar offset added to prevent links being trapped under fixed header
+  - Narrow viewport overflow bug fixed
+  - Table of contents presentation fixed on narrow viewport, and has improved presentation on wider breakpoints.
+  - Frontmatter metadata presentation now fixed on narrow viewport
+  - OS scrollbar in dark color mode now respects color scheme
+  - Inverted margin spacing in markdown content to use `margin-block-end` instead of `margin-block-start` to fix inconsistent spacing
+
 ## 0.4.1
 
 ### Patch Changes
