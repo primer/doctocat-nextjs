@@ -117,12 +117,22 @@
 .Header__links {
   display: none;
   margin-inline: var(--base-size-24);
+  margin-block: 0;
+  padding: 0;
+  list-style: none;
+  gap: var(--base-size-2);
 }
 
 .Header__link {
   text-decoration: none;
   font-size: var(--base-font-size-16);
   font-weight: var(--base-font-weight-500);
+  padding: var(--base-size-6) var(--base-size-12);
+  border-radius: var(--brand-borderRadius-small);
+}
+
+.Header__link:hover {
+  background-color: var(--brand-color-canvas-subtle);
 }
 
 .Header__externalLinkIcon {

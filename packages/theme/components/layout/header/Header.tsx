@@ -70,28 +70,33 @@ export function Header({siteTitle, flatDocsDirectories, pageMap}: HeaderProps) {
         {headerLinks.length > 0 && <LinksDropdown className={styles.Header__linksDropdown} items={headerLinks} />}
       </div>
       <div className={styles.Header__end}>
-        <Stack className={styles.Header__links} direction="horizontal" padding="none" gap={24}>
+        <ul className={styles.Header__links}>
           {headerLinks.map(link => (
-            <Link
-              key={link.href}
-              className={styles.Header__link}
-              href={link.href}
-              aria-current={link.isActive ? 'page' : undefined}
-              {...(link.isExternal && {target: '_blank', rel: 'noopener noreferrer'})}
-            >
-              <Text
-                size="200"
-                variant={link.isActive ? 'default' : 'muted'}
-                weight={link.isActive ? 'semibold' : 'normal'}
+            <li key={link.href}>
+              <Link
+                className={styles.Header__link}
+                href={link.href}
+                aria-current={link.isActive ? 'page' : undefined}
+                {...(link.isExternal && {target: '_blank', rel: 'noopener noreferrer'})}
               >
-                {link.title}
-                {link.isExternal && (
-                  <ArrowUpRightIcon className={styles.Header__externalLinkIcon} size={10} aria-label="External link" />
-                )}
-              </Text>
-            </Link>
+                <Text
+                  size="200"
+                  variant={link.isActive ? 'default' : 'muted'}
+                  weight={link.isActive ? 'semibold' : 'normal'}
+                >
+                  {link.title}
+                  {link.isExternal && (
+                    <ArrowUpRightIcon
+                      className={styles.Header__externalLinkIcon}
+                      size={10}
+                      aria-label="External link"
+                    />
+                  )}
+                </Text>
+              </Link>
+            </li>
           ))}
-        </Stack>
+        </ul>
         <div className={clsx(styles.Header__searchArea, isSearchOpen && styles['Header__searchArea--open'])}>
           <FocusOn enabled={isSearchOpen} onEscapeKey={closeSearch} onClickOutside={closeSearch}>
             <GlobalSearch
