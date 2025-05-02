@@ -219,6 +219,7 @@ export function Theme({pageMap, children}: ThemeProps) {
                   aria-label="Side navigation"
                   width="small"
                   sticky
+                  offsetHeader={65}
                   padding="none"
                   position="start"
                   hidden={{narrow: true}}

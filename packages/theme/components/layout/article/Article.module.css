@@ -14,7 +14,14 @@
   order: 0;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 48rem) {
+  .Article--withToc {
+    display: flex; /* Prevents column overflow */
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 1023px) {
   .main {
     order: 0;
   }
@@ -25,5 +32,11 @@
 
   .Article--withToc {
     grid-template-columns: 1fr 200px;
+  }
+}
+
+@media screen and (min-width: 2048px) {
+  .Article--withToc {
+    grid-template-columns: 1fr;
   }
 }
