@@ -35,7 +35,11 @@ export function Article({children, toc, metadata}: PropsWithChildren<Props>) {
         <div className={styles.main}>
           {hasMetadata ? (
             <Box marginBlockEnd={48}>
-              <Stack padding="none" direction="horizontal" justifyContent="space-between">
+              <Stack
+                padding="none"
+                direction={{narrow: 'vertical', regular: 'horizontal'}}
+                justifyContent="space-between"
+              >
                 {metadata.ready || metadata.a11yReviewed ? (
                   <Stack direction="horizontal" gap={8} padding="none">
                     {metadata.ready === true && <ReadinessLabel />}

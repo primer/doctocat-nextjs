@@ -1,6 +1,5 @@
 ---
 '@primer/doctocat-nextjs': minor
-'doctocat-nextjs-site': minor
 ---
 
 - Aribitrary links can now be added to the sidebar and header using the `Theme` component's `headerLinks` and `sidebarLinks` props.

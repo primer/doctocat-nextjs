@@ -33,11 +33,11 @@
 /* ---------------------------------------------------------- */
 
 .Prose
-  :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, hr, table, pre, dl):not(
-    :first-child,
-    :global(.custom-component) :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, hr, table, pre, dl)
+  :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, hr, table, pre, dl, :global(.custom-component)):not(
+    :global(.custom-component)
+      :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, hr, table, pre, dl, :global(.custom-component))
   ) {
-  margin-block-start: var(--spacing, 1em);
+  margin-block-end: var(--spacing, 1em);
 }
 
 /* ---------------------------------------------------------- */
@@ -235,7 +235,7 @@
   display: block;
   max-width: 100%;
   height: auto;
-  margin-block-start: var(--spacing);
+  margin-block-end: var(--spacing);
 }
 
 /* ---------------------------------------------------------- */
