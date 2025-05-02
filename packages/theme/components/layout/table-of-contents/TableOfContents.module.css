@@ -23,7 +23,6 @@
 @media screen and (min-width: 2048px) {
   .wrapper {
     position: fixed;
-    top: 0;
     display: flex;
     flex-direction: column;
     min-width: 280px;

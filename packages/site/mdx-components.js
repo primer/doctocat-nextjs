@@ -19,7 +19,7 @@ export function useMDXComponents(customComponents) {
     pre: props => <Pre {...props} />,
     table: props => (
       <DoctocatComponents.TableWrapper>
-        <table {...props} />{' '}
+        <table {...props} />
       </DoctocatComponents.TableWrapper>
     ),
   }
