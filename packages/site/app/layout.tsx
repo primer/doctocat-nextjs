@@ -18,36 +18,23 @@ type ThemeProps = Parameters<typeof Theme>[0]
 
 const headerLinks: ThemeProps['headerLinks'] = [
   {
-    href: 'https://primer.style/product',
-    title: 'Product UI',
+    href: 'https://github.com/primer/doctocat-nextjs',
+    title: 'Doctocat',
+    isActive: true,
   },
   {
-    href: 'https://primer.style/brand',
-    title: 'Brand UI',
-    isActive: true,
+    href: 'https://primer.style',
+    title: 'Primer',
+    isExternal: true,
   },
   {
     href: 'https://primer.style/octicons',
     title: 'Octicons',
-  },
-  {
-    href: 'https://primer.style/accessibility',
-    title: 'Accessibility',
-  },
-  {
-    href: 'https://brand.github.com/',
-    title: 'Brand Toolkit',
     isExternal: true,
   },
 ]
 
-const sidebarLinks: ThemeProps['sidebarLinks'] = [
-  {
-    href: 'https://github.com/',
-    title: 'GitHub',
-    isExternal: true,
-  },
-]
+const sidebarLinks: ThemeProps['sidebarLinks'] = []
 
 const RootLayout: FC<{children: ReactNode}> = async ({children}) => {
   const pageMap = await getPageMap()
