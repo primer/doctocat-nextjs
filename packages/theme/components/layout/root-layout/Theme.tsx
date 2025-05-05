@@ -92,7 +92,7 @@ export function Theme({pageMap, children}: ThemeProps) {
   const filteredTabData: MdxFile[] = data && hasChildren(data) ? ((data as Folder).children as MdxFile[]) : []
 
   const relatedLinks = getRelatedPages(route, activeMetadata, flatDocsDirectories)
-  const disablePageAnimation = activeMetadata?.options?.disablePageAnimation || false
+  const disablePageAnimation = activeMetadata.options?.disablePageAnimation || false
 
   return (
     <>
@@ -165,22 +165,22 @@ export function Theme({pageMap, children}: ThemeProps) {
 
                             <Box>
                               <Stack direction="vertical" padding="none" gap={12} alignItems="flex-start">
-                                {activeMetadata?.title && (
+                                {activeMetadata.title && (
                                   <Heading as="h1" size="3">
                                     {activeMetadata.title}
                                   </Heading>
                                 )}
-                                {activeMetadata?.description && (
+                                {activeMetadata.description && (
                                   <Text as="p" variant="muted" size="300">
                                     {activeMetadata.description}
                                   </Text>
                                 )}
-                                {activeMetadata?.image && (
+                                {activeMetadata.image && (
                                   <Box paddingBlockStart={16} style={{width: '100%'}}>
                                     <Hero.Image src={activeMetadata.image} alt={activeMetadata['image-alt']} />
                                   </Box>
                                 )}
-                                {activeMetadata && activeMetadata['action-1-text'] && (
+                                {activeMetadata['action-1-text'] && (
                                   <Box paddingBlockStart={16}>
                                     <ButtonGroup>
                                       <Button as="a" href={activeMetadata['action-1-link']}>
@@ -196,9 +196,7 @@ export function Theme({pageMap, children}: ThemeProps) {
                                 )}
                               </Stack>
                             </Box>
-                            {activeMetadata && activeMetadata['show-tabs'] && (
-                              <UnderlineNav tabData={filteredTabData} />
-                            )}
+                            {activeMetadata['show-tabs'] && <UnderlineNav tabData={filteredTabData} />}
                           </>
                         )}
                         <article>
