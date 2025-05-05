@@ -33,7 +33,7 @@ export function UnderlineNav({tabData}: UnderlineNavProps) {
     <PrimerUnderlineNav aria-label="Sibling pages">
       {tabData.length > 1 &&
         tabData.reverse().map(item => {
-          const cleanPathname = pathHasTrailingSlash ? pathname.slice(0, -1) : pathname
+          const cleanPathname = pathname === '/' ? '/' : pathHasTrailingSlash ? pathname.slice(0, -1) : pathname
 
           return (
             <PrimerUnderlineNav.Item
