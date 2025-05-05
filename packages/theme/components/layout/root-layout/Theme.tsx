@@ -77,15 +77,17 @@ export function Theme({pageMap, children}: ThemeProps) {
   const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Example Site'
   const isHomePage = route === '/'
 
-  const {frontMatter: activeMetadata} = isHomePage
-    ? {}
+  const activeFile = isHomePage
+    ? undefined
     : (normalizedPages.flatDocsDirectories.find(
         item => `${item.route}${pathHasTrailingSlash ? '/' : ''}` === pathname,
       ) as MdxFile)
 
-  const {filePath = '', title = ''} = activeMetadata || {}
-  const isIndexPage =
-    /index\.mdx?$/.test(filePath) && !isHomePage && activeMetadata && activeMetadata['show-tabs'] === undefined
+  const activeMetadata = activeFile?.frontMatter || {}
+  const filePath = activeMetadata.filePath || ''
+  const title = activeMetadata.title || ''
+
+  const isIndexPage = /index\.mdx?$/.test(filePath) && !isHomePage && activeMetadata['show-tabs'] === undefined
   const data = !isHomePage && activePath[activePath.length - 2]
   const filteredTabData: MdxFile[] = data && hasChildren(data) ? ((data as Folder).children as MdxFile[]) : []
 
@@ -97,21 +99,19 @@ export function Theme({pageMap, children}: ThemeProps) {
       <BrandThemeProvider dir="ltr" colorMode={colorMode}>
         <ThemeProvider colorMode={colorMode}>
           <BaseStyles>
-            {activeMetadata && (
-              <Head>
-                <title>{title}</title>
-                {activeMetadata.description && <meta name="description" content={activeMetadata.description} />}
-                <meta property="og:type" content="website" />
-                <meta property="og:title" content={title} />
-                {activeMetadata.description && <meta property="og:description" content={activeMetadata.description} />}
-                <meta property="og:image" content={activeMetadata.image || '/og-image.png'} />
-                {/* X (Twitter) OG */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={title} />
-                {activeMetadata.description && <meta name="twitter:description" content={activeMetadata.description} />}
-                <meta name="twitter:image" content={activeMetadata.image || '/og-image.png'} />
-              </Head>
-            )}
+            <Head>
+              <title>{title}</title>
+              {activeMetadata.description && <meta name="description" content={activeMetadata.description} />}
+              <meta property="og:type" content="website" />
+              <meta property="og:title" content={title} />
+              {activeMetadata.description && <meta property="og:description" content={activeMetadata.description} />}
+              <meta property="og:image" content={activeMetadata.image || '/og-image.png'} />
+              {/* X (Twitter) OG */}
+              <meta name="twitter:card" content="summary_large_image" />
+              <meta name="twitter:title" content={title} />
+              {activeMetadata.description && <meta name="twitter:description" content={activeMetadata.description} />}
+              <meta name="twitter:image" content={activeMetadata.image || '/og-image.png'} />
+            </Head>
 
             <ContentWrapper disableAnimations={disablePageAnimation}>
               <PRCBox

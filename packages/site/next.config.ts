@@ -6,5 +6,6 @@ export default {
     transpilePackages: ['@primer/doctocat-nextjs'],
     output: 'export',
     basePath: process.env.GITHUB_ACTIONS === 'true' && process.env.IS_PROD ? '/doctocat-nextjs' : '',
+    trailingSlash: true,
   }),
 }
