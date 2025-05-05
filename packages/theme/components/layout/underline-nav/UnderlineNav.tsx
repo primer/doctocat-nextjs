@@ -12,8 +12,7 @@ type UnderlineNavProps = {
 export function UnderlineNav({tabData}: UnderlineNavProps) {
   const [isClient, setIsClient] = useState(false)
   const pathname = usePathname()
-
-  const currentRoute = pathname
+  const pathHasTrailingSlash = pathname.endsWith('/')
 
   // Reorders tabData so the tab with name === index is always first
   if (tabData.length > 1) {
@@ -34,12 +33,14 @@ export function UnderlineNav({tabData}: UnderlineNavProps) {
     <PrimerUnderlineNav aria-label="Sibling pages">
       {tabData.length > 1 &&
         tabData.reverse().map(item => {
+          const cleanPathname = pathHasTrailingSlash ? pathname.slice(0, -1) : pathname
+
           return (
             <PrimerUnderlineNav.Item
               as={Link}
               key={item.name}
               href={`${item.route}`}
-              aria-current={currentRoute === item.route ? 'page' : undefined}
+              aria-current={cleanPathname === item.route ? 'page' : undefined}
             >
               {(item.frontMatter && (item.frontMatter['tab-label'] || item.frontMatter.title)) || item.name}
             </PrimerUnderlineNav.Item>

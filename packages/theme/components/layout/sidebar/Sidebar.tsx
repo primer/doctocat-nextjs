@@ -73,12 +73,13 @@ export function Sidebar({pageMap}: SidebarProps) {
                   if (!hasChildren(child)) {
                     const {name, route} = child as MdxFile
 
+                    const cleanPathname = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname
                     return (
                       <NavList.Item
                         as={NextLink}
                         key={name}
                         href={route}
-                        aria-current={route === pathname ? 'page' : undefined}
+                        aria-current={route === cleanPathname ? 'page' : undefined}
                       >
                         {(child as MdxFile).frontMatter?.title || name}
                       </NavList.Item>
@@ -88,17 +89,29 @@ export function Sidebar({pageMap}: SidebarProps) {
                   if (hasChildren(child)) {
                     const landingPageItem = (child as Folder).children.find(
                       innerChild => (innerChild as DocsItem).name === 'index',
-                    )
+                    ) as MdxFile
+
+                    const normalizePath = (path: string) => {
+                      // Remove trailing slash unless it's the root path
+                      return path === '/' ? path : path.replace(/\/+$/, '')
+                    }
+
+                    // Then inside your component where you need to compare paths:
+                    const cleanPathname = normalizePath(pathname)
+                    const cleanRoute = normalizePath(landingPageItem.route)
+
+                    // For checking if current path is this route or a direct child:
+                    const isCurrentOrChild = cleanPathname === cleanRoute || cleanPathname.startsWith(`${cleanRoute}/`)
 
                     return (
                       <NavList.Item
                         as={NextLink}
-                        key={(landingPageItem as MdxFile).route}
-                        href={(landingPageItem as MdxFile).route}
+                        key={landingPageItem.route}
+                        href={landingPageItem.route}
                         sx={{textTransform: 'capitalize'}}
-                        aria-current={(landingPageItem as MdxFile).route === pathname ? 'page' : undefined}
+                        aria-current={isCurrentOrChild ? 'page' : undefined}
                       >
-                        {(landingPageItem as MdxFile).frontMatter?.title || item.name}
+                        {landingPageItem.frontMatter?.title || item.name}
                       </NavList.Item>
                     )
                   }

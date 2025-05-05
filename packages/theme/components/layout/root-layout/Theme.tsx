@@ -53,15 +53,12 @@ export type ThemeProps = PropsWithChildren<{
 
 export function Theme({pageMap, children}: ThemeProps) {
   const pathname = usePathname()
+  const pathHasTrailingSlash = pathname.endsWith('/')
 
   const normalizedPages = normalizePages({
     list: pageMap,
     route: pathname,
   })
-
-  const {activeMetadata} = normalizedPages
-
-  const {filePath = '', title = ''} = activeMetadata || {}
 
   const route = usePathname()
 
@@ -79,6 +76,14 @@ export function Theme({pageMap, children}: ThemeProps) {
   // eslint-disable-next-line i18n-text/no-en
   const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Example Site'
   const isHomePage = route === '/'
+
+  const {frontMatter: activeMetadata} = isHomePage
+    ? {}
+    : (normalizedPages.flatDocsDirectories.find(
+        item => `${item.route}${pathHasTrailingSlash ? '/' : ''}` === pathname,
+      ) as MdxFile)
+
+  const {filePath = '', title = ''} = activeMetadata || {}
   const isIndexPage =
     /index\.mdx?$/.test(filePath) && !isHomePage && activeMetadata && activeMetadata['show-tabs'] === undefined
   const data = !isHomePage && activePath[activePath.length - 2]
@@ -86,6 +91,7 @@ export function Theme({pageMap, children}: ThemeProps) {
 
   const relatedLinks = getRelatedPages(route, activeMetadata, flatDocsDirectories)
   const disablePageAnimation = activeMetadata?.options?.disablePageAnimation || false
+
   return (
     <>
       <BrandThemeProvider dir="ltr" colorMode={colorMode}>
