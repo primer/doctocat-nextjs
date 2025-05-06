@@ -53,15 +53,12 @@ export type ThemeProps = PropsWithChildren<{
 
 export function Theme({pageMap, children}: ThemeProps) {
   const pathname = usePathname()
+  const pathHasTrailingSlash = pathname.endsWith('/')
 
   const normalizedPages = normalizePages({
     list: pageMap,
     route: pathname,
   })
-
-  const {activeMetadata} = normalizedPages
-
-  const {filePath = '', title = ''} = activeMetadata || {}
 
   const route = usePathname()
 
@@ -79,33 +76,42 @@ export function Theme({pageMap, children}: ThemeProps) {
   // eslint-disable-next-line i18n-text/no-en
   const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Example Site'
   const isHomePage = route === '/'
-  const isIndexPage =
-    /index\.mdx?$/.test(filePath) && !isHomePage && activeMetadata && activeMetadata['show-tabs'] === undefined
+
+  const activeFile = isHomePage
+    ? undefined
+    : (normalizedPages.flatDocsDirectories.find(
+        item => `${item.route}${pathHasTrailingSlash ? '/' : ''}` === pathname,
+      ) as MdxFile)
+
+  const activeMetadata = activeFile?.frontMatter || {}
+  const filePath = activeMetadata.filePath || ''
+  const title = activeMetadata.title || ''
+
+  const isIndexPage = /index\.mdx?$/.test(filePath) && !isHomePage && activeMetadata['show-tabs'] === undefined
   const data = !isHomePage && activePath[activePath.length - 2]
   const filteredTabData: MdxFile[] = data && hasChildren(data) ? ((data as Folder).children as MdxFile[]) : []
 
   const relatedLinks = getRelatedPages(route, activeMetadata, flatDocsDirectories)
-  const disablePageAnimation = activeMetadata?.options?.disablePageAnimation || false
+  const disablePageAnimation = activeMetadata.options?.disablePageAnimation || false
+
   return (
     <>
       <BrandThemeProvider dir="ltr" colorMode={colorMode}>
         <ThemeProvider colorMode={colorMode}>
           <BaseStyles>
-            {activeMetadata && (
-              <Head>
-                <title>{title}</title>
-                {activeMetadata.description && <meta name="description" content={activeMetadata.description} />}
-                <meta property="og:type" content="website" />
-                <meta property="og:title" content={title} />
-                {activeMetadata.description && <meta property="og:description" content={activeMetadata.description} />}
-                <meta property="og:image" content={activeMetadata.image || '/og-image.png'} />
-                {/* X (Twitter) OG */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={title} />
-                {activeMetadata.description && <meta name="twitter:description" content={activeMetadata.description} />}
-                <meta name="twitter:image" content={activeMetadata.image || '/og-image.png'} />
-              </Head>
-            )}
+            <Head>
+              <title>{title}</title>
+              {activeMetadata.description && <meta name="description" content={activeMetadata.description} />}
+              <meta property="og:type" content="website" />
+              <meta property="og:title" content={title} />
+              {activeMetadata.description && <meta property="og:description" content={activeMetadata.description} />}
+              <meta property="og:image" content={activeMetadata.image || '/og-image.png'} />
+              {/* X (Twitter) OG */}
+              <meta name="twitter:card" content="summary_large_image" />
+              <meta name="twitter:title" content={title} />
+              {activeMetadata.description && <meta name="twitter:description" content={activeMetadata.description} />}
+              <meta name="twitter:image" content={activeMetadata.image || '/og-image.png'} />
+            </Head>
 
             <ContentWrapper disableAnimations={disablePageAnimation}>
               <PRCBox
@@ -159,22 +165,22 @@ export function Theme({pageMap, children}: ThemeProps) {
 
                             <Box>
                               <Stack direction="vertical" padding="none" gap={12} alignItems="flex-start">
-                                {activeMetadata?.title && (
+                                {activeMetadata.title && (
                                   <Heading as="h1" size="3">
                                     {activeMetadata.title}
                                   </Heading>
                                 )}
-                                {activeMetadata?.description && (
+                                {activeMetadata.description && (
                                   <Text as="p" variant="muted" size="300">
                                     {activeMetadata.description}
                                   </Text>
                                 )}
-                                {activeMetadata?.image && (
+                                {activeMetadata.image && (
                                   <Box paddingBlockStart={16} style={{width: '100%'}}>
                                     <Hero.Image src={activeMetadata.image} alt={activeMetadata['image-alt']} />
                                   </Box>
                                 )}
-                                {activeMetadata && activeMetadata['action-1-text'] && (
+                                {activeMetadata['action-1-text'] && (
                                   <Box paddingBlockStart={16}>
                                     <ButtonGroup>
                                       <Button as="a" href={activeMetadata['action-1-link']}>
@@ -190,9 +196,7 @@ export function Theme({pageMap, children}: ThemeProps) {
                                 )}
                               </Stack>
                             </Box>
-                            {activeMetadata && activeMetadata['show-tabs'] && (
-                              <UnderlineNav tabData={filteredTabData} />
-                            )}
+                            {activeMetadata['show-tabs'] && <UnderlineNav tabData={filteredTabData} />}
                           </>
                         )}
                         <article>

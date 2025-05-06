@@ -12,12 +12,21 @@ type IndexCardsProps = {
 
 export function IndexCards({route, folderData}: IndexCardsProps) {
   // We don't want to show children of these pages. E.g. tabbed pages
-  const onlyDirectChildren = folderData.filter(
-    item => item.route.includes(`${route}/`) && item.route.split('/').length === 3,
-  )
+  const onlyDirectChildren = folderData.filter(item => {
+    // Normalize paths regardless of trailing slash enablement
+    const normalizedRoute = route.endsWith('/') ? route : `${route}/`
+    const normalizedItemRoute = item.route.endsWith('/') ? item.route : `${item.route}/`
 
-  const filteredData = onlyDirectChildren.filter(item => item.type === 'doc' && item.route.includes(`${route}/`))
+    const isChild = normalizedItemRoute.startsWith(normalizedRoute)
+    if (!isChild) return false
 
+    const routeSegments = normalizedRoute.split('/').filter(Boolean).length
+    const itemSegments = normalizedItemRoute.split('/').filter(Boolean).length
+
+    return itemSegments === routeSegments + 1
+  })
+
+  const filteredData = onlyDirectChildren.filter(item => item.type === 'doc')
   return (
     <Stack direction="vertical" padding="none" gap="spacious">
       {filteredData.map((item: DocsItem) => {

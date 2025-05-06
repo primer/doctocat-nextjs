@@ -150,6 +150,7 @@
 .Prose ul:not(:global(.custom-component) ul) {
   list-style-type: image;
   list-style-image: var(--brand-Prose-unorderedList-imageUrl);
+  margin-block-end: var(--base-size-24) !important;
 }
 
 .Prose li:not(:global(.custom-component) li) {
