@@ -1,5 +1,11 @@
 # @primer/doctocat-nextjs
 
+## 0.5.1
+
+### Patch Changes
+
+- [#35](https://github.com/primer/doctocat-nextjs/pull/35) [`d0c5bd4`](https://github.com/primer/doctocat-nextjs/commit/d0c5bd40829c417b610682049e4b5bd59b3f87f0) Thanks [@rezrah](https://github.com/rezrah)! - Enable support for `trailingSlash: true` in `next.config.js`
+
 ## 0.5.0
 
 ### Minor Changes
