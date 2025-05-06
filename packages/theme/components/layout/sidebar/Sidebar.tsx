@@ -63,6 +63,11 @@ export function Sidebar({pageMap}: SidebarProps) {
             )
           }
 
+          const normalizePath = (path: string) => {
+            // Remove trailing slash unless it's the root path
+            return path === '/' ? path : path.replace(/\/+$/, '')
+          }
+
           return (
             <NavList.Group title={subNavName} key={item.name} sx={{mb: 24}}>
               {item.children
@@ -73,7 +78,7 @@ export function Sidebar({pageMap}: SidebarProps) {
                   if (!hasChildren(child)) {
                     const {name, route} = child as MdxFile
 
-                    const cleanPathname = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname
+                    const cleanPathname = normalizePath(pathname)
                     return (
                       <NavList.Item
                         as={NextLink}
@@ -90,11 +95,6 @@ export function Sidebar({pageMap}: SidebarProps) {
                     const landingPageItem = (child as Folder).children.find(
                       innerChild => (innerChild as DocsItem).name === 'index',
                     ) as MdxFile
-
-                    const normalizePath = (path: string) => {
-                      // Remove trailing slash unless it's the root path
-                      return path === '/' ? path : path.replace(/\/+$/, '')
-                    }
 
                     // Then inside your component where you need to compare paths:
                     const cleanPathname = normalizePath(pathname)
