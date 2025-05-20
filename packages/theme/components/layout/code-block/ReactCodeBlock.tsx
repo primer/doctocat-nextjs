@@ -1,5 +1,5 @@
 'use client'
-import React, {PropsWithChildren, useCallback, useState} from 'react'
+import React, {type PropsWithChildren, useCallback, useState, useRef, useEffect} from 'react'
 import clsx from 'clsx'
 import {LiveProvider, LiveEditor, LiveError, LivePreview} from 'react-live'
 import {useColorMode} from '../../context/color-modes/useColorMode'
@@ -16,11 +16,22 @@ type ReactCodeBlockProps = {
   jsxScope: Record<string, unknown>
 } & PropsWithChildren<HTMLElement>
 
+const getFocusableElements = () => {
+  const focusableElementsQuery = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+
+  return Array.from(document.querySelectorAll<HTMLElement>(focusableElementsQuery)).filter(el => {
+    const style = window.getComputedStyle(el)
+    return style.display !== 'none' && style.visibility !== 'hidden' && !el.hasAttribute('disabled')
+  })
+}
+
 export function ReactCodeBlock(props: ReactCodeBlockProps) {
   const {colorMode, setColorMode} = useColorMode()
   const initialCode = getCodeFromChildren(props.children)
   const [code, setCode] = useState(initialCode)
   const shouldShowPreview = ['tsx', 'jsx'].includes(props['data-language'])
+  const editorRef = useRef<HTMLDivElement>(null)
+  const resetButtonRef = useRef<HTMLButtonElement>(null)
 
   const handleReset = useCallback(() => {
     setCode(initialCode)
@@ -31,6 +42,41 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
   }, [code])
 
   const noInline = props['data-filename'] === 'noinline' || false
+
+  useEffect(() => {
+    const editor = editorRef.current
+
+    if (!editor) return
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') {
+        return
+      }
+
+      if (e.shiftKey) {
+        e.preventDefault()
+        // We know that the previous focusable element is always the reset button
+        resetButtonRef.current?.focus()
+        return
+      }
+
+      const focusableElements = getFocusableElements()
+
+      const currentIndex = focusableElements.findIndex(el => el === resetButtonRef.current)
+
+      if (currentIndex !== -1) {
+        e.preventDefault()
+        const nextIndex = currentIndex + 1
+        focusableElements[nextIndex]?.focus()
+      }
+    }
+
+    editor.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      editor.removeEventListener('keydown', onKeyDown)
+    }
+  }, [])
 
   return (
     <>
@@ -65,11 +111,11 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
             <Button size="small" leadingVisual={CopyIcon} onClick={handleCopy}>
               Copy
             </Button>
-            <Button size="small" leadingVisual={UndoIcon} onClick={handleReset}>
+            <Button size="small" leadingVisual={UndoIcon} onClick={handleReset} ref={resetButtonRef}>
               Reset
             </Button>
           </div>
-          <div className={styles.Editor}>
+          <div className={styles.Editor} ref={editorRef}>
             <LiveEditor theme={colorMode === 'light' ? lightTheme : darkTheme} onChange={setCode} />
           </div>
           {shouldShowPreview && (
