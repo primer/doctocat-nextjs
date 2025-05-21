@@ -7,6 +7,7 @@
   "scripts": {
     "check": "tsc --noEmit",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./.eslintrc.cjs",
+    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./.eslintrc.cjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "GitHub, Inc.",
@@ -20,7 +21,7 @@
     "@next/mdx": "15.2.4",
     "@primer/octicons-react": "19.15.1",
     "@primer/react": "^37.11.0",
-    "@primer/react-brand": "^0.54.0",
+    "@primer/react-brand": "0.54.0",
     "@types/lodash.debounce": "^4.0.9",
     "framer-motion": "12.4.0",
     "lodash.debounce": "^4.0.8",
