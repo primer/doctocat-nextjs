@@ -1,9 +1,9 @@
 import React from 'react'
-import {Heading, Stack, Text} from '@primer/react-brand'
-
-import Link from 'next/link'
-import styles from './IndexCards.module.css'
+import {Card, Grid} from '@primer/react-brand'
 import {DocsItem} from '../../../types'
+import {useColorMode} from '../../context/color-modes/useColorMode'
+
+import styles from './IndexCards.module.css'
 
 type IndexCardsProps = {
   route: string
@@ -27,23 +27,29 @@ export function IndexCards({route, folderData}: IndexCardsProps) {
   })
 
   const filteredData = onlyDirectChildren.filter(item => item.type === 'doc')
+
+  const {colorMode} = useColorMode()
+
   return (
-    <Stack direction="vertical" padding="none" gap="spacious">
+    <Grid className={styles.IndexCards}>
       {filteredData.map((item: DocsItem) => {
         if (item.type !== 'doc' || !item.frontMatter) return null
 
-        return (
-          <Stack direction="vertical" padding="none" gap="condensed" key={item.frontMatter.title}>
-            <Heading as="h2" size="6" className={styles.heading}>
-              <Link href={item.route} legacyBehavior passHref>
-                {item.frontMatter.title}
-              </Link>
-            </Heading>
+        const thumbnailUrl =
+          colorMode === 'dark' && item.frontMatter.thumbnail_darkMode
+            ? item.frontMatter.thumbnail_darkMode
+            : item.frontMatter.thumbnail
 
-            {item.frontMatter.description && <Text as="p">{item.frontMatter.description}</Text>}
-          </Stack>
+        return (
+          <Grid.Column span={{xsmall: 12, small: 12, medium: 12, large: 6, xlarge: 4}} key={item.frontMatter.title}>
+            <Card href={item.route} hasBorder>
+              <Card.Image src={thumbnailUrl} alt="" aspectRatio="4:3" />
+              <Card.Heading>{item.frontMatter.title}</Card.Heading>
+              {item.frontMatter.description && <Card.Description>{item.frontMatter.description}</Card.Description>}
+            </Card>
+          </Grid.Column>
         )
       })}
-    </Stack>
+    </Grid>
   )
 }
