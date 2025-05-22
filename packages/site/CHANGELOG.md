@@ -1,5 +1,16 @@
 # doctocat-nextjs-site
 
+## 0.0.10
+
+### Patch Changes
+
+- [#39](https://github.com/primer/doctocat-nextjs/pull/39) [`9090a35`](https://github.com/primer/doctocat-nextjs/commit/9090a3516de8657321ff2217e944cca6466ec9a0) Thanks [@danielguillan](https://github.com/danielguillan)! - Updated index pages to use a grid of Cards with thumbnails
+
+- [#38](https://github.com/primer/doctocat-nextjs/pull/38) [`e950c9a`](https://github.com/primer/doctocat-nextjs/commit/e950c9af9ad410025437510113172e207e2e30a2) Thanks [@danielguillan](https://github.com/danielguillan)! - Updated Primer Brand library to v0.54.0
+
+- Updated dependencies [[`9090a35`](https://github.com/primer/doctocat-nextjs/commit/9090a3516de8657321ff2217e944cca6466ec9a0), [`e950c9a`](https://github.com/primer/doctocat-nextjs/commit/e950c9af9ad410025437510113172e207e2e30a2)]:
+  - @primer/doctocat-nextjs@0.5.2
+
 ## 0.0.9
 
 ### Patch Changes
