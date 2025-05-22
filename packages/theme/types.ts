@@ -38,4 +38,6 @@ export type FrontMatter = {
   timestamp?: number
   title?: string
   [key: string]: unknown
+  thumbnail?: string
+  thumbnail_darkMode?: string
 }
