@@ -18,7 +18,7 @@ body {
   margin-block-start: 0 !important;
 }
 
-pre {
+pre:not(:global(.CodeBlock) pre) {
   background-color: var(--brand-color-canvas-subtle);
   border-radius: var(--brand-borderRadius-large);
   padding-top: 1rem;
