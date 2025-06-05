@@ -15,12 +15,8 @@
 }
 
 .NavList h3 {
-  font-weight: normal;
-  text-transform: uppercase;
-}
-
-.NavList [data-component='ActionList.Divider'] {
-  display: none; /* TODO: Find workaround to hide this in component */
+  color: var(--brand-color-text-default);
+  font-size: var(--brand-text-size-100);
 }
 
 .NavList__Container li a,

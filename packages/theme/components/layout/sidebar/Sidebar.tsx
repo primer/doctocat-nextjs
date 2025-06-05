@@ -78,6 +78,9 @@ export function Sidebar({pageMap}: SidebarProps) {
 
           return (
             <NavList.Group title={subNavName} key={item.name} sx={{mb: 24}}>
+              <NavList.GroupHeading as="h3">
+                <NextLink href={item.route}>{subNavName}</NextLink>
+              </NavList.GroupHeading>
               {item.children
                 .sort((a, b) => ((a as MdxFile).name === 'index' ? -1 : (b as MdxFile).name === 'index' ? 1 : 0)) // puts index page first
                 // only show index page if it has show-tabs
