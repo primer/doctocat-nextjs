@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react'
 import NextLink from 'next/link'
 import {NavList} from '@primer/react'
+import {Text} from '@primer/react-brand'
 import type {Folder, MdxFile, PageMapItem} from 'nextra'
 
 import styles from './Sidebar.module.css'
@@ -20,7 +21,8 @@ type SidebarProps = {
 
 export function Sidebar({pageMap}: SidebarProps) {
   const pathname = usePathname()
-  const {sidebarLinks} = useConfig()
+  const {headerLinks, sidebarLinks} = useConfig()
+  const activeHeaderLink = headerLinks.find(link => link.isActive)
 
   /**
    * Sorts the incoming data so that folders with a menu-position frontmatter value
@@ -46,6 +48,12 @@ export function Sidebar({pageMap}: SidebarProps) {
 
   return (
     <div className={styles.Sidebar}>
+      {activeHeaderLink && (
+        <Text size="400" weight="semibold" className={styles.Sidebar__title}>
+          {activeHeaderLink.title}
+        </Text>
+      )}
+
       <NavList className={styles.NavList} aria-label="Menu links">
         {reorderedPageMap.map(item => {
           if (item.hasOwnProperty('data')) return null
@@ -85,6 +93,7 @@ export function Sidebar({pageMap}: SidebarProps) {
                         key={name}
                         href={route}
                         aria-current={route === cleanPathname ? 'page' : undefined}
+                        className={styles.NavListItem}
                       >
                         {(child as MdxFile).frontMatter?.title || name}
                       </NavList.Item>
@@ -110,6 +119,7 @@ export function Sidebar({pageMap}: SidebarProps) {
                         href={landingPageItem.route}
                         sx={{textTransform: 'capitalize'}}
                         aria-current={isCurrentOrChild ? 'page' : undefined}
+                        className={styles.NavListItem}
                       >
                         {landingPageItem.frontMatter?.title || item.name}
                       </NavList.Item>
@@ -129,6 +139,7 @@ export function Sidebar({pageMap}: SidebarProps) {
                   href={link.href}
                   {...(link.isExternal && {target: '_blank', rel: 'noopener noreferrer'})}
                   aria-current={link.isActive ? 'page' : undefined}
+                  className={styles.NavListItem}
                 >
                   {link.title}
                   {link.isExternal && (

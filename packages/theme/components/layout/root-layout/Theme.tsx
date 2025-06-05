@@ -28,6 +28,8 @@ import '@primer/react-brand/lib/css/main.css'
 import {normalizePages} from 'nextra/normalize-pages'
 import {usePathname} from 'next/navigation'
 
+import {useConfig} from '../../context/useConfig'
+
 import {Header} from '../header/Header'
 import {IndexCards} from '../index-cards/IndexCards'
 import {useColorMode} from '../../context/color-modes/useColorMode'
@@ -75,6 +77,9 @@ export function Theme({pageMap, children}: ThemeProps) {
 
   // eslint-disable-next-line i18n-text/no-en
   const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Example Site'
+  const {headerLinks} = useConfig()
+  const activeHeaderLink = headerLinks.find(link => link.isActive)
+
   const isHomePage = route === '/'
 
   const activeFile = isHomePage
@@ -133,7 +138,7 @@ export function Theme({pageMap, children}: ThemeProps) {
                           <>
                             {activePath.length && (
                               <Breadcrumbs>
-                                {siteTitle && (
+                                {(activeHeaderLink || siteTitle) && (
                                   <Breadcrumbs.Item
                                     as={NextLink}
                                     href="/"
@@ -141,7 +146,7 @@ export function Theme({pageMap, children}: ThemeProps) {
                                       color: 'var(--brand-InlineLink-color-rest)',
                                     }}
                                   >
-                                    {siteTitle}
+                                    {activeHeaderLink ? activeHeaderLink.title : siteTitle}
                                   </Breadcrumbs.Item>
                                 )}
                                 {activePath.map((item, index) => {

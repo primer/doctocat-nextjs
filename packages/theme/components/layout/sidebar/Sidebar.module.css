@@ -1,3 +1,13 @@
+.Sidebar__title {
+  display: block;
+  padding: var(--base-size-24) var(--base-size-16) 0;
+}
+
+.NavList {
+  font-family: var(--brand-fontStack-sansSerif);
+  font-size: inherit;
+}
+
 @media (min-width: 768px) {
   .Sidebar {
     padding-inline-start: var(--base-size-8);
@@ -13,10 +23,17 @@
   display: none; /* TODO: Find workaround to hide this in component */
 }
 
-.NavList h3 {
-  text-transform: initial;
-  color: var(--brand-color-text-default);
-  font-weight: var(--brand-text-subhead-weight-medium);
-  font-size: var(--brand-text-subhead-size-medium);
-  line-height: var(--brand-text-subhead-lineHeight-medium);
+.NavList__Container li a,
+.NavList__Container li button {
+  font-size: var(--brand-text-size-200);
+  padding-block: 0.5em;
+}
+
+.NavList .NavListItem {
+  margin-top: var(--base-size-4);
+}
+
+.NavList .NavListItem,
+.NavList .NavListItem a {
+  font-size: inherit;
 }
