@@ -63,18 +63,19 @@ export function IndexCards({route, folderData}: IndexCardsProps) {
   const {colorMode} = useColorMode()
 
   // This is a better approach to straight randomisation, as it ensures that no adjacent placeholder images will be the same.
-  const getNextPlaceholderIndex = useCallback((placeholderArray: StaticImageData[]) => {
+  const getNextPlaceholderIndex = useCallback((placeholderArray: StaticImageData[]): StaticImageData => {
     if (placeholderArray.length <= 1) {
-      return 0
+      return placeholderArray[0]
     }
 
-    const availableIndices = placeholderArray
-      .map((_, idx) => idx)
-      .filter(idx => idx !== lastPlaceholderIndexRef.current)
-    const nextIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)]
+    const numImagesByIndex = placeholderArray.map((_, index) => index)
+
+    const filteredIndexes = numImagesByIndex.filter(index => index !== lastPlaceholderIndexRef.current)
+
+    const nextIndex = filteredIndexes[Math.floor(Math.random() * filteredIndexes.length)]
 
     lastPlaceholderIndexRef.current = nextIndex
-    return nextIndex
+    return placeholderArray[nextIndex]
   }, [])
 
   return (
@@ -84,10 +85,8 @@ export function IndexCards({route, folderData}: IndexCardsProps) {
 
         const thumbnailUrl =
           colorMode === 'dark'
-            ? item.frontMatter.thumbnail_darkMode ||
-              darkModePlaceholderThumbs[getNextPlaceholderIndex(darkModePlaceholderThumbs)].src
-            : item.frontMatter.thumbnail ||
-              lightModePlaceholderThumbs[getNextPlaceholderIndex(lightModePlaceholderThumbs)].src
+            ? item.frontMatter.thumbnail_darkMode || getNextPlaceholderIndex(darkModePlaceholderThumbs).src
+            : item.frontMatter.thumbnail || getNextPlaceholderIndex(lightModePlaceholderThumbs).src
 
         return (
           <Grid.Column span={{xsmall: 12, small: 12, medium: 12, large: 6, xlarge: 4}} key={item.frontMatter.title}>
