@@ -2,4 +2,4 @@
 '@primer/doctocat-nextjs': patch
 ---
 
-Add placeholder images to index cards when thumbnails aren't provided through frontmatter
+Added placeholder images to the Index page cards, where `thumbnail` and `thumbnail_darkMode` aren't provided through the frontmatter
