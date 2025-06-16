@@ -1,5 +1,23 @@
 # @primer/doctocat-nextjs
 
+## 0.5.2
+
+### Patch Changes
+
+- [#41](https://github.com/primer/doctocat-nextjs/pull/41) [`e1ffb3a`](https://github.com/primer/doctocat-nextjs/commit/e1ffb3a630c51316a19e25869f731b4ef3660d2b) Thanks [@danielguillan](https://github.com/danielguillan)! - - Updated sidebar styles.
+
+  - Added active header link as sidebar heading.
+  - Made active header the root item of breadcrumbs, if available.
+  - Made sidebar group headlines link to the index page.
+
+- [#39](https://github.com/primer/doctocat-nextjs/pull/39) [`9090a35`](https://github.com/primer/doctocat-nextjs/commit/9090a3516de8657321ff2217e944cca6466ec9a0) Thanks [@danielguillan](https://github.com/danielguillan)! - Updated index pages to use a grid of Cards with thumbnails.
+
+  Use `thumbnail` and `thumbnail_darkMode` to set custom thumbnail URLs for light and dark color modes respectively.
+
+- [#38](https://github.com/primer/doctocat-nextjs/pull/38) [`e950c9a`](https://github.com/primer/doctocat-nextjs/commit/e950c9af9ad410025437510113172e207e2e30a2) Thanks [@danielguillan](https://github.com/danielguillan)! - Updated Primer Brand library to `v0.54.0`
+
+- [#42](https://github.com/primer/doctocat-nextjs/pull/42) [`c9c2d16`](https://github.com/primer/doctocat-nextjs/commit/c9c2d16aa12ad56c71ec5ddbc008a028a378d81d) Thanks [@rezrah](https://github.com/rezrah)! - Added placeholder images to the Index page cards, where `thumbnail` and `thumbnail_darkMode` aren't provided through the frontmatter
+
 ## 0.5.1
 
 ### Patch Changes
