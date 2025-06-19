@@ -18,7 +18,8 @@ body {
   margin-block-start: 0 !important;
 }
 
-pre:not(:global(.CodeBlock) pre) {
+/* Pre styles are scoped to Nextra code blocks to prevent unintended styling of other code blocks (e.g., ReactCodeBlock previews). */
+.nextra-code pre {
   background-color: var(--brand-color-canvas-subtle);
   border-radius: var(--brand-borderRadius-large);
   padding-top: 1rem;
