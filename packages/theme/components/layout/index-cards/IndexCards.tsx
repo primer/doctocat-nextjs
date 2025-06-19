@@ -3,6 +3,7 @@ import {Card, Grid} from '@primer/react-brand'
 import {DocsItem} from '../../../types'
 import {useColorMode} from '../../context/color-modes/useColorMode'
 import type {StaticImageData} from 'next/image'
+import Link from 'next/link'
 import placeholderDarkOneThumb from './images/dark-1.png'
 import placeholderDarkTwoThumb from './images/dark-2.png'
 import placeholderDarkThreeThumb from './images/dark-3.png'
@@ -90,11 +91,13 @@ export function IndexCards({route, folderData}: IndexCardsProps) {
 
         return (
           <Grid.Column span={{xsmall: 12, small: 12, medium: 12, large: 6, xlarge: 4}} key={item.frontMatter.title}>
-            <Card href={item.route} hasBorder>
-              <Card.Image src={thumbnailUrl} alt="" aspectRatio="4:3" />
-              <Card.Heading>{item.frontMatter.title}</Card.Heading>
-              {item.frontMatter.description && <Card.Description>{item.frontMatter.description}</Card.Description>}
-            </Card>
+            <Link legacyBehavior passHref href={item.route}>
+              <Card href="#" hasBorder>
+                <Card.Image src={thumbnailUrl} alt="" aspectRatio="4:3" />
+                <Card.Heading>{item.frontMatter.title}</Card.Heading>
+                {item.frontMatter.description && <Card.Description>{item.frontMatter.description}</Card.Description>}
+              </Card>
+            </Link>
           </Grid.Column>
         )
       })}
