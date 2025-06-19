@@ -1,11 +1,11 @@
 .Article {
   display: grid;
-  grid-template-areas: 'main aside';
-  grid-template-columns: 1fr 200px;
 }
 
 .Article--withToc {
   gap: var(--base-size-48);
+  grid-template-areas: 'main aside';
+  grid-template-columns: 1fr 200px;
 }
 
 .main {
