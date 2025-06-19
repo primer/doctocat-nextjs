@@ -11,7 +11,7 @@
 .main {
   grid-area: main;
   max-width: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .aside {
