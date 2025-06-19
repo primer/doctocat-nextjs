@@ -1,5 +1,7 @@
 .Article {
   display: grid;
+  grid-template-areas: 'main aside';
+  grid-template-columns: 1fr 200px;
 }
 
 .Article--withToc {
@@ -7,36 +9,28 @@
 }
 
 .main {
-  order: 1;
+  grid-area: main;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .aside {
-  order: 0;
+  grid-area: aside;
+  position: relative;
 }
 
-@media screen and (max-width: 48rem) {
+@media screen and (max-width: 1023px) {
   .Article--withToc {
-    display: flex; /* Prevents column overflow */
-    flex-direction: column;
-  }
-}
-
-@media screen and (min-width: 1023px) {
-  .main {
-    order: 0;
-  }
-
-  .aside {
-    order: 1;
-  }
-
-  .Article--withToc {
-    grid-template-columns: 1fr 200px;
+    grid-template-areas:
+      'aside'
+      'main';
+    grid-template-columns: 1fr;
   }
 }
 
 @media screen and (min-width: 2048px) {
   .Article--withToc {
+    grid-template-areas: 'main';
     grid-template-columns: 1fr;
   }
 }
