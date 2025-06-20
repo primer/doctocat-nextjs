@@ -26,7 +26,6 @@
     display: flex;
     flex-direction: column;
     min-width: 280px;
-    right: 0;
     overflow: auto;
     padding: var(--base-size-40) var(--base-size-40) var(--base-size-40) 0;
     top: 65px;

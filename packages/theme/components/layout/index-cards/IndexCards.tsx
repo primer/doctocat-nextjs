@@ -96,7 +96,7 @@ export function IndexCards({route, folderData}: IndexCardsProps) {
         return (
           <Grid.Column span={{xsmall: 12, small: 12, medium: 12, large: 6, xlarge: 4}} key={item.frontMatter.title}>
             <Link legacyBehavior passHref href={item.route}>
-              <Card href="#" hasBorder>
+              <Card href="#" hasBorder fullWidth>
                 <Card.Image src={thumbnailUrl} alt="" aspectRatio="4:3" />
                 <Card.Heading>{item.frontMatter.title}</Card.Heading>
                 {item.frontMatter.description && <Card.Description>{item.frontMatter.description}</Card.Description>}
