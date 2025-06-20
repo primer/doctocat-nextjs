@@ -88,9 +88,10 @@ export function IndexCards({route, folderData}: IndexCardsProps) {
 
         const thumbnailUrl =
           colorMode === 'dark'
-            ? `${basePath ? basePath : ''}${item.frontMatter.thumbnail_darkMode}` ||
-              getNextPlaceholderIndex(darkModePlaceholderThumbs).src
-            : `${basePath ? basePath : ''}${item.frontMatter.thumbnail}` ||
+            ? (item.frontMatter.thumbnail_darkMode
+                ? `${basePath || ''}${item.frontMatter.thumbnail_darkMode}`
+                : null) || getNextPlaceholderIndex(darkModePlaceholderThumbs).src
+            : (item.frontMatter.thumbnail ? `${basePath || ''}${item.frontMatter.thumbnail}` : null) ||
               getNextPlaceholderIndex(lightModePlaceholderThumbs).src
 
         return (
