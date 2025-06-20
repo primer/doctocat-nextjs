@@ -88,14 +88,16 @@ export function IndexCards({route, folderData}: IndexCardsProps) {
 
         const thumbnailUrl =
           colorMode === 'dark'
-            ? item.frontMatter.thumbnail_darkMode || getNextPlaceholderIndex(darkModePlaceholderThumbs).src
-            : item.frontMatter.thumbnail || getNextPlaceholderIndex(lightModePlaceholderThumbs).src
+            ? `${basePath ? basePath : ''}${item.frontMatter.thumbnail_darkMode}` ||
+              getNextPlaceholderIndex(darkModePlaceholderThumbs).src
+            : `${basePath ? basePath : ''}${item.frontMatter.thumbnail}` ||
+              getNextPlaceholderIndex(lightModePlaceholderThumbs).src
 
         return (
           <Grid.Column span={{xsmall: 12, small: 12, medium: 12, large: 6, xlarge: 4}} key={item.frontMatter.title}>
             <Link legacyBehavior passHref href={item.route}>
               <Card href="#" hasBorder>
-                <Card.Image src={`${basePath ? basePath : ''}${thumbnailUrl}`} alt="" aspectRatio="4:3" />
+                <Card.Image src={thumbnailUrl} alt="" aspectRatio="4:3" />
                 <Card.Heading>{item.frontMatter.title}</Card.Heading>
                 {item.frontMatter.description && <Card.Description>{item.frontMatter.description}</Card.Description>}
               </Card>
