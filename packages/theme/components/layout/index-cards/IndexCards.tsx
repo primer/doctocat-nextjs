@@ -18,6 +18,7 @@ import placeholderLightFiveThumb from './images/light-5.png'
 import placeholderLightSixThumb from './images/light-6.png'
 
 import styles from './IndexCards.module.css'
+import {useConfig} from '../../context/useConfig'
 
 type IndexCardsProps = {
   route: string
@@ -43,6 +44,7 @@ const lightModePlaceholderThumbs = [
 ] as unknown as StaticImageData[]
 
 export function IndexCards({route, folderData}: IndexCardsProps) {
+  const {basePath} = useConfig()
   const lastPlaceholderIndexRef = useRef<number>(-1)
   // We don't want to show children of these pages. E.g. tabbed pages
   const onlyDirectChildren = folderData.filter(item => {
@@ -93,7 +95,7 @@ export function IndexCards({route, folderData}: IndexCardsProps) {
           <Grid.Column span={{xsmall: 12, small: 12, medium: 12, large: 6, xlarge: 4}} key={item.frontMatter.title}>
             <Link legacyBehavior passHref href={item.route}>
               <Card href="#" hasBorder>
-                <Card.Image src={thumbnailUrl} alt="" aspectRatio="4:3" />
+                <Card.Image src={`${basePath ? basePath : ''}${thumbnailUrl}`} alt="" aspectRatio="4:3" />
                 <Card.Heading>{item.frontMatter.title}</Card.Heading>
                 {item.frontMatter.description && <Card.Description>{item.frontMatter.description}</Card.Description>}
               </Card>

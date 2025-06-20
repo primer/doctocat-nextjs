@@ -2,4 +2,4 @@
 '@primer/doctocat-nextjs': patch
 ---
 
-Prepend basePath to paths in Doctocat UI, where it would previously not resolve correctly.
+Prepend `basePath` from `next.config.js` to paths in Doctocat UI components, where it would previously not resolve correctly.
