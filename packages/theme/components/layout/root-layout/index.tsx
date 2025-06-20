@@ -25,6 +25,7 @@ export default function Shell({children, headerLinks = [], sidebarLinks = [], ..
         value={{
           headerLinks,
           sidebarLinks,
+          basePath: process.env.NEXT_PUBLIC_DOCTOCAT_BASE_PATH || '',
         }}
       >
         <Theme {...rest}>{children}</Theme>
