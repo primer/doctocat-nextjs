@@ -1,5 +1,13 @@
 # @primer/doctocat-nextjs
 
+## 0.5.3
+
+### Patch Changes
+
+- [#43](https://github.com/primer/doctocat-nextjs/pull/43) [`1b15bdf`](https://github.com/primer/doctocat-nextjs/commit/1b15bdfcf4b54996f38d20f1da711def23c636bd) Thanks [@rezrah](https://github.com/rezrah)! - Fix lack of `basePath` support on index cards. `href` now prepends the `basePath`.
+
+- [#46](https://github.com/primer/doctocat-nextjs/pull/46) [`2b99ba6`](https://github.com/primer/doctocat-nextjs/commit/2b99ba614d1bfe8f1c478b10a61c52df479901c9) Thanks [@rezrah](https://github.com/rezrah)! - Prepend `basePath` from `next.config.js` to paths in Doctocat UI components, where it would previously not resolve correctly.
+
 ## 0.5.2
 
 ### Patch Changes
