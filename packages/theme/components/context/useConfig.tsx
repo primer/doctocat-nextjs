@@ -10,6 +10,7 @@ export type ConfigContextLink = {
 export type ConfigContextValue = {
   headerLinks: ConfigContextLink[]
   sidebarLinks: ConfigContextLink[]
+  basePath: string
 }
 
 export const ConfigContext = createContext<ConfigContextValue | null>(null)

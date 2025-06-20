@@ -3,12 +3,14 @@ import React, {PropsWithChildren, useCallback, useState} from 'react'
 import clsx from 'clsx'
 import {LiveProvider, LiveEditor, LiveError, LivePreview} from 'react-live'
 import {useColorMode} from '../../context/color-modes/useColorMode'
+import {useConfig} from '../../context/useConfig'
 import styles from './ReactCodeBlock.module.css'
 import {ActionBar, Button, ThemeProvider} from '@primer/react'
 import {CopyIcon, MoonIcon, SunIcon, UndoIcon} from '@primer/octicons-react'
 import {colorModes} from '../../context/color-modes/context'
 
 import {lightTheme, darkTheme} from './syntax-highlighting-themes'
+import {codeTransformer} from './code-transformer'
 
 type ReactCodeBlockProps = {
   'data-language': string
@@ -18,9 +20,18 @@ type ReactCodeBlockProps = {
 
 export function ReactCodeBlock(props: ReactCodeBlockProps) {
   const {colorMode, setColorMode} = useColorMode()
+  const {basePath} = useConfig()
   const initialCode = getCodeFromChildren(props.children)
   const [code, setCode] = useState(initialCode)
   const shouldShowPreview = ['tsx', 'jsx'].includes(props['data-language'])
+
+  /**
+   * Transforms code to prepend basePath to img src attributes
+   */
+  const transformCodeWithBasePath = useCallback(
+    (sourceCode: string) => codeTransformer(sourceCode, basePath),
+    [basePath],
+  )
 
   const handleReset = useCallback(() => {
     setCode(initialCode)
@@ -34,7 +45,7 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
 
   return (
     <>
-      <LiveProvider code={code} scope={props.jsxScope} noInline={noInline}>
+      <LiveProvider transformCode={transformCodeWithBasePath} code={code} scope={props.jsxScope} noInline={noInline}>
         <div className={clsx(styles.CodeBlock, 'custom-component')}>
           {shouldShowPreview && (
             <div>

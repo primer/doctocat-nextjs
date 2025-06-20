@@ -18,6 +18,7 @@ import placeholderLightFiveThumb from './images/light-5.png'
 import placeholderLightSixThumb from './images/light-6.png'
 
 import styles from './IndexCards.module.css'
+import {useConfig} from '../../context/useConfig'
 
 type IndexCardsProps = {
   route: string
@@ -43,6 +44,7 @@ const lightModePlaceholderThumbs = [
 ] as unknown as StaticImageData[]
 
 export function IndexCards({route, folderData}: IndexCardsProps) {
+  const {basePath} = useConfig()
   const lastPlaceholderIndexRef = useRef<number>(-1)
   // We don't want to show children of these pages. E.g. tabbed pages
   const onlyDirectChildren = folderData.filter(item => {
@@ -86,8 +88,10 @@ export function IndexCards({route, folderData}: IndexCardsProps) {
 
         const thumbnailUrl =
           colorMode === 'dark'
-            ? item.frontMatter.thumbnail_darkMode || getNextPlaceholderIndex(darkModePlaceholderThumbs).src
-            : item.frontMatter.thumbnail || getNextPlaceholderIndex(lightModePlaceholderThumbs).src
+            ? `${basePath ? basePath : ''}${item.frontMatter.thumbnail_darkMode}` ||
+              getNextPlaceholderIndex(darkModePlaceholderThumbs).src
+            : `${basePath ? basePath : ''}${item.frontMatter.thumbnail}` ||
+              getNextPlaceholderIndex(lightModePlaceholderThumbs).src
 
         return (
           <Grid.Column span={{xsmall: 12, small: 12, medium: 12, large: 6, xlarge: 4}} key={item.frontMatter.title}>

@@ -10,7 +10,7 @@ const withNextra = nextra({
  * Relies on `transpilePackages: ['@primer/doctocat-nextjs'],` being set in the next.config
  */
 function withDoctocat(config = {}) {
-  return {
+  const finalConfig = {
     ...withNextra(),
     images: {
       unoptimized: true,
@@ -18,6 +18,13 @@ function withDoctocat(config = {}) {
 
     ...config,
   }
+
+  // Enables basePath in next.config.js to be used inside Doctocat
+  if (finalConfig.basePath) {
+    process.env.NEXT_PUBLIC_DOCTOCAT_BASE_PATH = finalConfig.basePath
+  }
+
+  return finalConfig
 }
 
 export default withDoctocat
