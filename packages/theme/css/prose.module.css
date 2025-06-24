@@ -211,6 +211,11 @@
   background-color: var(--base-color-scale-indigo-0);
 }
 
+/* Inline code inside headings should inherit font-size */
+.Prose :is(h1, h2, h3, h4, h5, h6):has(code) code:not(:global(.custom-component) code) {
+  font-size: inherit;
+}
+
 [data-color-mode='dark'] .Prose code:not(:global(.custom-component) code) {
   background-color: var(--base-color-scale-indigo-9);
 }
