@@ -1,4 +1,5 @@
 .CodeBlock {
+  --spacing: var(--base-size-40);
   margin-block: var(--base-size-24);
   background-color: var(--brand-color-canvas-default);
   border: var(--brand-borderWidth-thin) solid var(--brand-color-border-default);
