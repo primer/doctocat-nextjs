@@ -82,7 +82,29 @@ export function Sidebar({pageMap}: SidebarProps) {
                 <NextLink href={item.route}>{subNavName}</NextLink>
               </NavList.GroupHeading>
               {item.children
-                .sort((a, b) => ((a as MdxFile).name === 'index' ? -1 : (b as MdxFile).name === 'index' ? 1 : 0)) // puts index page first
+                .sort((a, b) => {
+                  // make sure index page is first
+                  if ((a as MdxFile).name === 'index') return -1
+                  if ((b as MdxFile).name === 'index') return 1
+
+                  // Check for menu-position property in frontmatter
+                  const aPos = (a as MdxFile).frontMatter?.['menu-position']
+                  const bPos = (b as MdxFile).frontMatter?.['menu-position']
+
+                  // If both have menu-position, sort by menu-position
+                  if (typeof aPos === 'number' && typeof bPos === 'number') {
+                    return aPos - bPos
+                  }
+
+                  // If only one has menu-position, it comes first
+                  if (typeof aPos === 'number') return -1
+                  if (typeof bPos === 'number') return 1
+
+                  // Neither has menu-position, sort alphabetically by title or name
+                  const aTitle = (a as MdxFile).frontMatter?.title || (a as MdxFile).name
+                  const bTitle = (b as MdxFile).frontMatter?.title || (b as MdxFile).name
+                  return aTitle.localeCompare(bTitle)
+                })
                 // only show index page if it has show-tabs
                 .filter(child => (child as MdxFile).name !== 'index' || hasShowTabs(child as ExtendedPageItem))
                 .map(child => {
