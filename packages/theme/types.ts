@@ -31,6 +31,7 @@ export type FrontMatter = {
   description?: string
   filePath?: string
   keywords?: string[]
+  menu_position?: number
   related?: {
     title: string
     href: string
