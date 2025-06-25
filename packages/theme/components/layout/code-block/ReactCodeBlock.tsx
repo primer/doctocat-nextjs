@@ -1,16 +1,19 @@
 'use client'
-import React, {PropsWithChildren, useCallback, useState} from 'react'
+import React, {PropsWithChildren, useCallback, useState, useRef, useEffect, useId} from 'react'
 import clsx from 'clsx'
 import {LiveProvider, LiveEditor, LiveError, LivePreview} from 'react-live'
 import {useColorMode} from '../../context/color-modes/useColorMode'
 import {useConfig} from '../../context/useConfig'
 import styles from './ReactCodeBlock.module.css'
 import {ActionBar, Button, ThemeProvider} from '@primer/react'
-import {CopyIcon, MoonIcon, SunIcon, UndoIcon} from '@primer/octicons-react'
+import {Text} from '@primer/react-brand'
+import {CopyIcon, MoonIcon, SunIcon, UndoIcon, UnfoldIcon, FoldIcon} from '@primer/octicons-react'
 import {colorModes} from '../../context/color-modes/context'
 
 import {lightTheme, darkTheme} from './syntax-highlighting-themes'
 import {codeTransformer} from './code-transformer'
+
+const COLLAPSE_HEIGHT = 400 // TODO: Hoist this to config to make user customizable eventually
 
 type ReactCodeBlockProps = {
   'data-language': string
@@ -19,11 +22,34 @@ type ReactCodeBlockProps = {
 } & PropsWithChildren<HTMLElement>
 
 export function ReactCodeBlock(props: ReactCodeBlockProps) {
+  const uniqueId = useId()
   const {colorMode, setColorMode} = useColorMode()
   const {basePath} = useConfig()
   const initialCode = getCodeFromChildren(props.children)
   const [code, setCode] = useState(initialCode)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const [isCodePaneCollapsed, setIsCodePaneCollapsed] = useState<boolean | null>(null)
+  const [initialPosition, setInitialPosition] = useState<number | null>(null)
+  const editorRef = useRef<HTMLDivElement>(null)
   const shouldShowPreview = ['tsx', 'jsx'].includes(props['data-language'])
+
+  // scroll back to the initial y pos on collapse state change
+  useEffect(() => {
+    if (rootRef.current && initialPosition === null) {
+      const rect = rootRef.current.getBoundingClientRect()
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      setInitialPosition(rect.top + scrollTop)
+    }
+  }, [initialPosition])
+
+  useEffect(() => {
+    if (editorRef.current && isCodePaneCollapsed === null) {
+      const editorHeight = editorRef.current.scrollHeight
+      setIsCodePaneCollapsed(editorHeight > COLLAPSE_HEIGHT)
+    }
+  }, [code, isCodePaneCollapsed])
+
+  const shouldShowCollapse = isCodePaneCollapsed !== null && (editorRef.current?.scrollHeight || 0) > COLLAPSE_HEIGHT
 
   /**
    * Transforms code to prepend basePath to img src attributes
@@ -41,12 +67,27 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
     navigator.clipboard.writeText(code)
   }, [code])
 
+  const handleCollapsibleCodePane = useCallback(() => {
+    const newCollapsedState = !isCodePaneCollapsed
+
+    if (!isCodePaneCollapsed && newCollapsedState && initialPosition !== null) {
+      requestAnimationFrame(() => {
+        window.scrollTo({
+          top: initialPosition,
+          behavior: 'smooth',
+        })
+      })
+    }
+
+    setIsCodePaneCollapsed(newCollapsedState)
+  }, [isCodePaneCollapsed, initialPosition])
+
   const noInline = props['data-filename'] === 'noinline' || false
 
   return (
     <>
       <LiveProvider transformCode={transformCodeWithBasePath} code={code} scope={props.jsxScope} noInline={noInline}>
-        <div className={clsx(styles.CodeBlock, 'custom-component')}>
+        <div ref={rootRef} className={clsx(styles.CodeBlock, 'custom-component')}>
           {shouldShowPreview && (
             <div>
               <div className={styles.colorModeMenu}>
@@ -80,8 +121,28 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
               Reset
             </Button>
           </div>
-          <div className={styles.Editor}>
-            <LiveEditor theme={colorMode === 'light' ? lightTheme : darkTheme} onChange={setCode} />
+          <div className={styles.EditorWrapper}>
+            <div
+              className={clsx(styles.Editor, isCodePaneCollapsed && styles['Editor--is-collapsed'])}
+              ref={editorRef}
+              id={`${uniqueId}-code-editor-content`}
+            >
+              <LiveEditor theme={colorMode === 'light' ? lightTheme : darkTheme} onChange={setCode} />
+            </div>
+            {shouldShowCollapse && (
+              <button
+                className={clsx(styles.collapseButton, isCodePaneCollapsed && styles['collapseButton--collapsed'])}
+                onClick={handleCollapsibleCodePane}
+                aria-expanded={!isCodePaneCollapsed}
+                aria-controls={`${uniqueId}-code-editor-content`}
+                aria-label={isCodePaneCollapsed ? 'Show full code block' : 'Collapse code block'}
+              >
+                <Text size="100" className={styles.collapseLabel}>
+                  {isCodePaneCollapsed ? 'Show full code' : 'Collapse code'}
+                </Text>
+                <Text variant="muted">{isCodePaneCollapsed ? <UnfoldIcon /> : <FoldIcon />}</Text>
+              </button>
+            )}
           </div>
           {shouldShowPreview && (
             <div className={styles.Error}>

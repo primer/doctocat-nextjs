@@ -28,6 +28,11 @@
   font-family: var(--brand-fontStack-monospace);
   background-color: var(--brand-color-canvas-subtle);
   overflow: auto;
+  position: relative;
+}
+
+.EditorWrapper {
+  position: relative;
 }
 
 .Editor pre {
@@ -35,6 +40,11 @@
   border-radius: 0;
   padding: var(--base-size-16) !important;
   background-color: var(--brand-color-canvas-subtle) !important;
+}
+
+.Editor--is-collapsed {
+  max-height: 400px;
+  overflow: hidden;
 }
 
 .Toolbar {
@@ -66,4 +76,45 @@
 
 .colorModeButtonActive {
   background-color: var(--brand-color-canvas-subtle);
+}
+
+.collapseButton {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--brand-color-canvas-subtle);
+  border: none;
+  border-top: var(--brand-borderWidth-thin) solid var(--brand-color-border-default);
+  border-bottom-left-radius: var(--brand-borderRadius-medium);
+  border-bottom-right-radius: var(--brand-borderRadius-medium);
+  padding: var(--base-size-8) var(--base-size-12);
+  font-size: var(--brand-text-size-100);
+  font-family: var(--brand-fontStack-system);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-4);
+  z-index: 10;
+  transition: background-color var(--brand-animation-duration-default) var(--brand-animation-easing-glide);
+}
+
+.collapseButton--collapsed::before {
+  content: '';
+  position: absolute;
+  top: -41px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--brand-color-canvas-subtle));
+  z-index: -1;
+}
+
+.collapseButton:hover,
+.collapseButton:focus {
+  background-color: var(--brand-color-canvas-default);
+}
+
+.collapseLabel {
+  font-size: var(--brand-text-size-100) !important;
 }

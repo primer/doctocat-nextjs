@@ -82,7 +82,7 @@ You can place an icon inside the Button in either the leading or the trailing po
 </Stack>
 ```
 
-### Animation
+### Collapsed long code blocks
 
 You can place an icon inside the Button in either the leading or the trailing position to enhance the visual context. It is recommended to use an [Octicon](https://primer.style/octicons) here.
 
@@ -95,12 +95,40 @@ You can place an icon inside the Button in either the leading or the trailing po
       Filter
     </Button>
   </Animate>
+  <Animate animate="fade-in">
+    <Button leadingVisual={<SearchIcon />}>Search</Button>
+    <Button trailingVisual={<ChevronDownIcon />}>Select</Button>
+    <Button leadingVisual={<FilterIcon />} trailingVisual={<ChevronDownIcon />}>
+      Filter
+    </Button>
+  </Animate>
+  <Animate animate="fade-in">
+    <Button leadingVisual={<SearchIcon />}>Search</Button>
+    <Button trailingVisual={<ChevronDownIcon />}>Select</Button>
+    <Button leadingVisual={<FilterIcon />} trailingVisual={<ChevronDownIcon />}>
+      Filter
+    </Button>
+  </Animate>
+  <Animate animate="fade-in">
+    <Button leadingVisual={<SearchIcon />}>Search</Button>
+    <Button trailingVisual={<ChevronDownIcon />}>Select</Button>
+    <Button leadingVisual={<FilterIcon />} trailingVisual={<ChevronDownIcon />}>
+      Filter
+    </Button>
+  </Animate>
+  <Animate animate="fade-in">
+    <Button leadingVisual={<SearchIcon />}>Search</Button>
+    <Button trailingVisual={<ChevronDownIcon />}>Select</Button>
+    <Button leadingVisual={<FilterIcon />} trailingVisual={<ChevronDownIcon />}>
+      Filter
+    </Button>
+  </Animate>
 </AnimationProvider>
 ```
 
 ### Images
 
-```
+```jsx live
 <>
   <img src="/images/avatar-mona.png" />
   <Avatar src="/images/avatar-mona.png" />
