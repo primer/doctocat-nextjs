@@ -1,5 +1,23 @@
 # @primer/doctocat-nextjs
 
+## 0.5.4
+
+### Patch Changes
+
+- [#51](https://github.com/primer/doctocat-nextjs/pull/51) [`4c76c4f`](https://github.com/primer/doctocat-nextjs/commit/4c76c4f5ccd248ec7d1f448c054808287a3ff51d) Thanks [@rezrah](https://github.com/rezrah)! - Add auto-collapsed React code blocks for large code snippets. This feature only applies to code fences with the `jsx live` language identifiers.
+
+  E.g.
+
+  ```jsx live
+  <>Your code</>
+  ```
+
+- [#48](https://github.com/primer/doctocat-nextjs/pull/48) [`ce73c24`](https://github.com/primer/doctocat-nextjs/commit/ce73c24b2e4e924667bf7446a504bd88d8f2ccf0) Thanks [@rezrah](https://github.com/rezrah)! - - Fix inline code font-size in markdown headings. Now inherits size used in the heading.
+
+  - Increased spacing below React code blocks, which was previously too small.
+
+- [#50](https://github.com/primer/doctocat-nextjs/pull/50) [`5d67989`](https://github.com/primer/doctocat-nextjs/commit/5d679895408c1a58342419692db4234dfddefd80) Thanks [@rezrah](https://github.com/rezrah)! - Add `menu-position` frontmatter support for custom sidebar navigation ordering
+
 ## 0.5.3
 
 ### Patch Changes
