@@ -150,12 +150,17 @@ export function Theme({pageMap, children}: ThemeProps) {
                                   </Breadcrumbs.Item>
                                 )}
                                 {activePath.reduce((acc, item, index, items) => {
-                                  // Skip duplicate item for index pages without tab-label
+                                  // Skip folder items when followed by index pages with the same route
+                                  // BUT ONLY if the index page doesn't have a custom tab-label
+                                  // AND the index page's title doesn't match the folder's title
                                   if (
-                                    index > 0 &&
-                                    item.route === items[index - 1].route &&
+                                    index < items.length - 1 &&
+                                    items[index + 1].name === 'index' &&
+                                    item.route === items[index + 1].route &&
                                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                                    !item.frontMatter?.['tab-label']
+                                    !items[index + 1].frontMatter?.['tab-label'] &&
+                                    // Keep both when the titles match (don't skip the folder)
+                                    items[index + 1].title !== item.title
                                   ) {
                                     return acc
                                   }
@@ -173,8 +178,6 @@ export function Theme({pageMap, children}: ThemeProps) {
                                       sx={{
                                         textTransform: 'capitalize',
                                         color: 'var(--brand-InlineLink-color-rest)',
-                                        pointerEvents: isLastItem ? 'none' : undefined,
-                                        cursor: isLastItem ? 'default' : undefined,
                                       }}
                                     >
                                       {itemTitle.replace(/-/g, ' ')}
