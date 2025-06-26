@@ -170,7 +170,7 @@ export function Theme({pageMap, children}: ThemeProps) {
                                   acc.push(
                                     <Breadcrumbs.Item
                                       as={NextLink}
-                                      key={`${item.name}-${index}`}
+                                      key={item.name}
                                       href={item.route}
                                       selected={isLastItem}
                                       sx={{
