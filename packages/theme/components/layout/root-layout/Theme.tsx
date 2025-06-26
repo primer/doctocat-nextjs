@@ -159,16 +159,18 @@ export function Theme({pageMap, children}: ThemeProps) {
                                       (index < array.length - 1 &&
                                         nextItem.name === 'index' &&
                                         item.route === nextItem.route &&
-                                        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                                        !nextItem.frontMatter?.['tab-label']) ||
-                                      (item.name === 'index' &&
-                                        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                                        item.frontMatter?.['tab-label'])
+                                        !nextItem.frontMatter['tab-label']) ||
+                                      (item.name === 'index' && item.frontMatter['tab-label'])
                                     )
                                   })
                                   .map((item, index, visibleItems) => {
-                                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                                    const itemTitle = item.frontMatter?.['tab-label'] || item.title
+                                    const itemTitle = Array.isArray(item.children)
+                                      ? item.children.find(child => child.name === 'index')?.frontMatter.title ||
+                                        item.frontMatter['tab-label'] ||
+                                        item.frontMatter.title ||
+                                        item.title
+                                      : item.frontMatter['tab-label'] || item.frontMatter.title || item.title
+
                                     const isLastItem = index === visibleItems.length - 1
 
                                     return (
