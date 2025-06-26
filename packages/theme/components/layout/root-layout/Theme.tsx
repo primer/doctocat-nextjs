@@ -150,17 +150,13 @@ export function Theme({pageMap, children}: ThemeProps) {
                                   </Breadcrumbs.Item>
                                 )}
                                 {activePath.reduce((acc, item, index, items) => {
-                                  // Skip folder items when followed by index pages with the same route
-                                  // BUT ONLY if the index page doesn't have a custom tab-label
-                                  // AND the index page's title doesn't match the folder's title
+                                  // Skip duplicate item for index pages without tab-label
                                   if (
                                     index < items.length - 1 &&
                                     items[index + 1].name === 'index' &&
                                     item.route === items[index + 1].route &&
                                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                                    !items[index + 1].frontMatter?.['tab-label'] &&
-                                    // Keep both when the titles match (don't skip the folder)
-                                    items[index + 1].title !== item.title
+                                    !items[index + 1].frontMatter?.['tab-label']
                                   ) {
                                     return acc
                                   }
