@@ -149,22 +149,43 @@ export function Theme({pageMap, children}: ThemeProps) {
                                     {activeHeaderLink ? activeHeaderLink.title : siteTitle}
                                   </Breadcrumbs.Item>
                                 )}
-                                {activePath.map((item, index) => {
-                                  return (
-                                    <Breadcrumbs.Item
-                                      as={NextLink}
-                                      key={item.name}
-                                      href={item.route}
-                                      selected={index === activePath.length - 1}
-                                      sx={{
-                                        textTransform: 'capitalize',
-                                        color: 'var(--brand-InlineLink-color-rest)',
-                                      }}
-                                    >
-                                      {item.title.replace(/-/g, ' ')}
-                                    </Breadcrumbs.Item>
-                                  )
-                                })}
+                                {activePath
+                                  .filter((item, index, array) => {
+                                    const nextItem = array[index + 1]
+
+                                    // Skip when current item is a folder followed by its index page
+                                    // or when it is an index page with a tabbed navigation
+                                    return !(
+                                      (index < array.length - 1 &&
+                                        nextItem.name === 'index' &&
+                                        item.route === nextItem.route &&
+                                        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                                        !nextItem.frontMatter?.['tab-label']) ||
+                                      (item.name === 'index' &&
+                                        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                                        item.frontMatter?.['tab-label'])
+                                    )
+                                  })
+                                  .map((item, index, visibleItems) => {
+                                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                                    const itemTitle = item.frontMatter?.['tab-label'] || item.title
+                                    const isLastItem = index === visibleItems.length - 1
+
+                                    return (
+                                      <Breadcrumbs.Item
+                                        as={NextLink}
+                                        key={item.name}
+                                        href={item.route}
+                                        selected={isLastItem}
+                                        sx={{
+                                          textTransform: 'capitalize',
+                                          color: 'var(--brand-InlineLink-color-rest)',
+                                        }}
+                                      >
+                                        {itemTitle.replace(/-/g, ' ')}
+                                      </Breadcrumbs.Item>
+                                    )
+                                  })}
                               </Breadcrumbs>
                             )}
 
