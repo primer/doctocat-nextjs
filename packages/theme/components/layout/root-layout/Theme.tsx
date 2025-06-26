@@ -150,13 +150,15 @@ export function Theme({pageMap, children}: ThemeProps) {
                                   </Breadcrumbs.Item>
                                 )}
                                 {activePath.reduce((acc, item, index, items) => {
+                                  const nextItem = items[index + 1]
+
                                   // Skip duplicate item for index pages without tab-label
                                   if (
                                     index < items.length - 1 &&
-                                    items[index + 1].name === 'index' &&
-                                    item.route === items[index + 1].route &&
+                                    nextItem.name === 'index' &&
+                                    item.route === nextItem.route &&
                                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                                    !items[index + 1].frontMatter?.['tab-label']
+                                    !nextItem.frontMatter?.['tab-label']
                                   ) {
                                     return acc
                                   }
