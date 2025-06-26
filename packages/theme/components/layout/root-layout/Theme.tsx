@@ -149,40 +149,40 @@ export function Theme({pageMap, children}: ThemeProps) {
                                     {activeHeaderLink ? activeHeaderLink.title : siteTitle}
                                   </Breadcrumbs.Item>
                                 )}
-                                {(() => {
-                                  const items = [...activePath]
-
+                                {activePath.reduce((acc, item, index, items) => {
                                   // Skip duplicate item for index pages without tab-label
                                   if (
-                                    items.length > 1 &&
-                                    items[items.length - 1].route === items[items.length - 2].route &&
+                                    index > 0 &&
+                                    item.route === items[index - 1].route &&
                                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                                    !items[items.length - 1].frontMatter?.['tab-label']
+                                    !item.frontMatter?.['tab-label']
                                   ) {
-                                    items.splice(items.length - 2, 1)
+                                    return acc
                                   }
 
-                                  return items.map((item, index) => {
-                                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                                    const itemTitle = item.frontMatter?.['tab-label'] || item.title
-                                    const isLastItem = index === items.length - 1
+                                  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                                  const itemTitle = item.frontMatter?.['tab-label'] || item.title
+                                  const isLastItem = index === items.length - 1
 
-                                    return (
-                                      <Breadcrumbs.Item
-                                        as={NextLink}
-                                        key={item.name}
-                                        href={item.route}
-                                        selected={isLastItem}
-                                        sx={{
-                                          textTransform: 'capitalize',
-                                          color: 'var(--brand-InlineLink-color-rest)',
-                                        }}
-                                      >
-                                        {itemTitle.replace(/-/g, ' ')}
-                                      </Breadcrumbs.Item>
-                                    )
-                                  })
-                                })()}
+                                  acc.push(
+                                    <Breadcrumbs.Item
+                                      as={NextLink}
+                                      key={`${item.name}-${index}`}
+                                      href={item.route}
+                                      selected={isLastItem}
+                                      sx={{
+                                        textTransform: 'capitalize',
+                                        color: 'var(--brand-InlineLink-color-rest)',
+                                        pointerEvents: isLastItem ? 'none' : undefined,
+                                        cursor: isLastItem ? 'default' : undefined,
+                                      }}
+                                    >
+                                      {itemTitle.replace(/-/g, ' ')}
+                                    </Breadcrumbs.Item>,
+                                  )
+
+                                  return acc
+                                }, [] as React.ReactNode[])}
                               </Breadcrumbs>
                             )}
 
