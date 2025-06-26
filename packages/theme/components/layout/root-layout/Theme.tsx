@@ -149,46 +149,43 @@ export function Theme({pageMap, children}: ThemeProps) {
                                     {activeHeaderLink ? activeHeaderLink.title : siteTitle}
                                   </Breadcrumbs.Item>
                                 )}
-                                {activePath.reduce((acc, item, index, items) => {
-                                  const nextItem = items[index + 1]
+                                {activePath
+                                  .filter((item, index, array) => {
+                                    const nextItem = array[index + 1]
 
-                                  // Skip items in these cases:
-                                  // 1. When current item is a folder followed by its index page
-                                  // 2. When current item is an index page with a tab-label
-                                  if (
-                                    (index < items.length - 1 &&
-                                      nextItem.name === 'index' &&
-                                      item.route === nextItem.route &&
-                                      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                                      !nextItem.frontMatter?.['tab-label']) ||
-                                    (item.name === 'index' &&
-                                      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                                      item.frontMatter?.['tab-label'])
-                                  ) {
-                                    return acc
-                                  }
+                                    // Skip when current item is a folder followed by its index page
+                                    // or when it is an index page with a tabbed navigation
+                                    return !(
+                                      (index < array.length - 1 &&
+                                        nextItem.name === 'index' &&
+                                        item.route === nextItem.route &&
+                                        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                                        !nextItem.frontMatter?.['tab-label']) ||
+                                      (item.name === 'index' &&
+                                        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                                        item.frontMatter?.['tab-label'])
+                                    )
+                                  })
+                                  .map((item, index, visibleItems) => {
+                                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                                    const itemTitle = item.frontMatter?.['tab-label'] || item.title
+                                    const isLastItem = index === visibleItems.length - 1
 
-                                  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                                  const itemTitle = item.frontMatter?.['tab-label'] || item.title
-                                  const isLastItem = index === items.length - 1
-
-                                  acc.push(
-                                    <Breadcrumbs.Item
-                                      as={NextLink}
-                                      key={item.name}
-                                      href={item.route}
-                                      selected={isLastItem}
-                                      sx={{
-                                        textTransform: 'capitalize',
-                                        color: 'var(--brand-InlineLink-color-rest)',
-                                      }}
-                                    >
-                                      {itemTitle.replace(/-/g, ' ')}
-                                    </Breadcrumbs.Item>,
-                                  )
-
-                                  return acc
-                                }, [] as React.ReactNode[])}
+                                    return (
+                                      <Breadcrumbs.Item
+                                        as={NextLink}
+                                        key={item.name}
+                                        href={item.route}
+                                        selected={isLastItem}
+                                        sx={{
+                                          textTransform: 'capitalize',
+                                          color: 'var(--brand-InlineLink-color-rest)',
+                                        }}
+                                      >
+                                        {itemTitle.replace(/-/g, ' ')}
+                                      </Breadcrumbs.Item>
+                                    )
+                                  })}
                               </Breadcrumbs>
                             )}
 
