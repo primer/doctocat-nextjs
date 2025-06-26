@@ -152,13 +152,18 @@ export function Theme({pageMap, children}: ThemeProps) {
                                 {activePath.reduce((acc, item, index, items) => {
                                   const nextItem = items[index + 1]
 
-                                  // Skip duplicate item for index pages without tab-label
+                                  // Skip items in these cases:
+                                  // 1. When current item is a folder followed by its index page
+                                  // 2. When current item is an index page with a tab-label
                                   if (
-                                    index < items.length - 1 &&
-                                    nextItem.name === 'index' &&
-                                    item.route === nextItem.route &&
-                                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                                    !nextItem.frontMatter?.['tab-label']
+                                    (index < items.length - 1 &&
+                                      nextItem.name === 'index' &&
+                                      item.route === nextItem.route &&
+                                      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                                      !nextItem.frontMatter?.['tab-label']) ||
+                                    (item.name === 'index' &&
+                                      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                                      item.frontMatter?.['tab-label'])
                                   ) {
                                     return acc
                                   }
