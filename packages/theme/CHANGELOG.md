@@ -1,5 +1,11 @@
 # @primer/doctocat-nextjs
 
+## 0.5.5
+
+### Patch Changes
+
+- [#52](https://github.com/primer/doctocat-nextjs/pull/52) [`dd67040`](https://github.com/primer/doctocat-nextjs/commit/dd670402d0c6f59ea919a741a1925ce72a5d966a) Thanks [@danielguillan](https://github.com/danielguillan)! - Fixes breadcrumbs with duplicate and missing items
+
 ## 0.5.4
 
 ### Patch Changes
