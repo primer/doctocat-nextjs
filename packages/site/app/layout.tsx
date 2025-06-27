@@ -25,12 +25,10 @@ const headerLinks: ThemeProps['headerLinks'] = [
   {
     href: 'https://primer.style/product',
     title: 'Product UI',
-    isExternal: true,
   },
   {
     href: 'https://primer.style/brand',
     title: 'Brand UI',
-    isExternal: true,
   },
   {
     href: 'https://primer.style/octicons',

@@ -73,7 +73,7 @@ export function Header({siteTitle, flatDocsDirectories, pageMap}: HeaderProps) {
         <ul className={styles.Header__links}>
           {headerLinks.map(link => (
             <li key={link.href}>
-              <Link
+              <a
                 className={styles.Header__link}
                 href={link.href}
                 aria-current={link.isActive ? 'page' : undefined}
@@ -93,7 +93,7 @@ export function Header({siteTitle, flatDocsDirectories, pageMap}: HeaderProps) {
                     />
                   )}
                 </Text>
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
