@@ -120,7 +120,7 @@ export function Header({siteTitle, flatDocsDirectories, pageMap}: HeaderProps) {
             <IconButton
               icon={colorMode === 'light' ? SunIcon : MoonIcon}
               variant="invisible"
-              aria-label={`Change color mode. Active mode is ${colorMode}.`}
+              aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'} mode`}
               onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
             />
             <IconButton
