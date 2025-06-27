@@ -13,7 +13,6 @@ import {Stack, Text} from '@primer/react-brand'
 import {clsx} from 'clsx'
 import type {PageMapItem} from 'nextra'
 
-import Link from 'next/link'
 import styles from './Header.module.css'
 import {NavDrawer} from '../nav-drawer/NavDrawer'
 import {useNavDrawerState} from '../nav-drawer/useNavDrawerState'
