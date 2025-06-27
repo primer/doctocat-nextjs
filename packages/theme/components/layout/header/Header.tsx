@@ -13,7 +13,6 @@ import {Stack, Text} from '@primer/react-brand'
 import {clsx} from 'clsx'
 import type {PageMapItem} from 'nextra'
 
-import Link from 'next/link'
 import styles from './Header.module.css'
 import {NavDrawer} from '../nav-drawer/NavDrawer'
 import {useNavDrawerState} from '../nav-drawer/useNavDrawerState'
@@ -58,12 +57,12 @@ export function Header({siteTitle, flatDocsDirectories, pageMap}: HeaderProps) {
       aria-label="Header Navigation"
     >
       <div className={styles.Header__start}>
-        <Link href="/" className={styles.Header__siteTitle}>
+        <a href="/" className={styles.Header__siteTitle}>
           <MarkGithubIcon size={24} />
           <Text className={styles.Header__siteTitleText} as="p" size="200" weight="semibold">
             {siteTitle}
           </Text>
-        </Link>
+        </a>
         <Text as="span" className={styles.Header__separator} weight="semibold" aria-hidden>
           &#47;
         </Text>
@@ -73,7 +72,7 @@ export function Header({siteTitle, flatDocsDirectories, pageMap}: HeaderProps) {
         <ul className={styles.Header__links}>
           {headerLinks.map(link => (
             <li key={link.href}>
-              <Link
+              <a
                 className={styles.Header__link}
                 href={link.href}
                 aria-current={link.isActive ? 'page' : undefined}
@@ -93,7 +92,7 @@ export function Header({siteTitle, flatDocsDirectories, pageMap}: HeaderProps) {
                     />
                   )}
                 </Text>
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
