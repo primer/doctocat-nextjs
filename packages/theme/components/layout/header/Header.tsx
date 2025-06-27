@@ -58,12 +58,12 @@ export function Header({siteTitle, flatDocsDirectories, pageMap}: HeaderProps) {
       aria-label="Header Navigation"
     >
       <div className={styles.Header__start}>
-        <Link href="/" className={styles.Header__siteTitle}>
+        <a href="/" className={styles.Header__siteTitle}>
           <MarkGithubIcon size={24} />
           <Text className={styles.Header__siteTitleText} as="p" size="200" weight="semibold">
             {siteTitle}
           </Text>
-        </Link>
+        </a>
         <Text as="span" className={styles.Header__separator} weight="semibold" aria-hidden>
           &#47;
         </Text>
