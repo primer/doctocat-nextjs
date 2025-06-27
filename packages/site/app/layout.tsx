@@ -23,8 +23,13 @@ const headerLinks: ThemeProps['headerLinks'] = [
     isActive: true,
   },
   {
-    href: 'https://primer.style',
-    title: 'Primer',
+    href: 'https://primer.style/product',
+    title: 'Product UI',
+    isExternal: true,
+  },
+  {
+    href: 'https://primer.style/brand',
+    title: 'Brand UI',
     isExternal: true,
   },
   {
