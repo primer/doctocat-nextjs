@@ -1,5 +1,11 @@
 # @primer/doctocat-nextjs
 
+## 0.5.7
+
+### Patch Changes
+
+- [`ba3188c`](https://github.com/primer/doctocat-nextjs/commit/ba3188cfc115d9a2e6d4b7402c20240f518eacd5) Thanks [@rezrah](https://github.com/rezrah)! - Switch to using native <a> instead of <Link> for header URLs, which prevents prefetching-related errors.
+
 ## 0.5.6
 
 ### Patch Changes
