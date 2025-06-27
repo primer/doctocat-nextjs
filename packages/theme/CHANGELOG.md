@@ -1,5 +1,13 @@
 # @primer/doctocat-nextjs
 
+## 0.5.6
+
+### Patch Changes
+
+- [#56](https://github.com/primer/doctocat-nextjs/pull/56) [`e6a55fa`](https://github.com/primer/doctocat-nextjs/commit/e6a55fab3eb3fd56cbb20fe85a31751e6c227fc5) Thanks [@danielguillan](https://github.com/danielguillan)! - Updated theme switcher aria label
+
+- [#54](https://github.com/primer/doctocat-nextjs/pull/54) [`a57f42f`](https://github.com/primer/doctocat-nextjs/commit/a57f42fec69d142e4dd1dc33129ce2423651e907) Thanks [@danielguillan](https://github.com/danielguillan)! - Fixed a bug that caused breadcrumbs to display an incorrect title for pages with tabs
+
 ## 0.5.5
 
 ### Patch Changes
