@@ -130,6 +130,18 @@ export function Theme({pageMap, children}: ThemeProps) {
                 <Header flatDocsDirectories={flatDocsDirectories} siteTitle={siteTitle} pageMap={pageMap} />
               </PRCBox>
               <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
+                <PageLayout.Pane
+                  aria-label="Side navigation"
+                  width="small"
+                  sticky
+                  offsetHeader={65}
+                  padding="none"
+                  position="start"
+                  hidden={{narrow: true}}
+                  divider="line"
+                >
+                  <Sidebar pageMap={pageMap} />
+                </PageLayout.Pane>
                 <PageLayout.Content padding="normal">
                   <div id="main">
                     <PRCBox sx={!isHomePage && {maxWidth: 1200, width: '100%', margin: '0 auto'}}>
@@ -247,18 +259,6 @@ export function Theme({pageMap, children}: ThemeProps) {
                     </PRCBox>
                   </div>
                 </PageLayout.Content>
-                <PageLayout.Pane
-                  aria-label="Side navigation"
-                  width="small"
-                  sticky
-                  offsetHeader={65}
-                  padding="none"
-                  position="start"
-                  hidden={{narrow: true}}
-                  divider="line"
-                >
-                  <Sidebar pageMap={pageMap} />
-                </PageLayout.Pane>
               </PageLayout>
             </ContentWrapper>
           </BaseStyles>
