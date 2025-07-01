@@ -131,7 +131,6 @@ export function Theme({pageMap, children}: ThemeProps) {
               </PRCBox>
               <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
                 <PageLayout.Pane
-                  aria-label="Side navigation"
                   width="small"
                   sticky
                   offsetHeader={65}
@@ -140,7 +139,9 @@ export function Theme({pageMap, children}: ThemeProps) {
                   hidden={{narrow: true}}
                   divider="line"
                 >
-                  <Sidebar pageMap={pageMap} />
+                  <aside aria-label={`${activeHeaderLink ? activeHeaderLink.title : siteTitle} sidebar`}>
+                    <Sidebar pageMap={pageMap} />
+                  </aside>
                 </PageLayout.Pane>
                 <PageLayout.Content padding="normal">
                   <div id="main">
