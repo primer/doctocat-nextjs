@@ -1,6 +1,6 @@
 {
   "name": "@primer/doctocat-nextjs",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "A Next.js theme for building Primer documentation sites",
   "main": "index.js",
   "type": "module",
