@@ -1,5 +1,11 @@
 # @primer/doctocat-nextjs
 
+## 0.5.8
+
+### Patch Changes
+
+- [#59](https://github.com/primer/doctocat-nextjs/pull/59) [`c24a5b9`](https://github.com/primer/doctocat-nextjs/commit/c24a5b98aad639b42213ad230d923907115eb864) Thanks [@danielguillan](https://github.com/danielguillan)! - Switched sidebar navigation and content document order for improved accessibility
+
 ## 0.5.7
 
 ### Patch Changes
