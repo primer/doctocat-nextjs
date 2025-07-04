@@ -8,7 +8,8 @@
     "check": "npm run check --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "start": "npm run dev --workspace=packages/site",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "test": "npm run test:no-watch --workspaces --if-present"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,7 @@
     "@oddbird/popover-polyfill": "^0.5.2",
     "@primer/react": "37.18.0",
     "@primer/react-brand": "0.54.0",
-    "@types/node": "18.11.10",
+    "@types/node": "20.19.4",
     "@typescript-eslint/parser": "8.29.0",
     "eslint": "^8",
     "eslint-config-next": "15.1.5",
