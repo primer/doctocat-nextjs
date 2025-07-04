@@ -6,4 +6,5 @@ module.exports = {
   parserOptions: {
     tsconfigRootDir: __dirname,
   },
+  ignorePatterns: [...base.ignorePatterns, 'coverage/**/*'],
 }

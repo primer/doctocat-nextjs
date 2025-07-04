@@ -3,8 +3,8 @@ import '@testing-library/jest-dom'
 // Mock CSS.supports
 global.CSS = {
   supports: vi.fn(() => true),
-  escape: vi.fn(str => str),
-} as any
+  escape: vi.fn((str: string) => str),
+} as unknown as typeof CSS
 
 // Mock Next.js router if needed
 const mockRouter = {
@@ -54,7 +54,7 @@ global.IntersectionObserver = vi.fn().mockImplementation(() => ({
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: vi.fn().mockImplementation(query => ({
+  value: vi.fn().mockImplementation((query: string) => ({
     matches: false,
     media: query,
     onchange: null,

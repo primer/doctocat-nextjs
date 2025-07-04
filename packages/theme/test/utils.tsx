@@ -17,23 +17,3 @@ const customRender = (ui: React.ReactElement, options?: Omit<RenderOptions, 'wra
 // Re-export everything
 export * from '@testing-library/react'
 export {customRender as render}
-
-// Custom matchers and utilities
-export const createMockComponent = (displayName: string) => {
-  const MockComponent = (props: any) => React.createElement('div', {...props, 'data-testid': displayName})
-  MockComponent.displayName = displayName
-  return MockComponent
-}
-
-// Mock Next.js Image component
-export const MockImage = (props: any) => React.createElement('img', props)
-
-// Helper to test component props
-export const getComponentProps = (component: React.ReactElement) => {
-  return component.props
-}
-
-// Helper to create test IDs
-export const createTestId = (component: string, variant?: string) => {
-  return variant ? `${component}-${variant}` : component
-}

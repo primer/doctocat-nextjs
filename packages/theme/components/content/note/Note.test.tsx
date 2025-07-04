@@ -1,55 +1,63 @@
 import React from 'react'
 import {describe, it, expect} from 'vitest'
-import {render, screen} from '@testing-library/react'
+import {render} from '../../../test/utils'
 import {Note} from './Note'
+import styles from './Note.module.css'
 
 describe('Note', () => {
   it('renders children correctly', () => {
-    render(<Note>Test note content</Note>)
-    expect(screen.getByText('Test note content')).toBeInTheDocument()
+    const {getByText} = render(<Note>Test note content</Note>)
+    const el = getByText('Test note content')
+    expect(el).toBeInTheDocument()
   })
 
   it('applies default info variant', () => {
-    render(<Note>Info note</Note>)
-    const note = screen.getByText('Info note')
-    expect(note.className).toContain('Note--info')
+    const {getByText} = render(<Note>Info note</Note>)
+    const el = getByText('Info note')
+    expect(el).toHaveClass(styles.Note, styles['Note--info'])
   })
 
   it('applies warning variant when specified', () => {
-    render(<Note variant="warning">Warning note</Note>)
-    const note = screen.getByText('Warning note')
-    expect(note.className).toContain('Note--warning')
+    const {getByText} = render(<Note variant="warning">Warning note</Note>)
+    const el = getByText('Warning note')
+    expect(el).toHaveClass(styles.Note, styles['Note--warning'])
   })
 
   it('applies base Note class', () => {
-    render(<Note>Base note</Note>)
-    const note = screen.getByText('Base note')
-    expect(note.className).toContain('Note')
+    const {getByText} = render(<Note>Base note</Note>)
+    const el = getByText('Base note')
+    expect(el).toHaveClass(styles.Note)
   })
 
   it('renders as a div element', () => {
-    render(<Note>Div note</Note>)
-    const note = screen.getByText('Div note')
-    expect(note.tagName).toBe('DIV')
+    const {getByText} = render(<Note>Div note</Note>)
+    const el = getByText('Div note')
+    expect(el.tagName).toBe('DIV')
   })
 
   it('handles complex children', () => {
-    render(
+    const {getByText, getByRole} = render(
       <Note>
         <strong>Important:</strong> This is a complex note with <a href="#link">a link</a> and other elements.
       </Note>,
     )
 
-    expect(screen.getByText('Important:')).toBeInTheDocument()
-    expect(screen.getByText('a link')).toBeInTheDocument()
-    expect(screen.getByRole('link')).toHaveAttribute('href', '#link')
+    const importantEl = getByText('Important:')
+    const linkEl = getByText('a link')
+    const linkRole = getByRole('link')
+
+    expect(importantEl).toBeInTheDocument()
+    expect(linkEl).toBeInTheDocument()
+    expect(linkRole).toHaveAttribute('href', '#link')
   })
 
   it('supports both variant types', () => {
-    const {rerender} = render(<Note variant="info">Info note</Note>)
-    expect(screen.getByText('Info note').className).toContain('Note--info')
+    const {rerender, getByText} = render(<Note variant="info">Info note</Note>)
+    const infoEl = getByText('Info note')
+    expect(infoEl).toHaveClass(styles.Note, styles['Note--info'])
 
     rerender(<Note variant="warning">Warning note</Note>)
-    expect(screen.getByText('Warning note').className).toContain('Note--warning')
+    const warningEl = getByText('Warning note')
+    expect(warningEl).toHaveClass(styles.Note, styles['Note--warning'])
   })
 })

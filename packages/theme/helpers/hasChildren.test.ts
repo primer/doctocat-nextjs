@@ -5,8 +5,8 @@ import type {PageMapItem, Folder, MdxFile} from 'nextra'
 describe('hasChildren', () => {
   it('returns true for folder with children array', () => {
     const folder: Folder = {
-      type: 'folder',
       name: 'test-folder',
+      route: '/test-folder',
       children: [],
     }
 
@@ -15,14 +15,13 @@ describe('hasChildren', () => {
 
   it('returns true for folder with non-empty children array', () => {
     const mockChild: MdxFile = {
-      type: 'page',
       name: 'child-page',
       route: '/child-page',
     }
 
     const folder: Folder = {
-      type: 'folder',
       name: 'test-folder',
+      route: '/test-folder',
       children: [mockChild],
     }
 
@@ -31,7 +30,6 @@ describe('hasChildren', () => {
 
   it('returns false for page item without children', () => {
     const page: MdxFile = {
-      type: 'page',
       name: 'test-page',
       route: '/test-page',
     }
@@ -41,8 +39,8 @@ describe('hasChildren', () => {
 
   it('returns false for item with non-array children property', () => {
     const invalidItem = {
-      type: 'folder',
       name: 'invalid-folder',
+      route: '/invalid-folder',
       children: 'not-an-array',
     } as unknown as PageMapItem
 
@@ -51,8 +49,8 @@ describe('hasChildren', () => {
 
   it('returns false for item with null children', () => {
     const invalidItem = {
-      type: 'folder',
       name: 'invalid-folder',
+      route: '/invalid-folder',
       children: null,
     } as unknown as PageMapItem
 
@@ -61,8 +59,8 @@ describe('hasChildren', () => {
 
   it('returns false for item with undefined children', () => {
     const invalidItem = {
-      type: 'folder',
       name: 'invalid-folder',
+      route: '/invalid-folder',
       children: undefined,
     } as unknown as PageMapItem
 
@@ -71,8 +69,8 @@ describe('hasChildren', () => {
 
   it('correctly narrows type when returns true', () => {
     const folder: Folder = {
-      type: 'folder',
       name: 'test-folder',
+      route: '/test-folder',
       children: [],
     }
 
@@ -87,14 +85,13 @@ describe('hasChildren', () => {
 
   it('handles mixed page types correctly', () => {
     const page: MdxFile = {
-      type: 'page',
       name: 'test-page',
       route: '/test-page',
     }
 
     const folder: Folder = {
-      type: 'folder',
       name: 'test-folder',
+      route: '/test-folder',
       children: [page],
     }
 
