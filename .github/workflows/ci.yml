@@ -37,5 +37,21 @@ jobs:
       - name: Run linters
         run: npm run lint
 
+      - name: Run tests
+        run: npm run test:no-watch
+        working-directory: ./packages/theme
+
       - name: Verify types
         run: npm run check
+
+      - name: Run theme tests with coverage
+        run: npm run test:coverage
+        working-directory: ./packages/theme
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./packages/theme/coverage/lcov.info
+          flags: theme
+          name: Doctocat Theme
+          fail_ci_if_error: false
