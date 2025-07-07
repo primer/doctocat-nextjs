@@ -9,7 +9,8 @@
     "lint": "npm run lint --workspaces --if-present",
     "start": "npm run dev --workspace=packages/site",
     "release": "changeset publish",
-    "test": "npm run test:no-watch --workspaces --if-present"
+    "test": "npm run test:no-watch --workspaces --if-present",
+    "test:coverage": "npm run test:coverage --workspaces --if-present"
   },
   "repository": {
     "type": "git",

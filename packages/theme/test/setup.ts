@@ -34,9 +34,6 @@ vi.mock('next/navigation', () => ({
   usePathname: () => '/',
 }))
 
-// Extend expect with jest-dom matchers
-expect.extend({})
-
 // Add global test utilities
 global.ResizeObserver = vi.fn().mockImplementation(() => ({
   observe: vi.fn(),
