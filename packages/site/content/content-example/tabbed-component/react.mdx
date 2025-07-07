@@ -164,6 +164,39 @@ const Counter = props => {
 render(<Counter label="Counter" />)
 ```
 
+### Compound component previews
+
+```jsx live
+<Stack>
+  <Hero>
+    <Hero.Label>Actions</Hero.Label>
+    <Hero.Heading>Automate your workflow from idea to production</Hero.Heading>
+    <Hero.PrimaryAction href="#">Get started with Actions</Hero.PrimaryAction>
+    <Hero.Image src="/images/placeholder-1200x630.png" alt="placeholder, blank area with a gray background color" />
+  </Hero>
+  <Hero align="center">
+    <Hero.Label>Actions</Hero.Label>
+    <Hero.Heading size="2">Automate your workflow from idea to production</Hero.Heading>
+    <Hero.PrimaryAction href="#">Get started with Actions</Hero.PrimaryAction>
+    <Hero.Image
+      position="inline-end"
+      src="/images/placeholder-1200x630.png"
+      alt="placeholder, blank area with a gray background color"
+      style={{height: '100%'}}
+    />
+  </Hero>
+</Stack>
+```
+
+### Custom video players
+
+```jsx live
+<VideoPlayer title="GitHub media player">
+  <VideoPlayer.Source src="/video/example.mp4" />
+  <VideoPlayer.Track src="/video/example.vtt" default />
+</VideoPlayer>
+```
+
 ## Component props
 
 ### Label

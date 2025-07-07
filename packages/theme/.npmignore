@@ -1,0 +1,34 @@
+# Test files and directories
+**/*.test.ts
+**/*.test.tsx
+**/*.test.js
+**/*.test.jsx
+**/*.spec.ts
+**/*.spec.tsx
+**/*.spec.js
+**/*.spec.jsx
+test/
+tests/
+__tests__/
+__mocks__/
+
+# Coverage reports
+coverage/
+
+# Test configuration
+vitest.config.ts
+vitest.config.js
+jest.config.ts
+jest.config.js
+**/*.config.test.*
+
+# Development files
+.eslintrc.*
+.prettierrc.*
+prettier.config.*
+tsconfig.json
+tsconfig.*.json
+
+# IDE and development
+.vscode/
+.idea/
