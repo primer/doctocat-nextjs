@@ -1,5 +1,13 @@
 # @primer/doctocat-nextjs
 
+## 0.5.8
+
+### Patch Changes
+
+- [#59](https://github.com/primer/doctocat-nextjs/pull/59) [`c24a5b9`](https://github.com/primer/doctocat-nextjs/commit/c24a5b98aad639b42213ad230d923907115eb864) Thanks [@danielguillan](https://github.com/danielguillan)! - Switched sidebar navigation and content document order for improved accessibility
+
+- [#61](https://github.com/primer/doctocat-nextjs/pull/61) [`1446089`](https://github.com/primer/doctocat-nextjs/commit/14460897dbcd248f688c13b9085128707abbda25) Thanks [@rezrah](https://github.com/rezrah)! - React code previews now support dot-notation in component names. E.g. Hero.Image.
+
 ## 0.5.7
 
 ### Patch Changes
