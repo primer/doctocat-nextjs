@@ -1,6 +1,6 @@
 {
   "name": "doctocat-nextjs-site",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": true,
   "description": "Documentation theme",
   "type": "module",
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/primer/doctocat-nextjs#readme",
   "dependencies": {
-    "@primer/doctocat-nextjs": "^0.5.0",
+    "@primer/doctocat-nextjs": "^0.6.0",
     "@primer/octicons-react": "19.15.1",
     "eslint-config-next": "15.3.5",
     "next": "15.3.5",

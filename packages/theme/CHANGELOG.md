@@ -1,5 +1,13 @@
 # @primer/doctocat-nextjs
 
+## 0.6.0
+
+### Minor Changes
+
+- [#63](https://github.com/primer/doctocat-nextjs/pull/63) [`9a090ee`](https://github.com/primer/doctocat-nextjs/commit/9a090eec47c64dc46f8eac14ec00548d421e8019) Thanks [@rezrah](https://github.com/rezrah)! - Moves `@primer/react-brand` to a peer-dependency.
+
+  This change prevents a mismatch of versions between Doctocat and the project using it. Going forward, the latter will be preferred.
+
 ## 0.5.8
 
 ### Patch Changes
