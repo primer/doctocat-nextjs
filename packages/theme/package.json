@@ -15,6 +15,7 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "peerDependencies": {
+    "@primer/react-brand": ">=0.54.0",
     "next": "^15.0.0",
     "react": ">=18.0.0 <20.0.0",
     "react-dom": ">=18.0.0 <20.0.0"
@@ -23,7 +24,6 @@
     "@next/mdx": "15.3.5",
     "@primer/octicons-react": "19.15.1",
     "@primer/react": "^37.11.0",
-    "@primer/react-brand": "0.54.0",
     "@types/lodash.debounce": "^4.0.9",
     "framer-motion": "12.4.0",
     "lodash.debounce": "^4.0.8",
