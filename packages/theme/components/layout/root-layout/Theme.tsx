@@ -149,7 +149,7 @@ export function Theme({pageMap, children}: ThemeProps) {
                       <Stack direction="vertical" padding="none" gap="spacious">
                         {!isHomePage && (
                           <>
-                            {activePath.length && (
+                            {activePath.length > 0 && (
                               <Breadcrumbs>
                                 {(activeHeaderLink || siteTitle) && (
                                   <Breadcrumbs.Item

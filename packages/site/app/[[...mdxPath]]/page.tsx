@@ -1,7 +1,9 @@
 import {generateStaticParamsFor, importPage} from '@primer/doctocat-nextjs'
 import {useMDXComponents as getMDXComponents} from '../../mdx-components.js'
+import {notFound} from 'next/navigation'
 
-export const generateStaticParams = generateStaticParamsFor('mdxPath')
+const generateStaticParamsFunction = generateStaticParamsFor('mdxPath')
+export const generateStaticParams = generateStaticParamsFunction
 
 type Props = {
   params: Promise<{
@@ -10,20 +12,28 @@ type Props = {
 }
 export async function generateMetadata(props: Props) {
   const params = await props.params
-  const {metadata} = await importPage(params.mdxPath)
-  return metadata
+  try {
+    const {metadata} = await importPage(params.mdxPath)
+    return metadata
+  } catch {
+    return {}
+  }
 }
 
 const {Article: Wrapper} = getMDXComponents()
 
 export default async function Page(props: Props) {
   const params = await props.params
-  const result = await importPage(params.mdxPath)
-  const {default: MDXContent, toc, metadata} = result
+  try {
+    const result = await importPage(params.mdxPath)
+    const {default: MDXContent, toc, metadata} = result
 
-  return (
-    <Wrapper toc={toc} metadata={metadata}>
-      <MDXContent {...props} params={params} />
-    </Wrapper>
-  )
+    return (
+      <Wrapper toc={toc} metadata={metadata}>
+        <MDXContent {...props} params={params} />
+      </Wrapper>
+    )
+  } catch {
+    notFound()
+  }
 }

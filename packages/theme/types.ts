@@ -1,4 +1,5 @@
 import {Folder, PageMapItem, MdxFile} from 'nextra'
+import {ReactNode} from 'react'
 
 export type ThemeConfig = {
   docsRepositoryBase: string
@@ -19,7 +20,7 @@ export type ExtendedPageItem = PageMapItem & {
 export type FolderWithoutChildren = Omit<Folder, 'children'>
 
 export type DocsItem = MdxFile & {
-  title: string
+  title: ReactNode
   type: string
   children?: DocsItem[]
   firstChildRoute?: string

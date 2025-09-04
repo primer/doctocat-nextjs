@@ -16,7 +16,7 @@ module.exports = {
     'plugin:primer-react/recommended',
     'plugin:markdown/recommended',
   ],
-  ignorePatterns: ['node_modules', '.next', 'dist/**/*', 'out/**/*', 'types/**/*', 'CHANGELOG.md'],
+  ignorePatterns: ['node_modules', '.next', 'dist/**/*', 'out/**/*', 'types/**/*', 'CHANGELOG.md', '**/next-env.d.ts'],
   globals: {
     __DEV__: 'readonly',
   },
