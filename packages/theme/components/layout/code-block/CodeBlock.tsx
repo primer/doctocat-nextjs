@@ -43,10 +43,11 @@ export function CodeBlock(props: CodeBlockProps) {
       try {
         const childrenAsString = renderToStaticMarkup(<>{props.children}</>)
 
-        // cleans the tag to prevent script injection
+        // Extract text content using browser's HTML parser (immune to regex bypass attacks)
         const cleanHtmlTag = (str: string): string => {
-          const cleaned = str.replace(/<[^>]*>/g, '')
-          return cleaned === str ? cleaned : cleanHtmlTag(cleaned)
+          const parser = new DOMParser()
+          const doc = parser.parseFromString(str, 'text/html')
+          return doc.body.textContent || doc.body.innerText || ''
         }
 
         const textContent = cleanHtmlTag(childrenAsString)
