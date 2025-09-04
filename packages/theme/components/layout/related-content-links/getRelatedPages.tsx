@@ -1,5 +1,6 @@
 import {DocsItem, FrontMatter} from '../../../types'
 import {RelatedContentLink} from './RelatedContentLinks'
+import React from 'react'
 
 type GetRelatedPages = (
   route: string,
@@ -58,7 +59,17 @@ export const getRelatedPages: GetRelatedPages = (route, activeMetadata, flatDocs
 }
 
 function titleToString(title: React.ReactNode): string {
-  if (typeof title === 'string') return title
-  if (typeof title === 'number') return title.toString()
-  return ''
+  const children = React.Children.toArray(title)
+
+  return children
+    .map(child => {
+      if (typeof child === 'string' || typeof child === 'number') {
+        return child.toString()
+      }
+      if (React.isValidElement(child) && child.props.children) {
+        return titleToString(child.props.children)
+      }
+      return ''
+    })
+    .join('')
 }
