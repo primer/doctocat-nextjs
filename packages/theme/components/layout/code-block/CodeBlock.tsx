@@ -43,7 +43,13 @@ export function CodeBlock(props: CodeBlockProps) {
       try {
         const childrenAsString = renderToStaticMarkup(<>{props.children}</>)
 
-        const textContent = childrenAsString.replace(/<[^>]*>/g, '')
+        // cleans the tag to prevent script injection
+        const cleanHtmlTag = (str: string): string => {
+          const cleaned = str.replace(/<[^>]*>/g, '')
+          return cleaned === str ? cleaned : cleanHtmlTag(cleaned)
+        }
+
+        const textContent = cleanHtmlTag(childrenAsString)
 
         // Restore escaped chars
         const decodedText = textContent
