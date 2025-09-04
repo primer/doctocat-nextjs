@@ -28,7 +28,10 @@ export const getRelatedPages: GetRelatedPages = (route, activeMetadata, flatDocs
     const intersection = pageKeywords.filter(keyword => currentPageKeywords.includes(keyword))
 
     if (intersection.length) {
-      matches.push(page)
+      matches.push({
+        ...page,
+        title: titleToString(page.title), // Convert ReactNode to string
+      })
     }
   }
 
@@ -36,14 +39,12 @@ export const getRelatedPages: GetRelatedPages = (route, activeMetadata, flatDocs
   for (const link of relatedLinks) {
     if (!link.title || !link.href || link.href === route) continue
     if (link.href.startsWith('/')) {
-      const page = flatDocsDirectories.find(localPage => localPage.route === link.href) as
-        | RelatedContentLink
-        | undefined
+      const page = flatDocsDirectories.find(localPage => localPage.route === link.href)
 
       if (page) {
         const entry = {
           ...page,
-          title: link.title || page.title,
+          title: link.title || titleToString(page.title),
           route: link.href || page.route,
         }
         matches.push(entry)
@@ -54,4 +55,10 @@ export const getRelatedPages: GetRelatedPages = (route, activeMetadata, flatDocs
   }
 
   return matches
+}
+
+function titleToString(title: React.ReactNode): string {
+  if (typeof title === 'string') return title
+  if (typeof title === 'number') return title.toString()
+  return ''
 }

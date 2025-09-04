@@ -18,6 +18,7 @@ const COLLAPSE_HEIGHT = 400 // TODO: Hoist this to config to make user customiza
 type ReactCodeBlockProps = {
   'data-language': string
   'data-filename'?: string
+  code?: string
   jsxScope: Record<string, unknown>
 } & PropsWithChildren<HTMLElement>
 
@@ -34,7 +35,7 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
   const uniqueId = useId()
   const {colorMode, setColorMode} = useColorMode()
   const {basePath} = useConfig()
-  const initialCode = getCodeFromChildren(props.children)
+  const initialCode = props.code || getCodeFromChildren(props.children)
   const [code, setCode] = useState(initialCode)
   const rootRef = useRef<HTMLDivElement>(null)
   const [isCodePaneCollapsed, setIsCodePaneCollapsed] = useState<boolean | null>(null)

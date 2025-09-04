@@ -21,17 +21,16 @@
     "react-dom": ">=18.0.0 <20.0.0"
   },
   "dependencies": {
-    "@next/mdx": "15.3.5",
+    "@next/mdx": "15.5.2",
     "@primer/octicons-react": "19.15.1",
     "@primer/react": "^37.11.0",
     "@types/lodash.debounce": "^4.0.9",
     "framer-motion": "12.4.0",
     "lodash.debounce": "^4.0.8",
-    "nextra": "4.2.17",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-focus-on": "3.9.4",
-    "react-live": "^4.1.8"
+    "nextra": "4.4.0",
+    "react": ">=18.0.0 <20.0.0",
+    "react-dom": ">=18.0.0 <20.0.0",
+    "react-focus-on": "3.9.4"
   },
   "devDependencies": {
     "@github/prettier-config": "^0.0.6",
@@ -47,7 +46,9 @@
     "@vitest/ui": "^3.2.4",
     "clsx": "2.1.1",
     "jsdom": "^26.0.1",
-    "next": "15.3.5",
+    "next": "15.5.2",
+    "react-live": "^4.1.8",
+    "react-live-runner": "^1.0.7",
     "styled-components": "5.3.11",
     "vitest": "^3.2.4"
   },
