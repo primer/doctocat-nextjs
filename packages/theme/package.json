@@ -4,6 +4,10 @@
   "description": "A Next.js theme for building Primer documentation sites",
   "main": "index.js",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primer/doctocat-nextjs.git"
+  },
   "scripts": {
     "check": "tsc --noEmit",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./.eslintrc.cjs",
