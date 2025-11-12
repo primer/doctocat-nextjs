@@ -54,7 +54,7 @@ export function Sidebar({pageMap}: SidebarProps) {
           <span className="visually-hidden"> navigation</span>
         </Heading>
       )}
-      <NavList className={styles.NavList} aria-labelledby={`nav-list-heading`}>
+      <NavList className={styles.NavList} aria-labelledby="nav-list-heading">
         {reorderedPageMap.map(item => {
           if (item.hasOwnProperty('data')) return null
 
