@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import NextLink from 'next/link'
 import {NavList} from '@primer/react'
-import {Text} from '@primer/react-brand'
+import {Heading} from '@primer/react-brand'
 import type {Folder, MdxFile, PageMapItem} from 'nextra'
 
 import styles from './Sidebar.module.css'
