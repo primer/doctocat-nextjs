@@ -49,7 +49,7 @@ export function Sidebar({pageMap}: SidebarProps) {
   return (
     <div className={styles.Sidebar}>
       {activeHeaderLink && (
-        <Heading as="h2" className={styles.Sidebar__title} id="nav-list-heading">
+        <Heading as="h2"  size="6"  className={styles.Sidebar__title} id="nav-list-heading">
           {activeHeaderLink.title}
           <span className="visually-hidden"> navigation</span>
         </Heading>
