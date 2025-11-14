@@ -19,7 +19,7 @@ jobs:
     name: Main
     uses: primer/.github/.github/workflows/release.yml@v2.3.1
     secrets:
-      gh_token: ${{ secrets.GPR_AUTH_TOKEN_SHARED }}
+      gh_token: ${{ secrets.GPR_AUTH_TOKEN_SHARED_X }}
 
   release-candidate:
     if: ${{ github.repository == 'primer/doctocat-nextjs' && github.ref_name == 'changeset-release/main' }}
