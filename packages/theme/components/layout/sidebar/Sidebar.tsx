@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import NextLink from 'next/link'
 import {NavList} from '@primer/react'
-import {Text} from '@primer/react-brand'
+import {Heading} from '@primer/react-brand'
 import type {Folder, MdxFile, PageMapItem} from 'nextra'
 
 import styles from './Sidebar.module.css'
@@ -49,12 +49,12 @@ export function Sidebar({pageMap}: SidebarProps) {
   return (
     <div className={styles.Sidebar}>
       {activeHeaderLink && (
-        <Text size="400" weight="semibold" className={styles.Sidebar__title}>
+        <Heading as="h2" size="6" className={styles.Sidebar__title} id="nav-list-heading">
           {activeHeaderLink.title}
-        </Text>
+          <span className="visually-hidden"> navigation</span>
+        </Heading>
       )}
-
-      <NavList className={styles.NavList} aria-label="Menu links">
+      <NavList className={styles.NavList} aria-labelledby="nav-list-heading">
         {reorderedPageMap.map(item => {
           if (item.hasOwnProperty('data')) return null
 
