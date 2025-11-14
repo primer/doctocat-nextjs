@@ -1,5 +1,11 @@
 # @primer/doctocat-nextjs
 
+## 0.7.1
+
+### Patch Changes
+
+- [#68](https://github.com/primer/doctocat-nextjs/pull/68) [`b75584e`](https://github.com/primer/doctocat-nextjs/commit/b75584edb6936a70ea94925fc743989422cc3d9a) Thanks [@janmaarten-a11y](https://github.com/janmaarten-a11y)! - Improve screen reader accessibility by updating sidebar navigation heading hierarchy. The sidebar title now uses a semantic `<Heading>` component with visually hidden text to clarify it's a navigation area, and is properly connected to the `<NavList>` via `aria-labelledby`.
+
 ## 0.7.0
 
 ### Minor Changes
