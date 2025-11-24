@@ -1,5 +1,4 @@
 import React from 'react'
-import {Box} from '@primer/react'
 import clsx from 'clsx'
 import styles from './DosAndDonts.module.css'
 
@@ -39,14 +38,9 @@ type DoDontBaseProps = {
 export function DoDontBase({children, title, indented, className, ...rest}: React.PropsWithChildren<DoDontBaseProps>) {
   return (
     <div className={clsx(`exclude-from-prose`, styles.doDontBase, className)} {...rest}>
-      <Box
-        className={styles.header}
-        sx={{
-          color: 'var(--fgColor-onEmphasis, var(--color-fg-on-emphasis))',
-        }}
-      >
+      <div className={styles.header} style={{color: 'var(--fgColor-onEmphasis, var(--color-fg-on-emphasis))'}}>
         <span className={styles.headerText}>{title}</span>
-      </Box>
+      </div>
       <div className={styles.content}>
         {indented ? (
           <blockquote className={styles.indentedContent} style={{borderLeftColor: 'var(--brand-color-border-default)'}}>

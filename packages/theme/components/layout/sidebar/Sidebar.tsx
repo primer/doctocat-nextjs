@@ -77,7 +77,7 @@ export function Sidebar({pageMap}: SidebarProps) {
           }
 
           return (
-            <NavList.Group title={subNavName} key={item.name} sx={{mb: 24}}>
+            <NavList.Group title={subNavName} key={item.name} style={{marginBottom: 'var(--base-size-24)'}}>
               <NavList.GroupHeading as="h3">
                 <NextLink href={item.route}>{subNavName}</NextLink>
               </NavList.GroupHeading>
@@ -142,7 +142,7 @@ export function Sidebar({pageMap}: SidebarProps) {
                         as={NextLink}
                         key={landingPageItem.route}
                         href={landingPageItem.route}
-                        sx={{textTransform: 'capitalize'}}
+                         style={{textTransform: 'capitalize'}}
                         aria-current={isCurrentOrChild ? 'page' : undefined}
                         className={styles.NavListItem}
                       >
@@ -155,7 +155,7 @@ export function Sidebar({pageMap}: SidebarProps) {
           )
         })}
         {sidebarLinks.length > 0 && (
-          <NavList.Group title="" sx={{mb: 24}}>
+          <NavList.Group title="" style={{marginBottom: 'var(--base-size-24)'}}>
             {sidebarLinks.map(link => {
               return (
                 <NavList.Item
