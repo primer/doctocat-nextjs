@@ -10,7 +10,6 @@ import '@primer/primitives/dist/css/functional/themes/dark.css'
 import {
   Animate,
   AnimationProvider,
-  Box,
   ButtonGroup,
   ThemeProvider as BrandThemeProvider,
   Button,
@@ -38,6 +37,7 @@ import {RelatedContentLinks} from '../related-content-links/RelatedContentLinks'
 import {getRelatedPages} from '../related-content-links/getRelatedPages'
 import {hasChildren} from '../../../helpers/hasChildren'
 import {Footer} from '../footer/Footer'
+import styles from './Theme.module.css'
 
 const repoSrcPath = process.env.NEXT_PUBLIC_REPO_SRC_PATH || ''
 const repoURL = process.env.NEXT_PUBLIC_REPO || ''
@@ -119,7 +119,7 @@ export function Theme({pageMap, children}: ThemeProps) {
             </Head>
 
             <ContentWrapper disableAnimations={disablePageAnimation}>
-              <div style={{position: 'sticky', top: 0, zIndex: 99}}>
+              <div className={styles.StickyHeader}>
                 <SkipToMainContent href="#main">Skip to main content</SkipToMainContent>
                 <Header flatDocsDirectories={flatDocsDirectories} siteTitle={siteTitle} pageMap={pageMap} />
               </div>
@@ -144,13 +144,9 @@ export function Theme({pageMap, children}: ThemeProps) {
                         {!isHomePage && (
                           <>
                             {activePath.length > 0 && (
-                              <Breadcrumbs>
+                              <Breadcrumbs className={styles.BreadcrumbRoot}>
                                 {(activeHeaderLink || siteTitle) && (
-                                  <Breadcrumbs.Item
-                                    as={NextLink}
-                                    href="/"
-                                    style={{color: 'var(--brand-InlineLink-color-rest)'}}
-                                  >
+                                  <Breadcrumbs.Item as={NextLink} href="/">
                                     {activeHeaderLink ? activeHeaderLink.title : siteTitle}
                                   </Breadcrumbs.Item>
                                 )}
@@ -158,6 +154,8 @@ export function Theme({pageMap, children}: ThemeProps) {
                                   .filter((item, index, array) => {
                                     const nextItem = array[index + 1]
 
+                                    // Skip when current item is a folder followed by its index page
+                                    // or when it is an index page with a tabbed navigation
                                     return !(
                                       (index < array.length - 1 &&
                                         nextItem.name === 'index' &&
@@ -182,10 +180,7 @@ export function Theme({pageMap, children}: ThemeProps) {
                                         key={item.name}
                                         href={item.route}
                                         selected={isLastItem}
-                                        style={{
-                                          textTransform: 'capitalize',
-                                          color: 'var(--brand-InlineLink-color-rest)',
-                                        }}
+                                        className={styles.BreadcrumbItem}
                                       >
                                         {itemTitle.replace(/-/g, ' ')}
                                       </Breadcrumbs.Item>
@@ -207,12 +202,12 @@ export function Theme({pageMap, children}: ThemeProps) {
                                   </Text>
                                 )}
                                 {activeMetadata.image && (
-                                  <div style={{paddingBlockStart: 'var(--base-size-16)', width: '100%'}}>
+                                  <div className={styles.HeroImageWrapper}>
                                     <Hero.Image src={activeMetadata.image} alt={activeMetadata['image-alt']} />
                                   </div>
                                 )}
                                 {activeMetadata['action-1-text'] && (
-                                  <div style={{paddingBlockStart: 'var(--base-size-16)'}}>
+                                  <div className={styles.ActionsWrapper}>
                                     <ButtonGroup>
                                       <Button as="a" href={activeMetadata['action-1-link']}>
                                         {activeMetadata['action-1-text']}
@@ -238,7 +233,7 @@ export function Theme({pageMap, children}: ThemeProps) {
                               <>{children}</>
 
                               {relatedLinks.length > 0 && (
-                                <div style={{paddingTop: 'var(--base-size-20)'}}>
+                                <div className={styles.RelatedLinks}>
                                   <RelatedContentLinks links={relatedLinks} />
                                 </div>
                               )}
