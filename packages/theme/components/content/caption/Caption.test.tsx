@@ -19,9 +19,7 @@ describe('Caption', () => {
   })
 
   it('passes through additional props', () => {
-    const {getByTestId} = render(
-      <Caption data-testid="custom-caption">Caption with props</Caption>,
-    )
+    const {getByTestId} = render(<Caption data-testid="custom-caption">Caption with props</Caption>)
     const el = getByTestId('custom-caption')
     expect(el).toBeInTheDocument()
     expect(el).toHaveTextContent('Caption with props')

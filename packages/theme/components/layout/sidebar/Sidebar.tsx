@@ -142,7 +142,7 @@ export function Sidebar({pageMap}: SidebarProps) {
                         as={NextLink}
                         key={landingPageItem.route}
                         href={landingPageItem.route}
-                         style={{textTransform: 'capitalize'}}
+                        style={{textTransform: 'capitalize'}}
                         aria-current={isCurrentOrChild ? 'page' : undefined}
                         className={styles.NavListItem}
                       >
