@@ -66,8 +66,11 @@ function titleToString(title: React.ReactNode): string {
       if (typeof child === 'string' || typeof child === 'number') {
         return child.toString()
       }
-      if (React.isValidElement(child) && child.props.children) {
-        return titleToString(child.props.children)
+      if (React.isValidElement(child)) {
+        const element = child as React.ReactElement<{children?: React.ReactNode}>
+        if (element.props.children) {
+          return titleToString(element.props.children)
+        }
       }
       return ''
     })

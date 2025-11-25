@@ -29,12 +29,10 @@
     "@primer/octicons-react": "19.15.1",
     "@primer/react": "^38.0.0",
     "@types/lodash.debounce": "^4.0.9",
-    "framer-motion": "12.4.0",
+    "framer-motion": "12.23.24",
     "lodash.debounce": "^4.0.8",
     "nextra": "4.4.0",
-    "react": ">=18.0.0 <20.0.0",
-    "react-dom": ">=18.0.0 <20.0.0",
-    "react-focus-on": "3.9.4",
+    "react-focus-on": "^3.10.0",
     "react-live": "^4.1.8"
   },
   "devDependencies": {
@@ -44,8 +42,8 @@
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/node": "^20.19.0",
-    "@types/react": "18.3.12",
-    "@types/react-dom": "18.3.1",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.3",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
@@ -54,9 +52,5 @@
     "next": "15.5.2",
     "styled-components": "5.3.11",
     "vitest": "^3.2.4"
-  },
-  "overrides": {
-    "@types/react": "18.3.12",
-    "@types/react-dom": "18.3.1"
   }
 }
