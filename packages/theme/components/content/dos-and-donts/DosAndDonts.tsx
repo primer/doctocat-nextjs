@@ -42,13 +42,7 @@ export function DoDontBase({children, title, indented, className, ...rest}: Reac
         <span className={styles.headerText}>{title}</span>
       </div>
       <div className={styles.content}>
-        {indented ? (
-          <blockquote className={styles.indentedContent}>
-            {children}
-          </blockquote>
-        ) : (
-          children
-        )}
+        {indented ? <blockquote className={styles.indentedContent}>{children}</blockquote> : children}
       </div>
     </div>
   )
