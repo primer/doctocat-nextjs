@@ -19,6 +19,14 @@
   font-size: var(--brand-text-size-100);
 }
 
+.NavListGroup {
+  margin-bottom: var(--base-size-24);
+}
+
+.NavListItemCapitalize {
+  text-transform: capitalize;
+}
+
 .NavList__Container li a,
 .NavList__Container li button {
   font-size: var(--brand-text-size-200);

@@ -38,12 +38,12 @@ type DoDontBaseProps = {
 export function DoDontBase({children, title, indented, className, ...rest}: React.PropsWithChildren<DoDontBaseProps>) {
   return (
     <div className={clsx(`exclude-from-prose`, styles.doDontBase, className)} {...rest}>
-      <div className={styles.header} style={{color: 'var(--fgColor-onEmphasis, var(--color-fg-on-emphasis))'}}>
+      <div className={styles.header}>
         <span className={styles.headerText}>{title}</span>
       </div>
       <div className={styles.content}>
         {indented ? (
-          <blockquote className={styles.indentedContent} style={{borderLeftColor: 'var(--brand-color-border-default)'}}>
+          <blockquote className={styles.indentedContent}>
             {children}
           </blockquote>
         ) : (
