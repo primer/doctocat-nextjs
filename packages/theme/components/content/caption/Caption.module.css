@@ -1,0 +1,6 @@
+.Caption {
+  margin-top: var(--base-size-8);
+  margin-bottom: var(--base-size-12);
+  font-size: var(--brand-text-size-100);
+  color: var(--brand-color-text-default);
+}

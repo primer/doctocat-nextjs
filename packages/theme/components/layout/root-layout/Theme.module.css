@@ -1,0 +1,35 @@
+.StickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.ContentContainer {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.BreadcrumbRoot,
+.BreadcrumbItem {
+  color: var(--brand-InlineLink-color-rest);
+}
+
+.BreadcrumbItem {
+  text-transform: capitalize;
+}
+
+.HeroImageWrapper {
+  padding-block-start: var(--base-size-16);
+  width: 100%;
+}
+
+
+.ActionsWrapper {
+  padding-block-start: var(--base-size-16);
+}
+
+
+.RelatedLinks {
+  padding-top: var(--base-size-20);
+}

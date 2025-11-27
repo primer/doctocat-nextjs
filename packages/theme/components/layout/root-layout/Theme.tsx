@@ -4,13 +4,12 @@ import NextLink from 'next/link'
 import Head from 'next/head'
 import type {Folder, MdxFile, PageMapItem} from 'nextra'
 import {useFSRoute} from 'nextra/hooks'
-import {BaseStyles, Box as PRCBox, Breadcrumbs, PageLayout, ThemeProvider} from '@primer/react'
+import {BaseStyles, Breadcrumbs, PageLayout, ThemeProvider} from '@primer/react'
 import '@primer/primitives/dist/css/functional/themes/light.css'
 import '@primer/primitives/dist/css/functional/themes/dark.css'
 import {
   Animate,
   AnimationProvider,
-  Box,
   ButtonGroup,
   ThemeProvider as BrandThemeProvider,
   Button,
@@ -38,6 +37,7 @@ import {RelatedContentLinks} from '../related-content-links/RelatedContentLinks'
 import {getRelatedPages} from '../related-content-links/getRelatedPages'
 import {hasChildren} from '../../../helpers/hasChildren'
 import {Footer} from '../footer/Footer'
+import styles from './Theme.module.css'
 
 const repoSrcPath = process.env.NEXT_PUBLIC_REPO_SRC_PATH || ''
 const repoURL = process.env.NEXT_PUBLIC_REPO || ''
@@ -119,16 +119,10 @@ export function Theme({pageMap, children}: ThemeProps) {
             </Head>
 
             <ContentWrapper disableAnimations={disablePageAnimation}>
-              <PRCBox
-                sx={{
-                  position: 'sticky',
-                  top: 0,
-                  zIndex: 99,
-                }}
-              >
+              <div className={styles.StickyHeader}>
                 <SkipToMainContent href="#main">Skip to main content</SkipToMainContent>
                 <Header flatDocsDirectories={flatDocsDirectories} siteTitle={siteTitle} pageMap={pageMap} />
-              </PRCBox>
+              </div>
               <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
                 <PageLayout.Pane
                   width="small"
@@ -145,20 +139,14 @@ export function Theme({pageMap, children}: ThemeProps) {
                 </PageLayout.Pane>
                 <PageLayout.Content padding="normal">
                   <div id="main">
-                    <PRCBox sx={!isHomePage && {maxWidth: 1200, width: '100%', margin: '0 auto'}}>
+                    <div style={!isHomePage ? {maxWidth: 1200, width: '100%', margin: '0 auto'} : undefined}>
                       <Stack direction="vertical" padding="none" gap="spacious">
                         {!isHomePage && (
                           <>
                             {activePath.length > 0 && (
-                              <Breadcrumbs>
+                              <Breadcrumbs className={styles.BreadcrumbRoot}>
                                 {(activeHeaderLink || siteTitle) && (
-                                  <Breadcrumbs.Item
-                                    as={NextLink}
-                                    href="/"
-                                    sx={{
-                                      color: 'var(--brand-InlineLink-color-rest)',
-                                    }}
-                                  >
+                                  <Breadcrumbs.Item as={NextLink} href="/">
                                     {activeHeaderLink ? activeHeaderLink.title : siteTitle}
                                   </Breadcrumbs.Item>
                                 )}
@@ -192,10 +180,7 @@ export function Theme({pageMap, children}: ThemeProps) {
                                         key={item.name}
                                         href={item.route}
                                         selected={isLastItem}
-                                        sx={{
-                                          textTransform: 'capitalize',
-                                          color: 'var(--brand-InlineLink-color-rest)',
-                                        }}
+                                        className={styles.BreadcrumbItem}
                                       >
                                         {itemTitle.replace(/-/g, ' ')}
                                       </Breadcrumbs.Item>
@@ -204,7 +189,7 @@ export function Theme({pageMap, children}: ThemeProps) {
                               </Breadcrumbs>
                             )}
 
-                            <Box>
+                            <div>
                               <Stack direction="vertical" padding="none" gap={12} alignItems="flex-start">
                                 {activeMetadata.title && (
                                   <Heading as="h1" size="3">
@@ -217,12 +202,12 @@ export function Theme({pageMap, children}: ThemeProps) {
                                   </Text>
                                 )}
                                 {activeMetadata.image && (
-                                  <Box paddingBlockStart={16} style={{width: '100%'}}>
+                                  <div className={styles.HeroImageWrapper}>
                                     <Hero.Image src={activeMetadata.image} alt={activeMetadata['image-alt']} />
-                                  </Box>
+                                  </div>
                                 )}
                                 {activeMetadata['action-1-text'] && (
-                                  <Box paddingBlockStart={16}>
+                                  <div className={styles.ActionsWrapper}>
                                     <ButtonGroup>
                                       <Button as="a" href={activeMetadata['action-1-link']}>
                                         {activeMetadata['action-1-text']}
@@ -233,10 +218,10 @@ export function Theme({pageMap, children}: ThemeProps) {
                                         </Button>
                                       )}
                                     </ButtonGroup>
-                                  </Box>
+                                  </div>
                                 )}
                               </Stack>
-                            </Box>
+                            </div>
                             {activeMetadata['show-tabs'] && <UnderlineNav tabData={filteredTabData} />}
                           </>
                         )}
@@ -248,16 +233,16 @@ export function Theme({pageMap, children}: ThemeProps) {
                               <>{children}</>
 
                               {relatedLinks.length > 0 && (
-                                <PRCBox sx={{pt: 5}}>
+                                <div className={styles.RelatedLinks}>
                                   <RelatedContentLinks links={relatedLinks} />
-                                </PRCBox>
+                                </div>
                               )}
                             </>
                           )}
                         </article>
                         <Footer filePath={filePath} repoURL={repoURL} repoSrcPath={repoSrcPath} />
                       </Stack>
-                    </PRCBox>
+                    </div>
                   </div>
                 </PageLayout.Content>
               </PageLayout>

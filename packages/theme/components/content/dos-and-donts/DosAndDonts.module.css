@@ -39,6 +39,10 @@
   color: var(--base-color-scale-white-0);
 }
 
+.header {
+  color: var(--fgColor-onEmphasis, var(--color-fg-on-emphasis));
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -55,6 +59,6 @@
 
 .indentedContent {
   margin: 0;
-  border-left: 4px solid;
+  border-left: 4px solid var(--brand-color-border-default);
   padding-left: 1rem;
 }

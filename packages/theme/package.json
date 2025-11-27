@@ -27,7 +27,7 @@
   "dependencies": {
     "@next/mdx": "15.5.2",
     "@primer/octicons-react": "19.15.1",
-    "@primer/react": "^37.11.0",
+    "@primer/react": "^38.0.0",
     "@types/lodash.debounce": "^4.0.9",
     "framer-motion": "12.4.0",
     "lodash.debounce": "^4.0.8",
