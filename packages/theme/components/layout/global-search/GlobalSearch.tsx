@@ -169,7 +169,7 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
       <div ref={searchResultsRef}>
         <FormControl>
           <FormControl.Label visuallyHidden>Search</FormControl.Label>
-          <TextInput
+          <TextInput as="input"
             contrast
             type="search"
             className={styles.GlobalSearch__searchInput}

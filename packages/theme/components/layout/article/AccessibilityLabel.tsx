@@ -1,5 +1,5 @@
 'use client'
-import {Label} from '@primer/react'
+import {Token} from '@primer/react'
 import {AccessibilityInsetIcon} from '@primer/octicons-react'
 import React from 'react'
 
@@ -11,9 +11,12 @@ type AccessibilityLabelProps = {
 
 export function AccessibilityLabel({short}: AccessibilityLabelProps) {
   return (
-    <Label size="large" className={styles.reviewedLabel}>
-      <AccessibilityInsetIcon className={styles.icon} />
-      {short ? 'Reviewed' : 'Reviewed for accessibility'}
-    </Label>
+    <Token
+      as="span"
+      size="large"
+      className={styles.reviewedLabel}
+      leadingVisual={() => <AccessibilityInsetIcon className={styles.icon} aria-hidden="true" />}
+      text={short ? 'Reviewed' : 'Reviewed for accessibility'}
+    />
   )
 }
