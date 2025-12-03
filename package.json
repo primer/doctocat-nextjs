@@ -31,7 +31,7 @@
     "@github/prettier-config": "^0.0.6",
     "@oddbird/popover-polyfill": "^0.5.2",
     "@primer/react": "38.0.0",
-    "@primer/react-brand": "0.60.0",
+    "@primer/react-brand": "0.60.1",
     "@types/node": "20.19.4",
     "@typescript-eslint/eslint-plugin": "8.29.0",
     "@typescript-eslint/parser": "8.29.0",
