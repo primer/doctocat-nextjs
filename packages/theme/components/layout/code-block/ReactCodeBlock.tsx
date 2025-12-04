@@ -205,13 +205,13 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
  * Helper function to turn Nextra <code> children into plain text
  */
 function getCodeFromChildren(children: React.ReactNode) {
-  if (!React.isValidElement(children) || !children.props?.children) return ''
-
-  // Flattens the nested spans and combine their text content if it's a react child
   const extractText = (node: React.ReactNode): string => {
     if (typeof node === 'string') return node
     if (Array.isArray(node)) return node.map(extractText).join('')
-    if (React.isValidElement(node) && node.props?.children) return extractText(node.props.children)
+    if (React.isValidElement(node)) {
+      const element = node as React.ReactElement<{children?: React.ReactNode}>
+      return extractText(element.props.children)
+    }
     return ''
   }
 

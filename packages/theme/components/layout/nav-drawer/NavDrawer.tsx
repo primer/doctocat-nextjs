@@ -26,7 +26,7 @@ export function NavDrawer({isOpen, onDismiss, pageMap}: NavDrawerProps) {
               <Link as={NextLink} href="https://primer.style" className={styles.headerLink}>
                 Explore
               </Link>
-              <IconButton icon={XIcon} aria-label="Close" onClick={onDismiss} variant="invisible" />
+              <IconButton as="button" icon={XIcon} aria-label="Close" onClick={onDismiss} variant="invisible" />
             </div>
           </div>
           <div className={styles.navContainer}>{/* <PrimerNavItems items={primerNavItems} /> */}</div>

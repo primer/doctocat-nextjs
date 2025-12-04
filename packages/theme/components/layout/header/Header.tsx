@@ -109,7 +109,13 @@ export function Header({siteTitle, flatDocsDirectories, pageMap}: HeaderProps) {
                 <Text as="p" size="300" weight="semibold">
                   Search
                 </Text>
-                <IconButton icon={XIcon} variant="invisible" aria-label="Close search" onClick={closeSearch} />
+                <IconButton
+                  as="button"
+                  icon={XIcon}
+                  variant="invisible"
+                  aria-label="Close search"
+                  onClick={closeSearch}
+                />
               </Stack>
             </div>
           </FocusOn>
@@ -117,12 +123,14 @@ export function Header({siteTitle, flatDocsDirectories, pageMap}: HeaderProps) {
         <div>
           <Stack direction="horizontal" padding="none" gap={4}>
             <IconButton
+              as="button"
               icon={colorMode === 'light' ? SunIcon : MoonIcon}
               variant="invisible"
               aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'} mode`}
               onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
             />
             <IconButton
+              as="button"
               ref={searchTriggerRef}
               className={styles.Header__searchButton}
               icon={SearchIcon}
@@ -132,6 +140,7 @@ export function Header({siteTitle, flatDocsDirectories, pageMap}: HeaderProps) {
             />
             <div className={styles.Header__navDrawerContainer}>
               <IconButton
+                as="button"
                 icon={ThreeBarsIcon}
                 variant="invisible"
                 aria-label="Menu"
