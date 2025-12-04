@@ -5,6 +5,8 @@
 
 Add React 19 support
 
+This update is backwards compatible with React 18. However, it upgrades `@primer/react` to v38, which includes breaking changes such as the removal of the `Box` component and `sx` prop. Projects using this theme may need to update their code accordingly.
+
 - Updated React peer dependency to support React 19
 - Updated @primer/react from v37.11.2 to 38.0.0
 - Updated `@primer/react-brand` from v0.54.0 to v0.60.1
