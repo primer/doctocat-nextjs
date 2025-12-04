@@ -13,3 +13,4 @@ Add React 19 support
 - Migrated `Label` components to `Token` for React 19 compatibility
 - Fixed type errors in `ReactCodeBlock` and `getRelatedPages` for stricter React 19 types
 - Added explicit `as="button"` to `IconButton` and `as="input"` to `TextInput` components
+- Updated Next.js and related packages from v15.5.2 to v15.5.7
