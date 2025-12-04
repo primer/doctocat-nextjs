@@ -1,6 +1,5 @@
 ---
 '@primer/doctocat-nextjs': minor
-'doctocat-nextjs-site': minor
 ---
 
 Add React 19 support
