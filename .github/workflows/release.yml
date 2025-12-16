@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    # Ignore merge queue branches (matches primer/react configuration)
+    # Ignore merge queue branches
     branches-ignore:
       - 'gh-readonly-queue/**'
     tags-ignore:
