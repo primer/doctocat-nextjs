@@ -103,7 +103,7 @@ jobs:
             })
 
   release-canary:
-    if: github.repository == 'primer/doctocat-nextjs' && github.ref_name != 'changeset-release/main'
+    if: github.repository == 'primer/doctocat-nextjs' && github.ref_name != 'main' && github.ref_name != 'changeset-release/main'
     name: Canary
     runs-on: ubuntu-latest
     steps:
