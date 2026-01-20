@@ -60,9 +60,9 @@ export function TableOfContents({headings}: TableOfContentsProps) {
 
   return (
     <aside className={clsx(styles.wrapper, 'exclude-from-prose', 'custom-component')}>
-      <Text as="p" size="100" variant="muted" weight="normal" className={styles.heading}>
+      <p className={styles.heading}>
         On this page
-      </Text>
+      </p>
       <NavList aria-label="Table of contents" className="custom-component">
         {depth2Headings.map(heading => (
           <NavList.Item

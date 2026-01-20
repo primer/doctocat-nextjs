@@ -5,9 +5,13 @@
 }
 
 .heading {
-  font-size: var(--base-size-12);
+  font-size: .875rem;
+  line-height: var(--brand-text-lineHeight-100);
   margin-block-end: var(--base-size-8);
   text-transform: uppercase;
+  font-family: var(--brand-fontStack-monospace);
+  color: var(--brand-color-text-muted);
+  font-weight: var(--base-text-weight-500);
 }
 
 .item {
