@@ -14,7 +14,7 @@ body {
 }
 
 .exclude-from-prose,
-.exclude-from-prose * + * {
+.exclude-from-prose *+* {
   margin-block-start: 0 !important;
 }
 
@@ -43,10 +43,11 @@ code span {
   color: var(--shiki-dark);
 }
 
-code[data-line-numbers] > .line {
+code[data-line-numbers]>.line {
   padding-left: 0.5rem;
 }
-code[data-line-numbers] > .line:before {
+
+code[data-line-numbers]>.line:before {
   counter-increment: line;
   content: counter(line);
   float: left;
@@ -57,9 +58,11 @@ code[data-line-numbers] > .line:before {
   height: 100%;
   padding-right: 1rem;
 }
+
 code .line {
   margin-block-start: 0 !important;
 }
+
 code .line.highlighted {
   background-color: rgba(218, 221, 226, 0.5);
   color: hsl(var(--brand-color-accent-primary) var(--brand-color-accent-primary) 45%/0.5);
@@ -67,6 +70,7 @@ code .line.highlighted {
   --tw-shadow-colored: inset 2px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent), var(--tw-ring-shadow, 0 0 transparent), var(--tw-shadow);
 }
+
 code .line .highlighted {
   --tw-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
   --tw-shadow-colored: 0 0 0 2px var(--tw-shadow-color);
@@ -76,14 +80,17 @@ code .line .highlighted {
   --tw-shadow: var(--tw-shadow-colored);
   border-radius: 0.125rem;
 }
+
 :is(html[class~='dark'] code .line .highlighted) {
   background-color: hsl(var(--brand-color-accent-primary) var(--brand-color-accent-primary) 77%/0.1);
   --tw-shadow-color: hsl(var(--brand-color-accent-primary) var(--brand-color-accent-primary) 77%/0.1);
   --tw-shadow: var(--tw-shadow-colored);
 }
+
 pre {
   contain: paint;
 }
+
 pre code {
   color: currentColor;
   border-style: none;
@@ -95,11 +102,18 @@ pre code {
   background-color: transparent !important;
   padding: 0 !important;
 }
+
 :is(html[class~='dark'] pre code) {
   background-color: transparent !important;
 }
+
 pre code .line,
 pre:not([data-theme]) {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+/* link offset sticky nav */
+:target {
+  scroll-margin-top: 5rem;
 }
