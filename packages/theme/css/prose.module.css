@@ -173,11 +173,8 @@
 .Prose a:not(:global(.custom-component) a),
 .Prose a:-webkit-any-link:not(:global(.custom-component) a:-webkit-any-link) {
   color: var(--brand-InlineLink-color-rest);
-  position: relative;
-}
-
-.Prose a:hover:not(:global(.custom-component) a:hover) {
   text-decoration: underline;
+  position: relative;
 }
 
 .Prose a::after:not(:global(.custom-component) a::after) {
