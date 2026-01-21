@@ -96,13 +96,12 @@
   }
 }
 
-.Header a.Header__siteTitle,
-.Header a.Header__siteTitle:hover {
+.Header__siteTitle {
   display: flex;
   gap: var(--base-size-8);
   align-items: center;
   margin-inline-end: auto;
-  text-decoration: none;
+  text-decoration: none !important; /* Override @primer/react link styles */
 }
 
 .Header__siteTitle svg {
@@ -124,15 +123,15 @@
   gap: var(--base-size-2);
 }
 
-.Header a.Header__link {
-  text-decoration: none;
+.Header__link {
+  text-decoration: none !important; /* Override @primer/react link styles */
   font-size: var(--base-font-size-16);
   font-weight: var(--base-font-weight-500);
   padding: var(--base-size-6) var(--base-size-12);
   border-radius: var(--brand-borderRadius-small);
 }
 
-.Header a.Header__link:hover {
+.Header__link:hover {
   background-color: var(--brand-color-canvas-subtle);
 }
 

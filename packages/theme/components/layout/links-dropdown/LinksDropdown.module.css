@@ -92,22 +92,22 @@
   border-radius: var(--brand-borderRadius-medium);
 }
 
-.dropdown a.link:focus-visible {
+.link:focus-visible {
   position: relative;
   outline: var(--base-size-4) solid var(--brand-color-focus);
   border-radius: var(--brand-borderRadius-small);
   z-index: 1;
 }
 
-.dropdown a.link {
+.link {
   display: block;
   padding: var(--base-size-6) var(--base-size-8);
-  text-decoration: none;
+  text-decoration: none !important; /* Override @primer/react link styles */
   color: var(--brand-color-text-default);
   cursor: pointer;
 }
 
-.dropdown a.link:hover {
+.link:hover {
   background-color: var(--brand-color-canvas-subtle);
 }
 
