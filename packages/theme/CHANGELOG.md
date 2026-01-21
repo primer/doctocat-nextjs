@@ -1,5 +1,13 @@
 # @primer/doctocat-nextjs
 
+## 0.8.1
+
+### Patch Changes
+
+- [#83](https://github.com/primer/doctocat-nextjs/pull/83) [`3c3b1a9`](https://github.com/primer/doctocat-nextjs/commit/3c3b1a95ff8a301ea81b67f393aad7a0d4ab52f9) Thanks [@danielguillan](https://github.com/danielguillan)! - Remove underlines from header links
+
+- [#80](https://github.com/primer/doctocat-nextjs/pull/80) [`772d8de`](https://github.com/primer/doctocat-nextjs/commit/772d8de1b580f7158262f313952227e282035003) Thanks [@danielguillan](https://github.com/danielguillan)! - Improves accessibility of anchor links by adding an underline
+
 ## 0.8.0
 
 ### Minor Changes
