@@ -96,7 +96,8 @@
   }
 }
 
-.Header__siteTitle {
+.Header a.Header__siteTitle,
+.Header a.Header__siteTitle:hover {
   display: flex;
   gap: var(--base-size-8);
   align-items: center;
@@ -123,7 +124,8 @@
   gap: var(--base-size-2);
 }
 
-.Header__link {
+.Header a.Header__link,
+.Header a.Header__link:hover {
   text-decoration: none;
   font-size: var(--base-font-size-16);
   font-weight: var(--base-font-weight-500);
@@ -131,7 +133,7 @@
   border-radius: var(--brand-borderRadius-small);
 }
 
-.Header__link:hover {
+.Header a.Header__link:hover {
   background-color: var(--brand-color-canvas-subtle);
 }
 

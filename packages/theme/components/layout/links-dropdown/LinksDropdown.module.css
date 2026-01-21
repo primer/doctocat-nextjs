@@ -92,14 +92,15 @@
   border-radius: var(--brand-borderRadius-medium);
 }
 
-.link:focus-visible {
+.dropdown a.link:focus-visible {
   position: relative;
   outline: var(--base-size-4) solid var(--brand-color-focus);
   border-radius: var(--brand-borderRadius-small);
   z-index: 1;
 }
 
-.link {
+.dropdown a.link,
+.dropdown a.link:hover {
   display: block;
   padding: var(--base-size-6) var(--base-size-8);
   text-decoration: none;
@@ -107,7 +108,7 @@
   cursor: pointer;
 }
 
-.link:hover {
+.dropdown a.link:hover {
   background-color: var(--brand-color-canvas-subtle);
 }
 
