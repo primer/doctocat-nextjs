@@ -101,7 +101,7 @@
   gap: var(--base-size-8);
   align-items: center;
   margin-inline-end: auto;
-  text-decoration: none;
+  text-decoration: none !important; /* Override @primer/react link styles */
 }
 
 .Header__siteTitle svg {
@@ -124,7 +124,7 @@
 }
 
 .Header__link {
-  text-decoration: none;
+  text-decoration: none !important; /* Override @primer/react link styles */
   font-size: var(--base-font-size-16);
   font-weight: var(--base-font-weight-500);
   padding: var(--base-size-6) var(--base-size-12);

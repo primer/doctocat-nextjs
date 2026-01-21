@@ -102,7 +102,7 @@
 .link {
   display: block;
   padding: var(--base-size-6) var(--base-size-8);
-  text-decoration: none;
+  text-decoration: none !important; /* Override @primer/react link styles */
   color: var(--brand-color-text-default);
   cursor: pointer;
 }
