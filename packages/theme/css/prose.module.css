@@ -19,8 +19,6 @@
 /* ---------------------------------------------------------- */
 
 .Prose {
-  /* Use Mona Sans for headings only, system everywhere else */
-  --brand-body-fontFamily: var(--brand-fontStack-system);
 
   font-family: var(--brand-body-fontFamily);
   font-size: var(--brand-text-size-200);
@@ -32,11 +30,7 @@
 /* 2. Element spacing                                         */
 /* ---------------------------------------------------------- */
 
-.Prose
-  :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, hr, table, pre, dl, :global(.custom-component)):not(
-    :global(.custom-component)
-      :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, hr, table, pre, dl, :global(.custom-component))
-  ) {
+.Prose :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, hr, table, pre, dl, :global(.custom-component)):not( :global(.custom-component) :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, hr, table, pre, dl, :global(.custom-component))) {
   margin-block-end: var(--spacing, 1em);
 }
 
@@ -53,7 +47,7 @@
 /* ---------------------------------------------------------- */
 
 .Prose h1:not(:global(.custom-component) h1) {
-  font-weight: var(--brand-heading-weight-900);
+  font-weight: var(--brand-heading-weight-700);
   font-size: var(--base-size-32);
   line-height: 1.5;
   font-family: var(--brand-heading-fontFamily);
@@ -62,12 +56,13 @@
 
 .Prose--lineLength h1:not(:global(.custom-component) h1) {
   max-width: 22ch;
+  text-wrap: balance;
 }
 
 .Prose h2:not(:global(.custom-component) h2) {
   font-weight: var(--brand-heading-weight-700);
   font-size: var(--base-size-24);
-  line-height: var(--base-size-24);
+  line-height: var(--base-size-32);
   font-family: var(--brand-heading-fontFamily);
   letter-spacing: var(--brand-text-letterSpacing-700);
 }
@@ -120,7 +115,7 @@
   margin-block-end: var(--spacing);
 }
 
-.Prose :is(h2, h3):not(:global(.custom-component) :is(h2, h3)) + * {
+.Prose :is(h2, h3):not(:global(.custom-component) :is(h2, h3))+* {
   --spacing: var(--base-size-40);
 }
 
@@ -129,6 +124,11 @@
 /* ---------------------------------------------------------- */
 
 .Prose p:not(:global(.custom-component) p) {
+  --spacing: var(--base-size-16);
+  font-family: var(--brand-body-fontFamily);
+}
+
+.Prose p:not(:global(.custom-component) p)+p:not(:global(.custom-component) p) {
   --spacing: var(--base-size-24);
 }
 
@@ -202,7 +202,7 @@
   font-family: var(--brand-fontStack-monospace);
   font-size: var(--brand-text-size-100);
   white-space: break-spaces;
-  padding: var(--base-size-4) var(--base-size-8);
+  padding: var(--base-size-2) var(--base-size-6);
   border-radius: var(--brand-borderRadius-small);
   background-color: var(--base-color-scale-indigo-0);
 }

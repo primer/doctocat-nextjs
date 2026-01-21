@@ -192,12 +192,12 @@ export function Theme({pageMap, children}: ThemeProps) {
                             <div>
                               <Stack direction="vertical" padding="none" gap={12} alignItems="flex-start">
                                 {activeMetadata.title && (
-                                  <Heading as="h1" size="3">
+                                  <Heading as="h1" size="2">
                                     {activeMetadata.title}
                                   </Heading>
                                 )}
                                 {activeMetadata.description && (
-                                  <Text as="p" variant="muted" size="300">
+                                  <Text as="p" variant="muted" size="400">
                                     {activeMetadata.description}
                                   </Text>
                                 )}
