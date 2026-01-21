@@ -99,8 +99,7 @@
   z-index: 1;
 }
 
-.dropdown a.link,
-.dropdown a.link:hover {
+.dropdown a.link {
   display: block;
   padding: var(--base-size-6) var(--base-size-8);
   text-decoration: none;

@@ -124,8 +124,7 @@
   gap: var(--base-size-2);
 }
 
-.Header a.Header__link,
-.Header a.Header__link:hover {
+.Header a.Header__link {
   text-decoration: none;
   font-size: var(--base-font-size-16);
   font-weight: var(--base-font-weight-500);
