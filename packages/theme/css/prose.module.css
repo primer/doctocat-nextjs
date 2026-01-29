@@ -177,7 +177,7 @@
   position: relative;
 }
 
-.Prose a::after:not(:global(.custom-component) a::after) {
+.Prose a:not(:global(.custom-component) a)::after {
   content: '';
   border-bottom: var(--brand-borderWidth-thin) solid var(--brand-InlineLink-color-rest);
   height: 0;
@@ -190,11 +190,11 @@
   left: 0;
 }
 
-.Prose a:hover::after:not(:global(.custom-component) a:hover::after) {
+.Prose a:not(:global(.custom-component) a):hover::after {
   transform: scaleY(var(--brand-InlineLink-transition-scale-end));
 }
 
-.Prose a:active::after:not(:global(.custom-component) a:active::after) {
+.Prose a:not(:global(.custom-component) a):active::after {
   border-color: var(--brand-InlineLink-color-pressed);
 }
 

@@ -10,7 +10,7 @@
   },
   "scripts": {
     "check": "tsc --noEmit",
-    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./.eslintrc.cjs",
+    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:no-watch": "vitest run",
@@ -20,19 +20,20 @@
   "license": "MIT",
   "peerDependencies": {
     "@primer/react-brand": ">=0.54.0",
-    "next": "^15.0.0",
+    "next": "^16.0.0",
     "react": ">=18.0.0 <20.0.0",
     "react-dom": ">=18.0.0 <20.0.0"
   },
   "dependencies": {
-    "@next/mdx": "15.5.7",
+    "@next/mdx": "16.1.6",
     "@primer/octicons-react": "19.15.1",
     "@primer/react": "^38.3.0",
     "@types/lodash.debounce": "^4.0.9",
     "framer-motion": "12.23.24",
     "lodash.debounce": "^4.0.8",
-    "nextra": "4.4.0",
+    "nextra": "4.6.1",
     "react-focus-on": "^3.10.0",
+    "react-is": "^19.2.0",
     "react-live": "^4.1.8"
   },
   "devDependencies": {
@@ -49,7 +50,7 @@
     "@vitest/ui": "^3.2.4",
     "clsx": "2.1.1",
     "jsdom": "^26.0.1",
-    "next": "15.5.7",
+    "next": "16.1.6",
     "styled-components": "5.3.11",
     "vitest": "^3.2.4"
   }
