@@ -56,8 +56,7 @@ export function Sidebar({pageMap}: SidebarProps) {
       )}
       <NavList className={styles.NavList} aria-labelledby="nav-list-heading">
         {reorderedPageMap.map(item => {
-          if (item.hasOwnProperty('data')) return null
-
+          if (Object.hasOwn(item, 'data')) return null
           if (!hasChildren(item)) return null
 
           const indexPage = (item as Folder).children.find(child => (child as MdxFile).name === 'index') as MdxFile

@@ -4,7 +4,6 @@ import Theme, {getPageMap} from '@primer/doctocat-nextjs'
 import type {FC, ReactNode} from 'react'
 import '@primer/doctocat-nextjs/css/global.css'
 
-// eslint-disable-next-line i18n-text/no-en
 const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Example Site'
 
 export const metadata: Metadata = {
