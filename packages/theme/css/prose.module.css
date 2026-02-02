@@ -172,6 +172,7 @@
 
 .Prose a:not(:global(.custom-component) a),
 .Prose a:-webkit-any-link:not(:global(.custom-component) a:-webkit-any-link) {
+  --fgColor-accent: var(--brand-InlineLink-color-rest);
   color: var(--brand-InlineLink-color-rest);
   text-decoration: underline;
 }

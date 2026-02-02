@@ -18,7 +18,6 @@ const COLLAPSE_HEIGHT = 400 // TODO: Hoist this to config to make user customiza
 type ReactCodeBlockProps = {
   'data-language': string
   'data-filename'?: string
-  code?: string
   jsxScope: Record<string, unknown>
 } & PropsWithChildren<HTMLElement>
 

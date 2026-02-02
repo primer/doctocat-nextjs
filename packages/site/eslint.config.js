@@ -14,7 +14,6 @@ export default [
       ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs['core-web-vitals'].rules,
       '@next/next/no-img-element': 'off',
-      'import/extensions': 'off',
     },
   },
 ]
