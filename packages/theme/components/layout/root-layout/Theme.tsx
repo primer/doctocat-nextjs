@@ -43,7 +43,6 @@ const repoSrcPath = process.env.NEXT_PUBLIC_REPO_SRC_PATH || ''
 const repoURL = process.env.NEXT_PUBLIC_REPO || ''
 
 if (!repoURL) {
-  // eslint-disable-next-line no-console
   console.warn(
     'NEXT_PUBLIC_REPO is not set. Edit the .env.local file to set the NEXT_PUBLIC_REPO environment variable.',
   )
@@ -75,7 +74,6 @@ export function Theme({pageMap, children}: ThemeProps) {
     [pageMap, fsPath],
   )
 
-  // eslint-disable-next-line i18n-text/no-en
   const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Example Site'
   const {headerLinks} = useConfig()
   const activeHeaderLink = headerLinks.find(link => link.isActive)

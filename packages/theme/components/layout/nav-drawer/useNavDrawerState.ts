@@ -24,7 +24,6 @@ export function useNavDrawerState(breakpoint: string | number): [boolean, (value
 
   useEffect(() => {
     if (isOpen) {
-      // eslint-disable-next-line github/prefer-observers
       window.addEventListener('resize', debouncedOnResize)
       return () => {
         // cancel any debounced invocation of the resize handler

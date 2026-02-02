@@ -1,7 +1,6 @@
 'use client'
 import React, {PropsWithChildren} from 'react'
 import dynamic from 'next/dynamic'
-import {renderToStaticMarkup} from 'react-dom/server'
 
 import {Pre} from 'nextra/components'
 import {Box, Stack, Text} from '@primer/react-brand'
@@ -34,42 +33,6 @@ type CodeBlockProps = {
 
 export function CodeBlock(props: CodeBlockProps) {
   if (['tsx', 'jsx'].includes(props['data-language'])) {
-    // Next.js v15.4+ will lazy render components on the server, which prevents us from
-    // sending usable React nodes to the ReactCodeBlock component.
-    // Workaround is to convert the code snippets to string on the client and pass to react-live.
-
-    // suppresses compilation warnings
-    if (typeof window !== 'undefined') {
-      try {
-        const childrenAsString = renderToStaticMarkup(<>{props.children}</>)
-
-        // Extract text content using browser's HTML parser (immune to regex bypass attacks)
-        const cleanHtmlTag = (str: string): string => {
-          const parser = new DOMParser()
-          const doc = parser.parseFromString(str, 'text/html')
-          return doc.body.textContent || doc.body.innerText || ''
-        }
-
-        const textContent = cleanHtmlTag(childrenAsString)
-
-        // Restore escaped chars
-        const decodedText = textContent
-          .replace(/&lt;/g, '<')
-          .replace(/&gt;/g, '>')
-          .replace(/&quot;/g, '"')
-          .replace(/&#x27;/g, "'")
-          .replace(/&amp;/g, '&')
-
-        return <ReactCodeBlock {...props} code={decodedText} />
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log('Error extracting code snippet. Forwarding children directly:', error)
-        // Fallback to original children-based approach
-        return <ReactCodeBlock {...props} />
-      }
-    }
-
-    // During SSR/build, use children-based approach
     return <ReactCodeBlock {...props} />
   }
 

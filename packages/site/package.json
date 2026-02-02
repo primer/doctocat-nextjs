@@ -7,8 +7,9 @@
   "scripts": {
     "dev": "next dev",
     "check": "tsc --noEmit",
-    "build": "rm -rf out && next build",
-    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --config ./.eslintrc.cjs",
+    "build": "rm -rf out && next build --webpack",
+    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
+    "format": "prettier --write '**/*.{js,ts,tsx,md,mdx,json,css,scss}'",
     "start": "next start"
   },
   "repository": {
@@ -23,8 +24,8 @@
   "dependencies": {
     "@primer/doctocat-nextjs": "^0.8.0",
     "@primer/octicons-react": "19.15.1",
-    "eslint-config-next": "15.5.7",
-    "next": "15.5.7",
+    "eslint-config-next": "16.1.6",
+    "next": "16.1.6",
     "react": "^19.2.1",
     "react-dom": "^19.2.1"
   },

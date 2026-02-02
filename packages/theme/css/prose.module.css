@@ -172,30 +172,9 @@
 
 .Prose a:not(:global(.custom-component) a),
 .Prose a:-webkit-any-link:not(:global(.custom-component) a:-webkit-any-link) {
+  --fgColor-accent: var(--brand-InlineLink-color-rest);
   color: var(--brand-InlineLink-color-rest);
   text-decoration: underline;
-  position: relative;
-}
-
-.Prose a::after:not(:global(.custom-component) a::after) {
-  content: '';
-  border-bottom: var(--brand-borderWidth-thin) solid var(--brand-InlineLink-color-rest);
-  height: 0;
-  transition: var(--brand-InlineLink-transition-timing) transform;
-  transform: scaleY(var(--brand-InlineLink-transition-scale-start));
-  transform-origin: 50% 100%;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-
-.Prose a:hover::after:not(:global(.custom-component) a:hover::after) {
-  transform: scaleY(var(--brand-InlineLink-transition-scale-end));
-}
-
-.Prose a:active::after:not(:global(.custom-component) a:active::after) {
-  border-color: var(--brand-InlineLink-color-pressed);
 }
 
 .Prose code:not(:global(.custom-component) code) {

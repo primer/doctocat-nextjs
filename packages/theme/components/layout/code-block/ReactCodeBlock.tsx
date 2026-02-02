@@ -18,7 +18,6 @@ const COLLAPSE_HEIGHT = 400 // TODO: Hoist this to config to make user customiza
 type ReactCodeBlockProps = {
   'data-language': string
   'data-filename'?: string
-  code?: string
   jsxScope: Record<string, unknown>
 } & PropsWithChildren<HTMLElement>
 
@@ -35,14 +34,25 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
   const uniqueId = useId()
   const {colorMode, setColorMode} = useColorMode()
   const {basePath} = useConfig()
-  const initialCode = props.code || getCodeFromChildren(props.children)
-  const [code, setCode] = useState(initialCode)
+  const codeSourceRef = useRef<HTMLDivElement>(null)
+  const [code, setCode] = useState<string>('')
+  const [isReady, setIsReady] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
   const [isCodePaneCollapsed, setIsCodePaneCollapsed] = useState<boolean | null>(null)
   const [initialPosition, setInitialPosition] = useState<number | null>(null)
   const editorRef = useRef<HTMLDivElement>(null)
   const resetButtonRef = useRef<HTMLButtonElement>(null)
   const shouldShowPreview = ['tsx', 'jsx'].includes(props['data-language'])
+
+  useEffect(() => {
+    if (codeSourceRef.current && !isReady) {
+      const textContent = codeSourceRef.current.textContent || ''
+      if (textContent) {
+        setCode(textContent)
+        setIsReady(true)
+      }
+    }
+  }, [isReady, props.children])
 
   // scroll back to the initial y pos on collapse state change
   useEffect(() => {
@@ -71,8 +81,10 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
   )
 
   const handleReset = useCallback(() => {
-    setCode(initialCode)
-  }, [initialCode, setCode])
+    if (codeSourceRef.current) {
+      setCode(codeSourceRef.current.textContent || '')
+    }
+  }, [])
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(code)
@@ -132,88 +144,77 @@ export function ReactCodeBlock(props: ReactCodeBlockProps) {
 
   return (
     <>
-      <LiveProvider transformCode={transformCodeWithBasePath} code={code} scope={props.jsxScope} noInline={noInline}>
-        <div ref={rootRef} className={clsx(styles.CodeBlock, 'custom-component')}>
-          {shouldShowPreview && (
-            <div>
-              <div className={styles.colorModeMenu}>
-                <ActionBar aria-label="Toolbar">
-                  {colorModes.map((mode, index) => {
-                    const Icon = mode === 'light' ? SunIcon : MoonIcon
-                    return (
-                      <ActionBar.IconButton
-                        className={clsx(styles.colorModeButton, colorMode === mode && styles.colorModeButtonActive)}
-                        key={`color-mode-${mode}-${index}`}
-                        icon={Icon}
-                        aria-label={mode}
-                        onClick={() => setColorMode(mode)}
-                      />
-                    )
-                  })}
-                </ActionBar>
-              </div>
-              <ThemeProvider colorMode={colorMode}>
-                <div className="custom-component">
-                  <LivePreview className={styles.Preview} />
+      {/* Hidden el to render children and extract text content */}
+      <div ref={codeSourceRef} style={{display: 'none'}} aria-hidden="true">
+        {props.children}
+      </div>
+      {isReady && (
+        <LiveProvider transformCode={transformCodeWithBasePath} code={code} scope={props.jsxScope} noInline={noInline}>
+          <div ref={rootRef} className={clsx(styles.CodeBlock, 'custom-component')}>
+            {shouldShowPreview && (
+              <div>
+                <div className={styles.colorModeMenu}>
+                  <ActionBar aria-label="Toolbar">
+                    {colorModes.map((mode, index) => {
+                      const Icon = mode === 'light' ? SunIcon : MoonIcon
+                      return (
+                        <ActionBar.IconButton
+                          className={clsx(styles.colorModeButton, colorMode === mode && styles.colorModeButtonActive)}
+                          key={`color-mode-${mode}-${index}`}
+                          icon={Icon}
+                          aria-label={mode}
+                          onClick={() => setColorMode(mode)}
+                        />
+                      )
+                    })}
+                  </ActionBar>
                 </div>
-              </ThemeProvider>
+                <ThemeProvider colorMode={colorMode}>
+                  <div className="custom-component">
+                    <LivePreview className={styles.Preview} />
+                  </div>
+                </ThemeProvider>
+              </div>
+            )}
+            <div className={styles.Toolbar}>
+              <Button size="small" leadingVisual={CopyIcon} onClick={handleCopy}>
+                Copy
+              </Button>
+              <Button size="small" leadingVisual={UndoIcon} onClick={handleReset} ref={resetButtonRef}>
+                Reset
+              </Button>
             </div>
-          )}
-          <div className={styles.Toolbar}>
-            <Button size="small" leadingVisual={CopyIcon} onClick={handleCopy}>
-              Copy
-            </Button>
-            <Button size="small" leadingVisual={UndoIcon} onClick={handleReset} ref={resetButtonRef}>
-              Reset
-            </Button>
-          </div>
-          <div className={styles.EditorWrapper}>
-            <div
-              className={clsx(styles.Editor, isCodePaneCollapsed && styles['Editor--is-collapsed'])}
-              ref={editorRef}
-              id={`${uniqueId}-code-editor-content`}
-            >
-              <LiveEditor theme={colorMode === 'light' ? lightTheme : darkTheme} onChange={setCode} />
-            </div>
-            {shouldShowCollapse && (
-              <button
-                className={clsx(styles.collapseButton, isCodePaneCollapsed && styles['collapseButton--collapsed'])}
-                onClick={handleCollapsibleCodePane}
-                aria-expanded={!isCodePaneCollapsed}
-                aria-controls={`${uniqueId}-code-editor-content`}
-                aria-label={isCodePaneCollapsed ? 'Show full code block' : 'Collapse code block'}
+            <div className={styles.EditorWrapper}>
+              <div
+                className={clsx(styles.Editor, isCodePaneCollapsed && styles['Editor--is-collapsed'])}
+                ref={editorRef}
+                id={`${uniqueId}-code-editor-content`}
               >
-                <Text size="100" className={styles.collapseLabel}>
-                  {isCodePaneCollapsed ? 'Show full code' : 'Collapse code'}
-                </Text>
-                <Text variant="muted">{isCodePaneCollapsed ? <UnfoldIcon /> : <FoldIcon />}</Text>
-              </button>
+                <LiveEditor theme={colorMode === 'light' ? lightTheme : darkTheme} onChange={setCode} />
+              </div>
+              {shouldShowCollapse && (
+                <button
+                  className={clsx(styles.collapseButton, isCodePaneCollapsed && styles['collapseButton--collapsed'])}
+                  onClick={handleCollapsibleCodePane}
+                  aria-expanded={!isCodePaneCollapsed}
+                  aria-controls={`${uniqueId}-code-editor-content`}
+                  aria-label={isCodePaneCollapsed ? 'Show full code block' : 'Collapse code block'}
+                >
+                  <Text size="100" className={styles.collapseLabel}>
+                    {isCodePaneCollapsed ? 'Show full code' : 'Collapse code'}
+                  </Text>
+                  <Text variant="muted">{isCodePaneCollapsed ? <UnfoldIcon /> : <FoldIcon />}</Text>
+                </button>
+              )}
+            </div>
+            {shouldShowPreview && (
+              <div className={styles.Error}>
+                <LiveError />
+              </div>
             )}
           </div>
-          {shouldShowPreview && (
-            <div className={styles.Error}>
-              <LiveError />
-            </div>
-          )}
-        </div>
-      </LiveProvider>
+        </LiveProvider>
+      )}
     </>
   )
-}
-
-/**
- * Helper function to turn Nextra <code> children into plain text
- */
-function getCodeFromChildren(children: React.ReactNode) {
-  const extractText = (node: React.ReactNode): string => {
-    if (typeof node === 'string') return node
-    if (Array.isArray(node)) return node.map(extractText).join('')
-    if (React.isValidElement(node)) {
-      const element = node as React.ReactElement<{children?: React.ReactNode}>
-      return extractText(element.props.children)
-    }
-    return ''
-  }
-
-  return extractText(children)
 }
