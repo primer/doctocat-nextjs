@@ -12,6 +12,7 @@
 
 .BreadcrumbRoot,
 .BreadcrumbItem {
+  --fgColor-link: var(--brand-InlineLink-color-rest);
   color: var(--brand-InlineLink-color-rest);
 }
 
@@ -24,11 +25,9 @@
   width: 100%;
 }
 
-
 .ActionsWrapper {
   padding-block-start: var(--base-size-16);
 }
-
 
 .RelatedLinks {
   padding-top: var(--base-size-20);

@@ -3,10 +3,6 @@
   text-decoration: none !important;
 }
 
-.Heading__anchor::after {
-  display: none;
-}
-
 .Heading__anchorIcon {
   position: relative;
   visibility: hidden;
