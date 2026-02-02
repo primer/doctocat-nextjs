@@ -1,5 +1,13 @@
 # @primer/doctocat-nextjs
 
+## 0.9.0
+
+### Minor Changes
+
+- [#87](https://github.com/primer/doctocat-nextjs/pull/87) [`7a28f1d`](https://github.com/primer/doctocat-nextjs/commit/7a28f1d707bcfd54b95d16d74e3bdea96eae252c) Thanks [@rezrah](https://github.com/rezrah)! - Upgrades Next.js and Nextra.
+  - **Next.js version >= v16.x is now required**. v15.x is no longer supported.
+  - `nextra` version is now `4.6.x`
+
 ## 0.8.1
 
 ### Patch Changes
