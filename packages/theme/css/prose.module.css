@@ -193,7 +193,6 @@
   line-height: 1;
   vertical-align: baseline;
   margin-block: var(--base-size-4);
-  box-decoration-break: clone;
 }
 
 [data-color-mode='dark'] .Prose code:not(:global(.custom-component) code) {
