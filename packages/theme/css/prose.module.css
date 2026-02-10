@@ -190,8 +190,6 @@
 .Prose :is(h1, h2, h3, h4, h5, h6) code:not(:global(.custom-component) code) {
   font-size: inherit;
   display: inline-block;
-  line-height: 1;
-  vertical-align: baseline;
   margin-block: var(--base-size-4);
 }
 
