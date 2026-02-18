@@ -11,6 +11,9 @@ import styles from './GlobalSearch.module.css'
 import type {DocsItem} from '../../../types'
 import {HighlightSearchTerm} from '../highlight-search-term/HighlightSearchTerm'
 
+/** Debounce delay for screen reader result announcements to avoid noise while typing. */
+const STATUS_DEBOUNCE_MS = 1400
+
 type GlobalSearchProps = {
   flatDocsDirectories: DocsItem[]
   siteTitle: string
@@ -43,7 +46,7 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
               : `${searchResults.length} result${searchResults.length === 1 ? '' : 's'} available`
             : '',
         )
-      }, 1400)
+      }, STATUS_DEBOUNCE_MS)
 
       return () => clearTimeout(timeout)
     }, [searchTerm, searchResults.length])
