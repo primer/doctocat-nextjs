@@ -12,7 +12,7 @@ import type {DocsItem} from '../../../types'
 import {HighlightSearchTerm} from '../highlight-search-term/HighlightSearchTerm'
 
 /** Debounce delay for screen reader result announcements to avoid noise while typing. */
-const STATUS_DEBOUNCE_MS = 1400
+const STATUS_DEBOUNCE_MS = 1000
 
 type GlobalSearchProps = {
   flatDocsDirectories: DocsItem[]
