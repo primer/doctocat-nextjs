@@ -5,8 +5,8 @@
 html,
 body {
   background-color: var(--brand-color-canvas-default) !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji';
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
 }
 
 [data-color-mode='dark'] {
@@ -37,6 +37,11 @@ code {
 
 code span {
   color: var(--shiki-light);
+}
+
+/* Override shiki-light keyword color for better contrast */
+code span[style*='--shiki-light:#D73A49'] {
+  --shiki-light: var(--base-color-scale-red-5) !important;
 }
 
 [data-color-mode='dark'] code span {
