@@ -43,7 +43,8 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
               : `${searchResults.length} result${searchResults.length === 1 ? '' : 's'} available`
             : '',
         )
-      }, STATUS_DEBOUNCE_MS)
+        // debounce
+      }, 1000)
 
       return () => clearTimeout(timeout)
     }, [searchTerm, searchResults.length])
