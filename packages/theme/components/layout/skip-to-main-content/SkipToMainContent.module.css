@@ -5,7 +5,7 @@
   z-index: 999;
   padding: var(--base-size-16);
   background-color: var(--base-color-scale-blue-5);
-  color: var(--base-color-scale-white-0);
+  color: var(--base-color-scale-white-0) !important; /* Override the PRC default link styles */
 }
 .SkipToMainContent:not(:focus) {
   clip: rect(1px, 1px, 1px, 1px);
