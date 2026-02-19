@@ -20,7 +20,8 @@
   max-width: calc(100% - 46px);
   border: var(--brand-borderWidth-thin) solid var(--brand-color-border-default);
   border-radius: var(--brand-borderRadius-medium);
-  max-height: 300px;
+  max-height: min(300px, 50vh);
+  max-height: min(300px, 50dvh);
   overflow-y: auto;
   overflow-x: hidden;
 }

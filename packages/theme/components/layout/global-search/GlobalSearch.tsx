@@ -32,6 +32,22 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
     const [searchResults, setSearchResults] = useState<SearchResult[]>([])
     const [searchTerm, setSearchTerm] = useState<string | undefined>('')
     const [activeDescendant, setActiveDescendant] = useState<number>(-1)
+    const [statusMessage, setStatusMessage] = useState('')
+
+    useEffect(() => {
+      const timeout = setTimeout(() => {
+        setStatusMessage(
+          searchTerm
+            ? searchResults.length === 0
+              ? 'No results found'
+              : `${searchResults.length} result${searchResults.length === 1 ? '' : 's'} available`
+            : '',
+        )
+        // debounce
+      }, 1000)
+
+      return () => clearTimeout(timeout)
+    }, [searchTerm, searchResults.length])
 
     useEffect(() => {
       const handleClickAway = (event: MouseEvent) => {
@@ -187,6 +203,9 @@ export const GlobalSearch = forwardRef<HTMLInputElement, GlobalSearchProps>(
             aria-expanded={isSearchResultOpen}
           />
         </FormControl>
+        <div className="visually-hidden" aria-live="polite" role="status">
+          {statusMessage}
+        </div>
         {searchTerm && (
           <div
             className={clsx(
