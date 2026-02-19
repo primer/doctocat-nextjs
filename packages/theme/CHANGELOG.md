@@ -1,5 +1,18 @@
 # @primer/doctocat-nextjs
 
+## 0.9.1
+
+### Patch Changes
+
+- [#92](https://github.com/primer/doctocat-nextjs/pull/92) [`bc694fa`](https://github.com/primer/doctocat-nextjs/commit/bc694fae9e9565c55b67e5b8c9d9302067061226) Thanks [@rezrah](https://github.com/rezrah)! - Increase contrast of the "Skip to main content" link where Primer React link color rules were overriding component-level ones.
+
+- [#91](https://github.com/primer/doctocat-nextjs/pull/91) [`af9b369`](https://github.com/primer/doctocat-nextjs/commit/af9b369e0bba2765ba762d6aa8ba31f619c7b1de) Thanks [@danielguillan](https://github.com/danielguillan)! - [a11y] Fix search results not announced by screen readers and dropdown overflowing viewport at small sizes
+
+- [#94](https://github.com/primer/doctocat-nextjs/pull/94) [`dcd8034`](https://github.com/primer/doctocat-nextjs/commit/dcd803457570c35876eb8f6a609d02e3873e295a) Thanks [@rezrah](https://github.com/rezrah)! - Increase contrast of all `code span` syntax highlights in code fences on light mode.
+
+  Before: 4.31:1 AA (fails WCAG AA)
+  After: 5.03:1 AA (passes WCAG AA)
+
 ## 0.9.0
 
 ### Minor Changes
