@@ -11,9 +11,6 @@ import styles from './GlobalSearch.module.css'
 import type {DocsItem} from '../../../types'
 import {HighlightSearchTerm} from '../highlight-search-term/HighlightSearchTerm'
 
-/** Debounce delay for screen reader result announcements to avoid noise while typing. */
-const STATUS_DEBOUNCE_MS = 1000
-
 type GlobalSearchProps = {
   flatDocsDirectories: DocsItem[]
   siteTitle: string
