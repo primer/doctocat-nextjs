@@ -105,7 +105,41 @@ description: My page description
 ---
 ```
 
-## 8. Deploy to GitHub Pages
+## 8. Optional: Add an LLMs.txt file
+
+Add an [`llms.txt`](https://llmstxt.org/) file to make your site content easily discoverable to AI tools like GitHub Copilot. This file will be automatically generated at build time, and help your Agents discover your content much more efficiently.
+
+To enable this feature, you simply need to copy the following code into a new file at the following location: `app/llms.txt/route.ts`:
+
+```ts live
+import {generateLLMsTxt} from '@primer/doctocat-nextjs/llms'
+
+export const dynamic = 'force-static'
+
+export async function GET() {
+  const content = await generateLLMsTxt()
+
+  return new Response(content, {
+    headers: {'Content-Type': 'text/plain; charset=utf-8'},
+  })
+}
+```
+
+The title and description are automatically inferred from your homepage frontmatter.
+
+The resulting `/llms.txt` will list every page on your site with its title, description, and any keywords from your frontmatter.
+
+To help discoverability, be sure to add relevant `keywords` to your page frontmatter:
+
+```md
+---
+title: My page title
+description: My page description
+keywords: ['synonyms', 'alternative', 'search terms']
+---
+```
+
+## 9. Deploy to GitHub Pages
 
 After you've customized the content of your site, you're ready to deploy. There are many ways to deploy your site, but we currently use [GitHub Pages](https://pages.github.com/) for most of our sites, and have found it to be an easy way to get sites up and running quickly.
 
