@@ -1,12 +1,9 @@
 import {getPageMap} from 'nextra/page-map'
-import type {PageMapItem, MdxFile, Folder} from 'nextra'
+import type {PageMapItem, MdxFile} from 'nextra'
+import {hasChildren} from './helpers/hasChildren'
 
 function isMdxFile(item: PageMapItem): item is MdxFile {
   return 'route' in item && 'name' in item && !('children' in item) && !('data' in item)
-}
-
-function isFolder(item: PageMapItem): item is Folder {
-  return 'children' in item
 }
 
 function getTitle(item: MdxFile): string {
@@ -29,7 +26,7 @@ function getPages(items: PageMapItem[]): MdxFile[] {
   for (const item of items) {
     if (isMdxFile(item)) {
       pages.push(item)
-    } else if (isFolder(item)) {
+    } else if (hasChildren(item)) {
       pages.push(...getPages(item.children))
     }
   }
@@ -39,6 +36,7 @@ function getPages(items: PageMapItem[]): MdxFile[] {
 export async function generateLLMsTxt(): Promise<string> {
   const pageMap = await getPageMap()
   const pages = getPages(pageMap)
+  const basePath = process.env.NEXT_PUBLIC_DOCTOCAT_BASE_PATH || ''
 
   // use homepage to auto-infer site title and descriptions. most users should have filled these out.
   const homepage = pages.find(page => page.route === '/')
@@ -58,7 +56,7 @@ export async function generateLLMsTxt(): Promise<string> {
     const pageTitle = getTitle(page)
     const pageDesc = getDescription(page)
     const keywords = getKeywords(page)
-    const route = page.route || '/'
+    const route = `${basePath}${page.route || '/'}`
 
     let entry = `- [${pageTitle}](${route})`
     if (pageDesc) entry += `: ${pageDesc}`

@@ -20,4 +20,4 @@ export async function GET() {
 }
 ```
 
-Important: Ensure that `title`, `description` and `keyword` fields are populated in your contents frontmatter.
+Important: Ensure that `title`, `description` and `keywords` fields are populated in your content's frontmatter.
