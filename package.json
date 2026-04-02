@@ -32,7 +32,7 @@
     "@oddbird/popover-polyfill": "^0.6.1",
     "@primer/react": "38.18.0",
     "@primer/react-brand": "0.65.1",
-    "@types/node": "20.19.37",
+    "@types/node": "24.12.0",
     "@typescript-eslint/eslint-plugin": "8.58.0",
     "@typescript-eslint/parser": "8.58.0",
     "eslint": "^9",
@@ -44,7 +44,7 @@
     "eslint-plugin-primer-react": "^8.6.0",
     "eslint-plugin-react": "^7.37.0",
     "eslint-plugin-react-hooks": "^5.1.0",
-    "globals": "^16.0.0",
+    "globals": "^17.4.0",
     "typescript": "6.0.2"
   }
 }
