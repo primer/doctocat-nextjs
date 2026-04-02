@@ -2,7 +2,7 @@
 '@primer/doctocat-nextjs': minor
 ---
 
-Updated various internal dependencies to latest minor/patch versions.
+Updated dependencies to latest versions.
 
 - `@primer/react` 38.3.0 → 38.18.0
 - `@primer/octicons-react` 19.15.1 → 19.23.1
