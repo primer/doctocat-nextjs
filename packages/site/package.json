@@ -23,18 +23,18 @@
   "homepage": "https://github.com/primer/doctocat-nextjs#readme",
   "dependencies": {
     "@primer/doctocat-nextjs": "^0.9.0",
-    "@primer/octicons-react": "19.15.1",
-    "eslint-config-next": "16.1.6",
-    "next": "16.1.6",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1"
+    "@primer/octicons-react": "19.23.1",
+    "eslint-config-next": "16.2.2",
+    "next": "16.2.2",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "@github/prettier-config": "^0.0.6",
-    "@primer/react": "38.3.0",
-    "@primer/react-brand": "0.60.1",
-    "@types/node": "20.19.4",
-    "@types/react": "^19.2.7",
+    "@primer/react": "38.18.0",
+    "@primer/react-brand": "0.65.1",
+    "@types/node": "20.19.37",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3"
   }
 }
