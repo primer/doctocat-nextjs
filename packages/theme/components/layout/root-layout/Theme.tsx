@@ -13,8 +13,8 @@ import {
   ButtonGroup,
   ThemeProvider as BrandThemeProvider,
   Button,
-  Hero,
   Heading,
+  Image,
   Stack,
   Text,
 } from '@primer/react-brand'
@@ -201,7 +201,7 @@ export function Theme({pageMap, children}: ThemeProps) {
                                 )}
                                 {activeMetadata.image && (
                                   <div className={styles.HeroImageWrapper}>
-                                    <Hero.Image src={activeMetadata.image} alt={activeMetadata['image-alt']} />
+                                    <Image src={activeMetadata.image} alt={activeMetadata['image-alt']} />
                                   </div>
                                 )}
                                 {activeMetadata['action-1-text'] && (
