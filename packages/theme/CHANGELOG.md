@@ -1,5 +1,36 @@
 # @primer/doctocat-nextjs
 
+## 0.10.0
+
+### Minor Changes
+
+- [#99](https://github.com/primer/doctocat-nextjs/pull/99) [`1b72c82`](https://github.com/primer/doctocat-nextjs/commit/1b72c8203115a0e1c7bb511b7abe257cc33ab558) Thanks [@rezrah](https://github.com/rezrah)! - Updated dependencies to latest versions.
+  - `@primer/react` 38.3.0 → 38.18.0
+  - `@primer/octicons-react` 19.15.1 → 19.23.1
+  - `@next/mdx` and `next` 16.1.6 → 16.2.2
+  - `framer-motion` 12.23.24 → 12.38.0
+  - Replaced `Hero.Image` with standalone `Image` from `@primer/react-brand` for compatibility with 0.65.1
+
+- [#98](https://github.com/primer/doctocat-nextjs/pull/98) [`a4e4e89`](https://github.com/primer/doctocat-nextjs/commit/a4e4e89d6935250ab6f8ac84d0d2dc8e9f3b5654) Thanks [@rezrah](https://github.com/rezrah)! - Added support for generating [llms.txt](https://llmstxt.org/) at build time. This file will make your site's content easily discoverable by Agentic AI tools like GitHub Copilot.
+
+  To enable this feature, create `app/llms.txt/route.ts`:
+
+  ```ts
+  import {generateLLMsTxt} from '@primer/doctocat-nextjs/llms'
+
+  export const dynamic = 'force-static'
+
+  export async function GET() {
+    const content = await generateLLMsTxt()
+
+    return new Response(content, {
+      headers: {'Content-Type': 'text/plain; charset=utf-8'},
+    })
+  }
+  ```
+
+  Important: Ensure that `title`, `description` and `keywords` fields are populated in your content's frontmatter.
+
 ## 0.9.1
 
 ### Patch Changes
