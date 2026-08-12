@@ -1,5 +1,21 @@
 # @primer/doctocat-nextjs
 
+## 0.11.0
+
+### Minor Changes
+
+- [#101](https://github.com/primer/doctocat-nextjs/pull/101) [`12cdcef`](https://github.com/primer/doctocat-nextjs/commit/12cdcef2ffe53d4a4da966b8666e9ba884ded712) Thanks [@rezrah](https://github.com/rezrah)! - Updated dependencies to the latest minor and patch versions.
+
+  - `@primer/react` 38.18.0 → 38.35.1
+  - `@primer/octicons-react` 19.23.1 → 19.33.0
+  - `@next/mdx` 16.2.2 → 16.3.0
+  - `framer-motion` 12.38.0 → 12.43.0
+  - `react-is` 19.2.4 → 19.2.8
+
+### Patch Changes
+
+- [#101](https://github.com/primer/doctocat-nextjs/pull/101) [`12cdcef`](https://github.com/primer/doctocat-nextjs/commit/12cdcef2ffe53d4a4da966b8666e9ba884ded712) Thanks [@rezrah](https://github.com/rezrah)! - Prefix video poster paths with the configured base path in live code examples.
+
 ## 0.10.0
 
 ### Minor Changes
