@@ -60,12 +60,12 @@ The `subtle` variant of Button indicates that the action is a low priority one.
 <Button block>Full-width button</Button>
 ```
 
-### Removing the arrow
+### Arrow behavior
 
-The animated arrow indicator can be removed using the `hasArrow` prop.
+Buttons do not show an arrow by default.
 
 ```jsx live
-<Button hasArrow={false}>No arrow</Button>
+<Button>No arrow</Button>
 ```
 
 ### Using an icon
@@ -155,9 +155,7 @@ const Counter = props => {
       <Text as="p">
         {props.label}: {count}
       </Text>
-      <Button hasArrow={false} onClick={() => setCount(c => c + 1)}>
-        Increment
-      </Button>
+      <Button onClick={() => setCount(c => c + 1)}>Increment</Button>
     </Stack>
   )
 }
@@ -171,13 +169,21 @@ render(<Counter label="Counter" />)
   <Hero>
     <Hero.Label>Actions</Hero.Label>
     <Hero.Heading>Automate your workflow from idea to production</Hero.Heading>
-    <Hero.PrimaryAction href="#">Get started with Actions</Hero.PrimaryAction>
+    <Hero.ButtonGroup>
+      <Button as="a" href="#">
+        Get started with Actions
+      </Button>
+    </Hero.ButtonGroup>
     <Hero.Image src="/images/placeholder-1200x630.png" alt="placeholder, blank area with a gray background color" />
   </Hero>
   <Hero align="center">
     <Hero.Label>Actions</Hero.Label>
     <Hero.Heading size="2">Automate your workflow from idea to production</Hero.Heading>
-    <Hero.PrimaryAction href="#">Get started with Actions</Hero.PrimaryAction>
+    <Hero.ButtonGroup>
+      <Button as="a" href="#">
+        Get started with Actions
+      </Button>
+    </Hero.ButtonGroup>
     <Hero.Image
       position="inline-end"
       src="/images/placeholder-1200x630.png"

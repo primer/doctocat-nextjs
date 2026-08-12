@@ -108,6 +108,13 @@ describe('codeTransformer', () => {
     expect(result).toBe(expectedCode)
   })
 
+  it('transforms video poster and src paths when basePath is set', () => {
+    const sourceCode = '<MinimalVideoPlayer poster="/images/example-poster.png" src="/example.mp4" />'
+    const expectedCode = '<MinimalVideoPlayer poster="/docs/images/example-poster.png" src="/docs/example.mp4" />'
+    const result = codeTransformer(sourceCode, basePath)
+    expect(result).toBe(expectedCode)
+  })
+
   it('transforms complex VideoPlayer structure when basePath is set', () => {
     const sourceCode = `<VideoPlayer title="GitHub media player">
   <VideoPlayer.Source src="/example.mp4" />
@@ -164,6 +171,13 @@ describe('codeTransformer', () => {
   it('does not transform URLs that already start with basePath when basePath is set', () => {
     const sourceCode = '<img src="/docs/image.png" alt="test" />'
     const expectedCode = '<img src="/docs/image.png" alt="test" />'
+    const result = codeTransformer(sourceCode, basePath)
+    expect(result).toBe(expectedCode)
+  })
+
+  it('transforms URLs that only share the basePath prefix', () => {
+    const sourceCode = '<img src="/docs2/image.png" alt="test" />'
+    const expectedCode = '<img src="/docs/docs2/image.png" alt="test" />'
     const result = codeTransformer(sourceCode, basePath)
     expect(result).toBe(expectedCode)
   })
