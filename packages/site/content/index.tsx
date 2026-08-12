@@ -1,5 +1,5 @@
 'use client'
-import {Grid, Box, Card, Hero} from '@primer/react-brand'
+import {Button, Card, Grid, Hero} from '@primer/react-brand'
 import {HeartIcon, NorthStarIcon, FileMediaIcon} from '@primer/octicons-react'
 import Link from 'next/link'
 
@@ -19,11 +19,11 @@ export default function Index() {
           </Hero.Eyebrow>
           <Hero.Heading style={{marginTop: '-80px'}}>Doctocat</Hero.Heading>
           <Hero.Description>A Next.js theme for building Primer documentation sites</Hero.Description>
-          <Box marginBlockStart={24}>
-            <Link legacyBehavior href="/getting-started/introduction">
-              <Hero.PrimaryAction href="/getting-started/introduction">Get started</Hero.PrimaryAction>
-            </Link>
-          </Box>
+          <Hero.ButtonGroup>
+            <Button as="a" href="/getting-started/introduction">
+              Get started
+            </Button>
+          </Hero.ButtonGroup>
         </Hero>
       </div>
       <section
@@ -52,7 +52,7 @@ export default function Index() {
           </Grid.Column>
           <Grid.Column span={12}>
             <Card href="/components/primer" hasBorder style={{width: '100%'}}>
-              <Card.Label color="green">New </Card.Label>
+              <Card.Label>New</Card.Label>
               <Card.Icon icon={<NorthStarIcon />} />
               <Card.Heading size="5">Use Primer components</Card.Heading>
               <Card.Description>

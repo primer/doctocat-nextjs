@@ -108,6 +108,13 @@ describe('codeTransformer', () => {
     expect(result).toBe(expectedCode)
   })
 
+  it('transforms video poster and src paths when basePath is set', () => {
+    const sourceCode = '<MinimalVideoPlayer poster="/images/example-poster.png" src="/example.mp4" />'
+    const expectedCode = '<MinimalVideoPlayer poster="/docs/images/example-poster.png" src="/docs/example.mp4" />'
+    const result = codeTransformer(sourceCode, basePath)
+    expect(result).toBe(expectedCode)
+  })
+
   it('transforms complex VideoPlayer structure when basePath is set', () => {
     const sourceCode = `<VideoPlayer title="GitHub media player">
   <VideoPlayer.Source src="/example.mp4" />
