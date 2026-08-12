@@ -2,8 +2,11 @@ export const codeTransformer = (sourceCode: string, basePath: string): string =>
   if (!basePath) return sourceCode
 
   // to skip external URLs and other irrelevant paths
-  const shouldTransform = (assetPath: string) =>
-    !assetPath.startsWith('http') && !assetPath.startsWith('//') && !assetPath.startsWith(basePath)
+  const shouldTransform = (assetPath: string) => {
+    const hasBasePath = assetPath === basePath || assetPath.startsWith(`${basePath}/`)
+
+    return !assetPath.startsWith('http') && !assetPath.startsWith('//') && !hasBasePath
+  }
 
   // normalise for absolute (/path) and relative (path) values
   const transformAssetPath = (assetPath: string) =>

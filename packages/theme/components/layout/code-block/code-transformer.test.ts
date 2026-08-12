@@ -175,6 +175,13 @@ describe('codeTransformer', () => {
     expect(result).toBe(expectedCode)
   })
 
+  it('transforms URLs that only share the basePath prefix', () => {
+    const sourceCode = '<img src="/docs2/image.png" alt="test" />'
+    const expectedCode = '<img src="/docs/docs2/image.png" alt="test" />'
+    const result = codeTransformer(sourceCode, basePath)
+    expect(result).toBe(expectedCode)
+  })
+
   it('does not transform nested component with multiple dots when basePath is set', () => {
     const sourceCode = '<Gallery.Image.Item src="/gallery/nested.jpg" alt="nested" />'
     const expectedCode = '<Gallery.Image.Item src="/gallery/nested.jpg" alt="nested" />'
