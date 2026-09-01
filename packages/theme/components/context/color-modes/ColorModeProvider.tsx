@@ -5,22 +5,35 @@ const ColorModeProvider = ({children}: PropsWithChildren) => {
   const [colorMode, setColorMode] = useState<ColorMode>('light')
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedMode = window.localStorage.getItem('doctocat-active-color-mode')
-      if (savedMode && (savedMode === 'light' || savedMode === 'dark')) {
-        setColorMode(savedMode)
-      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        setColorMode('dark')
-      }
+    const requestedMode = new URLSearchParams(window.location.search).get('theme')
+    const savedMode = window.localStorage.getItem('doctocat-active-color-mode')
+    const initialMode =
+      requestedMode === 'light' || requestedMode === 'dark'
+        ? requestedMode
+        : savedMode === 'light' || savedMode === 'dark'
+          ? savedMode
+          : window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light'
+
+    setColorMode(initialMode)
+    window.localStorage.setItem('doctocat-active-color-mode', initialMode)
+
+    let isMounted = true
+    const markReady = () => {
+      if (isMounted) document.documentElement.dataset.doctocatReady = 'true'
+    }
+    if (document.fonts) void document.fonts.ready.then(markReady, markReady)
+    else markReady()
+
+    return () => {
+      isMounted = false
     }
   }, [])
 
-  useEffect(() => {
-    localStorage.setItem('doctocat-active-color-mode', colorMode)
-  }, [colorMode])
-
   const setMode = useCallback((mode: ColorMode) => {
     setColorMode(mode)
+    window.localStorage.setItem('doctocat-active-color-mode', mode)
   }, [])
 
   return <ColorModeContext.Provider value={{colorMode, setColorMode: setMode}}>{children}</ColorModeContext.Provider>

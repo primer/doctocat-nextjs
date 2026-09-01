@@ -4,14 +4,22 @@
   "description": "A Next.js theme for building Primer documentation sites",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "doctocat-nextjs": "./cli/index.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/primer/doctocat-nextjs.git"
   },
   "scripts": {
+    "prepack": "node cli/prepare-scaffold.mjs",
     "check": "tsc --noEmit",
-    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
+    "lint": "eslint '**/*.{js,mjs,ts,tsx,md,mdx}' --max-warnings=0",
     "test": "vitest",
+    "test:cli-e2e": "vitest run --config vitest.cli.config.ts",
     "test:ui": "vitest --ui",
     "test:no-watch": "vitest run",
     "test:coverage": "vitest run --coverage"
@@ -25,10 +33,12 @@
     "react-dom": ">=18.0.0 <20.0.0"
   },
   "dependencies": {
+    "@inquirer/prompts": "8.7.0",
     "@next/mdx": "16.3.0",
     "@primer/octicons-react": "19.33.0",
     "@primer/react": "^38.35.1",
     "@types/lodash.debounce": "^4.0.9",
+    "commander": "15.0.0",
     "framer-motion": "12.43.0",
     "lodash.debounce": "^4.0.8",
     "nextra": "4.6.1",
@@ -38,6 +48,7 @@
   },
   "devDependencies": {
     "@github/prettier-config": "^0.0.6",
+    "@primer/react-brand": "0.74.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -51,7 +62,10 @@
     "clsx": "2.1.1",
     "jsdom": "^29.1.1",
     "next": "16.3.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "styled-components": "5.3.11",
+    "typescript": "6.0.3",
     "vitest": "^4.1.10"
   }
 }

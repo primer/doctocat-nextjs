@@ -1,0 +1,9 @@
+---
+title: __DOCTOCAT_SITE_TITLE_YAML__
+description: "Documentation homepage"
+layout: custom
+---
+
+import HomepageComponent from './index.tsx'
+
+<HomepageComponent title={__DOCTOCAT_SITE_TITLE_JS__} />

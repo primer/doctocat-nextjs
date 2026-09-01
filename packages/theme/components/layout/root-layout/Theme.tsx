@@ -42,12 +42,6 @@ import styles from './Theme.module.css'
 const repoSrcPath = process.env.NEXT_PUBLIC_REPO_SRC_PATH || ''
 const repoURL = process.env.NEXT_PUBLIC_REPO || ''
 
-if (!repoURL) {
-  console.warn(
-    'NEXT_PUBLIC_REPO is not set. Edit the .env.local file to set the NEXT_PUBLIC_REPO environment variable.',
-  )
-}
-
 export type ThemeProps = PropsWithChildren<{
   pageMap: PageMapItem[]
 }>
@@ -61,7 +55,7 @@ export function Theme({pageMap, children}: ThemeProps) {
     route: pathname,
   })
 
-  const route = usePathname()
+  const route = pathname
 
   const fsPath = useFSRoute()
   const {colorMode} = useColorMode()

@@ -4,6 +4,9 @@
   "private": true,
   "description": "Documentation theme",
   "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "dev": "next dev --webpack",
     "check": "tsc --noEmit",
@@ -32,7 +35,7 @@
   "devDependencies": {
     "@github/prettier-config": "^0.0.6",
     "@primer/react": "38.35.1",
-    "@primer/react-brand": "0.73.0",
+    "@primer/react-brand": "0.74.0",
     "@types/node": "24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4"

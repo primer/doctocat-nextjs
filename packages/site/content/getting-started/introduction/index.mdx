@@ -1,0 +1,73 @@
+---
+title: Introduction
+description: Create, customize, and build a Doctocat site
+keywords: ['accessibility', 'introduction', 'static export']
+show-tabs: true
+tab-label: Doctocat CLI
+---
+
+## Basic usage
+
+```sh
+npx @primer/doctocat-nextjs@latest create
+```
+
+Follow the prompts to choose the output directory and site title.
+
+## Reference
+
+| Command  | Description                               |
+| -------- | ----------------------------------------- |
+| `create` | Create a Doctocat site.                   |
+| `build`  | Build a static export and route manifest. |
+
+### Create options
+
+| Option                            | Description                                                  |
+| --------------------------------- | ------------------------------------------------------------ |
+| `--target <directory>`            | Output directory. Prompted for interactively.                |
+| `--title <title>`                 | Site title. Prompted for interactively.                      |
+| `--base-path <path>`              | Optional root-relative URL prefix without a trailing slash.  |
+| `--static-export`                 | Enable static export. Required for non-interactive creation. |
+| `--package-manager npm`           | Use npm. Required for non-interactive creation.              |
+| `--repository-url <url>`          | Optional repository URL for source edit links.               |
+| `--repository-source-path <path>` | Optional content path within the configured repository.      |
+| `--force`                         | Write CLI scaffold files into a non-empty target.            |
+| `-h`, `--help`                    | Show command help.                                           |
+
+### Global options
+
+| Option            | Description                          |
+| ----------------- | ------------------------------------ |
+| `-V`, `--version` | Show the installed Doctocat version. |
+| `-h`, `--help`    | Show CLI help.                       |
+
+For non-interactive environments:
+
+```sh
+npx @primer/doctocat-nextjs@latest create \
+  --target ./docs-site \
+  --title "Documentation" \
+  --static-export \
+  --package-manager npm
+```
+
+## Author content
+
+Put Markdown and MDX pages in `content/`. An `index.mdx` represents its directory route. Put static assets in `public/` and reference them with root-relative paths.
+
+Every page must have `title` and `description` frontmatter. Use `menu-position` to control navigation order. Customize the homepage in `content/index.mdx` and an imported component when needed.
+
+## Generated project commands
+
+```sh
+cd docs-site
+npm ci
+npm run dev
+npm run check
+npm run build
+```
+
+`build` validates the project, performs the deterministic static export, writes public files to `out/`, and writes `.doctocat/build-manifest.json` outside the public export. The manifest contains the package version, base path, output directory, and path-sorted documentation routes with titles and descriptions when available.
+
+Static exports require every route at build time. Do not add request-time server features, dynamic APIs, or image optimization. Keep internal links and assets base-path aware, and retain Doctocat's App Router and theme integration.

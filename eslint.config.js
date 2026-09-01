@@ -56,7 +56,7 @@ export default tseslint.config(
 
   // Base rules for all JS/TS files
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ['**/*.{js,jsx,mjs,ts,tsx}'],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -86,7 +86,7 @@ export default tseslint.config(
 
   // JavaScript specific rules
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['**/*.{js,jsx,mjs}'],
     rules: {
       'no-shadow': 'off',
       'no-unused-vars': [

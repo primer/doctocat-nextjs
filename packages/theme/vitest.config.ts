@@ -22,6 +22,6 @@ export default defineConfig({
       },
     },
     include: ['**/*.{test,spec}.{js,ts,tsx}'],
-    exclude: ['node_modules', 'dist', '.next'],
+    exclude: ['node_modules', 'dist', '.next', '**/*.e2e.test.ts'],
   },
 })
