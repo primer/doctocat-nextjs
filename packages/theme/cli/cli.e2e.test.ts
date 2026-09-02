@@ -175,7 +175,9 @@ describe.sequential('doctocat-nextjs CLI', () => {
 
     const projectConfig = JSON.parse(await readFile(resolve(rootTarget, 'doctocat.project.json'), 'utf8'))
     expect(projectConfig.basePath).toBe('')
-    expect(await readFile(resolve(rootTarget, 'next.config.ts'), 'utf8')).toContain('const basePath = ""')
+    expect(await readFile(resolve(rootTarget, 'next.config.ts'), 'utf8')).toContain(
+      'const basePath = process.env.NEXT_PUBLIC_DOCTOCAT_BASE_PATH ?? ""',
+    )
   }, 120_000)
 
   it('uses the packed dependency to build the generated project', async () => {
@@ -338,15 +340,25 @@ describe.sequential('doctocat-nextjs CLI', () => {
 
     await rm(resolve(projectDirectory, 'content/getting-started/index.mdx'))
     await rm(resolve(projectDirectory, 'content/getting-started'), {recursive: true})
+    const updatedProjectConfig = JSON.parse(await readFile(resolve(projectDirectory, 'doctocat.project.json'), 'utf8'))
+    updatedProjectConfig.basePath = '/updated/docs'
+    await writeFile(
+      resolve(projectDirectory, 'doctocat.project.json'),
+      `${JSON.stringify(updatedProjectConfig, null, 2)}\n`,
+    )
     await execute(npmExecutable, ['run', 'build'], {
       cwd: projectDirectory,
       maxBuffer: 20 * 1024 * 1024,
     })
     await expect(readFile(resolve(projectDirectory, 'out/getting-started/index.html'), 'utf8')).rejects.toThrow()
+    await expect(readFile(resolve(projectDirectory, 'out/index.html'), 'utf8')).resolves.toContain(
+      'href="/updated/docs/getting-started/introduction/"',
+    )
     const manifestAfterDeletion = JSON.parse(
       await readFile(resolve(projectDirectory, '.doctocat/build-manifest.json'), 'utf8'),
     )
-    expect(manifestAfterDeletion.routes.map((route: {path: string}) => route.path)).toEqual(['/preview/docs/'])
+    expect(manifestAfterDeletion.basePath).toBe('/updated/docs')
+    expect(manifestAfterDeletion.routes.map((route: {path: string}) => route.path)).toEqual(['/updated/docs/'])
   }, 300_000)
 
   it('rejects an invalid project before building', async () => {

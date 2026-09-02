@@ -58,7 +58,11 @@ import {useMDXComponents} from '../../mdx-components.js'
 export const generateStaticParams = generateStaticParamsFor('mdxPath')
 const {Article} = useMDXComponents()
 
-export default async function Page({params}) {
+type PageProps = {
+  params: Promise<{mdxPath: string[]}>
+}
+
+export default async function Page({params}: PageProps) {
   const {mdxPath} = await params
 
   try {

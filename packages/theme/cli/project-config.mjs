@@ -15,8 +15,12 @@ const requiredProjectFiles = [
 export function validateBasePath(basePath) {
   if (typeof basePath !== 'string') return 'basePath must be a string.'
   if (basePath === '') return null
-  if (!/^\/[A-Za-z0-9._~-]+(?:\/[A-Za-z0-9._~-]+)*$/.test(basePath)) {
-    return 'basePath must be empty or start with / and contain URL-safe path segments without a trailing slash.'
+  const segments = basePath.slice(1).split('/')
+  if (
+    !/^\/[A-Za-z0-9._~-]+(?:\/[A-Za-z0-9._~-]+)*$/.test(basePath) ||
+    segments.some(segment => segment === '.' || segment === '..')
+  ) {
+    return 'basePath must be empty or start with /, use URL-safe path segments other than . or .., and omit a trailing slash.'
   }
   return null
 }
@@ -36,6 +40,11 @@ export async function readProject(projectDirectory) {
           ? 'doctocat.project.json contains invalid JSON.'
           : 'doctocat.project.json was not found. Run create or add a valid project configuration.',
     })
+    return {config: null, projectRoot: projectDirectory, outputDirectory: null, errors}
+  }
+
+  if (config === null || typeof config !== 'object' || Array.isArray(config)) {
+    errors.push({code: 'INVALID_CONFIG', message: 'doctocat.project.json must contain a JSON object.'})
     return {config: null, projectRoot: projectDirectory, outputDirectory: null, errors}
   }
 

@@ -1,6 +1,6 @@
 import withDoctocat from '@primer/doctocat-nextjs/doctocat.config.js'
 
-const basePath = __DOCTOCAT_BASE_PATH_JS__
+const basePath = process.env.NEXT_PUBLIC_DOCTOCAT_BASE_PATH ?? __DOCTOCAT_BASE_PATH_JS__
 const repositoryURL = __DOCTOCAT_REPOSITORY_URL_JS__
 const repositorySourcePath = __DOCTOCAT_REPOSITORY_SOURCE_PATH_JS__
 
