@@ -6,6 +6,7 @@ import {tmpdir} from 'node:os'
 import {dirname, resolve} from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {promisify} from 'node:util'
+import {JSDOM} from 'jsdom'
 import {afterAll, beforeAll, describe, expect, it} from 'vitest'
 
 const execute = promisify(execFile)
@@ -305,15 +306,9 @@ describe.sequential('doctocat-nextjs CLI', () => {
       maxBuffer: 20 * 1024 * 1024,
     })
     const rootHtml = await readFile(resolve(projectDirectory, 'out/index.html'), 'utf8')
-    const visibleRootText = rootHtml
-      .replace(/<script[\s\S]*?<\/script>/g, '')
-      .replace(/<style[\s\S]*?<\/style>/g, '')
-      .replace(/<[^>]+>/g, '')
-      .replace(/&quot;/g, '"')
-      .replace(/&#x27;|&#39;/g, "'")
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/&amp;/g, '&')
+    const rootDocument = new JSDOM(rootHtml).window.document
+    rootDocument.querySelectorAll('script, style').forEach(element => element.remove())
+    const visibleRootText = rootDocument.body.textContent ?? ''
     await expect(readFile(resolve(projectDirectory, 'out/getting-started/index.html'), 'utf8')).resolves.toBeTruthy()
     const notFoundHtml = await readFile(resolve(projectDirectory, 'out/404.html'), 'utf8')
     expect(visibleRootText).toContain(siteTitle)
