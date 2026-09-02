@@ -1,0 +1,102 @@
+---
+title: Create a Next.js app
+description: Add Doctocat to a Next.js App Router project
+keywords: ['create-next-app', 'introduction', 'manual setup']
+show-tabs: true
+tab-label: create-next-app
+---
+
+## Create a Next.js project
+
+```sh
+npx create-next-app@latest docs-site
+cd docs-site
+npm install @primer/doctocat-nextjs @primer/react-brand
+```
+
+Select TypeScript and App Router when prompted.
+
+## Configure Next.js
+
+```ts filename="next.config.ts"
+import withDoctocat from '@primer/doctocat-nextjs/doctocat.config.js'
+
+export default withDoctocat({
+  transpilePackages: ['@primer/doctocat-nextjs'],
+})
+```
+
+For a static export, also set `output: 'export'`, `trailingSlash: true`, and `images.unoptimized: true`.
+
+## Add the root layout
+
+```tsx filename="app/layout.tsx"
+import Theme, {getPageMap} from '@primer/doctocat-nextjs'
+import '@primer/doctocat-nextjs/css/global.css'
+import type {ReactNode} from 'react'
+
+export default async function RootLayout({children}: {children: ReactNode}) {
+  const pageMap = await getPageMap()
+
+  return (
+    <html lang="en">
+      <body>
+        <Theme pageMap={pageMap}>{children}</Theme>
+      </body>
+    </html>
+  )
+}
+```
+
+## Add the content route
+
+```tsx filename="app/[[...mdxPath]]/page.tsx"
+import {generateStaticParamsFor, importPage} from '@primer/doctocat-nextjs'
+import {notFound} from 'next/navigation'
+import {useMDXComponents} from '../../mdx-components.js'
+
+export const generateStaticParams = generateStaticParamsFor('mdxPath')
+const {Article} = useMDXComponents()
+
+type PageProps = {
+  params: Promise<{mdxPath: string[]}>
+}
+
+export default async function Page({params}: PageProps) {
+  const {mdxPath} = await params
+
+  try {
+    const {default: Content, toc, metadata} = await importPage(mdxPath)
+    return (
+      <Article toc={toc} metadata={metadata}>
+        <Content params={{mdxPath}} />
+      </Article>
+    )
+  } catch {
+    notFound()
+  }
+}
+```
+
+## Register MDX components
+
+```js filename="mdx-components.js"
+import {Article} from '@primer/doctocat-nextjs/components'
+
+export function useMDXComponents(components = {}) {
+  return {...components, Article}
+}
+```
+
+## Add content
+
+```md filename="content/index.mdx"
+---
+title: Documentation
+description: Documentation homepage
+---
+
+# Documentation
+
+Welcome to your Doctocat site.
+```

@@ -32,3 +32,7 @@ tsconfig.*.json
 # IDE and development
 .vscode/
 .idea/
+
+# CLI scaffold source and published staging
+cli/scaffold/
+!cli/.generated-scaffold/tsconfig.json

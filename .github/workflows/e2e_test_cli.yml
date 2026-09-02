@@ -1,0 +1,72 @@
+name: E2E checks (CLI)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    if: ${{ github.repository == 'primer/doctocat-nextjs' }}
+    name: Build and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Pack CLI
+        id: pack
+        working-directory: packages/theme
+        run: |
+          # Pack the CLI in a temp directory
+          tarball_name=$(npm pack --silent --pack-destination "$RUNNER_TEMP")
+
+          # Expose the CLI for next job
+          echo "tarball=$RUNNER_TEMP/$tarball_name" >> "$GITHUB_OUTPUT"
+          echo "Packed $tarball_name"
+
+      - name: Confirm packed CLI output
+        env:
+          CLI_TARBALL: ${{ steps.pack.outputs.tarball }}
+        run: |
+          # Check version is correct
+          expected_version=$(node -p "require('./packages/theme/package.json').version")
+          version_output=$(npx --yes --package="$CLI_TARBALL" doctocat-nextjs --version)
+          echo "Version: $version_output"
+          test "$version_output" = "$expected_version"
+
+          # Check help text contains the CLI usage heading.
+          npx --yes --package="$CLI_TARBALL" doctocat-nextjs --help | tee "$RUNNER_TEMP/doctocat-help.txt"
+          grep -F "Usage: doctocat-nextjs" "$RUNNER_TEMP/doctocat-help.txt"
+
+          # Create test project using CLI
+          project_directory="$RUNNER_TEMP/doctocat-cli-smoke"
+          npx --yes --package="$CLI_TARBALL" doctocat-nextjs create \
+            --target "$project_directory" \
+            --title "Actions CLI smoke test" \
+            --static-export \
+            --package-manager npm | tee "$RUNNER_TEMP/doctocat-create.txt"
+
+          # Check that creation succeeded and produced the expected files.
+          grep -F "Created Doctocat project in $project_directory" "$RUNNER_TEMP/doctocat-create.txt"
+          test -f "$project_directory/package.json"
+          test -f "$project_directory/doctocat.project.json"
+          test -f "$project_directory/content/index.mdx"
+
+      - name: Run CLI E2E implementation tests
+        run: npm run test:cli-e2e --workspace=packages/theme

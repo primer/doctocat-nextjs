@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "framework": "doctocat-nextjs",
+  "projectRoot": ".",
+  "outputDirectory": "out",
+  "basePath": __DOCTOCAT_BASE_PATH_JS__,
+  "staticExport": true
+}

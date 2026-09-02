@@ -13,16 +13,18 @@ export function Footer({repoURL, repoSrcPath, filePath}: FooterProps) {
     <footer>
       <Box marginBlockStart={64}>
         <Stack direction="vertical" padding="none" gap={16}>
-          <Stack direction="horizontal" padding="none" alignItems="center" gap={8}>
-            <PencilIcon size={16} fill="var(--brand-InlineLink-color-rest)" />
+          {repoURL && (
+            <Stack direction="horizontal" padding="none" alignItems="center" gap={8}>
+              <PencilIcon size={16} fill="var(--brand-InlineLink-color-rest)" />
 
-            <InlineLink
-              target="_blank"
-              href={`${repoURL}/blob/main/${repoSrcPath ? `${repoSrcPath}/` : ''}${filePath}`}
-            >
-              Edit this page
-            </InlineLink>
-          </Stack>
+              <InlineLink
+                target="_blank"
+                href={`${repoURL}/blob/main/${repoSrcPath ? `${repoSrcPath}/` : ''}${filePath}`}
+              >
+                Edit this page
+              </InlineLink>
+            </Stack>
+          )}
           <Box
             marginBlockStart={8}
             paddingBlockStart={24}

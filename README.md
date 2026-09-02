@@ -39,6 +39,8 @@ Doctocat makes it easy to set up GitHub-branded documentation on the Next.js fra
 <a href="https://primer.github.io/doctocat-nextjs/"><img src="https://github.com/primer/doctocat-nextjs/assets/13340707/c7367bff-fb04-4be2-a1e5-90b2dee7de2d" width="200" alt="Button with label Try it out" /></a>
 <br />
 
+See the [getting started guide](https://primer.github.io/doctocat-nextjs/getting-started/introduction/) to create and customize a site.
+
 ## Reporting a Bug
 
 Thanks for taking the time to contribute!

@@ -28,11 +28,13 @@ const ReactCodeBlock = dynamic(
 
 type CodeBlockProps = {
   'data-language': string
+  'data-filename'?: string
   jsxScope: Record<string, unknown>
 } & PropsWithChildren<HTMLElement>
 
 export function CodeBlock(props: CodeBlockProps) {
-  if (['tsx', 'jsx'].includes(props['data-language'])) {
+  const filename = props['data-filename']
+  if (['tsx', 'jsx'].includes(props['data-language']) && (!filename || filename === 'noinline')) {
     return <ReactCodeBlock {...props} />
   }
 
