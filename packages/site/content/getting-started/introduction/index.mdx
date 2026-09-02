@@ -61,3 +61,15 @@ npx @primer/doctocat-nextjs@latest create \
 Put Markdown and MDX pages in `content/`. An `index.mdx` represents its directory route. Put static assets in `public/` and reference them with root-relative paths.
 
 Every page must have `title` and `description` frontmatter. Use `menu-position` to control navigation order. Customize the homepage in `content/index.mdx` and an imported component when needed.
+
+## After running the CLI
+
+Run the following commands after creating your site with the CLI.
+
+```sh
+cd docs-site
+npm ci
+npm run dev
+npm run check
+npm run build
+```

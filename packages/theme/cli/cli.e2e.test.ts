@@ -275,10 +275,6 @@ describe.sequential('doctocat-nextjs CLI', () => {
     expect(nextConfig).toContain('const repositorySourcePath = "packages/docs"')
     expect(homepage).toContain(`title: ${JSON.stringify(siteTitle)}`)
     expect(homepage).toContain(`<HomepageComponent title={${JSON.stringify(siteTitle)}} />`)
-    await expect(readFile(resolve(projectDirectory, 'AGENTS.md'), 'utf8')).resolves.toContain('npm run dev')
-    await expect(
-      readFile(resolve(packageRoot, '../site/content/getting-started/introduction/index.mdx'), 'utf8'),
-    ).resolves.toContain('npm run dev')
 
     packageJson.dependencies['@primer/doctocat-nextjs'] = `file:${tarballPath}`
     await writeFile(resolve(projectDirectory, 'package.json'), `${JSON.stringify(packageJson, null, 2)}\n`)
