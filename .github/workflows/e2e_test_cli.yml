@@ -1,4 +1,4 @@
-name: E2E test (CLI)
+name: E2E checks (CLI)
 
 on:
   push:
@@ -13,7 +13,7 @@ permissions:
 jobs:
   test:
     if: ${{ github.repository == 'primer/doctocat-nextjs' }}
-    name: Packed CLI consumer
+    name: Build and test
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:

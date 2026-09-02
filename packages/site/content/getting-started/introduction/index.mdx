@@ -8,11 +8,15 @@ tab-label: Doctocat CLI
 
 ## Basic usage
 
+Use the CLI to create your own Next.js + Doctocat site.
+
 ```sh
 npx @primer/doctocat-nextjs@latest create
 ```
 
 Follow the prompts to choose the output directory and site title.
+
+Prefer to create the Next.js app yourself? See how to install Doctocat using [`create-next-app`](/getting-started/introduction/create-next-app).
 
 ## Reference
 
@@ -57,17 +61,3 @@ npx @primer/doctocat-nextjs@latest create \
 Put Markdown and MDX pages in `content/`. An `index.mdx` represents its directory route. Put static assets in `public/` and reference them with root-relative paths.
 
 Every page must have `title` and `description` frontmatter. Use `menu-position` to control navigation order. Customize the homepage in `content/index.mdx` and an imported component when needed.
-
-## Generated project commands
-
-```sh
-cd docs-site
-npm ci
-npm run dev
-npm run check
-npm run build
-```
-
-`build` validates the project, performs the deterministic static export, writes public files to `out/`, and writes `.doctocat/build-manifest.json` outside the public export. The manifest contains the package version, base path, output directory, and path-sorted documentation routes with titles and descriptions when available.
-
-Static exports require every route at build time. Do not add request-time server features, dynamic APIs, or image optimization. Keep internal links and assets base-path aware, and retain Doctocat's App Router and theme integration.
