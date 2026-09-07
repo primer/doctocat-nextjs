@@ -1,9 +1,9 @@
 // @vitest-environment node
 
 import {execFile} from 'node:child_process'
-import {mkdir, mkdtemp, readFile, readdir, rm, symlink, writeFile} from 'node:fs/promises'
+import {chmod, mkdir, mkdtemp, readFile, readdir, rm, symlink, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
-import {dirname, resolve} from 'node:path'
+import {delimiter, dirname, resolve} from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {promisify} from 'node:util'
 import {JSDOM} from 'jsdom'
@@ -18,6 +18,7 @@ describe.sequential('doctocat-nextjs CLI', () => {
   let temporaryDirectory: string
   let tarballPath: string
   let projectDirectory: string
+  let packageManagerEnvironment: NodeJS.ProcessEnv
 
   beforeAll(async () => {
     temporaryDirectory = await mkdtemp(resolve(tmpdir(), 'doctocat-nextjs-'))
@@ -28,17 +29,30 @@ describe.sequential('doctocat-nextjs CLI', () => {
     const packResult = JSON.parse(stdout)[0]
     tarballPath = resolve(temporaryDirectory, packResult.filename)
     projectDirectory = resolve(temporaryDirectory, 'project')
+
+    const packageManagerDirectory = resolve(temporaryDirectory, 'package-manager')
+    await mkdir(packageManagerDirectory)
+    const packageManagerPath = resolve(packageManagerDirectory, npmExecutable)
+    const packageManagerScript =
+      process.platform === 'win32'
+        ? '@echo off\r\n> package-lock.json echo { "lockfileVersion": 3 }\r\n'
+        : '#!/bin/sh\nprintf \'{ "lockfileVersion": 3 }\\n\' > package-lock.json\n'
+    await writeFile(packageManagerPath, packageManagerScript)
+    await chmod(packageManagerPath, 0o755)
+    packageManagerEnvironment = {...process.env, PATH: `${packageManagerDirectory}${delimiter}${process.env.PATH}`}
   }, 120_000)
 
   afterAll(async () => {
     if (temporaryDirectory) await rm(temporaryDirectory, {recursive: true, force: true})
   }, 120_000)
 
-  const executePackedCli = (args: string[], cwd = temporaryDirectory) =>
+  const executePackedCli = (args: string[], cwd = temporaryDirectory, env = process.env) =>
     execute(npxExecutable, ['--yes', `--package=${tarballPath}`, 'doctocat-nextjs', ...args], {
       cwd,
+      env,
       maxBuffer: 20 * 1024 * 1024,
     })
+  const executePackedCreate = (args: string[]) => executePackedCli(args, temporaryDirectory, packageManagerEnvironment)
 
   it('packs the executable and CLI scaffold resources', async () => {
     const {stdout} = await execute(npmExecutable, ['pack', '--json', '--dry-run'], {
@@ -162,7 +176,7 @@ describe.sequential('doctocat-nextjs CLI', () => {
 
   it('defaults to root hosting when base path is omitted', async () => {
     const rootTarget = resolve(temporaryDirectory, 'root-project')
-    await executePackedCli([
+    await executePackedCreate([
       'create',
       '--target',
       rootTarget,
@@ -182,7 +196,7 @@ describe.sequential('doctocat-nextjs CLI', () => {
 
   it('uses the packed dependency to build the generated project', async () => {
     const siteTitle = 'Docs <API> & Guide'
-    await executePackedCli([
+    await executePackedCreate([
       'create',
       '--target',
       projectDirectory,
@@ -222,7 +236,7 @@ describe.sequential('doctocat-nextjs CLI', () => {
     await expect(readFile(resolve(projectDirectory, 'app/llms.txt/route.ts'), 'utf8')).rejects.toThrow()
 
     await expect(
-      executePackedCli([
+      executePackedCreate([
         'create',
         '--target',
         projectDirectory,
@@ -235,7 +249,7 @@ describe.sequential('doctocat-nextjs CLI', () => {
         'npm',
       ]),
     ).rejects.toMatchObject({code: 1})
-    await executePackedCli([
+    await executePackedCreate([
       'create',
       '--target',
       projectDirectory,
