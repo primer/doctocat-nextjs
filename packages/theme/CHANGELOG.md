@@ -1,5 +1,15 @@
 # @primer/doctocat-nextjs
 
+## 0.12.0
+
+### Minor Changes
+
+- [#103](https://github.com/primer/doctocat-nextjs/pull/103) [`9558f0d`](https://github.com/primer/doctocat-nextjs/commit/9558f0d6d71de27dbd74073d1a038a2f12f1ad71) Thanks [@rezrah](https://github.com/rezrah)! - Added a CLI tool for scaffolding new Doctocat sites:
+
+  ```bash
+  npx @primer/doctocat-nextjs create
+  ```
+
 ## 0.11.0
 
 ### Minor Changes
